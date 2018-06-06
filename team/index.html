@@ -1,0 +1,10 @@
+---
+layout: default
+title: Team
+---
+<img class="hero__image"src="/img/team.jpg" alt="" />
+<ul class="authors">
+  {% for author in data.authors %}
+    <li><a href="{{ author.url }}">{{ author.title }}</a></li>
+  {% endfor %}
+</ul>

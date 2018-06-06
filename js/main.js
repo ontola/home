@@ -1,10 +1,10 @@
 initSmoothScrolling();
 
 function initSmoothScrolling() {
-  if (isCssSmoothSCrollSupported()) {
-    document.getElementById('css-support-msg').className = 'supported';
-    return;
-  }
+  // if (isCssSmoothSCrollSupported()) {
+  //   document.getElementById('css-support-msg').className = 'supported';
+  //   return;
+  // }
 
   var duration = 400;
 

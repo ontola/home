@@ -1,0 +1,16 @@
+---
+layout: default
+---
+{% include head.html %}
+<div class="hero hero--smaller">
+  <h1>{{ page.title }}</h1>
+</div>
+<div class="post">
+  {% assign author = site.data.authors[page.author] %}
+  {% if author %}
+  <div class="details">
+    <a href="{{ author.web }}" target="_blank" class="details__author">{{ author.name }}</a> {{ page.date | date_to_string }}
+  </div>
+  {% endif %}
+  {{ content }}
+</div>
