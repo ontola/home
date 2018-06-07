@@ -1,8 +1,11 @@
 ---
 layout: default
-title: Team
+title: About us
+permalink: about.html
 ---
-<img class="hero__image"src="/img/team.jpg" alt="" />
+<div class="hero hero--smaller">
+  <h1>About us</h1>
+</div>
 <ul class="authors">
   {% for author in data.authors %}
     <li><a href="{{ author.url }}">{{ author.title }}</a></li>

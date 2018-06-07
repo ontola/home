@@ -3,9 +3,10 @@ layout: default
 ---
 {% include head.html %}
 <div class="hero hero--smaller">
-  <h1>{{ page.title }}</h1>
+  <h3 id="hero-text">Linked Data Blog</h3>
 </div>
 <div class="post">
+  <h1>{{ page.title }}</h1>
   {% assign author = site.data.authors[page.author] %}
   {% if author %}
   <div class="details">

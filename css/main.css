@@ -105,6 +105,10 @@ a {
     color: rgb(179, 63, 63);
 }
 
+h1,h2,h3,h4 {
+    margin-top: 0;
+}
+
 .cool-list {
     list-style: none;
     padding: 0;
@@ -112,6 +116,10 @@ a {
 
 .cool-list .list-item {
     color: rgb(179, 63, 63);
+}
+
+.cool-list li {
+    margin-bottom: 2em;
 }
 
 .details {
@@ -135,11 +143,29 @@ a {
 .footer {
     margin: auto;
     color: rgba(255,255,255,.6);
-    max-width: 45rem;
+    max-width: 50rem;
+    display: flex;
 }
 
 .footer p, .footer a {
     color: rgba(255,255,255,.6);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: rgba(255,255,255,1)
+}
+
+.footer__header {
+    color: rgba(255,255,255,.8);
+    font-weight: bold;
+    margin-bottom: 0.2em;
+}
+
+.footer-row {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .hero {
@@ -155,6 +181,13 @@ a {
     width: 100%;
 }
 
+.hero__back {
+    max-width: 50rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: block;
+}
+
 .hero--home {
     position: relative;
 }
@@ -168,13 +201,13 @@ a {
 }
 
 .hero--smaller {
-    height: 10em;
+    height: 9em;
 }
 
-.hero h1 {
+.hero h1, .hero h2, .hero h3 {
     flex: 1;
     color: white;
-    max-width: 45rem;
+    max-width: 50rem;
     padding-left: 1rem;
     padding-right: 1rem;
     margin-left: auto;
@@ -182,7 +215,7 @@ a {
 }
 
 .hero--home h1 {
-    margin-bottom: 3em;
+    margin-bottom: 5rem;
 }
 
 .nav__wrapper {
@@ -198,13 +231,19 @@ a {
 }
 
 .nav {
-    max-width: 45rem;
+    display: flex;
+    align-items: center;
+    max-width: 50rem;
     margin: auto;
     height: 3rem;
+    padding-left: 0.3rem;
+    padding-right: 1rem;
 }
 
 .nav__links {
-    float: right;
+    justify-content: flex-end;
+    display: flex;
+    flex: 1;
 }
 
 .nav__links a {
@@ -225,31 +264,13 @@ a {
     text-decoration: none;
 }
 
+.nav__logo__tld {
+    opacity: .5;
+}
+
 .nav__logo svg {
-    height: 3rem;
-    width: 3rem;
-}
-
-.post {
-    max-width: 45rem;
-    margin: auto;
-    padding: 1em;
-}
-
-.section {
-    padding-top: 4em;
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-bottom: 5em;
-}
-
-.section--alt {
-    background-color: rgb(247,247,247);
-}
-
-.section__content {
-    margin: auto;
-    max-width: 45rem;
+    height: 2.4rem;
+    width: 2.4rem;
 }
 
 .pillars {
@@ -263,7 +284,6 @@ a {
     font-weight: bold;
     margin-right: 1em;
 }
-
 
 .pillars a:hover {
     color: rgb(179, 63, 63);
@@ -283,6 +303,69 @@ a {
     height: .2em;
     width: 100%;;
 }
+
+.post {
+    max-width: 50rem;
+    margin: auto;
+    padding: 1em;
+}
+
+.read-more {
+    color: rgb(170,170,170);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.read-more:hover {
+    color: rgb(140,140,140);
+}
+
+.section {
+    padding-top: 4em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 5em;
+}
+
+.section--alt {
+    background-color: rgb(247,247,247);
+}
+
+.section__content {
+    margin: auto;
+    max-width: 50rem;
+}
+
+.section__wrapper {
+    display: flex;
+}
+
+.section__text {
+    padding-right: 3em;
+}
+
+.section__image {
+    flex: 1;
+}
+
+@media only screen and (max-width: 50em) {
+    /* Style adjustments for viewports that meet the condition */
+    .pillars a {
+        display: none;
+    }
+    .pillars a.current {
+        display:inline-block;
+    }
+
+    .section__wrapper {
+        flex-direction: column;
+    }
+
+    .section__text {
+        padding-right: 0;
+    }
+}
+
 
 /* ==========================================================================
    Helper classes
@@ -369,16 +452,6 @@ a {
    These examples override the primary ('mobile first') styles.
    Modify as content requires.
    ========================================================================== */
-
-@media only screen and (max-width: 40em) {
-    /* Style adjustments for viewports that meet the condition */
-    .pillars a {
-        display: none;
-    }
-    .pillars a.current {
-        display:inline-block;
-    }
-}
 
 @media print,
        (-webkit-min-device-pixel-ratio: 1.25),
