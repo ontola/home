@@ -107,6 +107,31 @@ a {
 
 h1,h2,h3,h4 {
     margin-top: 0;
+    font-weight: 800;
+    font-family: 'Montserrat', 'open-sans', sans-serif;
+}
+
+pre {
+    font-family: monospace, monospace;
+    font-size: 1em;
+    background-color: #f4f4f4;
+    overflow-x: auto;
+    padding: .5rem;
+    border: solid 1px #d7d7d7;
+}
+
+code {
+    font-size: .9em;
+}
+
+table {
+    background-color: #f4f4f4;
+    border: solid 1px #d7d7d7;
+}
+
+th,td {
+    text-align: left;
+    padding: .4em;
 }
 
 .cool-list {
@@ -188,6 +213,11 @@ h1,h2,h3,h4 {
     display: block;
 }
 
+.hero__link {
+    text-decoration: none;
+    flex: 1;
+}
+
 .hero--home {
     position: relative;
 }
@@ -259,9 +289,13 @@ h1,h2,h3,h4 {
 
 .nav__logo {
     color: white;
-    font-weight: bold;
-    font-size: 1.2em;
     text-decoration: none;
+}
+
+.nav__logo span {
+    font-weight: 600;
+    font-size: 1.2em;
+    font-family: 'Montserrat';
 }
 
 .nav__logo__tld {
