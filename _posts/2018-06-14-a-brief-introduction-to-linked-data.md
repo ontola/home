@@ -5,23 +5,28 @@ date: 2018-06-14
 author: joep
 image: "/img/posts/team.jpg"
 ---
-
-To understand what linked data is, let’s take a piece of information and upgrade its data quality step by step. You'll find out why linked data has a couple of important advantages. In the later paragraphs, I'll get a little more technical. I'll talk about the RDF data model, serialization formats, ontologies and publishing strategies.
+Linked data is way to structure and share information, using links.
+These links make data more meaningful and useful.
+To understand why, let’s take a piece of information and upgrade its data quality step by step, until it's linked data.
+In the later paragraphs, I'll get a little more technical.
+I'll discuss the RDF data model, serialization formats, ontologies and publishing strategies.
 
 ## Human Language
 ```
 Tim is born in London on the 8th of June, 1955.
 ```
 Humans understand what this sentence means, but to a computer, this is just a string of characters.
-If we wanted an application to show Tim's birthdate, we'd need the computer to understand English.
-A simpler solution would be to structure our information.
+If we wanted an application to do something with this sentence, such as display Tim's birthdate, we'd need the computer to understand English.
+A simpler solution would be to structure our information in a way that's useful to a computer.
 
 ## Tables
-If we put the information it in a table, we can simply let the computer read the `BirthDate` field.
+If we put the information it in a table, we can simply let the computer read the `birthDate` field for Tim.
 
 | name    | birthPlace | birthDate
 |---------|------------|-----------
 | Tim     | London     | 06-08-1955
+
+Great! By structuring data, computers can be programmed to do useful things with it.
 
 But now someone else wants to use this data and has a couple of questions.
 
@@ -36,7 +41,8 @@ Now, let's add links to our data:
 |---------|----------------|------------|
 | [Tim](https://www.w3.org/People/Berners-Lee/)     | [London](http://dbpedia.org/resource/London)     |1955-06-08     |
 
-By adding these links, we've answered all questions. The links solved three problems:
+By adding these links, others can answer all previous questions by themselves.
+The links solved three problems:
 
 * **Links provide extra information.** Follow the link to Tim to find out more about him.
 * **Links remove ambiguity.** We now know exactly which London we're talking about.
@@ -72,7 +78,7 @@ The object of the second triple is not a link, but a so-called _literal value_.
 
 Instead of using a table of triples, we could visualize the RDF data as a [_graph_](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)):
 
-![A visualization of the above triples in a graph](/img/posts/tim_graph2.svg)
+![A visualization of the above triples in a graph](/img/posts/tim_graph.svg)
 
 Every circle is a resource and every line is a property (the predicate).
 

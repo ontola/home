@@ -184,6 +184,11 @@ th,td {
     color: rgba(255,255,255,1)
 }
 
+.footer .fas {
+    width: 1em;
+    text-align: center;
+}
+
 .footer__header {
     color: rgba(255,255,255,.8);
     font-weight: bold;
@@ -326,6 +331,10 @@ th,td {
 .nav__logo {
     color: white;
     text-decoration: none;
+}
+
+.nav__logo img {
+    width: 2.4em;
 }
 
 .nav__logo span {

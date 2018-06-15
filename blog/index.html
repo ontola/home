@@ -6,15 +6,17 @@ title: Linked Data Blog
 		<h1>{{ page.title }}</h1>
 	</div>
 	<div class="posts">
-
-	  {% for post in site.posts %}
+	  {% for author in data.autors %}
 	    <div class="post__preview">
 				<h2>
 						<a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
 				</h2>
 				{% if post.author %}
 				<div class="details">
-					<a href="/author/{{ post.author }}" target="_blank" class="details__author">{{ site.data.authors[post.author].name }}, </a>{{ post.date | date_to_string }}
+					<a href="/author/{{ post.author }}" target="_blank" class="details__author">
+						{{ site.data.authors[post.author].name }},
+					</a>
+					{{ post.date | date_to_string }}
 				</div>
 				{% endif %}
 				{{ post.content | strip_html | truncatewords:40}}<br>
