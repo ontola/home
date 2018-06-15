@@ -4,7 +4,10 @@ layout: default
 {% include head.html %}
 <div class="hero hero--smaller">
   <a href="/blog/"class="hero__link">
-    <h3 id="hero-text">Linked Data Blog</h3>
+    <h3 id="hero-text">
+      <i class="fas fa-level-up-alt"></i>
+      Linked Data Blog
+    </h3>
   </a>
 </div>
 <div class="post">
@@ -12,7 +15,7 @@ layout: default
   {% assign author = site.data.authors[page.author] %}
   {% if author %}
   <div class="details">
-    <a href="{{ author.web }}" target="_blank" class="details__author">{{ author.name }}</a> {{ page.date | date_to_string }}
+    <a href="{{ author.title }}" target="_blank" class="details__author">{{ author.name }}, </a>{{ page.date | date_to_string }}
   </div>
   {% endif %}
   {{ content }}

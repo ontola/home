@@ -1,13 +1,24 @@
 ---
 layout: default
-title: Blog
+title: Linked Data Blog
 ---
 	<div class="hero hero--smaller">
 		<h1>{{ page.title }}</h1>
 	</div>
-	<ul class="posts">
+	<div class="posts">
 
 	  {% for post in site.posts %}
-	    <li><span>{{ post.date | date_to_string }}</span> » <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+	    <div class="post__preview">
+				<h2>
+						<a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+				</h2>
+				{% if post.author %}
+				<div class="details">
+					<a href="/author/{{ post.author }}" target="_blank" class="details__author">{{ site.data.authors[post.author].name }}, </a>{{ post.date | date_to_string }}
+				</div>
+				{% endif %}
+				{{ post.content | strip_html | truncatewords:40}}<br>
+				<a href="{{ post.url }}">Read more...</a><br><br>
+			</div>
 	  {% endfor %}
-	</ul>
+	</div>
