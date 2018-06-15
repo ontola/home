@@ -109,6 +109,7 @@ a {
 
 h1,h2,h3,h4 {
     margin-top: 0;
+    line-height: 1em;
     font-weight: 800;
     font-family: 'Montserrat', 'open-sans', sans-serif;
 }
@@ -403,6 +404,14 @@ th,td {
 .post__preview h2 a {
     color: black;
     text-decoration: none;
+}
+
+.post h2 {
+    margin-top: 1.3em;
+}
+
+.post img {
+    max-width: 100%;
 }
 
 .read-more {
