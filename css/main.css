@@ -101,6 +101,11 @@ html {
     font-family: 'open-sans', sans-serif;
     line-height: 1.5em;
     font-size: 1.1em;
+    background-color: #71A1BC;
+}
+
+body {
+    background-color: white;
 }
 
 a {
