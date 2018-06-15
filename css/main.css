@@ -98,6 +98,7 @@ textarea {
    ========================================================================== */
 
 html {
+    min-height: 100%;
     font-family: 'open-sans', sans-serif;
     line-height: 1.5em;
     font-size: 1.1em;
@@ -105,7 +106,18 @@ html {
 }
 
 body {
+    min-height: 100%;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1 0 auto;
+}
+
+.footer--wrapper {
+    flex-shrink: 0;
 }
 
 a {
@@ -205,6 +217,7 @@ th,td {
     flex: 1;
     display: flex;
     flex-direction: column;
+    margin-bottom: 1em;
 }
 
 .hero {
@@ -359,7 +372,7 @@ th,td {
 }
 
 .pillars {
-    margin-bottom: 3em;
+    margin-bottom: 2em;
 }
 
 .pillars a {
@@ -423,6 +436,8 @@ th,td {
     color: rgb(170,170,170);
     text-decoration: none;
     font-weight: bold;
+    margin-bottom: 1em;
+    display: block;
 }
 
 .read-more:hover {
@@ -460,9 +475,19 @@ th,td {
 
 @media only screen and (max-width: 50em) {
     /* Style adjustments for viewports that meet the condition */
+
+    .footer {
+        flex-direction: column;
+    }
+
+    .pillars {
+        margin-bottom: 1em
+    }
+
     .pillars a {
         display: none;
     }
+
     .pillars a.current {
         display:inline-block;
     }
