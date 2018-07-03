@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "A brief introduction to linked data"
-date: 2018-06-14
 author: joep
 image: "/img/posts/team.jpg"
 ---
