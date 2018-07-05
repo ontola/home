@@ -2,6 +2,7 @@
 layout: post
 title: "A brief introduction to linked data"
 author: joep
+permalink: /linked-data/
 image: "/img/posts/team.jpg"
 ---
 Linked data is way to structure and share information, using links.
