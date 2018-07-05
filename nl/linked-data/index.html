@@ -1,0 +1,417 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>A brief introduction to linked data</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="/css/normalize.css"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/syntax.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+</head>
+<body>
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <nav  id="navbar" class="nav__wrapper">
+    <div class="nav">
+      <a href="/" class="nav__logo">
+        <img src="/img/logo.svg" />
+        <span>Ontola</span><span class="nav__logo__tld">.io</span>
+      </a>
+      <div class="nav__links">
+        <a href="/">home</a>
+        <a href="/blog">blog</a>
+        <!-- <a href="/about">about</a> -->
+        <a href="#footer">contact</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+      <meta name="description" content="Linked data is way to structure and share information, using links.These links make data more meaningful and useful.To understand why, let’s take a piece of ...">
+<meta property="og:site_name" content="">
+
+<meta property="og:title" content="A brief introduction to linked data">
+<meta property="og:type" content="article">
+<meta property="og:description" content="Linked data is way to structure and share information, using links.
+These links make data more meaningful and useful.
+To understand why, let’s take a piece of information and upgrade its data quality step by step, until it’s linked data.
+In the later paragraphs, I’ll get a little more technical.
+I’ll discuss the RDF data model, serialization formats, ontologies and publishing strategies.
+
+"/>
+
+
+<meta property="article:published_time" content="2018-07-03T00:00:00+02:00">
+<meta property="article:author" content="http://localhost:4000/about/">
+
+<meta property="og:url" content="http://localhost:4000/linked-data/" />
+
+<meta itemprop="keywords" content="" />
+
+
+
+
+<div class="hero hero--smaller">
+  <a href="/blog/"class="hero__link">
+    <h3 id="hero-text">
+      <i class="fas fa-level-up-alt"></i>
+      Linked Data Blog
+    </h3>
+  </a>
+</div>
+<div class="post">
+  <h1>A brief introduction to linked data</h1>
+  
+  
+  <div class="details">
+    <a href="" target="_blank" class="details__author">Joep Meindertsma, </a>03 Jul 2018
+  </div>
+  
+  <p>Linked data is way to structure and share information, using links.
+These links make data more meaningful and useful.
+To understand why, let’s take a piece of information and upgrade its data quality step by step, until it’s linked data.
+In the later paragraphs, I’ll get a little more technical.
+I’ll discuss the RDF data model, serialization formats, ontologies and publishing strategies.</p>
+
+<h2 id="human-language">Human Language</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Tim is born in London on the 8th of June, 1955.
+</code></pre></div></div>
+<p>Humans understand what this sentence means, but to a computer, this is just a string of characters.
+If we wanted an application to do something with this sentence, such as display Tim’s birthdate, we’d need the computer to understand English.
+A simpler solution would be to structure our information in a way that’s useful to a computer.</p>
+
+<h2 id="tables">Tables</h2>
+<p>If we put the information it in a table, we can simply let the computer read the <code class="highlighter-rouge">birthDate</code> field for Tim.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>birthPlace</th>
+      <th>birthDate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tim</td>
+      <td>London</td>
+      <td>06-08-1955</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Great! By structuring data, computers can be programmed to do useful things with it.</p>
+
+<p>But now someone else wants to use this data and has a couple of questions.</p>
+
+<ul>
+  <li>Who is Tim?</li>
+  <li>Which London do you mean, the big one in the UK or the smaller one in Canada?</li>
+  <li>Does <code class="highlighter-rouge">06-08</code> mean June 8th or August 6th?</li>
+</ul>
+
+<h2 id="links">Links</h2>
+<p>Now, let’s add links to our data:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th><a href="http://schema.org/birthPlace">birthPlace</a></th>
+      <th><a href="http://schema.org/birthDate">birthDate</a></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://www.w3.org/People/Berners-Lee/">Tim</a></td>
+      <td><a href="http://dbpedia.org/resource/London">London</a></td>
+      <td>1955-06-08</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>By adding these links, others can answer all previous questions by themselves.
+The links solved three problems:</p>
+
+<ul>
+  <li><strong>Links provide extra information.</strong> Follow the link to Tim to find out more about him.</li>
+  <li><strong>Links remove ambiguity.</strong> We now know exactly which London we’re talking about.</li>
+  <li><strong>Links add standardization.</strong> The birthDate link tells us we need to use the YYYY-MM-DD notation.</li>
+</ul>
+
+<p>These three characteristics make linked data more reusable.
+The data quality has been improved, because other people and machines can now interpret and use the information more reliably.</p>
+
+<p>Let’s take a step back and look at what went wrong in our first non-linked table.
+The problems were obvious to someone who re-uses the data but were not that relevant for the creator of the table.
+I made the table, I knew which Tim and London I was talking about, I knew how the birthdate should be read.
+This closed worldview is the root cause of much of the problems in digital systems today.
+Developers tend to make software that produces data that only they can fully understand.
+They have their own assumptions, identifiers, and models.
+Linked data solves this problem by creating <em>consensus</em> about what data represents and how it should be interpreted.</p>
+
+<h2 id="triples--the-rdf-data-model">Triples &amp; the RDF data model</h2>
+<p>In the example above, we’re making two separate statements about Tim: one about his birthdate and one about his birthplace.
+In linked data, these statements are called  <em>triples</em>.
+That’s because every triple statement has three parts: a <em>subject</em>, a <em>predicate</em>, and an <em>object</em>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Predicate</th>
+      <th>Object</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://www.w3.org/People/Berners-Lee/">Tim</a></td>
+      <td><a href="http://schema.org/birthPlace">birthPlace</a></td>
+      <td><a href="http://dbpedia.org/resource/London">London</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.w3.org/People/Berners-Lee/">Tim</a></td>
+      <td><a href="http://schema.org/birthDate">birthDate</a></td>
+      <td>1955-06-08</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A bunch of triples about a single subject (such as Tim) is called a <em>resource</em>.
+That’s why we call this data model the Resource Description Framework: <em>RDF</em>.
+It’s the standard of and often even a synonym for linked data.</p>
+
+<p>The object of the first triple, for the birthPlace, contains a link (an <a href="https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier"><em>IRI</em></a>) to some other resource.
+The object of the second triple is not a link, but a so-called <em>literal value</em>.</p>
+
+<p>Instead of using a table of triples, we could visualize the RDF data as a <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)"><em>graph</em></a>:</p>
+
+<p><img src="/img/posts/tim_graph.svg" alt="A visualization of the above triples in a graph" /></p>
+
+<p>Every circle is a resource and every line is a property (the predicate).</p>
+
+<p>That’s a lot of concepts that can be a bit confusing at first. However, they will appear all the time when you’re actually working with linked data, so try to get an accurate mental model of these concepts.</p>
+
+<p>Again, let’s take a step back and reflect.
+What do these properties of the RDF model actually mean?
+Firstly, it shows that RDF is actually a ridiculously <em>simple</em> model.
+You can represent anything in RDF with just three columns.
+You should note, however, that it is not possible to add extra information on edges (these arrows in the graph).
+That is different from most graph models.
+Another characteristic of the RDF model is that it is really easy to combine two RDF graphs.
+Integrating two datasets is a luxury that most data models don’t have.
+Finally, having a database model that is decoupled from your application models, means high <em>extensibility</em> and <em>flexibility</em>.
+Changing your model or adding properties do not require any schema changes.
+This makes RDF so great for systems</p>
+
+<h2 id="rdf-serialization">RDF Serialization</h2>
+<p>Let’s get a little more technical (feel free to skip to <a href="#ontologies">Ontologies</a> if you don’t like all this code).
+RDF is a <em>data model</em>, not a <em>serialization format</em>.
+In other words: The subject, predicate, object model can be represented in several ways.
+For example, here’s the same triples from the table and the graph above, serialized in the <em>Turtle</em> format:</p>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">&lt;https://www.w3.org/People/Berners-Lee/&gt;</span><span class="w"> </span><span class="nl">&lt;http://schema.org/birthDate&gt;</span><span class="w"> </span><span class="s">"1955-06-08"</span><span class="p">.</span><span class="w">
+</span><span class="nl">&lt;https://www.w3.org/People/Berners-Lee/&gt;</span><span class="w"> </span><span class="nl">&lt;http://schema.org/birthPlace&gt;</span><span class="w"> </span><span class="nl">&lt;http://dbpedia.org/resource/London&gt;</span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">&lt;&gt;</code> symbols indicate IRIs and the <code class="highlighter-rouge">""</code> symbols indicate literal values.</p>
+
+<p>This example doesn’t look as good as the graph above, right?
+Long URLs tend to take up a lot of space and make the data a bit tough to read.
+We can use <em>namespaces</em> (denoted with  <code class="highlighter-rouge"><span class="kd">@prefix</span></code>) to compress RDF data and make it more readable.</p>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">tim:</span><span class="w"> </span><span class="nl">&lt;https://www.w3.org/People/Berners-Lee/&gt;</span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">schema:</span><span class="w"> </span><span class="nl">&lt;http://schema.org/&gt;</span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">dbpedia:</span><span class="w"> </span><span class="nl">&lt;http://dbpedia.org/resource/&gt;</span><span class="p">.</span><span class="w">
+
+</span><span class="nl">&lt;tim&gt;</span><span class="w"> </span><span class="nn">schema:</span><span class="n">birthDate</span><span class="w"> </span><span class="s">"1955-06-08"</span><span class="p">.</span><span class="w">
+</span><span class="nl">&lt;tim&gt;</span><span class="w"> </span><span class="nn">schema:</span><span class="n">birthPlace</span><span class="w"> </span><span class="nl">&lt;dbpedia:London&gt;</span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<p>You could also express the same RDF triples as JSON-LD:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://schema.org/"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"dbpedia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://dbpedia.org/resource/"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"@id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.w3.org/People/Berners-Lee/"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"schema:birthDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1955-06-08"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"schema:birthPlace"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"@id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dbpedia:London"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Or as HTML with some extra RDFa attributes:</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">xmlns=</span><span class="s">"http://www.w3.org/1999/xhtml"</span>
+  <span class="na">prefix=</span><span class="s">"
+    schema: http://schema.org/
+    rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+    rdfs: http://www.w3.org/2000/01/rdf-schema#"</span>
+  <span class="nt">&gt;</span>
+  <span class="nt">&lt;p</span> <span class="na">typeof=</span><span class="s">"rdfs:Resource"</span> <span class="na">about=</span><span class="s">"https://www.w3.org/People/Berners-Lee/"</span><span class="nt">&gt;</span>
+    Tim
+    <span class="nt">&lt;span</span> <span class="na">rel=</span><span class="s">"schema:birthPlace"</span> <span class="na">resource=</span><span class="s">"http://dbpedia.org/resource/London"</span><span class="nt">&gt;</span>
+      is born in London
+    <span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">property=</span><span class="s">"schema:birthDate"</span> <span class="na">content=</span><span class="s">"1955-06-08"</span><span class="nt">&gt;</span>
+      on the 8th of June, 1955
+    <span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>The Turtle, JSON-LD and HTML+RDFa each contain the same RDF triples and can be automatically converted into each other.
+You can try this <a href="http://rdf-translator.appspot.com/">for yourself</a> and discover even more RDF serialization formats, such as microformats, RDF/XML (don’t use this, please) and N-Triples.</p>
+
+<p>The number of serialization options for RDF might be a bit intimidating, but you shouldn’t feel the need to understand and know every single one.
+The important thing to remember is that there’s a lot of options that are compatible with each other and use the RDF data model.</p>
+
+<h2 id="ontologies">Ontologies</h2>
+<p>Let’s tell a bit more about Tim. First of all, it might be useful to specify that Tim is a person:</p>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">tim:</span><span class="w"> </span><span class="nl">&lt;https://www.w3.org/People/Berners-Lee/&gt;</span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">schema:</span><span class="w"> </span><span class="nl">&lt;http://schema.org/&gt;</span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">dbpedia:</span><span class="w"> </span><span class="nl">&lt;http://dbpedia.org/resource/&gt;</span><span class="p">.</span><span class="w">
+</span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">foaf:</span><span class="w"> </span><span class="nl">&lt;http://xmlns.com/foaf/spec/#term_&gt;</span><span class="p">.</span><span class="w">
+
+</span><span class="nl">&lt;tim&gt;</span><span class="w"> </span><span class="k">a</span><span class="w"> </span><span class="nl">&lt;foaf:Person&gt;</span><span class="p">;</span><span class="w">
+  </span><span class="nn">schema:</span><span class="n">birthDate</span><span class="w"> </span><span class="s">"1955-06-08"</span><span class="p">;</span><span class="w">
+  </span><span class="nn">schema:</span><span class="n">birthPlace</span><span class="w"> </span><span class="nl">&lt;dbpedia:London&gt;</span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We’ve referred to <a href="http://xmlns.com/foaf/spec/">foaf:Person</a> to specify that Tim is an <em>instance</em> of the class <em>Person</em>.
+Foaf (Friend Of A Friend) is an <em>ontology</em> that is designed to describe data related to people in social networks.
+It defines the concept of Person and some attributes, such as a profile image.</p>
+
+<p>There exist many ontologies, ranging from <a href="https://www.w3.org/TR/vocab-org/">organizations</a> (which describes concepts like <em>memberships</em>) to <a href="https://protege.stanford.edu/ontologies/pizza/pizza.owl">pizza</a> (which describes concepts like <em>ingredients</em>).
+These ontologies are often described in the OWL format, which is a subset of RDF.</p>
+
+<p>That means that OWL ontologies are open data models that can be interpreted by machines.</p>
+
+<p>Having an open, machine-readable data model up some really cool possibilities.
+You can <a href="https://github.com/dgarijo/Widoco">generate documentation</a>.
+You can use reasoners to <em>infer</em> new knowledge about your data.
+You can even generate forms and other UI components in React using <a href="https://github.com/fletcher91/link-lib">Link-Lib</a>.</p>
+
+<p>The power of the ontology goes far, but that deserves its own article.</p>
+
+<h2 id="publishing-linked-data">Publishing linked data</h2>
+<p>Great, we’ve described Tim using linked data.
+Now we want to share our linked data.
+We can do this in several ways:</p>
+
+<p>Firstly, there’s the <strong>data dump</strong>.
+Serialize your RDF in the way you like and make it accessible as a single file.
+If someone just wants to know something about a single subject in your data dump, however, he’d have to download the entire data dump.
+That’s cumbersome and makes your data not that re-usable as it could be.
+And besides, data dumps are hard to manage and therefore likely to be outdated.</p>
+
+<p><strong>Subject pages</strong> to the rescue!
+Make the RDF data available through HTTP at the location where you’d expect it: at <em>the same link as the resource IRI</em>.
+Doing this makes your data truly linked, since every resource can now be downloaded seperately and automatically.
+Subject pages can be either <em>static</em> or <em>dynamic</em>.
+Static subject pages are simply RDF files hosted on some URL.
+Sharing static subject pages is very simple, but static data is hard to maintain or edit.
+Dynamic pages are generated by a server, so the underlying data could be edited by any framework.
+Another advantage of using dynamic subject pages, is that you can serialize to many different formats.
+You can show HTML to humans and RDF to computers.
+For example, our project <a href="https://argu.co">Argu</a> (an online democracy and discussion tool) works like this.
+Visit a webpage (or subject page) (e.g. <a href="https://argu.co/nederland/m/46">argu.co/nederland/m/46</a>).
+If you want the same content as linked data, add a serialization extension (e.g. <a href="https://argu.co/nederland/m/46.ttl">.ttl</a>) or use <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept">HTTP Accept Headers</a>.
+Note that even though this project serializes to all sorts of RDF formats, the project itself does not use an RDF database / triple store.</p>
+
+<p>Perhaps the most popular and easiest way to publish linked data is with <strong>annotated pages</strong>.
+Remember the RDFa serialization format, discussed above? That’s annotated pages.
+Using RDFa or Microdata in your existing web pages provides some benefits, especially to SEO.
+For example, you can get these <a href="https://developers.google.com/search/docs/guides/intro-structured-data?visit_id=1-636649250129274125-3755783713&amp;hl=en&amp;rd=1">cool boxes in google</a>, which show things like star ratings in search previews.
+However, annotated pages are more for adding a bit of spice to your existing webpage than to make huge datasets available.
+Parsing (reading) RDFa from a large HTML document will always be more expensive than reading Turtle or any other simple triple RDF format.</p>
+
+<p>A radically different way to share your data is through a <strong>SPARQL</strong> endpoint.
+SPARQL is a <em>query language</em>, like SQL, designed to perform complex search queries in large RDF graphs.
+With SPARQL, you can run queries such as ‘which pianists live in the Netherlands’, or ‘what proteins are involved in signal transductions and related to pyramidial neurons?’.
+It is a very powerful language designed to work on RDF graphs.
+However, keep in mind that a SPARQL endpoint is a bit more work to set up and host, and not many software packages actualy can.</p>
+
+<p>Other technologies like <a href="http://linkeddatafragments.org/">Linked Data Fragments</a> and <a href="http://www.rdfhdt.org/what-is-hdt/">HDT</a> allow for even more efficient sharing and storing of linked data.</p>
+
+<p>Note that there’s a difference between linked data and linked <em>open</em> data.
+Although linked data would be a great choice for publishing open data, you don’t have to make you linked data accessible to others.
+It’s perfectly possible to secure linked data.</p>
+
+<h2 id="further-reading">Further reading</h2>
+<p>If you want to learn more about the vision behind the semantic web and linked data, read the <a href="https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf">2006 paper</a> by some of the original inventors.
+If you’re looking for inspiration and example projects, check out the <a href="https://lod-cloud.net/">Linked Open Data Cloud</a>.
+If you want to learn more about reasoning and ontologies, try the <a href="https://www.w3.org/TR/2012/REC-owl2-primer-20121211/">W3C OWL primer</a>.
+For SPARQL, the <a href="https://jena.apache.org/tutorials/sparql.html">Apache Jena tutorial</a> could help.</p>
+
+<p>And of course, if you want to get help with your linked data project, feel free to send me an <a href="joep@argu.co">email</a>!</p>
+
+</div>
+
+  </div>
+  <div class="footer--wrapper" id="footer">
+    <div class="footer">
+      <div class="footer-row">
+        <div href="/" class="footer__header">
+          Ontola
+        </div>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        
+        
+        
+          <a href="/">English</a>
+        
+      
+         
+        <!-- <a href="/about">About</a> -->
+      </div>
+      <!-- <div class="footer-row">
+        <div href="/" class="footer__header">What we do</div>
+        <a href="/linked-data">Linked Data</a>
+        <a href="/ontology-modelling">Ontology Modelling</a>
+        <a href="/data-infrastructure">Data Infrastructure</a>
+        <a href="/web-development">Web Development</a>
+      </div> -->
+      <div class="footer-row">
+          <div href="/" class="footer__header">Contact</div>
+          <a href="tel:0031636020942">
+            <i class="fas fa-phone"></i>
+            +316 360 209 42
+          </a>
+          <a href="mailto:info@argu.co">
+            <i class="fas fa-envelope"></i>
+            info@argu.co
+          </a>
+          <a href="https://goo.gl/maps/x5Sggs9X7L32">
+            <i class="fas fa-map-marker-alt"></i>
+            Koningslaan 62, Utrecht, NL
+          </a>
+          <div><a href="https://argu.co">
+            <i class="fas fa-briefcase"></i>
+            Argu B.V.</a> kvk 65684168<div>
+        </div>
+    </div>
+  </div>
+  <script src="/js/main.js"></script>
+  <script src="/js/navbarScroll.js"></script>
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+</body>
+
+</html>
