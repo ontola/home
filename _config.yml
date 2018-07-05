@@ -2,6 +2,7 @@ permalink: /blog/:year/:month/:day/:title
 highlighter: rouge
 plugins:
   - jekyll-multiple-languages-plugin
+  - jekyll-release
 #i18n
 languages: ["en", "nl"]
 defaultLang: en
