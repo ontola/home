@@ -1,7 +1,52 @@
-site:
-  name: My Example Website
-  tagline: Een goed voorbeeld neerzettende!
-  description: This example website will amaze you!
-  keywords: example, website, amazing
 home:
-  hero: Wij zetten jouw data om naar linked data.
+  title: Ontola.io - Linked Data Software Ontwikkeling
+  description: Wij specialiseren ons in semantic web software ontwikkeling.
+  hero: Wij zetten data om naar linked data.
+  linked_data:
+    title: linked data
+    header: Verbeter jouw datakwaliteit
+    body: Niet alle data is gelijk. Linked data is de meest herbruikbare, gestructureerde en gestandaardiseerde manier om informatie mee op te slaan. Bespaar kosten, verbeter toegankelijkheid en voorkom problemen. Het is gebrijpelijk waarom linked data ook wel bekend staat als 5 ★ data.
+    body_2: Wij helpen jou graag met het bereiken van jouw linked data ambities.
+    read_more: Lees meer over linked data...
+  ontology_modelling:
+    title: ontologieën modelleren
+    header: Verbind jouw data modellen
+    body: De nauwkeurigheid en compatibiliteit van jouw data model bepalen hoe hoe veel waarde je er uit kan extraheren. Een ontologie is een open datamodel en tevens het raamwerk voor linked data. Het hebben van een machineleesbare ontologie maakt het mogelijk om automatisch documentatie te genereren, interfaces te maken, data te valideren en nog veel meer.
+    body_2: Wij helpen jou om de beste ontologie te vinden of te ontwerpen voor jour informatie.
+    read_more: Ontdek de kracht van de ontologie...
+  data_infrastructure:
+    title: data infrastructuur
+    header: Open jouw data silo's
+    body: Voorkom dure vendor lock-in en eindeloze koppelvlakken door jouw data op te slaan in een linked data warehouse. Maak alle informatie toegankelijk middels een eenvoudige, uniforme linked data API.
+    body_2: Wij kunnen helpen bij het verbeteren van jouw data strategie en het opzetten van een betrouwbare, flexibele en veilige infrastructuur.
+    read_more: Lees meer over data infrastructuur...
+  web_development:
+    title: webontwikkeling
+    header: Zowel back-end als front-end
+    body: Je data moet niet alleen worden opgeslagen; het moet worden gebruikt. Wij specialiseren in het ontwikkelen van interactieve linked data systemen, waarin gebruikers items kunnen aanmaken en bewerken. Onze frontend applicaties passen zich automatisch aan aan wijzigingen in het data model.
+    body_2: We hebben vele jaren ervaring met het bouwen van eenvoudig te gebruiker webapplicaties die werken op linked data back-ends.
+    read_more: Lees meer over softwareontwikkeling...
+  how_we_work:
+    header: Hoe wij werken
+    one:
+      title: Luisteren en begrijpen
+      body: Goed advieswerk begint met aandachtig luisteren. Samen met jou kijken we naar de databronnen en bespreken we hoe ze worden gebruikt. Wij denken mee over hoe jouw doel bereikt kan worden. Zowel kleine pilot projecten als grote overstaptrajecten naar een full-stack linked data warehouse zijn mogelijk.
+    two:
+      title: Vind of ontwerp een ontologie
+      body: Bij linked data is standaardiseren belangrijk. Door gebruik te maken van een bestaand datamodel, ontologie, vocabulair of taxonomie, wordt jouw data beter herbruikbaar. Daarom helpen we bij het vinden van een bestaande standaard die werkt met jouw data. Als dat niet lukt, helpen we graag bij het ontwerpen en maken van een passende ontologie. We gebruiken internationale W3C standaarden, zoals SHACL, RDFs, SKOS en OWL om jouw ontologie vorm te geven.
+    three:
+      title: Extract, transform, load
+      body: We kunnen een ETL architectuur opzetten die data importeert uit diverse bestaande systemen. Dit kunnen data dumps zijn, bestaande API's van applicaties, of iets anders. We zetten alles om naar Linked Data. Onze ETL structuur werkt op basis van 'events', zodat we direct een meldingen dienst kunnen opzetten.
+    four:
+      title: Software ontwikkeling
+      body: "We bouwen systemen die het gemakkelijk maken om jouw linked data weer te geven en aan te passen. Of je een eenvoudige web interface of een specifieke machine interface nodig hebt: wij kunnen het. We zijn ervaren full stack developers die zowel backends als frontends ontwikkelen. We hebben onder andere ervaring met Ruby (on Rails), Javascript, Node, Typescript, Python, HTML, CSS, Docker en Continuous Integration."
+    five:
+      title: Publiceren
+      body: Al jouw data kunnen we beschikbaar stellen middels een RESTful Hypermedia API die serializeert naar JSON, JSON-LD, N3, N-Triples, CSV, RDF/XML en meer. We kunnen alles doorzoekbaar maken en beschikbaar maken via Cypher, SPARQL, GRAPHQL en ElasticSearch. Jij kunt instellen wie wat mag bekijken of bewerken.
+  contact:
+    header: Neem contact op
+    body_html: <p>Kunnen wij jou helpen met software ontwikkeling, advies geven over linked data, consultancy of data modelleren?
+        stuur ons een <a href="mailto:joep@argu.co">email</a>
+        of bel naar <a href="tel:0031636020942">+316 360 20 942</a>.
+        We horen graag over jouw project!
+      </p>
