@@ -39,15 +39,6 @@
       {{ content }}
   </div>
   <div class="footer--wrapper" id="footer">
-    <a class="active" href="#">{{ site.languageNames[site.lang] }}</a>
-    {% for lang in site.languageNames %}
-    {% if lang[0] == site.lang %} {% continue %} {% endif %}
-    {% if page.namespace %}
-    <a href="{% tl {{ page.namespace }} {{ lang[0] }} %}">{{ lang[1] }}</a>
-    {% else %}
-    <a href="{{ site.baseurl_root }}/{{ lang[0] }}/">{{ lang[1] }}</a>
-    {% endif %}
-    {% endfor %}
     <div class="footer">
       <div class="footer-row">
         <div href="/" class="footer__header">
@@ -55,6 +46,16 @@
         </div>
         <a href="/">Home</a>
         <a href="/blog">Blog</a>
+        {% for lang in site.languageNames %}
+        {% if lang[0] == site.lang %} {% continue %} {% endif %}
+        {% if page.namespace %}
+          <a href="{% tl {{ page.namespace }} {{ lang[0] }} %}">{{ lang[1] }}</a>
+        {% elsif lang[0] == 'en' %}
+          <a href="{{ site.baseurl_root }}/">{{ lang[1] }}</a>
+        {% else %}
+          <a href="{{ site.baseurl_root }}/{{ lang[0] }}/">{{ lang[1] }}</a>
+        {% endif %}
+      {% endfor %}
         <!-- <a href="/about">About</a> -->
       </div>
       <!-- <div class="footer-row">
