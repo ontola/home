@@ -5,7 +5,7 @@ title: Ontola - Linked Data Software Development
   <div class="hero hero--home">
     <div id="particles-js"></div>
     <h1 id="hero-text">
-      We help you transform data into linked data.
+      {% t home.hero %}
     </h1>
   </div>
   <!-- scripts -->
@@ -14,24 +14,19 @@ title: Ontola - Linked Data Software Development
   <div class="section" id="linked-data">
     <div class="section__content">
       <nav class="pillars">
-        <a href="#linked-data" class="current">linked data</a>
-        <a href="#ontology-modelling">ontology modelling</a>
-        <a href="#data-infrastructure">data infrastructure</a>
-        <a href="#web-development">web development</a>
+        <a href="#linked-data" class="current">{% t home.linked_data.title %}</a>
+        <a href="#ontology-modelling">{% t home.ontology_modelling.title %}</a>
+        <a href="#data-infrastructure">{% t home.data_infrastructure.title %}</a>
+        <a href="#web-development">{% t home.web_development.title %}</a>
       </nav>
       <div class="section__wrapper">
         <div class="section__text">
-          <h2>Upgrade your data quality</h2>
-          <p>
-            Not all data is created equal.
-            Linked data is the most reusable, structured and standardized way to store information.
-            Save costs, increase accessibility and prevent issues.
-            There are good reasons for why it’s also known as 5 ★ data.
-          </p>
-          <p>We'd love to help you realize your linked data ambitions.</p>
+          <h2>{% t home.linked_data.header %}</h2>
+          <p>{% t home.linked_data.body %}</p>
+          <p>{% t home.linked_data.body_2 %}</p>
           <a href="/blog/2018/07/03/a-brief-introduction-to-linked-data" class="read-more">
             <i class="fas fa-arrow-right"></i>
-            Read more about linked data...
+            {% t home.linked_data.read_more %}
           </a>
         </div>
         <img
@@ -45,24 +40,20 @@ title: Ontola - Linked Data Software Development
   <div class="section section--alt" id="ontology-modelling">
     <div class="section__content">
         <nav class="pillars">
-          <a href="#linked-data">linked data</a>
-          <a href="#ontology-modelling"  class="current">ontology modelling</a>
-          <a href="#data-infrastructure">data infrastructure</a>
-          <a href="#web-development">web development</a>
+          <a href="#linked-data">{% t home.linked_data.title %}</a>
+          <a href="#ontology-modelling" class="current">{% t home.ontology_modelling.title %}</a>
+          <a href="#data-infrastructure">{% t home.data_infrastructure.title %}</a>
+          <a href="#web-development">{% t home.web_development.title %}</a>
         </nav>
         <div class="section__wrapper">
         <div class="section__text">
-          <h2>Open up and connect your data models</h2>
-          <p>
-            The accuracy and compatibility of your data model determines how much value you can extract from it.
-            The ontology is the open model backbone of linked data.
-            Having a machine readable, well-standardized ontology enables us to generate documentation,
-            interfaces, data validation tools and much more.
-          </p>
-          <p>
-            We help you find or design the best ontology or vocabulary for your information.
-          </p>
-          <!-- <a href="#" class="read-more">More about open data models...</a> -->
+          <h2>{% t home.ontology_modelling.header %}</h2>
+          <p>{% t home.ontology_modelling.body %}</p>
+          <p>{% t home.ontology_modelling.body_2 %}</p>
+          <!-- <a href="/blog/2018/07/03/a-brief-introduction-to-linked-data" class="read-more">
+            <i class="fas fa-arrow-right"></i>
+            {% t home.ontology_modelling.read_more %}
+          </a> -->
         </div>
         <img
           alt="A data model linked to external models"
@@ -74,24 +65,21 @@ title: Ontola - Linked Data Software Development
   </div>
   <div class="section" id="data-infrastructure">
     <div class="section__content">
-      <nav class="pillars">
-        <a href="#linked-data">linked data</a>
-        <a href="#ontology-modelling">ontology modelling</a>
-        <a href="#data-infrastructure" class="current">data infrastructure</a>
-        <a href="#web-development">web development</a>
-      </nav>
+        <nav class="pillars">
+          <a href="#linked-data">{% t home.linked_data.title %}</a>
+          <a href="#ontology-modelling">{% t home.ontology_modelling.title %}</a>
+          <a href="#data-infrastructure" class="current">{% t home.data_infrastructure.title %}</a>
+          <a href="#web-development">{% t home.web_development.title %}</a>
+        </nav>
       <div class="section__wrapper">
         <div class="section__text">
-          <h2>Break open your data silos</h2>
-          <p>
-            Prevent costly vendor lock-in and API hell by storing your data in a linked data warehouse.
-            Access all information through a uniform, W3C compliant, linked data API.
-          </p>
-          <p>
-            We can help you improve your data strategy and
-            set up a reliable, flexible and secure infrastrucure.
-          </p>
-          <!-- <a href="#" class="read-more">More about data warehousing...</a> -->
+          <h2>{% t home.data_infrastructure.header %}</h2>
+          <p>{% t home.data_infrastructure.body %}</p>
+          <p>{% t home.data_infrastructure.body_2 %}</p>
+          <!-- <a href="/blog/2018/07/03/a-brief-introduction-to-linked-data" class="read-more">
+            <i class="fas fa-arrow-right"></i>
+            {% t home.data_infrastructure.read_more %}
+          </a> -->
         </div>
         <img
           alt="Import data from various servers, serve uniformly to different devices"
@@ -104,23 +92,20 @@ title: Ontola - Linked Data Software Development
   <div class="section section--alt" id="web-development">
     <div class="section__content">
         <nav class="pillars">
-          <a href="#linked-data">linked data</a>
-          <a href="#ontology-modelling">ontology modelling</a>
-          <a href="#data-infrastructure">data infrastructure</a>
-          <a href="#web-development" class="current">web development</a>
+          <a href="#linked-data">{% t home.linked_data.title %}</a>
+          <a href="#ontology-modelling">{% t home.ontology_modelling.title %}</a>
+          <a href="#data-infrastructure">{% t home.data_infrastructure.title %}</a>
+          <a href="#web-development" class="current">{% t home.web_development.title %}</a>
         </nav>
-      <h2>A powerful back-end needs a powerful front-end</h2>
-      <p>
-        Your data should not only be stored; it should be used.
-        We specialize in developing interactive linked data systems,
-        where users create and edit resources.
-        Our frontend applications adapt their views to changes in your data model.
-      </p>
-      <p>
-        We have many years of experience building easy to use
-        front-end applications on pure linked data back-ends.
-      </p>
-      <!-- <a href="#" class="read-more">More about our web development...</a> -->
+        <div class="section__text">
+          <h2>{% t home.web_development.header %}</h2>
+          <p>{% t home.web_development.body %}</p>
+          <p>{% t home.web_development.body_2 %}</p>
+          <!-- <a href="/blog/2018/07/03/a-brief-introduction-to-linked-data" class="read-more">
+            <i class="fas fa-arrow-right"></i>
+            {% t home.web_development.read_more %}
+          </a> -->
+        </div>
     </div>
   </div>
   <div class="section" id="how-we-work">

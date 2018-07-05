@@ -1,0 +1,31 @@
+site:
+  name: My Example Website
+  tagline: Setting a good example!
+  description: This example website will amaze you!
+  keywords: example, website, amazing
+home:
+  hero: We help you transform data into linked data.
+  linked_data:
+    title: linked data
+    header: Upgrade your data quality
+    body: Not all data is created equal. Linked data is the most reusable, structured and standardized way to store information. Save costs, increase accessibility and prevent issues. There are good reasons for why it’s also known as 5 ★ data.
+    body_2: We'd love to help you realize your linked data ambitions.
+    read_more: Read more about linked data...
+  ontology_modelling:
+    title: ontology modelling
+    header: Open up and connect your data models
+    body: The accuracy and compatibility of your data model determines how much value you can extract from it. The ontology is the open model backbone of linked data. Having a machine readable, well-standardized ontology enables us to generate documentation, interfaces, data validation tools and much more.
+    body_2: We help you find or design the best ontology or vocabulary for your information.
+    read_more: Read more about ontology modelling...
+  data_infrastructure:
+    title: data infrastructure
+    header: Break open your data silos
+    body: Prevent costly vendor lock-in and API hell by storing your data in a linked data warehouse. Access all information through a uniform, W3C compliant, linked data API.
+    body_2: We can help you improve your data strategy and set up a reliable, flexible and secure infrastrucure.
+    read_more: Read more about data infrastructure...
+  web_development:
+    title: web development
+    header: A powerful back-end needs a powerful front-end
+    body: Your data should not only be stored; it should be used. We specialize in developing interactive linked data systems, where users create and edit resources. Our frontend applications adapt their views to changes in your data model.
+    body_2: We have many years of experience building easy to use front-end applications on pure linked data back-ends.
+    read_more: Read more about web development...

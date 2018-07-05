@@ -11,9 +11,9 @@
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
 
-  <link rel="stylesheet" href="/css/normalize.css">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/normalize.css"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/syntax.css"/>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
@@ -39,6 +39,15 @@
       {{ content }}
   </div>
   <div class="footer--wrapper" id="footer">
+    <a class="active" href="#">{{ site.languageNames[site.lang] }}</a>
+    {% for lang in site.languageNames %}
+    {% if lang[0] == site.lang %} {% continue %} {% endif %}
+    {% if page.namespace %}
+    <a href="{% tl {{ page.namespace }} {{ lang[0] }} %}">{{ lang[1] }}</a>
+    {% else %}
+    <a href="{{ site.baseurl_root }}/{{ lang[0] }}/">{{ lang[1] }}</a>
+    {% endif %}
+    {% endfor %}
     <div class="footer">
       <div class="footer-row">
         <div href="/" class="footer__header">

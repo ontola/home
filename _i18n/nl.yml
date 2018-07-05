@@ -1,0 +1,7 @@
+site:
+  name: My Example Website
+  tagline: Een goed voorbeeld neerzettende!
+  description: This example website will amaze you!
+  keywords: example, website, amazing
+home:
+  hero: Wij zetten jouw data om naar linked data.
