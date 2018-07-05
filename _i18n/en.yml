@@ -1,0 +1,52 @@
+home:
+  title: Ontola.io - Linked Data Software Development
+  description: We specialize in developing semantic web applications.
+  hero: We help you transform data into linked data.
+  linked_data:
+    title: linked data
+    header: Upgrade your data quality
+    body: Not all data is created equal. Linked data is the most reusable, structured and standardized way to store information. Save costs, increase accessibility and prevent issues. There are good reasons for why it’s also known as 5 ★ data.
+    body_2: We'd love to help you realize your linked data ambitions.
+    read_more: Read more about linked data...
+  ontology_modelling:
+    title: ontology modelling
+    header: Open up and connect your data models
+    body: The accuracy and compatibility of your data model determines how much value you can extract from it. The ontology is the open model backbone of linked data. Having a machine readable, well-standardized ontology enables us to generate documentation, interfaces, data validation tools and much more.
+    body_2: We help you find or design the best ontology or vocabulary for your information.
+    read_more: Read more about ontology modelling...
+  data_infrastructure:
+    title: data infrastructure
+    header: Break open your data silos
+    body: Prevent costly vendor lock-in and API hell by storing your data in a linked data warehouse. Access all information through a uniform, W3C compliant, linked data API.
+    body_2: We can help you improve your data strategy and set up a reliable, flexible and secure infrastrucure.
+    read_more: Read more about data infrastructure...
+  web_development:
+    title: web development
+    header: A powerful back-end needs a powerful front-end
+    body: Your data should not only be stored; it should be used. We specialize in developing interactive linked data systems, where users create and edit resources. Our frontend applications adapt their views to changes in your data model.
+    body_2: We have many years of experience building easy to use front-end applications on pure linked data back-ends.
+    read_more: Read more about web development...
+  how_we_work:
+    header: How we work
+    one:
+      title: Listen & understand
+      body: Good consultancy starts with listening carefully. Together with you, we will look at your data sources and discuss how they are used. Whether you want to start with a small linked data pilot project or transition to a full-stack linked data warehouse, we will help you find the best way to realize your goal.
+    two:
+      title: Find or design an ontology
+      body: Linked data is all about standardization. Using an existing model, standard, vocabulary or taxonomy makes your data more reusable, so we will help you find existing ontologies that work for you. If such an open model does not yet exist, we can help you design a fitting ontology. We'll make sure your ontology matches your data and works for your use cases. We use international W3C standards, such as SHACL, RDFs and OWL to describe your domain.
+    three:
+      title: Extract, transform, load
+      body: We’ll set up an ETL architecture that imports your data, whether that’s a data dump, an existing application API, or anything else. All will be converted into linked data. Our ETL structure works event-driven, so we can easily set up a notification service, push messaging
+    four:
+      title: Software development
+      body: "We build systems that make it really easy to modify and view your linked data. Whether you need an intuitive web interface or a custom made machine interface: we’ve got you covered. We're experienced full stack developers who build both backends and frontends. We know how to work with Ruby (on Rails), Javascript, Node, Typescript, Python, HTML, CSS, Docker, Continuous Integration and more."
+    five:
+      title: Publish
+      body: All your data can be made accessible and editable through a RESTful Hypermedia API that serializes to JSON, JSON-LD, N3, N-Triples, CSV, RDF/XML and more. We can make everything searchable and queryable with Cypher, SPARQL, GRAPHQL and ElasticSearch. You set read / write permissions, we make sure only the right people and systems can access your data.
+  contact:
+    header: Get in touch
+    body_html: <p>Can we help you with software development, linked data consultancy or data modelling?
+        Send us an <a href="mailto:joep@argu.co">email</a>
+        or give us a call at <a href="tel:0031636020942">+316 360 20 942</a>.
+        We'd love to hear about your project!
+      </p>

@@ -1,2 +1,12 @@
 permalink: /blog/:year/:month/:day/:title
 highlighter: rouge
+plugins:
+  - jekyll-multiple-languages-plugin
+#i18n
+languages: ["en", "nl"]
+defaultLang: en
+languageNames:
+  en: English
+  nl: Nederlands
+exclude_from_localizations: ["css", "img", "js", "_posts"]
+baseurl: ""
