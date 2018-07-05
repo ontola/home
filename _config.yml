@@ -8,5 +8,5 @@ defaultLang: en
 languageNames:
   en: English
   nl: Nederlands
-exclude_from_localizations: ["css", "img", "js"]
+exclude_from_localizations: ["css", "img", "js", "_posts"]
 baseurl: ""
