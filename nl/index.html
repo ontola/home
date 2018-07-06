@@ -1,6 +1,5 @@
 <!doctype html>
 <html class="no-js" lang="">
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -36,7 +35,7 @@
         <a href="/">home</a>
         <a href="/blog">blog</a>
         <!-- <a href="/about">about</a> -->
-        <a href="#footer">contact</a>
+        <a href="/contact">contact</a>
       </div>
     </div>
   </nav>
@@ -212,7 +211,22 @@
   <div class="section"  id="contact">
     <div class="section__content">
       <h2>Neem contact op</h2>
-      <p>Kunnen wij jou helpen met softwareontwikkeling, ICT consultancy of advies over linked data? Stuur ons een <a href="mailto:joep@argu.co">email</a> of bel naar <a href="tel:0031636020942">+316 360 20 942</a>. We horen graag over jouw project! </p>
+      <form
+class="form"
+action="https://formspree.io/ontola@argu.co"
+method="POST"
+>
+  <label for="email">Jouw e-mail adres</label>
+  <input id="email" type="email" name="_replyto" placeholder="email@example.com">
+  <label for="message">Bericht</label>
+  <textarea rows="5" id="message" name="message" placeholder="Vertel ons over je project of stel een vraag"></textarea>
+  <button type="submit" value="Send">Verzenden</button>
+  <input type="hidden" name="_next" value="/wellbeintouch" />
+  <input type="hidden" name="_subject" value="Ontola.io" />
+  <input type="hidden" name="_format" value="plain" />
+  <input type="text" name="_gotcha" style="display:none" />
+</form>
+
     </div>
   </div>
 
@@ -225,6 +239,7 @@
         </div>
         <a href="/">Home</a>
         <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
         
         
         
@@ -242,22 +257,30 @@
         <a href="/web-development">Web Development</a>
       </div> -->
       <div class="footer-row">
-          <div href="/" class="footer__header">Contact</div>
-          <a href="tel:0031636020942">
-            <i class="fas fa-phone"></i>
-            +316 360 209 42
-          </a>
-          <a href="mailto:info@argu.co">
-            <i class="fas fa-envelope"></i>
-            info@argu.co
-          </a>
-          <a href="https://goo.gl/maps/x5Sggs9X7L32">
-            <i class="fas fa-map-marker-alt"></i>
-            Koningslaan 62, Utrecht, NL
-          </a>
-          <div><a href="https://argu.co">
-            <i class="fas fa-briefcase"></i>
-            Argu B.V.</a> kvk 65684168<div>
+        <div href="/" class="footer__header">Find us</div>
+        <a href="https://github.com/ontola">
+          <i class="fab fa-github"></i>
+          Github
+        </a>
+        <a href="https://twitter.com/ontola_io">
+          <i class="fab fa-twitter"></i>
+          Twitter
+        </a>
+        <a href="mailto:ontola@argu.co">
+          <i class="fas fa-envelope"></i>
+          ontola@argu.co
+        </a>
+        <a href="tel:0031636020942">
+          <i class="fas fa-phone"></i>
+          +316 360 209 42
+        </a>
+        <a href="https://goo.gl/maps/x5Sggs9X7L32">
+          <i class="fas fa-map-marker-alt"></i>
+          Koningslaan 62, Utrecht, NL
+        </a>
+        <div><a href="https://argu.co">
+          <i class="fas fa-briefcase"></i>
+          Argu B.V.</a> kvk 65684168<div>
         </div>
     </div>
   </div>
