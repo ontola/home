@@ -26,6 +26,20 @@ home:
     body: Your data should not only be stored; it should be used. We specialize in developing interactive linked data systems, where users create and edit resources. Our frontend applications adapt their views to changes in your data model.
     body_2: We have many years of experience building easy to use front-end applications on pure linked data back-ends.
     read_more: Read more about web development...
+  projects:
+    title: Some of our projects
+    ori:
+      title: Open Raadsiformatie
+      body: Open Raadsinformatie collects meeting data from over 100 Dutch local governments and converts everything to linked open data, accessible through a uniform API and search engine. This project is a collaboration between the VNG, the Open State Foundation and us.
+    link:
+      title: Link-Lib / Link-Redux
+      body: We've developed Link as a set of open source libraries for front-end web applications. They help to fetch, store, access and ultimately render linked data. The built-in reasoner helps to find the best fitting view for new types of data.
+    rdf_serializers:
+      title: RDF Serializers
+      body: We’ve developed an open source library for serializing linked data with the popular framework Ruby On Rails. It serializes to RDF/XML, Turtle, N3, N-triples and JSON-LD.
+    argu:
+      title: Argu
+      body: Argu is an e-democracy platform that makes decision making processes more interactive and transparent. It is designed to facilitate civil, structured discussions, voting procedures and online brainstorming to find solutions to problems. All data on Argu is accessible as linked data through its intuitive REST API.
   how_we_work:
     header: How we work
     one:

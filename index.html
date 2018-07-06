@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Ontola - Linked Data Software Development
+title: Ontola.io - Linked Data Software Development
+description: We're linked data web development specialists that can help you improve your data infrastructure.
 ---
   <div class="hero hero--home">
     <div id="particles-js"></div>
@@ -108,7 +109,40 @@ title: Ontola - Linked Data Software Development
         </div>
     </div>
   </div>
-  <div class="section" id="how-we-work">
+  <div class="section">
+    <div class="section__content">
+      <h2>{% t home.projects.title %}</h2>
+      <div class="project">
+        <img class="project__img" src="/img/home/ori.png"/>
+        <div class="project__text">
+          <a href="http://zoek.openraadsinformatie.nl/#/"><h3>{% t home.projects.ori.title %}</h3></a>
+          <p>{% t home.projects.ori.body %}</p>
+        </div>
+      </div>
+      <div class="project">
+        <img class="project__img" src="/img/home/link-lib.png"/>
+        <div class="project__text">
+          <a href="https://github.com/fletcher91/link-redux"><h3>{% t home.projects.link.title %}</h3></a>
+          <p>{% t home.projects.link.body %}</p>
+        </div>
+      </div>
+      <div class="project">
+        <img class="project__img" src="/img/home/rdf-serializers.png"/>
+        <div class="project__text">
+          <a href="https://github.com/argu-co/rdf-serializers"><h3>{% t home.projects.rdf_serializers.title %}</h3></a>
+          <p>{% t home.projects.rdf_serializers.body %}</p>
+        </div>
+      </div>
+      <div class="project">
+        <img class="project__img" src="/img/home/argu.png"/>
+        <div class="project__text">
+          <a href="https://argu.co"><h3>{% t home.projects.argu.title %}</h3></a>
+          <p>{% t home.projects.argu.body %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section section--alt" id="how-we-work">
     <div class="section__content">
     <h2>{% t home.how_we_work.header %}</h2>
       <ol class="cool-list">
@@ -136,7 +170,8 @@ title: Ontola - Linked Data Software Development
       </ol>
     </div>
   </div>
-  <div class="section section--alt"  id="contact">
+
+  <div class="section"  id="contact">
     <div class="section__content">
       <h2>{% t home.contact.header %}</h2>
       {% t home.contact.body_html %}

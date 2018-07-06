@@ -432,6 +432,31 @@ th,td {
     max-width: 100%;
 }
 
+.project {
+    margin-bottom: 1em;
+    display: flex;
+}
+
+.project__img {
+    width: auto;
+    height: auto;
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 2em;
+    border-radius: 9999px;
+}
+
+.project a {
+    text-decoration: none;
+}
+
+.project a:hover {
+    text-decoration: underline;
+}
+
+.project__text {
+}
+
 .read-more {
     color: rgb(170,170,170);
     text-decoration: none;
