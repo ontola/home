@@ -6,7 +6,7 @@ home:
     title: linked data
     header: Verbeter jouw datakwaliteit
     body: Niet alle data is gelijk. Linked data is de meest herbruikbare, gestructureerde en gestandaardiseerde manier om informatie mee op te slaan. Bespaar kosten, verbeter toegankelijkheid en voorkom problemen. Het is begrijpelijk waarom linked data ook wel bekend staat als 5 ★ data.
-    body_2: Wij helpen jou graag met het bereiken van jouw linked data ambities.
+    body_2: Wij helpen je graag met het bereiken van jouw linked data ambities.
     read_more: Lees meer over linked data...
   ontology_modelling:
     title: ontologieën modelleren
@@ -18,7 +18,7 @@ home:
     title: data infrastructuur
     header: Open jouw data silo's
     body: Voorkom dure vendor lock-in en eindeloze koppelvlakken door jouw data op te slaan in een linked data warehouse. Maak alle informatie toegankelijk middels een eenvoudige, uniforme linked data API.
-    body_2: Wij kunnen helpen bij het verbeteren van jouw datastrategie en het opzetten van een betrouwbare, flexibele en veilige infrastructuur.
+    body_2: Wij kunnen helpen bij het verbeteren van je datastrategie en het opzetten van een betrouwbare, flexibele en veilige infrastructuur.
     read_more: Lees meer over data infrastructuur...
   web_development:
     title: webontwikkeling
@@ -60,7 +60,7 @@ home:
   contact:
     header: Neem contact op
 contact:
-  email: Jouw e-mail adres
+  email: Jouw e-mailadres
   message: Bericht
   message_placeholder: Vertel ons over je project of stel een vraag
   wellbeintouch: Thanks for reaching out! We'll get back to you soon.
