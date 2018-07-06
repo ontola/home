@@ -478,7 +478,7 @@ th,td {
 }
 
 .project {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     display: flex;
 }
 
@@ -488,7 +488,9 @@ th,td {
     max-width: 100px;
     max-height: 100px;
     margin-right: 2em;
+    margin-bottom: 1em;
     border-radius: 9999px;
+    flex-shrink: 0;
 }
 
 .project a {
@@ -543,6 +545,10 @@ th,td {
     flex: 1;
 }
 
+.section h2 {
+    margin-bottom: 1.2em;
+}
+
 @media only screen and (max-width: 50em) {
     /* Style adjustments for viewports that meet the condition */
 
@@ -560,6 +566,10 @@ th,td {
 
     .pillars a.current {
         display:inline-block;
+    }
+
+    .project {
+        display: block;
     }
 
     .section__wrapper {
