@@ -59,8 +59,9 @@ home:
       body: Al jouw data kunnen we beschikbaar stellen middels een RESTful Hypermedia API die serializeert naar JSON, JSON-LD, N3, N-Triples, CSV, RDF/XML en meer. We kunnen alles doorzoekbaar maken en beschikbaar maken via Cypher, SPARQL, GRAPHQL en ElasticSearch. Jij kunt instellen wie wat mag bekijken of bewerken.
   contact:
     header: Neem contact op
-    body_html: <p>Kunnen wij jou helpen met softwareontwikkeling, ICT consultancy of advies over linked data?
-        Stuur ons een <a href="mailto:joep@argu.co">email</a>
-        of bel naar <a href="tel:0031636020942">+316 360 20 942</a>.
-        We horen graag over jouw project!
-      </p>
+contact:
+  email: Jouw e-mail adres
+  message: Bericht
+  message_placeholder: Vertel ons over je project of stel een vraag
+  wellbeintouch: Thanks for reaching out! We'll get back to you soon.
+  send: Verzenden

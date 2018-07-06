@@ -1,0 +1,15 @@
+<form
+class="form"
+action="https://formspree.io/ontola@argu.co"
+method="POST"
+>
+  <label for="email">{% t contact.email %}</label>
+  <input id="email" type="email" name="_replyto" placeholder="email@example.com">
+  <label for="message">{% t contact.message %}</label>
+  <textarea rows="5" id="message" name="message" placeholder="{% t contact.message_placeholder %}"></textarea>
+  <button type="submit" value="Send">{% t contact.send %}</button>
+  <input type="hidden" name="_next" value="/wellbeintouch" />
+  <input type="hidden" name="_subject" value="Ontola.io" />
+  <input type="hidden" name="_format" value="plain" />
+  <input type="text" name="_gotcha" style="display:none" />
+</form>

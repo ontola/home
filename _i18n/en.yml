@@ -59,8 +59,9 @@ home:
       body: All your data can be made accessible and editable through a RESTful Hypermedia API that serializes to JSON, JSON-LD, N3, N-Triples, CSV, RDF/XML and more. We can make everything searchable and queryable with Cypher, SPARQL, GRAPHQL and ElasticSearch. You set read / write permissions, we make sure only the right people and systems can access your data.
   contact:
     header: Get in touch
-    body_html: <p>Can we help you with software development, linked data consultancy or data modelling?
-        Send us an <a href="mailto:joep@argu.co">email</a>
-        or give us a call at <a href="tel:0031636020942">+316 360 20 942</a>.
-        We'd love to hear about your project!
-      </p>
+contact:
+  email: Your email address
+  message: Message
+  message_placeholder: Tell us about your project or ask a question.
+  wellbeintouch: Thanks for reaching out! We'll get back to you soon.
+  send: Send

@@ -1,6 +1,7 @@
 <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 <meta property="og:site_name" content="{{ site.title }}">
 {% if page.title %}
+<title>{{ page.title }}</title>
 <meta property="og:title" content="{{ page.title }}">
 <meta property="og:type" content="article">
 <meta property="og:description" content="{{ page.excerpt | strip_html }}"/>
