@@ -65,3 +65,30 @@ contact:
   message_placeholder: Tell us about your project or ask a question.
   wellbeintouch: Thanks for reaching out! We'll get back to you soon.
   send: Send
+ci:
+  hero: Improve your software development process
+  title: Continuous integration advice
+  intro: We help you reduce costs and optimize your software development workflow. Prevent bugs, release features more quickly and receive customer feedback earlier.
+  build:
+    title: build
+    header: Build Automation
+    body: Automate software compilation and reduce server maintenance and devops costs. Make sure that exceptions are caught automatically, so developers can learn about issues as quick as possible. Use containers to scale up your online service in minutes instead of days. Use a single environment for develop, test en production. Easily connect to hundreds of services and data centers.
+  test:
+    title: test
+    header: Test Automation
+    body: After automating the compilation process, you can do the same for testing. Discover bugs as soon as possible with test automation. Deploy only code which passes all tests. This way, you can guarantee that features will keep on working. With automated tests, programming becomes more fun and producive, since you can make changes to your code with confidence.
+  integrate:
+    title: integrate
+    header: Continuous Integration
+    body: Instead of waiting for release day, all developers merge their changes as quickly as possible to the master branch. This merged code is tested automatically. This makes software development more quick and enhances stability. By sharing more code, there is less friction in your development team.
+  deliver:
+    title: deliver
+    header: Continuous Delivery
+    body: Releasing a new version becomes as easy as pressing a button. The road from idea to realized feature is shorter than ever. A short value cycle is valuable for you and for your customers.
+  deploy:
+    title: deploy
+    header: Continuous Deployment
+    body: Releasing a new version is fully automated. Changes to code trigger a process that builds your software, tests it and releases it if it passes. Now your value cycle is even shorter.
+  us:
+    header: How we can help
+    body: We can offer advice and consultancy to improve your software development workflow. We can train development teams to make their workflow more efficient.

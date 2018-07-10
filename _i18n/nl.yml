@@ -65,3 +65,30 @@ contact:
   message_placeholder: Vertel ons over je project of stel een vraag
   wellbeintouch: Thanks for reaching out! We'll get back to you soon.
   send: Verzenden
+ci:
+  hero: Verbeter jouw ontwikkelstraat
+  title: Continuous integration advies
+  intro: Wij helpen jou kosten te besparen door jouw ontwikkelproces te optimaliseren. Voorkom bugs, release features sneller en krijg eerder feedback van klanten.
+  build:
+    title: build
+    header: Build Automation
+    body: Automatiseer het compileren van software en verlaag zo de kosten aan serveronderhoud en devops. Zorg er voor dat exceptions automatisch worden afgevangen, zodat ontwikkelaars direct van fouten op de hoogte worden gesteld. Gebruik containers om je online service in minuten in plaats van dagen op te schalen. Hanteer één omgeving voor ontwikkel, test en productie. Sluit eenvoudig aan op honderden diensten en datacenters.
+  test:
+    title: test
+    header: Test Automation
+    body: Wanneer je compilatie hebt geautomatiseerd, kan je hetzelfde doen voor testing. Ontdek bugs zo snel mogelijk met een volledig geautomatiseerde testomgeving. Deploy alleen code waarbij alle tests slagen. Zo kan je garanties leveren over het werken van functionaliteiten. Met geautomatiseerde tests wordt programmeren leuker en productiever, aangezien je zo met zekerheid wijzigingen door kan voeren.
+  integrate:
+    title: integrate
+    header: Continuous Integration
+    body: In plaats van wachten op de ‘release day’, integreren ontwikkelaars hun code zo snel mogelijk naar de master branch. Deze nieuwe, geïntegreerde code wordt automatisch getest. Dit zorgt voor een snelle ontwikkelcyclus en een hogere veiligheid. Doordat er meer code wordt gedeeld, ontstaat er minder frictie in jouw ontwikkelteam.
+  deliver:
+    title: deliver
+    header: Continuous Delivery
+    body: Release een nieuwe versie van jouw software met een druk op de knop. Ga zo snel mogelijk van idee naar uitgerolde feature. Doordat code zo snel mogelijk live staat, ontvangt het team direct feedback. Een korte value cycle is waardevol voor jou en voor je klanten.
+  deploy:
+    title: deploy
+    header: Continuous Deployment
+    body: Het releasen van een nieuwe versie gaat volledig automatisch. Wanneer code wijzigingen door de tests komen, worden ze automatisch uitgerold. Hiermee is je value cycle nog korter dan bij continuous delivery.
+  us:
+    header: Hoe wij kunnen helpen
+    body: Wij kunnen helpen met advies en software ontwikkeling. We kunnen helpen met het opzetten of verbeteren van een OTAP straat en het configureren van dockerfiles. Ontwikkelteams trainen om hun workflow efficiënter te maken
