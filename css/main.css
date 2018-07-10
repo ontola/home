@@ -527,6 +527,16 @@ th,td {
     background-color: rgb(247,247,247);
 }
 
+.section--intro {
+    padding-bottom: 1em;
+    padding-top: 1em;
+    background: #f4f4f4;
+    font-weight: re;
+    color: #337293;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
 .section__content {
     margin: auto;
     max-width: 50rem;
