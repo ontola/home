@@ -56,9 +56,9 @@
         {% if page.namespace %}
           <a href="{% t {{ page.namespace }} {{ lang[0] }} %}">{{ lang[1] }}</a>
         {% elsif lang[0] == 'en' %}
-          <a href="{{ site.baseurl_root }}/">{{ lang[1] }}</a>
+          <a href="{{ site.baseurl_root }}{{ page.url}}">{{ lang[1] }}</a>
         {% else %}
-          <a href="{{ site.baseurl_root }}/{{ lang[0] }}/">{{ lang[1] }}</a>
+          <a href="{{ site.baseurl_root }}/{{ lang[0] }}{{ page.url}}">{{ lang[1] }}</a>
         {% endif %}
       {% endfor %}
         <!-- <a href="/about">About</a> -->
