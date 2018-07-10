@@ -68,7 +68,7 @@ contact:
 ci:
   hero: Verbeter jouw ontwikkelstraat
   title: Continuous integration advies
-  intro: Wij helpen jou kosten te besparen door jouw ontwikkelproces te optimaliseren. Voorkom bugs, release features sneller en krijg eerder feedback van klanten.
+  intro: Wij kunnen je helpen kosten te besparen door jouw ontwikkelproces te optimaliseren. Voorkom bugs, release features sneller en krijg eerder feedback van klanten.
   build:
     title: build
     header: Build Automation

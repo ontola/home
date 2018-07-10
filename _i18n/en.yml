@@ -68,7 +68,7 @@ contact:
 ci:
   hero: Improve your software development process
   title: Continuous integration advice
-  intro: We help you reduce costs and optimize your software development workflow. Prevent bugs, release features more quickly and receive customer feedback earlier.
+  intro: We can help you reduce costs and optimize your software development workflow. Prevent bugs, release features more quickly and receive customer feedback earlier.
   build:
     title: build
     header: Build Automation
