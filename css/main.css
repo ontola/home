@@ -356,7 +356,7 @@ th,td {
 .nav__wrapper {
     position: fixed;
     width: 100%;
-    z-index: 1;
+    z-index: 10;
     transition: background-color .8s;
     background-color: rgba(90, 145, 175, 0);
 }
@@ -447,6 +447,64 @@ th,td {
     width: 100%;;
 }
 
+.pillars--ci a {
+    background: #efefef;
+    padding: 0.5em 1em;
+    padding-left: 1.5em;
+    margin: 0;
+    display: inline-block;
+}
+
+.pillars--ci a::after,
+.pillars--ci a.current::after {
+    z-index: 2;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    /* margin-top:-1em; */
+    /* margin-left: -1em; */
+    top: 0;
+    left: 100%;
+    bottom: 0;
+
+    border-top: 1.3em solid transparent;
+    border-bottom: 1.3em solid transparent;
+    border-left: .6em solid #efefef;
+    background: none;
+}
+
+.pillars--ci a::before {
+    z-index: 1;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    /* margin-top:-1em; */
+    /* margin-left: -1em; */
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    border-top: 1.3em solid transparent;
+    border-bottom: 1.3em solid transparent;
+    border-left: .6em solid white;
+}
+
+.pillars--ci a:first-child::before {
+    display: none;
+}
+
+.pillars--ci a:current {
+    background-color: rgb(179, 63, 63);
+}
+
+.pillars--ci a:current::after {
+    display: none;
+}
+
 .post, .posts {
     max-width: 50rem;
     margin: auto;
@@ -532,7 +590,6 @@ th,td {
     padding-top: 1em;
     background: #f4f4f4;
     font-weight: re;
-    color: #337293;
     font-size: 1.2em;
     font-weight: bold;
 }
