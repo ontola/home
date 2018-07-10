@@ -76,7 +76,7 @@ ci:
   test:
     title: test
     header: Test Automation
-    body: After automating the compilation process, you can do the same for testing. Discover bugs as soon as possible with test automation. Deploy only code which passes all tests. This way, you can guarantee that features will keep on working. With automated tests, programming becomes more fun and producive, since you can make changes to your code with confidence.
+    body: After automating the compilation process, you can do the same for testing. Discover bugs as soon as possible with test automation. Deploy only code which passes all tests. This way, you can guarantee that features will keep on working. With automated tests, programming becomes more fun and productive, since you can make changes to your code with confidence.
   integrate:
     title: integrate
     header: Continuous Integration
