@@ -5,7 +5,7 @@ author: joep
 permalink: /linked-data/
 image: "/img/posts/team.jpg"
 ---
-Linked data is way to structure and share information, using links.
+Linked data is a way to structure and share information, using links.
 These links make data more meaningful and useful.
 To understand why, let’s take a piece of information and upgrade its data quality step by step, until it's linked data.
 In the later paragraphs, I'll get a little more technical.
