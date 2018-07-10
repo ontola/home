@@ -2,7 +2,7 @@
 layout: post
 title: "A brief introduction to linked data"
 author: joep
-permalink: /linked-data/
+permalink: /what-is-linked-data/
 image: "/img/posts/team.jpg"
 ---
 Linked data is a way to structure and share information, using links.
@@ -20,13 +20,13 @@ If we wanted an application to do something with this sentence, such as display 
 A simpler solution would be to structure our information in a way that's useful to a computer.
 
 ## Tables
-If we put the information it in a table, we can simply let the computer read the `birthDate` field for Tim.
+If we put the information in a table, we can simply let the computer read the `birthDate` field for Tim.
 
 | name    | birthPlace | birthDate
 |---------|------------|-----------
 | Tim     | London     | 06-08-1955
 
-Great! By structuring data, computers can be programmed to do useful things with it.
+Great! By structuring data, computers can be programmed to do more useful things with it.
 
 But now someone else wants to use this data and has a couple of questions.
 
@@ -42,7 +42,7 @@ Now, let's add links to our data:
 | [Tim](https://www.w3.org/People/Berners-Lee/)     | [London](http://dbpedia.org/resource/London)     |1955-06-08     |
 
 By adding these links, others can answer all previous questions by themselves.
-The links solved three problems:
+The links solve three problems:
 
 * **Links provide extra information.** Follow the link to Tim to find out more about him.
 * **Links remove ambiguity.** We now know exactly which London we're talking about.
@@ -52,7 +52,7 @@ These three characteristics make linked data more reusable.
 The data quality has been improved, because other people and machines can now interpret and use the information more reliably.
 
 Let's take a step back and look at what went wrong in our first non-linked table.
-The problems were obvious to someone who re-uses the data but were not that relevant for the creator of the table.
+The problems were obvious to someone who reuses the data but were not that relevant for the creator of the table.
 I made the table, I knew which Tim and London I was talking about, I knew how the birthdate should be read.
 This closed worldview is the root cause of much of the problems in digital systems today.
 Developers tend to make software that produces data that only they can fully understand.
@@ -61,6 +61,7 @@ Linked data solves this problem by creating _consensus_ about what data represen
 
 ## Triples & the RDF data model
 In the example above, we're making two separate statements about Tim: one about his birthdate and one about his birthplace.
+Each statement had it's own cell in the table.
 In linked data, these statements are called  _triples_.
 That's because every triple statement has three parts: a _subject_, a _predicate_, and an _object_.
 
@@ -71,30 +72,29 @@ That's because every triple statement has three parts: a _subject_, a _predicate
 
 A bunch of triples about a single subject (such as Tim) is called a _resource_.
 That's why we call this data model the Resource Description Framework: _RDF_.
-It's the standard of and often even a synonym for linked data.
+It is the de facto standard for linked data.
 
-The object of the first triple, for the birthPlace, contains a link (an [_IRI_](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier)) to some other resource.
-The object of the second triple is not a link, but a so-called _literal value_.
-
-Instead of using a table of triples, we could visualize the RDF data as a [_graph_](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)):
+Instead of using a table of triples, we could visualize the RDF data as a [_graph_](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)).
 
 ![A visualization of the above triples in a graph](/img/posts/tim_graph.svg)
 
-Every circle is a resource and every line is a property (the predicate).
+The object of the first triple, for the birthPlace, contains a link (an [_IRI_](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier)) to some other resource (London).
+The object of the second triple (the birthDate) is not a link, but a so-called _literal value_.
+The literal value cannot have any properties, since it's not a resource.
 
 That's a lot of concepts that can be a bit confusing at first. However, they will appear all the time when you're actually working with linked data, so try to get an accurate mental model of these concepts.
 
 Again, let's take a step back and reflect.
-What do these properties of the RDF model actually mean?
-Firstly, it shows that RDF is actually a ridiculously _simple_ model.
+What can we say about the RDF model, looking at how it works?
+First, this shows that RDF is actually a ridiculously _simple_ model.
 You can represent anything in RDF with just three columns.
-You should note, however, that it is not possible to add extra information on edges (these arrows in the graph).
-That is different from most graph models.
+Second, you should note that it is not possible to add extra information on edges (these arrows in the graph).
+This is different from most graph models, where edges can have their own properties.
 Another characteristic of the RDF model is that it is really easy to combine two RDF graphs.
 Integrating two datasets is a luxury that most data models don't have.
 Finally, having a database model that is decoupled from your application models, means high _extensibility_ and _flexibility_.
 Changing your model or adding properties do not require any schema changes.
-This makes RDF so great for systems
+This makes RDF so great for systems that change over time.
 
 ## RDF Serialization
 Let's get a little more technical (feel free to skip to [Ontologies](#ontologies) if you don't like all this code).
@@ -159,7 +159,7 @@ Or as HTML with some extra RDFa attributes:
 ```
 
 The Turtle, JSON-LD and HTML+RDFa each contain the same RDF triples and can be automatically converted into each other.
-You can try this [for yourself](http://rdf-translator.appspot.com/) and discover even more RDF serialization formats, such as microformats, RDF/XML (don't use this, please) and N-Triples.
+You can try this [for yourself](http://rdf-translator.appspot.com/) and discover even more RDF serialization formats, such as microformats, RDF/XML (don't use this, [please](https://github.com/mhausenblas/rdfxml.info/blob/master/input/RDF-XML%20sucks%20-%20praise%20and%20damnation.txt)) and N-Triples.
 
 The number of serialization options for RDF might be a bit intimidating, but you shouldn't feel the need to understand and know every single one.
 The important thing to remember is that there's a lot of options that are compatible with each other and use the RDF data model.
@@ -178,16 +178,17 @@ Let's tell a bit more about Tim. First of all, it might be useful to specify tha
   schema:birthPlace <dbpedia:London>.
 ```
 
-We've referred to [foaf:Person](http://xmlns.com/foaf/spec/) to specify that Tim is an _instance_ of the class _Person_.
+We've referred to [`foaf:Person`](http://xmlns.com/foaf/spec/) to specify that Tim is an _instance_ of the class _Person_.
 Foaf (Friend Of A Friend) is an _ontology_ that is designed to describe data related to people in social networks.
 It defines the concept of Person and some attributes, such as a profile image.
+We used the `schema.org` ontology for the concepts of `birthDate` and `birthPlace`.
 
 There exist many ontologies, ranging from [organizations](https://www.w3.org/TR/vocab-org/) (which describes concepts like _memberships_) to [pizza](https://protege.stanford.edu/ontologies/pizza/pizza.owl) (which describes concepts like _ingredients_).
 These ontologies are often described in the OWL format, which is a subset of RDF.
 
 That means that OWL ontologies are open data models that can be interpreted by machines.
 
-Having an open, machine-readable data model up some really cool possibilities.
+Having an machine-readable data model opens up some really cool possibilities.
 You can [generate documentation](https://github.com/dgarijo/Widoco).
 You can use reasoners to _infer_ new knowledge about your data.
 You can even generate forms and other UI components in React using [Link-Lib](https://github.com/fletcher91/link-lib).
@@ -195,19 +196,18 @@ You can even generate forms and other UI components in React using [Link-Lib](ht
 The power of the ontology goes far, but that deserves its own article.
 
 ## Publishing linked data
-Great, we've described Tim using linked data.
-Now we want to share our linked data.
+Linked data is meant to be shared.
 We can do this in several ways:
 
 Firstly, there's the **data dump**.
 Serialize your RDF in the way you like and make it accessible as a single file.
-If someone just wants to know something about a single subject in your data dump, however, he'd have to download the entire data dump.
+However, if someone just wants to know something about a single subject (or resource) in your data dump, he'd have to download the entire data dump.
 That's cumbersome and makes your data not that re-usable as it could be.
-And besides, data dumps are hard to manage and therefore likely to be outdated.
+Furthermore, data dumps are hard to manage and therefore likely to be outdated.
 
 **Subject pages** to the rescue!
 Make the RDF data available through HTTP at the location where you'd expect it: at _the same link as the resource IRI_.
-Doing this makes your data truly linked, since every resource can now be downloaded seperately and automatically.
+Doing this makes your data truly linked, since every resource can now be downloaded separately and automatically.
 Subject pages can be either _static_ or _dynamic_.
 Static subject pages are simply RDF files hosted on some URL.
 Sharing static subject pages is very simple, but static data is hard to maintain or edit.
@@ -226,16 +226,17 @@ For example, you can get these [cool boxes in google](https://developers.google.
 However, annotated pages are more for adding a bit of spice to your existing webpage than to make huge datasets available.
 Parsing (reading) RDFa from a large HTML document will always be more expensive than reading Turtle or any other simple triple RDF format.
 
-A radically different way to share your data is through a **SPARQL** endpoint.
+A radically different way to share your linked data is through a **SPARQL** endpoint.
 SPARQL is a _query language_, like SQL, designed to perform complex search queries in large RDF graphs.
-With SPARQL, you can run queries such as 'which pianists live in the Netherlands', or 'what proteins are involved in signal transductions and related to pyramidial neurons?'.
-It is a very powerful language designed to work on RDF graphs.
-However, keep in mind that a SPARQL endpoint is a bit more work to set up and host, and not many software packages actualy can.
+With SPARQL, you can run queries such as 'which pianists live in the Netherlands', or 'what proteins are involved in signal transductions and related to pyramidal neurons?'.
+SPARQL is without any doupt extremely powerful, but using it as the primary measure to share your RDF data might not always be the best idea.
+Keep in mind that a SPARQL endpoint is a bit more work to set up and host.
+You will probably need to store your RDF data in a specialized triple store, which is
 
 Other technologies like [Linked Data Fragments](http://linkeddatafragments.org/) and [HDT](http://www.rdfhdt.org/what-is-hdt/) allow for even more efficient sharing and storing of linked data.
 
 Note that there's a difference between linked data and linked _open_ data.
-Although linked data would be a great choice for publishing open data, you don't have to make you linked data accessible to others.
+Although linked data would be a great choice for publishing open data, you don't have to make your linked data accessible to others.
 It's perfectly possible to secure linked data.
 
 ## Further reading
