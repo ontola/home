@@ -200,9 +200,11 @@ Linked data is meant to be shared.
 We can do this in several ways:
 
 Firstly, there's the **data dump**.
-Serialize your RDF in the way you like and make it accessible as a single file.
+Serialize your RDF the way you like and make it accessible as a single file.
+It's the easiest and often the cheapest way to publish your data.
 However, if someone just wants to know something about a single subject (or resource) in your data dump, he'd have to download the entire data dump.
-That's cumbersome and makes your data not that re-usable as it could be.
+That's cumbersome, and makes your data not as re-usable as it could be.
+All processing and querying efforts are left to the downloader.
 Furthermore, data dumps are hard to manage and therefore likely to be outdated.
 
 **Subject pages** to the rescue!
@@ -229,9 +231,11 @@ Parsing (reading) RDFa from a large HTML document will always be more expensive 
 A radically different way to share your linked data is through a **SPARQL** endpoint.
 SPARQL is a _query language_, like SQL, designed to perform complex search queries in large RDF graphs.
 With SPARQL, you can run queries such as 'which pianists live in the Netherlands', or 'what proteins are involved in signal transductions and related to pyramidal neurons?'.
-SPARQL is without any doupt extremely powerful, but using it as the primary measure to share your RDF data might not always be the best idea.
-Keep in mind that a SPARQL endpoint is a bit more work to set up and host.
-You will probably need to store your RDF data in a specialized triple store, which is
+SPARQL is without any doupt extremely powerful, but using it as the primary measure to share your RDF data might be difficult for your project.
+If you want one, you will probably need to store your RDF data in a specialized triple store that features a SPARQL endpoint.
+Not many databases do, unfortunately, so you'll be limited to either proprietary solutions or projects with relatively little adoption and support.
+Ask yourself if your users will need to run complex queries on your data.
+For most linked data projects, I'd recommend to use a conventional database and serialize the data to some RDF format when a user sends a request, i.e. use the aforementioned subject pages pattern instead of a SPARQL endpoint.
 
 Other technologies like [Linked Data Fragments](http://linkeddatafragments.org/) and [HDT](http://www.rdfhdt.org/what-is-hdt/) allow for even more efficient sharing and storing of linked data.
 
