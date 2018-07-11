@@ -92,3 +92,22 @@ ci:
   us:
     header: Hoe wij kunnen helpen
     body: Wij kunnen helpen met advies en software ontwikkeling. We kunnen helpen met het opzetten of verbeteren van een OTAP straat en het configureren van dockerfiles. Ontwikkelteams trainen om hun workflow efficiënter te maken
+sd:
+  hero: Wij realisen jouw online platform
+  title: Softwareontwikkelingvoor online platforms
+  intro: Wij bouwen op maat gemaakte, uitgebreide webapplicaties.
+  flexible:
+    title: flexibel
+    header: Software die evolueert met jouw organisatie
+    body: Onze software is ontworpen om te veranderen over tijd. Wijzigingen in jouw ontwerpen of modellen kunnen met minimale wijzigingen in de code worden gerealiseerd. Zo blijven de kosten voor onderhoud en doorontwikkeling zo laag mogelijk.
+  extensive:
+    title: uitgebreid
+    header: Jouw wensen, jouw platform
+    body: Reacties, authenticatie, single-sign-on, notificaties, een e-mail service, een RESTful linked data API, data export, zoeken, rechtenbeheer, versiebeheer, documenten bewerken... Wij kunnen bouwen wat jij nodig hebt.
+  fast:
+    title: snel
+    header: Online binnen weken
+    body: Dankzij onze APEX technologie, kunnen we uitgebreide en maat gemaakte webapplicaties realizeren op korte tijdschaal. Wij werken Agile, dus je kunt meekijken met alle wijzigingen en een hoge mate van controle houden tijdens het ontwikkelproces.
+  us:
+    header: Hoe wij kunnen helpen
+    body: Wij kunnen helpen met het realiseren van een volledig functionele MVP voor jouw project of start-up, we kunnen een op maat gemaakte intranet applicatie opzetten, of de kern opzetten voor jouw nieuwe SAAS dienst. Neem contact op om te kijken wat wij voor jou kunnen doen!

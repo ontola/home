@@ -92,3 +92,22 @@ ci:
   us:
     header: How we can help
     body: We can offer advice and consultancy to improve your software development workflow. We can train development teams to make their workflow more efficient.
+sd:
+  hero: We help you realize your online platform
+  title: Software development for web applications
+  intro: We build tailor made, feature-rich web applications.
+  flexible:
+    title: flexible
+    header: Software that evolves with your organization
+    body: We build software that is designed to change over time. Updates in your models and designs require minimal changes in code, which keeps development and maintenance costs as low as possible.
+  extensive:
+    title: extensive
+    header: All the features that you need
+    body: Whether you need commenting, authentication, single-sign-on, notifications, an e-mail service, a RESTful linked data API, data export, search, rights management, version control, document editing... Name it; we've got you covered.
+  fast:
+    title: fast
+    header: Online within weeks
+    body: Using our APEX technology, we can realize feature-rich and customized applications in short timeframes. We work Agile, so you get to see the changes as they happen and maintain a high degree of control during the development process.
+  us:
+    header: How we can help
+    body: We can help realize a fully functional MVP for your project or start-up, realize a custom made intranet platform or set up the core for a new SAAS company. Get in touch to find out what we can do for you!
