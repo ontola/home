@@ -6,28 +6,28 @@ permalink: /blog/api-design/
 ---
 
 The internet started off as a place for linked documents.
-However, HTML documents are not that useful for other machines that need a specific piece of information.
+However, where humans are perfectly capable of understanding HTML documents, this does not apply for machines that need a specific piece of information.
 That’s why every decent web service has an API, and probably uses it for their website, app, integrations and external services.
 But unfortunately, too many APIs are unnecessarily hard to use and unintuitive.
 In this article, I'll give some practical advice on designing a RESTful, hypermedia API that follows web conventions.
 
 ## Use URLs as IDs
-Every thing in your API, every concept, should have it’s own URL. The URL should serve as both an _identifier_ as well as a _locator_: it is the identity of a thing and it provides a way to fetch information about it. URLs are the best type of identifiers every invented, and you should use them.
+Every thing in your API, every concept, should have it’s own URL. The URL should serve as both an _identifier_ as well as a _locator_: it is the identity of a thing and it provides a way to fetch information about that thing.
 
 Firstly, URLs make your responses _far easier to navigate_. When a JSON object representing a social media post references some author with an identity of `18EA91FB19`, you don’t know where you can find that author. You need to read the API docs, discover the endpoint for authors and compose your request. If the ID was a URL, you would instantly know where to send that request to.
 
-Secondly, URLs are unique across systems. That means that if your IDs are actually URLs, other systems won’t have ID’s that conflate, so _you can use your data across multiple systems_. This is [what makes linked data awesome](https://ontola.io/what-is-linked-data).
+Secondly, URLs are not just unique identifiers in a single system, but also unique across different systems. The domain name takes care of that. This means that _you can use your data across multiple systems_. This is one of the properties [that makes linked data awesome](https://ontola.io/what-is-linked-data).
 
-Be sure that your URLs (and IDs) are stable. [Cool URIs don’t change](https://www.w3.org/Provider/Style/URI). If they really have to change, make sure the old URLs redirect to the new ones. Nobody likes broken links.
+Make sure that your URLs (and IDs) are stable. [Cool URIs don’t change](https://www.w3.org/Provider/Style/URI). If they really have to change, make sure the old URLs redirect to the new ones. Nobody likes broken links.
 
-## Your API endpoint = your website
-Of course, every API needs an endpoint. Just make sure that it does not differ from your normal website. Don’t use a subdomain, like `api.example.com` or a sub-path, like `example.com/api`. Your endpoint should be the root of your webpage: `example.com`.
+## Your API endpoint is your website
+You don't need a subdomain for your API, like `api.example.com` or a sub-path, like `example.com/api`. Your endpoint should be the root of your webpage: `example.com`.
 
-If you used a special API endpoint and, you’d break the rules from the previous paragraph: the URL does not serve as a locator or the URL would change across versions (and that’s not cool).
+Use a single URL for every resource; don't use one URL for the HTML version and a different one for the JSON version. This makes your API easier to use, because someone who navigates your website can know at any time how to access the same resource in some other format.
 
-So how do I know if my server should send HTML or JSON to a client, if I can’t use a special endpoint? Just use [HTTP content negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept)! A client can send preferences about what it wants to receive in the `Accept` HTTP header. The default header for web browsers is `text/HTML`, but for most APIs, a machine readable setting such as `application/json` is more suitable.
+But if the URL does not change across format, how do you request the right one? This is where [HTTP content negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept) comes in handy. A client can send preferences about what kind of content it wants to receive in the `Accept` HTTP header. The default header for web browsers is `text/HTML`, but for most APIs, a machine readable setting such as `application/json` is more suitable.
 
-But what about API versioning, you ask. Your API changes over time, and versions will become deprecated. The solution, again, is to use a HTTP header. Use an `api-version` header or a [specific Mime type](https://developer.github.com/v3/media/) in your requests.
+But what about API versioning? We want our URLs _not to change_, so we should not use different URLs for different API versions. The solution, again, is to use a HTTP header. Use an `api-version` header or a [specific Mime type](https://developer.github.com/v3/media/) in your requests.
 
 ## Use query parameters correctly
 The [URI spec](https://tools.ietf.org/html/rfc3986#section-3.4) tells us to use query parameters only for _non-hierarchical data_.
@@ -72,7 +72,7 @@ Make sure all your IDs are actually links, and your context is included. Now all
 Keep in mind that the links that you use should preferably resolve to some document that explains what your concept represents. A good starting point to find relevant concepts is [schema.org](https://schema.org).
 
 ## Offer various serialization options
-Be as flexible as possible in your serialization options. For many MVC frameworks, the amount of effort required to add new serializers is not that bad. For example, we wrote [a library for Ruby on Rails](https://github.com/argu-co/rdf-serializers) to serialize to JSON-LD, RDF/XML, N3, N-triples and Turtle.
+Be as flexible as possible in your serialization options. For many MVC frameworks, the amount of effort required to add new serializers is not that bad. For example, we wrote [a library for Ruby on Rails](https://github.com/argu-co/rdf-serializers) to serialize to JSON-LD, RDF/XML, N3, N-triples and Turtle. Use the aforementioned HTTP accept header to handle content negotiation.
 
 ## Standardize index pages and pagination
 You’re probably going to need index pages that use pagination. How to deal with that? Pagination is not a trivial problem, but luckily for you, you’re not the first to encounter it. Don’t try to reinvent the wheel and use something that already exists, such as [W3C activity stream collections](https://www.w3.org/TR/activitystreams-core/#collections) or [Hydra collections](http://www.hydra-cg.com/spec/latest/core/#collections).
