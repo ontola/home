@@ -40,14 +40,14 @@
     </div>
   </nav>
   <div class="container">
-      <meta name="description" content="The internet started off as a place for linked documents.However, HTML documents are not that useful for other machines that need a specific piece of informa...">
+      <meta name="description" content="The internet started off as a place for linked documents.However, where humans are perfectly capable of understanding HTML documents, this does not apply for...">
 <meta property="og:site_name" content="">
 
 <title>Best practices for RESTful API design</title>
 <meta property="og:title" content="Best practices for RESTful API design">
 <meta property="og:type" content="article">
 <meta property="og:description" content="The internet started off as a place for linked documents.
-However, HTML documents are not that useful for other machines that need a specific piece of information.
+However, where humans are perfectly capable of understanding HTML documents, this does not apply for machines that need a specific piece of information.
 That’s why every decent web service has an API, and probably uses it for their website, app, integrations and external services.
 But unfortunately, too many APIs are unnecessarily hard to use and unintuitive.
 In this article, I’ll give some practical advice on designing a RESTful, hypermedia API that follows web conventions.
@@ -82,28 +82,28 @@ In this article, I’ll give some practical advice on designing a RESTful, hyper
   </div>
   
   <p>The internet started off as a place for linked documents.
-However, HTML documents are not that useful for other machines that need a specific piece of information.
+However, where humans are perfectly capable of understanding HTML documents, this does not apply for machines that need a specific piece of information.
 That’s why every decent web service has an API, and probably uses it for their website, app, integrations and external services.
 But unfortunately, too many APIs are unnecessarily hard to use and unintuitive.
 In this article, I’ll give some practical advice on designing a RESTful, hypermedia API that follows web conventions.</p>
 
 <h2 id="use-urls-as-ids">Use URLs as IDs</h2>
-<p>Every thing in your API, every concept, should have it’s own URL. The URL should serve as both an <em>identifier</em> as well as a <em>locator</em>: it is the identity of a thing and it provides a way to fetch information about it. URLs are the best type of identifiers every invented, and you should use them.</p>
+<p>Every thing in your API, every concept, should have it’s own URL. The URL should serve as both an <em>identifier</em> as well as a <em>locator</em>: it is the identity of a thing and it provides a way to fetch information about that thing.</p>
 
 <p>Firstly, URLs make your responses <em>far easier to navigate</em>. When a JSON object representing a social media post references some author with an identity of <code class="highlighter-rouge">18EA91FB19</code>, you don’t know where you can find that author. You need to read the API docs, discover the endpoint for authors and compose your request. If the ID was a URL, you would instantly know where to send that request to.</p>
 
-<p>Secondly, URLs are unique across systems. That means that if your IDs are actually URLs, other systems won’t have ID’s that conflate, so <em>you can use your data across multiple systems</em>. This is <a href="https://ontola.io/what-is-linked-data">what makes linked data awesome</a>.</p>
+<p>Secondly, URLs are not just unique identifiers in a single system, but also unique across different systems. The domain name takes care of that. This means that <em>you can use your data across multiple systems</em>. This is one of the properties <a href="https://ontola.io/what-is-linked-data">that makes linked data awesome</a>.</p>
 
-<p>Be sure that your URLs (and IDs) are stable. <a href="https://www.w3.org/Provider/Style/URI">Cool URIs don’t change</a>. If they really have to change, make sure the old URLs redirect to the new ones. Nobody likes broken links.</p>
+<p>Make sure that your URLs (and IDs) are stable. <a href="https://www.w3.org/Provider/Style/URI">Cool URIs don’t change</a>. If they really have to change, make sure the old URLs redirect to the new ones. Nobody likes broken links.</p>
 
-<h2 id="your-api-endpoint--your-website">Your API endpoint = your website</h2>
-<p>Of course, every API needs an endpoint. Just make sure that it does not differ from your normal website. Don’t use a subdomain, like <code class="highlighter-rouge">api.example.com</code> or a sub-path, like <code class="highlighter-rouge">example.com/api</code>. Your endpoint should be the root of your webpage: <code class="highlighter-rouge">example.com</code>.</p>
+<h2 id="your-api-endpoint-is-your-website">Your API endpoint is your website</h2>
+<p>You don’t need a subdomain for your API, like <code class="highlighter-rouge">api.example.com</code> or a sub-path, like <code class="highlighter-rouge">example.com/api</code>. Your endpoint should be the root of your webpage: <code class="highlighter-rouge">example.com</code>.</p>
 
-<p>If you used a special API endpoint and, you’d break the rules from the previous paragraph: the URL does not serve as a locator or the URL would change across versions (and that’s not cool).</p>
+<p>Use a single URL for every resource; don’t use one URL for the HTML version and a different one for the JSON version. This makes your API easier to use, because someone who navigates your website can know at any time how to access the same resource in some other format.</p>
 
-<p>So how do I know if my server should send HTML or JSON to a client, if I can’t use a special endpoint? Just use <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept">HTTP content negotiation</a>! A client can send preferences about what it wants to receive in the <code class="highlighter-rouge">Accept</code> HTTP header. The default header for web browsers is <code class="highlighter-rouge">text/HTML</code>, but for most APIs, a machine readable setting such as <code class="highlighter-rouge">application/json</code> is more suitable.</p>
+<p>But if the URL does not change across format, how do you request the right one? This is where <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept">HTTP content negotiation</a> comes in handy. A client can send preferences about what kind of content it wants to receive in the <code class="highlighter-rouge">Accept</code> HTTP header. The default header for web browsers is <code class="highlighter-rouge">text/HTML</code>, but for most APIs, a machine readable setting such as <code class="highlighter-rouge">application/json</code> is more suitable.</p>
 
-<p>But what about API versioning, you ask. Your API changes over time, and versions will become deprecated. The solution, again, is to use a HTTP header. Use an <code class="highlighter-rouge">api-version</code> header or a <a href="https://developer.github.com/v3/media/">specific Mime type</a> in your requests.</p>
+<p>But what about API versioning? We want our URLs <em>not to change</em>, so we should not use different URLs for different API versions. The solution, again, is to use a HTTP header. Use an <code class="highlighter-rouge">api-version</code> header or a <a href="https://developer.github.com/v3/media/">specific Mime type</a> in your requests.</p>
 
 <h2 id="use-query-parameters-correctly">Use query parameters correctly</h2>
 <p>The <a href="https://tools.ietf.org/html/rfc3986#section-3.4">URI spec</a> tells us to use query parameters only for <em>non-hierarchical data</em>.</p>
@@ -158,7 +158,7 @@ Make sure all your IDs are actually links, and your context is included. Now all
 Keep in mind that the links that you use should preferably resolve to some document that explains what your concept represents. A good starting point to find relevant concepts is <a href="https://schema.org">schema.org</a>.</p>
 
 <h2 id="offer-various-serialization-options">Offer various serialization options</h2>
-<p>Be as flexible as possible in your serialization options. For many MVC frameworks, the amount of effort required to add new serializers is not that bad. For example, we wrote <a href="https://github.com/argu-co/rdf-serializers">a library for Ruby on Rails</a> to serialize to JSON-LD, RDF/XML, N3, N-triples and Turtle.</p>
+<p>Be as flexible as possible in your serialization options. For many MVC frameworks, the amount of effort required to add new serializers is not that bad. For example, we wrote <a href="https://github.com/argu-co/rdf-serializers">a library for Ruby on Rails</a> to serialize to JSON-LD, RDF/XML, N3, N-triples and Turtle. Use the aforementioned HTTP accept header to handle content negotiation.</p>
 
 <h2 id="standardize-index-pages-and-pagination">Standardize index pages and pagination</h2>
 <p>You’re probably going to need index pages that use pagination. How to deal with that? Pagination is not a trivial problem, but luckily for you, you’re not the first to encounter it. Don’t try to reinvent the wheel and use something that already exists, such as <a href="https://www.w3.org/TR/activitystreams-core/#collections">W3C activity stream collections</a> or <a href="http://www.hydra-cg.com/spec/latest/core/#collections">Hydra collections</a>.</p>

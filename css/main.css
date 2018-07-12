@@ -102,17 +102,17 @@ html {
     font-family: 'open-sans', sans-serif;
     line-height: 1.5em;
     font-size: 1.1em;
-    background-color: #1A5576;
 }
 
 body {
     min-height: 100%;
-    background-color: white;
+    background-color: #1A5576;
     display: flex;
     flex-direction: column;
 }
 
 .container {
+    background-color: white;
     flex: 1 0 auto;
 }
 
