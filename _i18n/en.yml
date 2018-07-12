@@ -111,7 +111,7 @@ sd:
   standardized:
     title: open
     header: Prevent lock-in, connect to other systems
-    body: Standards make software better. Our linked data API's use W3C standards, so users can reuse the data. Our code is written using conventions and popular technology, so your developers can pick up where we left off. This way, you don't become dependent on us.
+    body_html: Standards make software better. Our <a href="/blog/api-design/">linked data API's</a> use W3C standards, so users can reuse the data. Our code is written using conventions and popular technology, so your developers can pick up where we left off. This way, you don't become dependent on us.
   hi_tech:
     title: high tech
     header: Technology on an enterprise level

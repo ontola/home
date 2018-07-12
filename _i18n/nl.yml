@@ -111,7 +111,7 @@ sd:
   standardized:
     title: open
     header: Voorkom lock-in, verbind aan andere systemen
-    body: Standaarden maken software beter. De linked data API's van onze software hanteren W3C standaarden, zodat hergebruikers er snel mee aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelaars eventueel zelf verder kunnen met onze code. Zo blijf je niet van ons afhankelijk.
+    body_html: Standaarden maken software beter. De <a href="/blog/api-design/">linked data API's</a> van onze software hanteren W3C standaarden, zodat hergebruikers er snel mee aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelaars eventueel zelf verder kunnen met onze code. Zo blijf je niet van ons afhankelijk.
   hi_tech:
     title: high tech
     header: Technologie op enterprise niveau
