@@ -299,6 +299,11 @@ th,td {
     position: relative;
 }
 
+.hero.hero--narrow h3,
+.hero.hero--narrow h1 {
+    max-width: 35rem;
+}
+
 .highlighter-rouge {
     position: relative;
 }
@@ -506,10 +511,11 @@ th,td {
 }
 
 .post, .posts {
-    max-width: 50rem;
+    max-width: 35rem;
     margin: auto;
     padding: 1em;
     margin-top: 1em;
+    line-height: 1.6em;
 }
 
 .post__preview {
@@ -528,7 +534,7 @@ th,td {
 }
 
 .post h2 {
-    margin-top: 1.3em;
+    margin-top: 1.5em;
 }
 
 .post img {
