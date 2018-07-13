@@ -88,7 +88,7 @@ But unfortunately, too many APIs are unnecessarily hard to use and unintuitive.
 In this article, I’ll give some practical advice on designing a RESTful, hypermedia API that follows web conventions.</p>
 
 <h2 id="use-urls-as-ids">Use URLs as IDs</h2>
-<p>Every thing in your API, every concept, should have it’s own URL. The URL should serve as both an <em>identifier</em> as well as a <em>locator</em>: it is the identity of a thing and it provides a way to fetch information about that thing.</p>
+<p>Every thing in your API, every concept, should have its own URL. The URL should serve as both an <em>identifier</em> as well as a <em>locator</em>: it is the identity of a thing and it provides a way to fetch information about that thing.</p>
 
 <p>Firstly, URLs make your responses <em>far easier to navigate</em>. When a JSON object representing a social media post references some author with an identity of <code class="highlighter-rouge">18EA91FB19</code>, you don’t know where you can find that author. You need to read the API docs, discover the endpoint for authors and compose your request. If the ID was a URL, you would instantly know where to send that request to.</p>
 
@@ -99,11 +99,21 @@ In this article, I’ll give some practical advice on designing a RESTful, hyper
 <h2 id="your-api-endpoint-is-your-website">Your API endpoint is your website</h2>
 <p>You don’t need a subdomain for your API, like <code class="highlighter-rouge">api.example.com</code> or a sub-path, like <code class="highlighter-rouge">example.com/api</code>. Your endpoint should be the root of your webpage: <code class="highlighter-rouge">example.com</code>.</p>
 
-<p>Use a single URL for every resource; don’t use one URL for the HTML version and a different one for the JSON version. This makes your API easier to use, because someone who navigates your website can know at any time how to access the same resource in some other format.</p>
+<p>This is useful, because as discussed above the URL should be both the identifier as the locator of a single resource. Whether someone is looking for a HTML version or for example a JSON representation of a resource, he should be able to use the same URL. This makes your API easier to use, because someone who navigates your website can know at any time how to access the same resource in some other format.</p>
 
 <p>But if the URL does not change across format, how do you request the right one? This is where <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept">HTTP content negotiation</a> comes in handy. A client can send preferences about what kind of content it wants to receive in the <code class="highlighter-rouge">Accept</code> HTTP header. The default header for web browsers is <code class="highlighter-rouge">text/HTML</code>, but for most APIs, a machine readable setting such as <code class="highlighter-rouge">application/json</code> is more suitable.</p>
 
 <p>But what about API versioning? We want our URLs <em>not to change</em>, so we should not use different URLs for different API versions. The solution, again, is to use a HTTP header. Use an <code class="highlighter-rouge">api-version</code> header or a <a href="https://developer.github.com/v3/media/">specific Mime type</a> in your requests.</p>
+
+<h2 id="use-sensible-hierarchy-in-urls">Use sensible hierarchy in URLs</h2>
+<p>Having a URL hierarchy that makes sense is not just important for your website, but also for your API. Since your API structure should be the same as your website structure, try to come up with a logical structure as soon as possible.</p>
+
+<p>A few things to keep in mind:</p>
+<ul>
+  <li>Move from large to small, from generic to specific.</li>
+  <li>Give every model its own route and use that route for indexing. Use its sub routes for instances.
+*</li>
+</ul>
 
 <h2 id="use-query-parameters-correctly">Use query parameters correctly</h2>
 <p>The <a href="https://tools.ietf.org/html/rfc3986#section-3.4">URI spec</a> tells us to use query parameters only for <em>non-hierarchical data</em>.</p>
@@ -122,24 +132,23 @@ In this article, I’ll give some practical advice on designing a RESTful, hyper
   <li><strong>Good</strong>: <code class="highlighter-rouge">example.com/posts/123?show_hidden=true</code></li>
 </ul>
 
-<h2 id="one-endpoint-per-model">One endpoint per model</h2>
-<p>Instead of having a bunch of endpoints for various types of actions, have one endpoint for every concept or model in your application.</p>
-
-<p>For showing all posts:</p>
+<h2 id="use-http-methods">Use HTTP methods</h2>
+<p>Instead of having a bunch of endpoints for various types of actions, use <em>a single URL for every single resource</em> in your application. Distinguish between actions using <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">HTTP methods</a>.</p>
 
 <ul>
-  <li><strong>Bad</strong>: <code class="highlighter-rouge">example.com/showAllPosts</code></li>
-  <li><strong>Bad</strong>: <code class="highlighter-rouge">example.com/removeAllPosts</code></li>
-  <li><strong>Good</strong>: <code class="highlighter-rouge">example.com/posts/</code></li>
+  <li><strong>Bad</strong>: <code class="highlighter-rouge">GET example.com/showPost/123</code></li>
+  <li><strong>Bad</strong>: <code class="highlighter-rouge">GET example.com/removePost/123</code></li>
+  <li><strong>Good</strong>: <code class="highlighter-rouge">GET example.com/posts/123</code></li>
+  <li><strong>Good</strong>: <code class="highlighter-rouge">DELETE example.com/posts/123</code></li>
 </ul>
 
-<h2 id="use-http-methods">Use HTTP methods</h2>
 <p>There is a big difference between requests that aim to read content, create content or edit content. Make sure to use the GET, POST, PUT and PATCH HTTP methods correctly. The GET, POST and PUT operations are <em>idempotent</em>, which means that they guarantee not to change the state of the server. This distinction is important, because it tells the client whether it can try again if an error occurs. It also helps with caching, since only GET request should be cacheable.</p>
 
-<p>For deleting a single post:</p>
+<p>If you want to offer a form to delete or edit a resource, <em>that form will be a different resource from the resource itself</em>, so it will need a seperate URL. A nice convention is to nest that form resource below the resource itself. This way, the user just adds <code class="highlighter-rouge">/edit</code> to the a URL if he wants to edit that resource.</p>
+
 <ul>
-  <li><strong>Bad</strong>: <code class="highlighter-rouge">GET example.com/posts/123/deletePost</code></li>
-  <li><strong>Good</strong>: <code class="highlighter-rouge">DELETE example.com/posts/123</code></li>
+  <li><strong>Good</strong>: <code class="highlighter-rouge">GET example.com/posts/123/remove</code></li>
+  <li><strong>Good</strong>: <code class="highlighter-rouge">GET example.com/posts/123/edit</code></li>
 </ul>
 
 <h2 id="use-http-status-codes">Use HTTP status codes</h2>
@@ -167,7 +176,7 @@ Keep in mind that the links that you use should preferably resolve to some docum
 <p>Your default API (the HTML one) doesn’t need one, so your JSON API <a href="https://ruben.verborgh.org/blog/2013/11/29/the-lie-of-the-api/#api-keys-are-a-lie">shouldn’t need one</a> as well. Use rate limiting to make sure your servers don’t fry. You can still use API keys or authentication to give access to special parts of your API, of course.</p>
 
 <h2 id="use-a-doc-subdomain-for-api-docs">Use a <code class="highlighter-rouge">doc.</code> subdomain for API docs</h2>
-<p>Here’s <a href="https://medium.com/@fletcher91/semantic-documentation-1177d563783c">a clever little idea</a>: make your API documentation available at <code class="highlighter-rouge">doc.example.com</code>. If a user wants to know how your api works for a certain page, he just adds .doc in front of his current URL. Show the user a page that tells something useful about how to use the API at that route.</p>
+<p>Here’s <a href="https://medium.com/@fletcher91/semantic-documentation-1177d563783c">a clever little idea</a>: make your API documentation available at <code class="highlighter-rouge">doc.example.com</code>. If a user wants to know how your api works for a certain page, he just adds <code class="highlighter-rouge">doc.</code> in front of his current URL. Show the user a page that tells something useful about how to use the API at that route.</p>
 
 <h2 id="use-your-own-api">Use your own API</h2>
 <p>Finally, and perhaps most importantly: eat your own dog food. Make your API a first-class citizen by using it as the only way to access information from that system. API-driven development forces you to make your API actually work. It helps you document your API properly, since your colleagues need to use it as well. Besides, it helps to make your application more modular and gradually helps you realize a microservice architecture, which has its own set of benefits.</p>
