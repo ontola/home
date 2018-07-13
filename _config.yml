@@ -11,3 +11,4 @@ languageNames:
   nl: Nederlands
 exclude_from_localizations: ["css", "img", "js", "_posts"]
 baseurl: ""
+production_url: "http://ontola.io"
