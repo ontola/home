@@ -249,4 +249,4 @@ If you're looking for inspiration and example projects, check out the [Linked Op
 If you want to learn more about reasoning and ontologies, try the [W3C OWL primer](https://www.w3.org/TR/2012/REC-owl2-primer-20121211/).
 For SPARQL, the [Apache Jena tutorial](https://jena.apache.org/tutorials/sparql.html) could help.
 
-And of course, if you want to get help with your linked data project, feel free to send me an [email](joep@argu.co)!
+And of course, if you want to get help with your linked data project, feel free to send me an [email](mailto:joep@argu.co)!
