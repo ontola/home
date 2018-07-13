@@ -817,3 +817,21 @@ th,td {
         page-break-after: avoid;
     }
 }
+
+/* .hero--home h1 {
+    display: none;
+}
+.nav__links a {
+    display: none;
+}
+.nav__logo span {
+    display: none;
+}
+.nav__logo img {
+    width: 2.4em;
+    position: fixed;
+    left: 43%;
+    font-size: 3em;
+    right: 50%;
+    top: 25%;
+} */
