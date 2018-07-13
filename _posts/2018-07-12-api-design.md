@@ -61,7 +61,7 @@ Instead of having a bunch of endpoints for various types of actions, use _a sing
 * **Good**: `GET example.com/posts/123`
 * **Good**: `DELETE example.com/posts/123`
 
-There is a big difference between requests that aim to read content, create content or edit content. Make sure to use the GET, POST, PUT and PATCH HTTP methods correctly. The GET, POST and PUT operations are _idempotent_, which means that they guarantee not to change the state of the server. This distinction is important, because it tells the client whether it can try again if an error occurs. It also helps with caching, since only GET request should be cacheable.
+There is a big difference between requests that aim to read content, create content or edit content. Make sure to use the GET, POST, PUT and PATCH HTTP methods correctly. The GET and PUT operations are _idempotent_, which means that a request can be repeated multiple times without side effects. This distinction is important, because it tells the client whether it can try again if an error occurs. It also helps with caching, since only GET request should be cacheable.
 
 If you want to offer a form to delete or edit a resource, _that form will be a different resource from the resource itself_, so it will need a seperate URL. A nice convention is to nest that form resource below the resource itself. This way, the user just adds `/edit` to the a URL if he wants to edit that resource.
 
