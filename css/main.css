@@ -518,6 +518,31 @@ th,td {
     line-height: 1.6em;
 }
 
+.post__navigation {
+    background-color: #f4f4f4;
+}
+
+.post__navigation__wrapper {
+    display: flex;
+    flex-direction: row;
+    max-width: 50em;
+    margin: auto;
+}
+
+.post__navigation a {
+    padding: 1em;
+}
+
+.post__navigation__next {
+    align-self: flex-end;
+    text-align: right;
+    flex: 1;
+}
+
+.post__navigation__previous {
+    align-self: flex-start;
+}
+
 .post__preview {
     max-width: 33em;
     margin-bottom: 1em;
