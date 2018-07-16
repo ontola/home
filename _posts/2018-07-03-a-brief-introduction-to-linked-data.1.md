@@ -3,7 +3,6 @@ layout: post
 title: "A brief introduction to linked data"
 author: joep
 permalink: /what-is-linked-data/
-image: "/img/posts/team.jpg"
 ---
 Linked data is a way to structure and share information, using links.
 These links make data more meaningful and useful.
