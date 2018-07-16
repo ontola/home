@@ -10,5 +10,7 @@ languageNames:
   en: English
   nl: Nederlands
 exclude_from_localizations: ["css", "img", "js", "_posts"]
-baseurl: ""
+# Where it's available
 production_url: "http://ontola.io"
+# Direct sub-route after production URL
+baseurl: ""

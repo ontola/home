@@ -63,13 +63,13 @@ Instead of having a bunch of endpoints for various types of actions, use _a sing
 
 There is a big difference between requests that aim to read content, create content or edit content. Make sure to use the GET, POST, PUT and PATCH HTTP methods correctly. The GET and PUT operations are _idempotent_, which means that a request can be repeated multiple times without side effects. This distinction is important, because it tells the client whether it can try again if an error occurs. It also helps with caching, since only GET request should be cacheable.
 
-If you want to offer a form to delete or edit a resource, _that form will be a different resource from the resource itself_, so it will need a seperate URL. A nice convention is to nest that form resource below the resource itself. This way, the user just adds `/edit` to the a URL if he wants to edit that resource.
+If you want to offer a form to delete or edit a resource, _that form will be a different resource from the original item_, so it will need a seperate URL. A nice convention is to nest that form resource below the original item. This way, the user just adds `/edit` to the a URL if he wants to edit that resource.
 
 * **Good**: `GET example.com/posts/123/remove`
 * **Good**: `GET example.com/posts/123/edit`
 
 ## Use HTTP status codes
-Pretty much all types of error messages can be categorized in the existing [HTTP status codes](https://developer.mozilla.org/nl/docs/Web/HTTP/Status). These are not just useful to humans, but especially to machines. Status codes can be parsed far quicker than a body text. Another advantage is that they are standardized, so the client library is likely to know what the status code represents. You don’t have to support every single one, but at the very least make sure that you use the five categories:
+Pretty much all types of error messages can be categorized in the existing [HTTP status codes](https://developer.mozilla.org/nl/docs/Web/HTTP/Status). These are not just useful to humans, but especially to machines. Status codes can be parsed far more quickly than a body text. Another advantage is that they are standardized, so the client library is likely to know what the status code represents. You don’t have to support every single one, but at the very least make sure that you use the five categories:
 * **1xx: informational** - just letting you know
 * **2xx: successful** - everything’s OK
 * **3xx: redirection** - your content is somewhere else
@@ -77,15 +77,17 @@ Pretty much all types of error messages can be categorized in the existing [HTTP
 * **5xx: server error** - we’re doing something wrong
 
 ## Add context to your JSON
-Assuming you use JSON as a serialization format, you can use [@context](https://json-ld.org/spec/FCGS/json-ld/20180607/#the-context). The @context object is a nifty little idea to make your API more self-descriptive. An @context object describes what the various keys in your JSON actually represent. It provides links to where the definition can be found.
-Make sure all your IDs are actually links, and your context is included. Now all your JSON has become JSON-LD, which is [linked data](https://ontola.io/what-is-linked-data). That means that your JSON data is now convertible to RDF (Turtle, N3, N-triples, etc.), which means it becomes far more reusable.
+Assuming you use JSON as a serialization format, you can use [@context](https://json-ld.org/spec/FCGS/json-ld/20180607/#the-context). The @context object is a nifty little idea to make your API more self-descriptive. It describes what the various keys in your JSON actually represent. It provides links to where the definition can be found.
+
+Make sure all your IDs are actually links, and your context is included. Now all your JSON has become JSON-LD, which is [linked data](https://ontola.io/what-is-linked-data). That means that your JSON data is now convertible to other RDF formats (Turtle, N3, N-triples, etc.), which means it becomes far more reusable.
+
 Keep in mind that the links that you use should preferably resolve to some document that explains what your concept represents. A good starting point to find relevant concepts is [schema.org](https://schema.org).
 
 ## Offer various serialization options
 Be as flexible as possible in your serialization options. For many MVC frameworks, the amount of effort required to add new serializers is not that bad. For example, we wrote [a library for Ruby on Rails](https://github.com/argu-co/rdf-serializers) to serialize to JSON-LD, RDF/XML, N3, N-triples and Turtle. Use the aforementioned HTTP accept header to handle content negotiation.
 
 ## Standardize index pages and pagination
-You’re probably going to need index pages that use pagination. How to deal with that? Pagination is not a trivial problem, but luckily for you, you’re not the first to encounter it. Don’t try to reinvent the wheel and use something that already exists, such as [W3C activity stream collections](https://www.w3.org/TR/activitystreams-core/#collections) or [Hydra collections](http://www.hydra-cg.com/spec/latest/core/#collections).
+You’re probably going to need index pages with pagination. How to deal with that? Pagination is not a trivial problem, but luckily for you, you’re not the first to encounter it. Don’t try to reinvent the wheel; use something that already exists, such as [W3C activity stream collections](https://www.w3.org/TR/activitystreams-core/#collections) or [Hydra collections](http://www.hydra-cg.com/spec/latest/core/#collections).
 
 ## Don’t require an API key
 Your default API (the HTML one) doesn’t need one, so your JSON API [shouldn’t need one](https://ruben.verborgh.org/blog/2013/11/29/the-lie-of-the-api/#api-keys-are-a-lie) as well. Use rate limiting to make sure your servers don’t fry. You can still use API keys or authentication to give access to special parts of your API, of course.
@@ -94,6 +96,6 @@ Your default API (the HTML one) doesn’t need one, so your JSON API [shouldn’
 Here's [a clever little idea](https://medium.com/@fletcher91/semantic-documentation-1177d563783c): make your API documentation available at `doc.example.com`. If a user wants to know how your api works for a certain page, he just adds `doc.` in front of his current URL. Show the user a page that tells something useful about how to use the API at that route.
 
 ## Use your own API
-Finally, and perhaps most importantly: eat your own dog food. Make your API a first-class citizen by using it as the only way to access information from that system. API-driven development forces you to make your API actually work. It helps you document your API properly, since your colleagues need to use it as well. Besides, it helps to make your application more modular and gradually helps you realize a microservice architecture, which has its own set of benefits.
+Finally, and perhaps most importantly: eat your own dog food. Make your API a first-class citizen by using it as the only way to access information from that system. API-driven development forces you to make your API actually work. It helps you document your API properly, since your colleagues need to use it as well. Besides, you'll make your application more modular and gradually realize a microservice architecture, which has its own set of benefits.
 
 [Let me know](mailto:joep@argu.co) if I'm missing something, or if you want help with API design!
