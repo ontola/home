@@ -1,13 +1,14 @@
 <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 <meta property="og:site_name" content="{{ site.title }}">
+<meta property="twitter:card" content="summary">
 {% if page.title %}
 <title>{{ page.title }}</title>
 <meta property="og:title" content="{{ page.title }}">
-<meta property="og:type" content="article">
+<meta property="twitter:title" content="{{ page.title }}">
 <meta property="og:description" content="{{ page.excerpt | strip_html }}"/>
 {% else %}
 <meta property="og:title" content="{{ site.title }}">
-<meta property="og:type" content="website">
+<meta property="twitter:title" content="{{ site.title }}">
 <meta property="og:description" content="{{ site.description }}">
 {% endif %}
 {% if page.date %}
@@ -16,8 +17,10 @@
 {% endif %}
 {% if page.image %}
 <meta property="og:image" content="{{ page.image }}">
+<meta property="twitter:image" content="{{ page.image }}">
 {% else %}
 <meta property="og:image" content="/img/default.jpg">
+<meta property="twitter:image" content="/img/default.jpg">
 {% endif %}
 <meta property="og:url" content="{{ site.production_url }}{{ page.url }}" />
 {% if page.tags %}
@@ -28,4 +31,7 @@
 {% endif %}
 {% if author %}
 <meta property="article:author" content="{{ author.name }}" />
+<meta property="og:type" content="article">
+{% else %}
+<meta property="og:type" content="website">
 {% endif %}
