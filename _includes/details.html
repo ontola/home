@@ -1,0 +1,6 @@
+{% assign author = site.data.authors[post.author] %}
+{% if author %}
+<div class="details">
+  <a href="https://twitter.com/{{ author.twitter }}" target="_blank" class="details__author">{{ author.name }}, </a>{{ post.date | date_to_string }}
+</div>
+{% endif %}

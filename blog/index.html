@@ -11,14 +11,7 @@ title: Linked Data Blog
 				<h2>
 						<a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
 				</h2>
-				{% if post.author %}
-				<div class="details">
-					<a href="/author/{{ post.author }}" target="_blank" class="details__author">
-						{{ site.data.authors[post.author].name }},
-					</a>
-					{{ post.date | date_to_string }}
-				</div>
-				{% endif %}
+				{% include details.html %}
 				{{ post.content | strip_html | truncatewords:40}}<br>
 				<a href="{{ post.url }}">Read more...</a><br><br>
 			</div>
