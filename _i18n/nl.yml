@@ -103,7 +103,7 @@ sd:
   extensive:
     title: uitgebreid
     header: Jouw wensen, jouw platform
-    body_html: CMS, reacties, authenticatie, single-sign-on, notificaties, een e-mail service, een RESTful <a href="/nl/linked-data">linked data</a> API, data export, zoeken, rechtenbeheer, versiebeheer, documenten bewerken... Wij kunnen bouwen wat jij nodig hebt.
+    body_html: CMS, reacties, authenticatie, single-sign-on, notificaties, een e-mail service, an intuitive API, <a href="/nl/what-is-linked-data">linked data</a>, data export, zoeken, rechtenbeheer, versiebeheer, documenten bewerken... Wij kunnen bouwen wat jij nodig hebt.
   fast:
     title: snel
     header: Online binnen enkele weken
@@ -111,7 +111,7 @@ sd:
   standardized:
     title: open
     header: Voorkom lock-in, verbind aan andere systemen
-    body_html: Standaarden maken software beter. De <a href="/blog/api-design/">linked data API's</a> van onze software hanteren W3C standaarden, zodat hergebruikers er snel mee aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelaars eventueel zelf verder kunnen met onze code. Zo blijf je niet van ons afhankelijk.
+    body_html: Standaarden maken software beter. De <a href="/blog/api-design/">RESTful linked data API's</a> van onze software hanteren W3C standaarden, zodat hergebruikers er snel mee aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelaars eventueel zelf verder kunnen met onze code. Zo blijf je niet van ons afhankelijk.
   hi_tech:
     title: high tech
     header: Technologie op enterprise niveau

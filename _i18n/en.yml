@@ -103,7 +103,7 @@ sd:
   extensive:
     title: extensive
     header: All the features that you need
-    body_html: Whether you need commenting, authentication, single-sign-on, notifications, an e-mail service, a RESTful <a href="/linked-data">linked data</a> API, data export, search, rights management, version control, document editing... Name it; we've got you covered.
+    body_html: Whether you need commenting, authentication, single-sign-on, notifications, an e-mail service, an intuitive API, <a href="/what-is-linked-data">linked data</a>, data export, search, rights management, version control, document editing... Name it; we've got you covered.
   fast:
     title: fast
     header: Online within weeks
@@ -111,7 +111,7 @@ sd:
   standardized:
     title: open
     header: Prevent lock-in, connect to other systems
-    body_html: Standards make software better. Our <a href="/blog/api-design/">linked data API's</a> use W3C standards, so users can reuse the data. Our code is written using conventions and popular technology, so your developers can pick up where we left off. This way, you don't become dependent on us.
+    body_html: Standards make software better. Our <a href="/blog/api-design/">RESTful API's</a> use W3C standards, so the data is highly reuseable. Our code is written using conventions and popular technology, so your developers can pick up where we left off. This way, you don't become dependent on us.
   hi_tech:
     title: high tech
     header: Technology on an enterprise level
