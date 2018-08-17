@@ -18,9 +18,8 @@
   <link rel="stylesheet" href="/css/main.css"/>
   <link rel="stylesheet" href="/css/syntax.css"/>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
-  <meta name="google-site-verification" content="7p7f4q0wfYjGSpGyp2ODhGlSoOYQPlgS6JtGcDJ4d28" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  <meta name="description" content="The internet started off as a place for linked documents.However, where humans are perfectly capable of understanding HTML documents, this does not apply for...">
+  <meta name="description" content="The internet started off as a place for linked documents.However, where humans are perfectly capable of understanding HTML documents through a browser, this ...">
 <meta property="og:site_name" content="">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@ontola.io">
@@ -29,9 +28,9 @@
 <meta property="og:title" content="Best practices for RESTful API design">
 <meta name="twitter:title" content="Best practices for RESTful API design">
 <meta property="og:description" content="The internet started off as a place for linked documents.
-However, where humans are perfectly capable of understanding HTML documents, this does not apply for machines that need a specific piece of information.
+However, where humans are perfectly capable of understanding HTML documents through a browser, this does not apply for machines that need a specific piece of information.
 That’s why every decent web service has an API, and probably uses it for their website, app, integrations and external services.
-But unfortunately, too many APIs are unnecessarily hard to use and unintuitive.
+Unfortunately, too many APIs are unnecessarily hard to use and unintuitive.
 In this article, I’ll give some practical advice on designing a RESTful, hypermedia API that follows web conventions.
 
 "/>
@@ -96,19 +95,19 @@ In this article, I’ll give some practical advice on designing a RESTful, hyper
 
 
   <p>The internet started off as a place for linked documents.
-However, where humans are perfectly capable of understanding HTML documents, this does not apply for machines that need a specific piece of information.
+However, where humans are perfectly capable of understanding HTML documents through a browser, this does not apply for machines that need a specific piece of information.
 That’s why every decent web service has an API, and probably uses it for their website, app, integrations and external services.
-But unfortunately, too many APIs are unnecessarily hard to use and unintuitive.
+Unfortunately, too many APIs are unnecessarily hard to use and unintuitive.
 In this article, I’ll give some practical advice on designing a RESTful, hypermedia API that follows web conventions.</p>
 
 <h2 id="use-urls-as-ids">Use URLs as IDs</h2>
-<p>Every thing in your API, every concept, should have its own URL. The URL should serve as both an <em>identifier</em> as well as a <em>locator</em>: it is the identity of a thing and it provides a way to fetch information about that thing.</p>
+<p>Every thing in your API, every individual resource, should have its own URL. The URL should serve as both an <em>identifier</em> as well as a <em>locator</em>: it is the identity of the thing and it provides a way to fetch information about that thing. This makes URLs really useful.</p>
 
-<p>Firstly, URLs make your responses <em>far easier to navigate</em>. When a JSON object representing a social media post references some author with an identity of <code class="highlighter-rouge">18EA91FB19</code>, you don’t know where you can find that author. You need to read the API docs, discover the endpoint for authors and compose your request. If the ID was a URL, you would instantly know where to send that request to. This is not just great for humans, but also for machines, since they can’t read your API docs - but they can navigate URLs.</p>
+<p>Firstly, URLs make your responses <em>far easier to navigate</em>. Imagine a JSON object representing a social media post that references some author with an identity of <code class="highlighter-rouge">18EA91FB19</code>. From this information, you wouldn’t know where to find that author. You need to read the API docs, discover the endpoint for authors and compose your request. If the ID was a URL, you would instantly know where to send that request to. This is not just great for humans, but also for machines, since they can’t read your API docs - but they can navigate URLs.</p>
 
-<p>Secondly, URLs are not just unique identifiers in a single system, but also unique across different systems. The domain name takes care of that. This means that <em>you can use your data across multiple systems</em>. This is one of the properties <a href="https://ontola.io/what-is-linked-data">that makes linked data awesome</a>.</p>
+<p>Secondly, URLs are always unique. URLs are not just unique identifiers in a single system, but also unique across different systems. The domain name takes care of that. This means that you can use your data across multiple systems without worrying about name collisions in identifiers. This is one of the properties <a href="https://ontola.io/what-is-linked-data">that makes linked data awesome</a>.</p>
 
-<p>Make sure that your URLs (and IDs) are stable. <a href="https://www.w3.org/Provider/Style/URI">Cool URIs don’t change</a>. If they really have to change, make sure the old URLs redirect to the new ones. Nobody likes broken links.</p>
+<p>Make sure that your URLs are stable. <a href="https://www.w3.org/Provider/Style/URI">Cool URIs don’t change</a>. If they really have to change, make sure the old URLs redirect to the new ones. Nobody likes broken links.</p>
 
 <h2 id="your-api-endpoint-is-your-website">Your API endpoint is your website</h2>
 <p>You don’t need a subdomain for your API, like <code class="highlighter-rouge">api.example.com</code> or a sub-path, like <code class="highlighter-rouge">example.com/api</code>. Your endpoint should be the root of your webpage: <code class="highlighter-rouge">example.com</code>.</p>
@@ -186,7 +185,7 @@ In this article, I’ll give some practical advice on designing a RESTful, hyper
 <p>Keep in mind that the links that you use should preferably resolve to some document that explains what your concept represents. A good starting point to find relevant concepts is <a href="https://schema.org">schema.org</a>.</p>
 
 <h2 id="offer-various-serialization-options">Offer various serialization options</h2>
-<p>Be as flexible as possible in your serialization options. For many MVC frameworks, the amount of effort required to add new serializers is not that bad. For example, we wrote <a href="https://github.com/argu-co/rdf-serializers">a library for Ruby on Rails</a> to serialize to JSON-LD, RDF/XML, N3, N-triples and Turtle. Use the aforementioned HTTP accept header to handle content negotiation.</p>
+<p>Be as flexible as possible in your serialization options. Someone who uses your API might be good at dealing with JSON, but may not know how to work with XML. Serializing an in-memory object to various serialization options is often not that complicated. If you use Ruby on Rails, check out our <a href="https://github.com/argu-co/rdf-serializers">rdf-serializers library</a> which supports JSON-LD, RDF/XML, N3, N-triples and Turtle. Use the <a href="#your-api-endpoint-is-your-website">aforementioned</a> HTTP accept header to handle content negotiation.</p>
 
 <h2 id="standardize-index-pages-and-pagination">Standardize index pages and pagination</h2>
 <p>You’re probably going to need index pages with pagination. How to deal with that? Pagination is not a trivial problem, but luckily for you, you’re not the first to encounter it. Don’t try to reinvent the wheel; use something that already exists, such as <a href="https://www.w3.org/TR/activitystreams-core/#collections">W3C activity stream collections</a> or <a href="http://www.hydra-cg.com/spec/latest/core/#collections">Hydra collections</a>.</p>
