@@ -93,8 +93,8 @@ ci:
     header: Hoe wij kunnen helpen
     body: Wij kunnen helpen met advies en software ontwikkeling. We kunnen helpen met het opzetten of verbeteren van een OTAP straat en het configureren van dockerfiles. Ontwikkelteams trainen om hun workflow efficiënter te maken
 sd:
-  hero: Wij realisen jouw online platform
-  title: Softwareontwikkelingvoor online platforms
+  hero: Wij realiseren online platforms
+  title: Softwareontwikkeling voor online platforms
   intro: Van jouw idee naar een volledige webapplicatie binnen enkele weken.
   flexible:
     title: flexibel

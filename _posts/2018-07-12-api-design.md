@@ -6,19 +6,19 @@ permalink: /blog/api-design/
 ---
 
 The internet started off as a place for linked documents.
-However, where humans are perfectly capable of understanding HTML documents, this does not apply for machines that need a specific piece of information.
+However, where humans are perfectly capable of understanding HTML documents through a browser, this does not apply for machines that need a specific piece of information.
 That’s why every decent web service has an API, and probably uses it for their website, app, integrations and external services.
-But unfortunately, too many APIs are unnecessarily hard to use and unintuitive.
+Unfortunately, too many APIs are unnecessarily hard to use and unintuitive.
 In this article, I'll give some practical advice on designing a RESTful, hypermedia API that follows web conventions.
 
 ## Use URLs as IDs
-Every thing in your API, every concept, should have its own URL. The URL should serve as both an _identifier_ as well as a _locator_: it is the identity of a thing and it provides a way to fetch information about that thing.
+Every thing in your API, every individual resource, should have its own URL. The URL should serve as both an _identifier_ as well as a _locator_: it is the identity of the thing and it provides a way to fetch information about that thing. This makes URLs really useful.
 
-Firstly, URLs make your responses _far easier to navigate_. When a JSON object representing a social media post references some author with an identity of `18EA91FB19`, you don’t know where you can find that author. You need to read the API docs, discover the endpoint for authors and compose your request. If the ID was a URL, you would instantly know where to send that request to. This is not just great for humans, but also for machines, since they can't read your API docs - but they can navigate URLs.
+Firstly, URLs make your responses _far easier to navigate_. Imagine a JSON object representing a social media post that references some author with an identity of `18EA91FB19`. From this information, you wouldn't know where to find that author. You need to read the API docs, discover the endpoint for authors and compose your request. If the ID was a URL, you would instantly know where to send that request to. This is not just great for humans, but also for machines, since they can't read your API docs - but they can navigate URLs.
 
-Secondly, URLs are not just unique identifiers in a single system, but also unique across different systems. The domain name takes care of that. This means that _you can use your data across multiple systems_. This is one of the properties [that makes linked data awesome](https://ontola.io/what-is-linked-data).
+Secondly, URLs are always unique. URLs are not just unique identifiers in a single system, but also unique across different systems. The domain name takes care of that. This means that you can use your data across multiple systems without worrying about name collisions in identifiers. This is one of the properties [that makes linked data awesome](https://ontola.io/what-is-linked-data).
 
-Make sure that your URLs (and IDs) are stable. [Cool URIs don’t change](https://www.w3.org/Provider/Style/URI). If they really have to change, make sure the old URLs redirect to the new ones. Nobody likes broken links.
+Make sure that your URLs are stable. [Cool URIs don’t change](https://www.w3.org/Provider/Style/URI). If they really have to change, make sure the old URLs redirect to the new ones. Nobody likes broken links.
 
 ## Your API endpoint is your website
 You don't need a subdomain for your API, like `api.example.com` or a sub-path, like `example.com/api`. Your endpoint should be the root of your webpage: `example.com`.
@@ -84,7 +84,7 @@ Make sure all your IDs are actually links, and your context is included. Now all
 Keep in mind that the links that you use should preferably resolve to some document that explains what your concept represents. A good starting point to find relevant concepts is [schema.org](https://schema.org).
 
 ## Offer various serialization options
-Be as flexible as possible in your serialization options. For many MVC frameworks, the amount of effort required to add new serializers is not that bad. For example, we wrote [a library for Ruby on Rails](https://github.com/argu-co/rdf-serializers) to serialize to JSON-LD, RDF/XML, N3, N-triples and Turtle. Use the aforementioned HTTP accept header to handle content negotiation.
+Be as flexible as possible in your serialization options. Someone who uses your API might be good at dealing with JSON, but may not know how to work with XML. Serializing an in-memory object to various serialization options is often not that complicated. If you use Ruby on Rails, check out our [rdf-serializers library](https://github.com/argu-co/rdf-serializers) which supports JSON-LD, RDF/XML, N3, N-triples and Turtle. Use the [aforementioned](#your-api-endpoint-is-your-website) HTTP accept header to handle content negotiation.
 
 ## Standardize index pages and pagination
 You’re probably going to need index pages with pagination. How to deal with that? Pagination is not a trivial problem, but luckily for you, you’re not the first to encounter it. Don’t try to reinvent the wheel; use something that already exists, such as [W3C activity stream collections](https://www.w3.org/TR/activitystreams-core/#collections) or [Hydra collections](http://www.hydra-cg.com/spec/latest/core/#collections).
