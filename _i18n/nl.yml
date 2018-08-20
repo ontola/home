@@ -68,11 +68,11 @@ contact:
 ci:
   hero: Verbeter jouw ontwikkelstraat
   title: Continuous integration advies
-  intro: Wij kunnen je helpen kosten te besparen door jouw ontwikkelproces te optimaliseren. Voorkom bugs, release features sneller en krijg eerder feedback van klanten.
+  intro: Wij kunnen je helpen kosten te besparen door jouw ontwikkelproces te optimaliseren. Voorkom bugs, release features sneller en krijg eerder feedback van klanten. Draai je software in containers om downtime te voorkomen.
   build:
     title: build
     header: Build Automation
-    body: Automatiseer het compileren van software en verlaag zo de kosten aan serveronderhoud en devops. Zorg er voor dat exceptions automatisch worden afgevangen, zodat ontwikkelaars direct van fouten op de hoogte worden gesteld. Gebruik containers om je online service in minuten in plaats van dagen op te schalen. Hanteer één omgeving voor ontwikkel, test en productie. Sluit eenvoudig aan op honderden diensten en datacenters.
+    body: Automatiseer het compileren van software en verlaag zo de kosten aan serveronderhoud en devops. Gebruik Docker om je software te laten draaien in virtuele machines, zodat je snel kan schalen en je geen zorgen hoeft te maken over hardware falen. Zorg er voor dat exceptions automatisch worden afgevangen, zodat ontwikkelaars direct van fouten op de hoogte worden gesteld. Gebruik containers om je online service in minuten in plaats van dagen op te schalen. Hanteer één omgeving voor ontwikkel, test en productie. Sluit eenvoudig aan op honderden diensten en datacenters.
   test:
     title: test
     header: Test Automation
