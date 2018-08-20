@@ -91,7 +91,7 @@ ci:
     body: Het releasen van een nieuwe versie gaat volledig automatisch. Wanneer code wijzigingen door de tests komen, worden ze automatisch uitgerold. Hiermee is je value cycle nog korter dan bij continuous delivery.
   us:
     header: Hoe wij kunnen helpen
-    body: Wij kunnen helpen met advies en software ontwikkeling. We kunnen helpen met het opzetten of verbeteren van een OTAP straat en het configureren van dockerfiles. Ontwikkelteams trainen om hun workflow efficiënter te maken
+    body: Wij kunnen helpen met advies en software ontwikkeling. We kunnen helpen met het opzetten of verbeteren van een OTAP straat en het configureren van dockerfiles. Ook kunnen we ontwikkelteams trainen om hun workflow efficiënter te maken.
 sd:
   hero: Wij realiseren online platforms
   title: Softwareontwikkeling voor online platforms
