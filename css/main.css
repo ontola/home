@@ -702,6 +702,12 @@ th,td {
     margin-bottom: 1.2em;
 }
 
+#waves {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
 @media only screen and (max-width: 50em) {
     /* Style adjustments for viewports that meet the condition */
 
