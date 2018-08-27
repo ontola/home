@@ -1,9 +1,10 @@
 home:
   title: Ontola.io - Linked Data Software Ontwikkeling
+  short: Linked data
   description: Wij specialiseren ons in semantic web software ontwikkeling.
   hero: Wij zetten jouw data om naar linked data.
   linked_data:
-    title: linked data
+    title: data quality
     header: Verbeter jouw datakwaliteit
     body: Niet alle data is gelijk. Linked data is de meest herbruikbare, gestructureerde en gestandaardiseerde manier om informatie mee op te slaan. Bespaar kosten, verbeter toegankelijkheid en voorkom problemen. Het is begrijpelijk waarom linked data ook wel bekend staat als 5 ★ data.
     body_2: Wij helpen je graag met het bereiken van jouw linked data ambities.
@@ -67,6 +68,7 @@ contact:
   send: Verzenden
 ci:
   hero: Verbeter jouw ontwikkelstraat
+  short: Continuous integration
   title: Continuous integration advies
   intro: Wij kunnen je helpen kosten te besparen door jouw ontwikkelproces te optimaliseren. Voorkom bugs, release features sneller en krijg eerder feedback van klanten. Draai je software in containers om downtime te voorkomen.
   build:
@@ -94,6 +96,7 @@ ci:
     body: Wij kunnen helpen met advies en software ontwikkeling. We kunnen helpen met het opzetten of verbeteren van een OTAP straat en het configureren van dockerfiles. Ook kunnen we ontwikkelteams trainen om hun workflow efficiënter te maken.
 sd:
   hero: Wij realiseren online platforms
+  short: Softwareontwikkeling
   title: Softwareontwikkeling voor online platforms
   intro: Van jouw idee naar een volledige webapplicatie binnen enkele weken.
   flexible:

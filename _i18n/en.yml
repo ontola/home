@@ -1,9 +1,10 @@
 home:
   title: Ontola.io - Linked Data Software Development
+  short: Linked data
   description: We specialize in developing semantic web applications.
   hero: We help you transform data into linked data.
   linked_data:
-    title: linked data
+    title: data quality
     header: Upgrade your data quality
     body: Not all data is created equal. Linked data is the most reusable, structured and standardized way to store information. Save costs, increase accessibility and prevent issues. There are good reasons for why it’s also known as 5 ★ data.
     body_2: We'd love to help you realize your linked data ambitions.
@@ -67,12 +68,13 @@ contact:
   send: Send
 ci:
   hero: Automate your software development process
+  short: Continuous integration
   title: Continuous integration advice
   intro: We can help you reduce costs and optimize your software development workflow. Prevent bugs, release features more quickly and receive customer feedback earlier.
   build:
     title: build
     header: Build Automation
-    body: Automate software compilation and reduce server maintenance and devops costs. Use Docker to run your software in virtual machines, so you can scale quickly and don't have to worry about hardware failure. Make sure that exceptions are caught automatically, so developers can learn about issues as quick as possible. Use containers to scale up your online service in minutes instead of days. Use a single environment for develop, test en production. Easily connect to hundreds of services and data centers.
+    body: The first step towards continous deployment. Automate software compilation to reduce deployment costs. Use Docker to run your software in virtual machines, so you can scale quickly and don't have to worry about hardware failure. Catch exceptions automatically, so your developers can learn about bugs when they happen. Use containers to scale up your online service in minutes instead of days. Use a single environment for develop, test en production - no more suprises. Easily connect to hundreds of services and data centers.
   test:
     title: test
     header: Test Automation
@@ -94,8 +96,9 @@ ci:
     body: We can offer advice and consultancy to improve your software development workflow. We look at your stack and deployment process, and give advice on how to improve it. We can realize these improvemnts by ourselves, or we can train development teams to make their workflow more efficient.
 sd:
   hero: We help you realize your online platform
+  short: Software development
   title: Software development for web applications
-  intro: We build tailor made, feature-rich web applications.
+  intro: A full-stack web development team for feature-rich applications.
   flexible:
     title: flexible
     header: Software that evolves with your organization
@@ -103,7 +106,7 @@ sd:
   extensive:
     title: extensive
     header: All the features that you need
-    body_html: Whether you need commenting, authentication, single-sign-on, notifications, an e-mail service, an intuitive API, <a href="/what-is-linked-data">linked data</a>, data export, search, rights management, version control, document editing... Name it; we've got you covered.
+    body_html: Whether you need commenting, authentication, single-sign-on, notifications, an e-mail service, an intuitive REST API, <a href="/what-is-linked-data">linked data</a>, data export, search, rights management, version control, document editing... Name it; we've got you covered.
   fast:
     title: fast
     header: Online within weeks

@@ -4,6 +4,7 @@
   bottom: 180px;
   right: 230px;
   transform: scale(.8);
+  z-index: 1;
 }
 
 .spoke {

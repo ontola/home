@@ -29,7 +29,19 @@ permalink: /continuous-integration
           <div class="hole"></div>
         </div>
       </div>
-    <h1 id="hero-text">{% t ci.hero %}</h1>
+      <div class="hero hero--home">
+        <div id="particles-js"></div>
+        <div class="hero__wrapper">
+          <nav class="hero__pillars">
+            <a href="/">{% t home.short %}</a>
+            <a href="/software-development">{% t sd.short %}</a>
+            <a href="/continuous-integration" class="current">{% t ci.short %}</a>
+          </nav>
+          <h1 id="hero-text">
+            {% t ci.hero %}
+          </h1>
+        </div>
+      </div>
   </div>
   <div class="section section--intro">
     <div class="section__content">

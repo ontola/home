@@ -6,9 +6,16 @@ permalink: /
 ---
   <div class="hero hero--home">
     <div id="particles-js"></div>
-    <h1 id="hero-text">
-      {% t home.hero %}
-    </h1>
+    <div class="hero__wrapper">
+      <nav class="hero__pillars">
+        <a href="/" class="current">{% t home.short %}</a>
+        <a href="/software-development">{% t sd.short %}</a>
+        <a href="/continuous-integration">{% t ci.short %}</a>
+      </nav>
+      <h1 id="hero-text">
+        {% t home.hero %}
+      </h1>
+    </div>
   </div>
   <!-- scripts -->
   <script src="/js/vendor/particles.min.js"></script>
