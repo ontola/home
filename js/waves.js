@@ -99,11 +99,26 @@ ClassicalNoise.prototype.noise = function(x, y, z) {
   return nxyz;
 };
 
+function setupCanvas(canvas) {
+  // Get the size of the canvas in CSS pixels.
+  var rect = canvas.getBoundingClientRect();
+  // Give the canvas pixel dimensions of their CSS
+  // size * the device pixel ratio.
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  var ctx = canvas.getContext('2d');
+  // Scale all drawing operations by the dpr, so you
+  // don't have to worry about the difference.
+  ctx.scale(dpr, dpr);
+  return ctx;
+}
+
 var canvas    = document.getElementById('waves'),
-    ctx       = canvas.getContext('2d'),
+    ctx       = setupCanvas(canvas),
 	  perlin    = new ClassicalNoise(),
-    variation = .003,
-    amp       = 100,
+    dpr       = window.devicePixelRatio || 1,
+    variation = .002,
+    amp       = 200,
     variators = [],
     max_lines = (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) ? 25 : 30,
     canvasWidth,
@@ -148,10 +163,10 @@ function animate() {
 }
 
 function resizeCanvas(){
-  container = document.getElementsByClassName('hero')[0].getBoundingClientRect();
+  container = canvas.getBoundingClientRect();
 
-	canvasWidth = container.width;
-	canvasHeight = container.height;
+	canvasWidth = container.width * dpr;
+	canvasHeight = container.height * dpr;
 
 	canvas.setAttribute("width", canvasWidth);
 	canvas.setAttribute("height", canvasHeight);
