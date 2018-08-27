@@ -98,11 +98,11 @@ sd:
   hero: We help you realize your online platform
   short: Software development
   title: Software development for web applications
-  intro: A full-stack web development team for feature-rich applications.
+  intro: A full-stack web development team to build your feature-rich web application.
   flexible:
     title: flexible
     header: Software that evolves with your organization
-    body: We build software that is designed to change over time. Updates in your models and designs require minimal changes in code, which keeps development and maintenance costs as low as possible.
+    body: We build software that is designed to change over time. Updates in your models and designs require minimal changes in code, which keeps development and maintenance costs as low as possible. This makes sure that your platform can grow with your vision.
   extensive:
     title: extensive
     header: All the features that you need
@@ -113,12 +113,12 @@ sd:
     body: Using our APEX technology, we can realize feature-rich and customized applications in short timeframes. We work Agile, so you get to see the changes as they happen and maintain a high degree of control during the development process.
   standardized:
     title: open
-    header: Prevent lock-in, connect to other systems
-    body_html: Standards make software better. Our <a href="/blog/api-design/">RESTful API's</a> use W3C standards, so the data is highly reuseable. Our code is written using conventions and popular technology, so your developers can pick up where we left off. This way, you don't become dependent on us.
+    header: No lock-in
+    body_html: Standards make software better. Our code is written using conventions and popular technology, so your developers can pick up where we left off. Where needed, we train your developers to work with the stack that we provide. Our <a href="/blog/api-design/">RESTful API's</a> are built on W3C standards, so your data will be highly reuseable. This way, you don't become dependent on us.
   hi_tech:
     title: high tech
     header: Technology on an enterprise level
-    body_html: Curious about our tools? We build our back-ends on Ruby on Rails, coupled with our APEX framework. We use a microservice architecture to maximize flexibility and reusability. Our software is built in docker images, which makes scaling as easy as possible. We develop user-friendly, fast front-ends in React. To maximize development speed and prevent bugs, we follow <a href="continuous-integration">strict development methods</a>.
+    body_html: Curious about our tools? We build our back-ends on Ruby on Rails, coupled with our APEX framework. We use a microservice architecture to maximize flexibility and reusability. Our software is built in docker images, which makes scaling as easy as possible. We develop user-friendly, fast, responsive and offline-capable front-ends in React. To maximize development speed and prevent bugs, we follow <a href="continuous-integration">strict development methods</a>.
   us:
     header: How we can help
     body: We can help realize a fully functional MVP for your project or start-up, realize a custom made intranet platform or set up the core for a new SAAS company. Get in touch to find out what we can do for you!

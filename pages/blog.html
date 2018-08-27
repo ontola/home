@@ -1,24 +1,15 @@
 ---
-layout: default
+layout: narrow
 title: Linked Data Blog
 permalink: /blog
 ---
-	<div class="hero hero--smaller hero--narrow">
-		<div class="hero__wrapper">
-			<h1 id="hero-text">
-				{{ page.title }}
-			</h1>
-		</div>
+{% for post in site.posts %}
+	<div class="post__preview">
+		<h2>
+				<a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+		</h2>
+		{% include details.html %}
+		{{ post.content | strip_html | truncatewords:40}}<br>
+		<a href="{{ post.url }}">Read more...</a><br><br>
 	</div>
-	<div class="posts">
-	  {% for post in site.posts %}
-	    <div class="post__preview">
-				<h2>
-						<a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-				</h2>
-				{% include details.html %}
-				{{ post.content | strip_html | truncatewords:40}}<br>
-				<a href="{{ post.url }}">Read more...</a><br><br>
-			</div>
-	  {% endfor %}
-	</div>
+{% endfor %}

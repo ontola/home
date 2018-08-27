@@ -113,8 +113,8 @@ sd:
     body: Dankzij onze APEX technologie, kunnen we uitgebreide en op maat gemaakte webapplicaties realiseren op korte tijdschaal. Wij werken Agile, dus je kunt meekijken met alle wijzigingen en een hoge mate van controle houden tijdens het ontwikkelproces.
   standardized:
     title: open
-    header: Voorkom lock-in, verbind aan andere systemen
-    body_html: Standaarden maken software beter. De <a href="/blog/api-design/">RESTful linked data API's</a> van onze software hanteren W3C standaarden, zodat hergebruikers er snel mee aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelaars eventueel zelf verder kunnen met onze code. Zo blijf je niet van ons afhankelijk.
+    header: Voorkom lock-in
+    body_html: Standaarden maken software beter. De <a href="/blog/api-design/">RESTful linked data API's</a> van onze software hanteren W3C standaarden, zodat hergebruikers eenvoudig met jouw data aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelteam eventueel zelf verder kunnen met onze code. Zo blijf je niet van ons afhankelijk.
   hi_tech:
     title: high tech
     header: Technologie op enterprise niveau
