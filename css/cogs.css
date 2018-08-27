@@ -1,83 +1,20 @@
-.cogs {
-  position: absolute;
-  opacity: .3;
-  bottom: 180px;
-  right: 230px;
-  transform: scale(.8);
+.cogs2 {
   z-index: 1;
+  opacity: .3;
 }
 
-.spoke {
-  background-color: white;
-  position: absolute;
-  height: 175px;
-  width:30px;
-  margin-left: -15px;
-  margin-top: -12.5px;
-  left: 50%;
-  border-radius: 5px;
-  z-index: 10;
-}
-
-.spoke + .spoke {
-  transform: rotateZ(45deg);
-}
-
-.spoke + .spoke + .spoke {
-  transform: rotateZ(-45deg);
-}
-
-.spoke + .spoke + .spoke + .spoke {
-  transform: rotateZ(90deg);
-}
-
-.cog {
+.oven{
   position:absolute;
-  background-color: white;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  z-index: 10;
-  animation: spin 5s infinite linear;
-}
-.cog + .cog {
-  animation-delay:.19s;
-  animation: spin2 5s infinite linear;
-  margin-top: 160px;
-  margin-left:30px;
-}
-.cog + .cog + .cog {
-  animation: spin 5s infinite linear;
-  margin-top: 65px;
-  margin-left:165px;
+  top: 25%;
+  left: 25%;
+  width:100%;
+  height:100%;
 }
 
-.hole {
-  position: absolute;
-  width: 130px;
-  height: 130px;
-  margin-left: 10px;
-  margin-top: 10px;
-  background-color: #397798;
-  border-radius: 50%;
-  z-index: 3000;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@keyframes spin2 {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(-360deg);
-  }
-}
+.st1{fill:white;}
+.cogs__circle-big{fill:#71A1BC;}
+.st3{fill:none;stroke:white;stroke-width:6;stroke-miterlimit:10;}
+.st4{fill:white;}
+.st5{fill:white;}
+.st7{fill:white;}
+.st9{fill:#71A1BC;}
