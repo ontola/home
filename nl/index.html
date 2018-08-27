@@ -63,9 +63,16 @@
   <div class="container">
         <div class="hero hero--home">
     <div id="particles-js"></div>
-    <h1 id="hero-text">
-      Wij zetten jouw data om naar linked data.
-    </h1>
+    <div class="hero__wrapper">
+      <nav class="hero__pillars">
+        <a href="/" class="current">Linked data</a>
+        <a href="/software-development">Softwareontwikkeling</a>
+        <a href="/continuous-integration">Continuous integration</a>
+      </nav>
+      <h1 id="hero-text">
+        Wij zetten jouw data om naar linked data.
+      </h1>
+    </div>
   </div>
   <!-- scripts -->
   <script src="/js/vendor/particles.min.js"></script>
@@ -73,7 +80,7 @@
   <div class="section" id="linked-data">
     <div class="section__content">
       <nav class="pillars">
-        <a href="#linked-data" class="current">linked data</a>
+        <a href="#linked-data" class="current">data quality</a>
         <a href="#ontology-modelling">ontologieën modelleren</a>
         <a href="#data-infrastructure">data infrastructuur</a>
         <a href="#web-development">webontwikkeling</a>
@@ -99,7 +106,7 @@
   <div class="section section--alt" id="ontology-modelling">
     <div class="section__content">
         <nav class="pillars">
-          <a href="#linked-data">linked data</a>
+          <a href="#linked-data">data quality</a>
           <a href="#ontology-modelling" class="current">ontologieën modelleren</a>
           <a href="#data-infrastructure">data infrastructuur</a>
           <a href="#web-development">webontwikkeling</a>
@@ -125,7 +132,7 @@
   <div class="section" id="data-infrastructure">
     <div class="section__content">
         <nav class="pillars">
-          <a href="#linked-data">linked data</a>
+          <a href="#linked-data">data quality</a>
           <a href="#ontology-modelling">ontologieën modelleren</a>
           <a href="#data-infrastructure" class="current">data infrastructuur</a>
           <a href="#web-development">webontwikkeling</a>
@@ -151,7 +158,7 @@
   <div class="section section--alt" id="web-development">
     <div class="section__content">
         <nav class="pillars">
-          <a href="#linked-data">linked data</a>
+          <a href="#linked-data">data quality</a>
           <a href="#ontology-modelling">ontologieën modelleren</a>
           <a href="#data-infrastructure">data infrastructuur</a>
           <a href="#web-development" class="current">webontwikkeling</a>
@@ -234,7 +241,7 @@
       <h2>Neem contact op</h2>
       <form
 class="form"
-action="https://formspree.io/ontola@argu.co"
+action="https://formspree.io/info@ontola.io"
 method="POST"
 >
   <label for="email">Jouw e-mailadres</label>
@@ -272,9 +279,9 @@ method="POST"
       </div>
       <div class="footer-row">
         <div class="footer__header">What we do</div>
-        <a href="/">Linked Data</a>
-        <a href="/software-development">Software Development</a>
-        <a href="/continuous-integration">Continuous Integration</a>
+        <a href="/">Linked data</a>
+        <a href="/software-development">Softwareontwikkeling</a>
+        <a href="/continuous-integration">Continuous integration</a>
       </div>
       <div class="footer-row">
         <div href="/" class="footer__header">Find us</div>
@@ -292,9 +299,9 @@ method="POST"
             <i title="Twitter" aria-label="Twitter" class="fab fa-twitter"></i>
           </a>
         </div>
-        <a href="mailto:ontola@argu.co">
+        <a href="mailto:info@ontola.io">
           <i class="fas fa-envelope"></i>
-          ontola@argu.co
+          info@ontola.io
         </a>
         <a href="tel:0031636020942">
           <i class="fas fa-phone"></i>
@@ -308,7 +315,10 @@ method="POST"
           <i class="fas fa-briefcase"></i>
           Argu B.V.</a> kvk 65684168<div>
         </div>
+      </div>
     </div>
+    <img class="footer__logo" src="/img/logo.svg" />
+  </div>
   </div>
   <script src="/js/main.js"></script>
   <script src="/js/navbarScroll.js"></script>
