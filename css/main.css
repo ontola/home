@@ -309,6 +309,12 @@ th,td {
     position: relative;
 }
 
+.hero--about{
+    background: url('/img/team.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
 #hero-text {
     z-index: 1;
 }
@@ -414,7 +420,7 @@ th,td {
 }
 
 .nav__wrapper {
-    position: fixed;
+    position: relative;
     width: 100%;
     z-index: 10;
     transition: background-color .8s;
@@ -713,6 +719,20 @@ th,td {
 
     .footer {
         flex-direction: column;
+    }
+
+    .hero--home h1 {
+        margin-bottom: 2rem;
+    }
+
+    .hero__pillars {
+        display: block;
+        overflow-wrap: initial;
+        overflow-x: auto;
+    }
+
+    .nav__links--collapsed {
+        display: none;
     }
 
     .pillars {

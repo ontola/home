@@ -2,15 +2,16 @@
 layout: default
 title: Ontola.io - Linked Data Software Development
 description: We're linked data web development specialists that can help you improve your data infrastructure.
+namespace: linked-data
 permalink: /
 ---
   <div class="hero hero--home">
     <div id="particles-js"></div>
     <div class="hero__wrapper">
       <nav class="hero__pillars">
-        <a href="/" class="current">{% t home.short %}</a>
-        <a href="/software-development">{% t sd.short %}</a>
-        <a href="/continuous-integration">{% t ci.short %}</a>
+        <a href="{% tl linked-data %}" class="current">{% t home.short %}</a>
+        <a href="{% tl software-development %}">{% t sd.short %}</a>
+        <a href="{% tl continuous-integration %}">{% t ci.short %}</a>
       </nav>
       <h1 id="hero-text">
         {% t home.hero %}
