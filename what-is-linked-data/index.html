@@ -67,10 +67,10 @@ I’ll discuss the RDF data model, serialization formats, ontologies and publish
         <img src="/img/logo.svg" />
         <span>Ontola</span><span class="nav__logo__tld">.io</span>
       </a>
-      <div class="nav__links">
+      <div class="nav__links nav__links--collapsed">
         <a href="/">home</a>
+        <a href="/about">about</a>
         <a href="/blog">blog</a>
-        <!-- <a href="/about">about</a> -->
         <a href="/contact">contact</a>
       </div>
     </div>
@@ -247,7 +247,7 @@ For example, here’s the same triples from the table and the graph above, seria
 
 <p>This example doesn’t look as good as the graph above, right?
 Long URLs tend to take up a lot of space and make the data a bit tough to read.
-We can use <em>namespaces</em> (denoted with  <code class="highlighter-rouge">@prefix</code>) to compress RDF data and make it more readable.</p>
+We can use <em>namespaces</em> (denoted with  <code class="highlighter-rouge"><span class="kd">@prefix</span></code>) to compress RDF data and make it more readable.</p>
 
 <div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">tim:</span><span class="w"> </span><span class="nl">&lt;https://www.w3.org/People/Berners-Lee/&gt;</span><span class="p">.</span><span class="w">
 </span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">schema:</span><span class="w"> </span><span class="nl">&lt;http://schema.org/&gt;</span><span class="p">.</span><span class="w">
@@ -401,15 +401,16 @@ For SPARQL, the <a href="https://jena.apache.org/tutorials/sparql.html">Apache J
           Ontola
         </div>
         <a href="/">Home</a>
+        <a href="/about">About</a>
         <a href="/blog">Blog</a>
         <a href="/contact">Contact</a>
         
-         
+           
+          
+          
+            <a href="/nl/what-is-linked-data/">Nederlands</a>
+          
         
-        
-          <a href="/nl/what-is-linked-data/">Nederlands</a>
-        
-      
         <!-- <a href="/about">About</a> -->
       </div>
       <div class="footer-row">
@@ -456,7 +457,6 @@ For SPARQL, the <a href="https://jena.apache.org/tutorials/sparql.html">Apache J
   </div>
   </div>
   <script src="/js/main.js"></script>
-  <script src="/js/navbarScroll.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121994595-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
