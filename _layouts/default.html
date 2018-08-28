@@ -27,15 +27,15 @@
   <![endif]-->
   <nav  id="navbar" class="nav__wrapper">
     <div class="nav">
-      <a href="/" class="nav__logo">
+      <a href="{% tl linked-data %}" class="nav__logo">
         <img src="/img/logo.svg" />
         <span>Ontola</span><span class="nav__logo__tld">.io</span>
       </a>
-      <div class="nav__links">
-        <a href="/">home</a>
-        <a href="/blog">blog</a>
-        <!-- <a href="/about">about</a> -->
-        <a href="/contact">contact</a>
+      <div class="nav__links nav__links--collapsed">
+        <a href="{% tl linked-data %}">home</a>
+        <a href="{% tl about %}">about</a>
+        <a href="{% tl blog %}">blog</a>
+        <a href="{% tl contact %}">contact</a>
       </div>
     </div>
   </nav>
@@ -48,26 +48,25 @@
         <div href="/" class="footer__header">
           Ontola
         </div>
-        <a href="/">Home</a>
-        <a href="/blog">Blog</a>
-        <a href="/contact">Contact</a>
+        <a href="{% tl linked-data %}">Home</a>
+        <a href="{% tl about %}">About</a>
+        <a href="{% tl blog %}">Blog</a>
+        <a href="{% tl contact %}">Contact</a>
         {% for lang in site.languageNames %}
-        {% if lang[0] == site.lang %} {% continue %} {% endif %}
-        {% if page.namespace %}
-          <a href="{% t {{ page.namespace }} {{ lang[0] }} %}">{{ lang[1] }}</a>
-        {% elsif lang[0] == 'en' %}
-          <a href="{{ site.baseurl_root }}{{ page.url}}">{{ lang[1] }}</a>
-        {% else %}
-          <a href="{{ site.baseurl_root }}/{{ lang[0] }}{{ page.url}}">{{ lang[1] }}</a>
-        {% endif %}
-      {% endfor %}
+          {% if lang[0] == site.lang %} {% continue %} {% endif %}
+          {% if lang[0] == 'en' %}
+            <a href="{{ site.baseurl_root }}{{ page.url}}">{{ lang[1] }}</a>
+          {% else %}
+            <a href="{{ site.baseurl_root }}/{{ lang[0] }}{{ page.url}}">{{ lang[1] }}</a>
+          {% endif %}
+        {% endfor %}
         <!-- <a href="/about">About</a> -->
       </div>
       <div class="footer-row">
         <div class="footer__header">What we do</div>
-        <a href="/">{% t home.short %}</a>
-        <a href="/software-development">{% t sd.short %}</a>
-        <a href="/continuous-integration">{% t ci.short %}</a>
+        <a href="{% tl linked-data %}">{% t home.short %}</a>
+        <a href="{% tl software-development %}">{% t sd.short %}</a>
+        <a href="{% tl continuous-integration %}">{% t ci.short %}</a>
       </div>
       <div class="footer-row">
         <div href="/" class="footer__header">Find us</div>
@@ -107,7 +106,6 @@
   </div>
   </div>
   <script src="/js/main.js"></script>
-  <script src="/js/navbarScroll.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121994595-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];

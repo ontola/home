@@ -122,3 +122,6 @@ sd:
   us:
     header: How we can help
     body: We can help realize a fully functional MVP for your project or start-up, realize a custom made intranet platform or set up the core for a new SAAS company. Get in touch to find out what we can do for you!
+about:
+  title: About us
+  team: Our team

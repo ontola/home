@@ -1,13 +1,36 @@
 ---
 layout: default
 title: About us
-permalink: about.html
+namespace: about
+description: We're linked data web development specialists that can help you improve your data infrastructure.
+permalink: /about
 ---
-<div class="hero hero--smaller">
-  <h1>About us</h1>
-</div>
-<ul class="authors">
-  {% for author in data.authors %}
-    <li><a href="{{ author.url }}">{{ author.title }}</a></li>
-  {% endfor %}
-</ul>
+  <div class="hero--about-wrapper">
+    <img class="hero--about" src="/img/team.jpg" />
+  </div>
+  <div class="section">
+    <div class="section__content">
+      <div class="section__wrapper">
+        <div class="section__text">
+          <h2>{% t about.title %}</h2>
+          {% translate_file about.md %}
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- <div class="section section--alt">
+  <div class="section__content">
+    <div class="section__wrapper">
+      <div class="section__text">
+        <h2>{% t about.team %}</h2>
+        {% for author in site.data.authors %}
+          <div class="post__preview">
+            <h2>
+              <a href="">{{ auhor.name }}</a>
+            </h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div> -->

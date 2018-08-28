@@ -1,5 +1,17 @@
 joep:
   name: "Joep Meindertsma"
-  email: "joep@argu.co"
+  email: "joep@ontola.io"
   web: "https://joep.io"
   twitter: "@joepmeindertsma"
+arthur:
+  name: "Arthur Dingemans"
+  email: "arthur@ontola.io"
+jurrian:
+  name: "Jurrian Tromp"
+  email: "jurrian@ontola.io"
+michiel:
+  name: "Michiel van den Ingh"
+  email: "michiel@ontola.io"
+thom:
+  name: "Thom van Kalkeren"
+  email: "thom@ontola.io"
