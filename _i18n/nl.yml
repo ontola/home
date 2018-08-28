@@ -122,3 +122,6 @@ sd:
   us:
     header: Hoe wij kunnen helpen
     body: "Wij kunnen helpen met het realiseren van een MVP voor jouw project of start-up, we kunnen een op maat gemaakte intranet applicatie opzetten, of de back-end bouwen voor jouw nieuwe SAAS dienst. Open source of volledig gesloten: de keus is aan jou. Neem contact op om te kijken wat wij voor jou kunnen doen!"
+about:
+  title: Over ons
+  team: Ons team

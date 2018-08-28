@@ -310,9 +310,14 @@ th,td {
 }
 
 .hero--about{
-    background: url('/img/team.jpg');
-    background-size: cover;
-    background-position: center;
+    width: 100%;
+}
+
+.hero--about-wrapper {
+    max-height: 75vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 
 #hero-text {
