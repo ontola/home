@@ -457,6 +457,7 @@ th,td {
     line-height: 3rem;
     margin-left: 1em;
     text-decoration: none;
+    text-transform: lowercase;
 }
 
 .nav__links a:hover {
@@ -675,7 +676,7 @@ th,td {
     padding-top: 4em;
     padding-left: 1em;
     padding-right: 1em;
-    padding-bottom: 5em;
+    padding-bottom: 4em;
 }
 
 .section--alt {

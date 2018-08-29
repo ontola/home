@@ -5,9 +5,9 @@ author: joep
 permalink: /blog/json-hal-ld/
 ---
 
-[JSON-HAL](http://stateless.co/hal_specification.html) and [JSON-LD](https://json-ld.org/) are pretty popular formats for desiging APIs. They both have [their merits](https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/), but they aren't compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This is great, since JSON-LD has all the [advantages of linked data](/what-is-linked-data) and can therefore be converted into other RDF formats.
+[JSON-HAL](http://stateless.co/hal_specification.html) and [JSON-LD](https://json-ld.org/) are pretty popular formats for desiging APIs. They both have [their merits](https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/), but they aren't compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This way, you can keep compatibility with HAL clients and benefit from the [advantages of linked data](/what-is-linked-data), such as conversion to other RDF formats.
 
-Let's start with a JSON-HAL body from the [docs](https://tools.ietf.org/html/draft-kelly-json-hal-08).
+Let's start with a JSON-HAL body object from the [docs](https://tools.ietf.org/html/draft-kelly-json-hal-08).
 
 ```json
 {
@@ -64,7 +64,7 @@ Let's add an `@context` object to map our keys to URIs:
 If we try to [parse this as JSON-LD](https://json-ld.org/playground/#startTab=tab-nquads&json-ld=%7B%22%40id%22%3A%22https%3A%2F%2Fexample.com%2Forders%2F123%22%2C%22%40context%22%3A%7B%22currency%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23currency%22%2C%22status%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23status%22%2C%22total%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23total%22%2C%22warehouse%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23warehouse%22%2C%22invoice%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23invoice%22%7D%2C%22_links%22%3A%7B%22self%22%3A%7B%22href%22%3A%22%2Forders%2F523%22%7D%2C%22warehouse%22%3A%7B%22href%22%3A%22%2Fwarehouse%2F56%22%7D%2C%22invoice%22%3A%7B%22href%22%3A%22%2Finvoices%2F873%22%7D%7D%2C%22currency%22%3A%22USD%22%2C%22status%22%3A%22shipped%22%2C%22total%22%3A10.2%7D), we only get three valid triples. That's because the items in `_links` are not yet parsed. To do this, we need to let the JSON-LD parser know three things:
 
 - The object in `_links` describes the same resource as the root object. We do this by adding an `@id` value in the `_links` object with a value identical to the `@id` of the root object.
-- The `href` value in the objects in `_links` are actually the URI values of these properties. We do this by adding an `@context` object to the `_links` body that binds `href` to `@id`.
+- The `href` values in the objects in `_links` are actually the URI values of these properties. We do this by adding an2 `@context` object to the `_links` body that binds `href` to `@id`.
 - The `_links` object contains useful information, don't skip it, parser! For the JSON-LD playground parser, we can do this by mapping `_links` to some arbitrary URL. Since documenting such a hacky solution might be useful, let's link to this article. This is the most hacky part of my solution, so let me know if you find something better!
 
 ```json
