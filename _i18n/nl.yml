@@ -114,7 +114,8 @@ sd:
   standardized:
     title: open
     header: Voorkom lock-in
-    body_html: Standaarden maken software beter. De <a href="/blog/api-design/">RESTful linked data API's</a> van onze software hanteren W3C standaarden, zodat hergebruikers eenvoudig met jouw data aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelteam eventueel zelf verder kunnen met onze code. Zo blijf je niet van ons afhankelijk.
+    body: Standaarden maken software beter. De RESTful linked data API's van onze software hanteren W3C standaarden, zodat hergebruikers eenvoudig met jouw data aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelteam eventueel zelf verder kunnen met onze code. Zo blijf je niet van ons afhankelijk.
+    read_more: Lees meer over hoe wij API's ontwerpen...
   hi_tech:
     title: high tech
     header: Technologie op enterprise niveau

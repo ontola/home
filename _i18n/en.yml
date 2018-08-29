@@ -114,7 +114,8 @@ sd:
   standardized:
     title: open
     header: No lock-in
-    body_html: Standards make software better. Our code is written using conventions and popular technology, so your developers can pick up where we left off. Where needed, we train your developers to work with the stack that we provide. Our <a href="/blog/api-design/">RESTful API's</a> are built on W3C standards, so your data will be highly reuseable. This way, you don't become dependent on us.
+    body: Standards make software better. Our code is written using conventions and popular technology, so your developers can pick up where we left off. Where needed, we train your developers to work with the stack that we provide. Our RESTful APIs are built on W3C standards, so your data will be highly reuseable. This way, you don't become dependent on us.
+    read_more: Read more about how we design APIs...
   hi_tech:
     title: high tech
     header: Technology on an enterprise level
