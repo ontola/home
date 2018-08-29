@@ -27,7 +27,7 @@
 <title>Upgrade JSON-HAL to JSON-LD</title>
 <meta property="og:title" content="Upgrade JSON-HAL to JSON-LD">
 <meta name="twitter:title" content="Upgrade JSON-HAL to JSON-LD">
-<meta property="og:description" content="JSON-HAL and JSON-LD are pretty popular formats for desiging APIs. They both have their merits, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This is great, since JSON-LD has all the advantages of linked data and can therefore be converted into other RDF formats.
+<meta property="og:description" content="JSON-HAL and JSON-LD are pretty popular formats for desiging APIs. They both have their merits, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This way, you can keep compatibility with HAL clients and benefit from the advantages of linked data, such as conversion to other RDF formats.
 
 "/>
 
@@ -65,7 +65,7 @@
       </a>
       <div class="nav__links nav__links--collapsed">
         <a href="/">home</a>
-        <a href="/about">about</a>
+        <a href="/about">About us</a>
         <a href="/blog">blog</a>
         <a href="/contact">contact</a>
       </div>
@@ -92,9 +92,9 @@
 </div>
 
 
-  <p><a href="http://stateless.co/hal_specification.html">JSON-HAL</a> and <a href="https://json-ld.org/">JSON-LD</a> are pretty popular formats for desiging APIs. They both have <a href="https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/">their merits</a>, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This is great, since JSON-LD has all the <a href="/what-is-linked-data">advantages of linked data</a> and can therefore be converted into other RDF formats.</p>
+  <p><a href="http://stateless.co/hal_specification.html">JSON-HAL</a> and <a href="https://json-ld.org/">JSON-LD</a> are pretty popular formats for desiging APIs. They both have <a href="https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/">their merits</a>, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This way, you can keep compatibility with HAL clients and benefit from the <a href="/what-is-linked-data">advantages of linked data</a>, such as conversion to other RDF formats.</p>
 
-<p>Let’s start with a JSON-HAL body from the <a href="https://tools.ietf.org/html/draft-kelly-json-hal-08">docs</a>.</p>
+<p>Let’s start with a JSON-HAL body object from the <a href="https://tools.ietf.org/html/draft-kelly-json-hal-08">docs</a>.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -149,7 +149,7 @@
 
 <ul>
   <li>The object in <code class="highlighter-rouge">_links</code> describes the same resource as the root object. We do this by adding an <code class="highlighter-rouge">@id</code> value in the <code class="highlighter-rouge">_links</code> object with a value identical to the <code class="highlighter-rouge">@id</code> of the root object.</li>
-  <li>The <code class="highlighter-rouge">href</code> value in the objects in <code class="highlighter-rouge">_links</code> are actually the URI values of these properties. We do this by adding an <code class="highlighter-rouge">@context</code> object to the <code class="highlighter-rouge">_links</code> body that binds <code class="highlighter-rouge">href</code> to <code class="highlighter-rouge">@id</code>.</li>
+  <li>The <code class="highlighter-rouge">href</code> values in the objects in <code class="highlighter-rouge">_links</code> are actually the URI values of these properties. We do this by adding an2 <code class="highlighter-rouge">@context</code> object to the <code class="highlighter-rouge">_links</code> body that binds <code class="highlighter-rouge">href</code> to <code class="highlighter-rouge">@id</code>.</li>
   <li>The <code class="highlighter-rouge">_links</code> object contains useful information, don’t skip it, parser! For the JSON-LD playground parser, we can do this by mapping <code class="highlighter-rouge">_links</code> to some arbitrary URL. Since documenting such a hacky solution might be useful, let’s link to this article. This is the most hacky part of my solution, so let me know if you find something better!</li>
 </ul>
 
@@ -215,7 +215,7 @@
           Ontola
         </div>
         <a href="/">Home</a>
-        <a href="/about">About</a>
+        <a href="/about">About us</a>
         <a href="/blog">Blog</a>
         <a href="/contact">Contact</a>
         
