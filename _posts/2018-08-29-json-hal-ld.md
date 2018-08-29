@@ -1,0 +1,112 @@
+---
+layout: post
+title: "Upgrade JSON-HAL to JSON-LD"
+author: joep
+permalink: /blog/json-hal-ld/
+---
+
+[JSON-HAL](http://stateless.co/hal_specification.html) and [JSON-LD](https://json-ld.org/) are pretty popular formats for desiging APIs. They both have [their merits](https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/), but they aren't compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This is great, since JSON-LD has all the [advantages of linked data](/what-is-linked-data) and can therefore be converted into other RDF formats.
+
+Let's start with a JSON-HAL body from the [docs](https://tools.ietf.org/html/draft-kelly-json-hal-08).
+
+```json
+{
+  "_links": {
+    "self": { "href": "/orders/523" },
+    "warehouse": { "href": "/warehouse/56" },
+    "invoice": { "href": "/invoices/873" }
+  },
+  "currency": "USD",
+  "status": "shipped",
+  "total": 10.20
+}
+```
+
+To identify the main resource, we add an `@id` value:
+
+```json
+{
+  "@id": "https://example.com/orders/123",
+  "_links": {
+    "self": { "href": "/orders/523" },
+    "warehouse": { "href": "/warehouse/56" },
+    "invoice": { "href": "/invoices/873" }
+  },
+  "currency": "USD",
+  "status": "shipped",
+  "total": 10.20
+}
+```
+
+Let's add an `@context` object to map our keys to URIs:
+
+```json
+{
+  "@id": "https://example.com/orders/123",
+  "@context": {
+    "currency": "https://example.com/ns/shipping#currency",
+    "status": "https://example.com/ns/shipping#status",
+    "total": "https://example.com/ns/shipping#total",
+    "warehouse": "https://example.com/ns/shipping#warehouse",
+    "invoice": "https://example.com/ns/shipping#invoice"
+  },
+  "_links": {
+    "self": { "href": "/orders/523" },
+    "warehouse": { "href": "/warehouse/56" },
+    "invoice": { "href": "/invoices/873" }
+  },
+  "currency": "USD",
+  "status": "shipped",
+  "total": 10.20
+}
+```
+
+If we try to [parse this as JSON-LD](https://json-ld.org/playground/#startTab=tab-nquads&json-ld=%7B%22%40id%22%3A%22https%3A%2F%2Fexample.com%2Forders%2F123%22%2C%22%40context%22%3A%7B%22currency%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23currency%22%2C%22status%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23status%22%2C%22total%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23total%22%2C%22warehouse%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23warehouse%22%2C%22invoice%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23invoice%22%7D%2C%22_links%22%3A%7B%22self%22%3A%7B%22href%22%3A%22%2Forders%2F523%22%7D%2C%22warehouse%22%3A%7B%22href%22%3A%22%2Fwarehouse%2F56%22%7D%2C%22invoice%22%3A%7B%22href%22%3A%22%2Finvoices%2F873%22%7D%7D%2C%22currency%22%3A%22USD%22%2C%22status%22%3A%22shipped%22%2C%22total%22%3A10.2%7D), we only get three valid triples. That's because the items in `_links` are not yet parsed. To do this, we need to let the JSON-LD parser know three things:
+
+- The object in `_links` is actually the same resource as the root object. We do this by adding an `@id` value in the `_links` body with a value that is the same as the `@id` of the root object.
+- The `href` value in the objects in `_links` are actually the URIs or `@id` values of these properties. We do this by adding an `@context` object to the `_links` body that binds `href` to `@id`.
+- The `_links` body contains useful information, don't skip it, parser! For the JSON-LD playground parser, we can do this by mapping `_links` to some arbitrary URL. Since documenting such a hacky solution might be useful, let's link to this article.
+
+```json
+{
+  "@id": "https://example.com/orders/123",
+  "@context": {
+    "currency": "https://example.com/ns/shipping#currency",
+    "status": "https://example.com/ns/shipping#status",
+    "total": "https://example.com/ns/shipping#total",
+    "warehouse": "https://example.com/ns/shipping#warehouse",
+    "invoice": "https://example.com/ns/shipping#invoice",
+    "_links": "https://ontola.io/blog/json-hal-ld"
+  },
+  "_links": {
+    "@id": "https://example.com/orders/123",
+    "@context": { "href": "@id" },
+    "self": { "href": "/orders/523" },
+    "warehouse": { "href": "/warehouse/56" },
+    "invoice": { "href": "/invoices/873" }
+  },
+  "currency": "USD",
+  "status": "shipped",
+  "total": 10.20
+}
+```
+
+If we [parse this as JSON-LD](https://json-ld.org/playground-dev/#startTab=tab-nquads&json-ld=%7B%22%40id%22%3A%22https%3A%2F%2Fexample.com%2Forders%2F123%22%2C%22%40context%22%3A%7B%22currency%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23currency%22%2C%22status%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23status%22%2C%22total%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23total%22%2C%22warehouse%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23warehouse%22%2C%22invoice%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23invoice%22%2C%22_links%22%3A%22https%3A%2F%2Fontola.io%2Fblog%2Fjson-hal-ld%22%7D%2C%22_links%22%3A%7B%22%40id%22%3A%22https%3A%2F%2Fexample.com%2Forders%2F123%22%2C%22%40context%22%3A%7B%22href%22%3A%22%40id%22%7D%2C%22self%22%3A%7B%22href%22%3A%22%2Forders%2F523%22%7D%2C%22warehouse%22%3A%7B%22href%22%3A%22%2Fwarehouse%2F56%22%7D%2C%22invoice%22%3A%7B%22href%22%3A%22%2Finvoices%2F873%22%7D%7D%2C%22currency%22%3A%22USD%22%2C%22status%22%3A%22shipped%22%2C%22total%22%3A10.2%7D), we get all six triples:
+
+```turtle
+<https://example.com/orders/123> <https://example.com/ns/shipping#currency> "USD" .
+<https://example.com/orders/123> <https://example.com/ns/shipping#invoice> <https://json-ld.org/invoices/873> .
+<https://example.com/orders/123> <https://example.com/ns/shipping#status> "shipped" .
+<https://example.com/orders/123> <https://example.com/ns/shipping#total> "1.02E1"^^<http://www.w3.org/2001/XMLSchema#double> .
+<https://example.com/orders/123> <https://example.com/ns/shipping#warehouse> <https://json-ld.org/warehouse/56> .
+<https://example.com/orders/123> <https://ontola.io/blog/json-hal-ld> <https://example.com/orders/123> .
+```
+
+Awesome! Just by adding a few keys, we converted JSON-HAL into JSON-LD, without breaking anything. However, the resulting object is not that pretty and quite verbose. Only use this is you really _have_ to support both JSON-HAL and JSON-LD. If you haven't invested in JSON-HAL yet, but do need a linked data API, I recommend you go with JSON-LD plus [Hydra](https://www.hydra-cg.com/spec/latest/core/), which also offers standardization for things like actions, collections and pagination.
+
+## TL;DR
+
+- Add an `@id` to both the root object and the `_links` object with the main resouce URL.
+- In the root `@context`, add your usual JSON-LD mapping.
+- In the root `@context`, map`_links` to some URL.
+- In the `_links` `@context`, map`href` to `@id`.
