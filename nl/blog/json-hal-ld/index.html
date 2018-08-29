@@ -1,0 +1,284 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Upgrade JSON-HAL to JSON-LD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
+  <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="apple-mobile-web-app-title" content="Ontola.io">
+  <meta name="application-name" content="Ontola.io">
+  <meta name="msapplication-TileColor" content="#5a91af">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="/css/normalize.css"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/syntax.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <meta name="description" content="JSON-HAL and JSON-LD are pretty popular formats for desiging APIs. They both have their merits, but they aren’t compatible with each other. However, with som...">
+<meta property="og:site_name" content="">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@ontola.io">
+
+<title>Upgrade JSON-HAL to JSON-LD</title>
+<meta property="og:title" content="Upgrade JSON-HAL to JSON-LD">
+<meta name="twitter:title" content="Upgrade JSON-HAL to JSON-LD">
+<meta property="og:description" content="JSON-HAL and JSON-LD are pretty popular formats for desiging APIs. They both have their merits, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This is great, since JSON-LD has all the advantages of linked data and can therefore be converted into other RDF formats.
+
+"/>
+
+
+<meta property="article:published_time" content="2018-08-29T00:00:00+02:00">
+
+
+<meta property="og:image" content="/img/default.jpg">
+<meta name="twitter:image" content="/img/default.jpg">
+
+<meta property="og:url" content="http://ontola.io/blog/json-hal-ld/" />
+
+<meta itemprop="keywords" content="" />
+
+
+
+
+<meta property="article:author" content="Joep Meindertsma" />
+<meta property="og:type" content="article">
+  
+  <meta name="twitter:creator" content="@joepmeindertsma">
+  
+
+
+</head>
+<body>
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <nav  id="navbar" class="nav__wrapper">
+    <div class="nav">
+      <a href="/nl/" class="nav__logo">
+        <img src="/img/logo.svg" />
+        <span>Ontola</span><span class="nav__logo__tld">.io</span>
+      </a>
+      <div class="nav__links nav__links--collapsed">
+        <a href="/nl/">home</a>
+        <a href="/nl/about">about</a>
+        <a href="/nl/blog">blog</a>
+        <a href="/nl/contact">contact</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+      <div class="hero hero--smaller hero--narrow">
+  <div class="hero__wrapper">
+    <a href="/blog"class="hero__link">
+      <h3 id="hero-text">
+        <i class="fas fa-level-up-alt"></i>
+        Linked Data Blog
+      </h3>
+    </a>
+  </div>
+</div>
+<div class="post">
+  <h1>Upgrade JSON-HAL to JSON-LD</h1>
+  
+  
+
+<div class="details">
+  <a href="https://twitter.com/@joepmeindertsma" target="_blank" class="details__author">Joep Meindertsma, </a>29 Aug 2018
+</div>
+
+
+  <p><a href="http://stateless.co/hal_specification.html">JSON-HAL</a> and <a href="https://json-ld.org/">JSON-LD</a> are pretty popular formats for desiging APIs. They both have <a href="https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/">their merits</a>, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This is great, since JSON-LD has all the <a href="/what-is-linked-data">advantages of linked data</a> and can therefore be converted into other RDF formats.</p>
+
+<p>Let’s start with a JSON-HAL body from the <a href="https://tools.ietf.org/html/draft-kelly-json-hal-08">docs</a>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/orders/523"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"warehouse"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/warehouse/56"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"invoice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/invoices/873"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shipped"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.20</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>To identify the main resource, we add an <code class="highlighter-rouge">@id</code> value:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"@id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/orders/123"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/orders/523"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"warehouse"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/warehouse/56"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"invoice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/invoices/873"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shipped"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.20</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Let’s add an <code class="highlighter-rouge">@context</code> object to map our keys to URIs:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"@id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/orders/123"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/ns/shipping#currency"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/ns/shipping#status"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/ns/shipping#total"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"warehouse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/ns/shipping#warehouse"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"invoice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/ns/shipping#invoice"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/orders/523"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"warehouse"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/warehouse/56"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"invoice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/invoices/873"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shipped"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.20</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>If we try to <a href="https://json-ld.org/playground/#startTab=tab-nquads&amp;json-ld=%7B%22%40id%22%3A%22https%3A%2F%2Fexample.com%2Forders%2F123%22%2C%22%40context%22%3A%7B%22currency%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23currency%22%2C%22status%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23status%22%2C%22total%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23total%22%2C%22warehouse%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23warehouse%22%2C%22invoice%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23invoice%22%7D%2C%22_links%22%3A%7B%22self%22%3A%7B%22href%22%3A%22%2Forders%2F523%22%7D%2C%22warehouse%22%3A%7B%22href%22%3A%22%2Fwarehouse%2F56%22%7D%2C%22invoice%22%3A%7B%22href%22%3A%22%2Finvoices%2F873%22%7D%7D%2C%22currency%22%3A%22USD%22%2C%22status%22%3A%22shipped%22%2C%22total%22%3A10.2%7D">parse this as JSON-LD</a>, we only get three valid triples. That’s because the items in <code class="highlighter-rouge">_links</code> are not yet parsed. To do this, we need to let the JSON-LD parser know three things:</p>
+
+<ul>
+  <li>The object in <code class="highlighter-rouge">_links</code> is actually the same resource as the root object. We do this by adding an <code class="highlighter-rouge">@id</code> value in the <code class="highlighter-rouge">_links</code> body with a value that is the same as the <code class="highlighter-rouge">@id</code> of the root object.</li>
+  <li>The <code class="highlighter-rouge">href</code> value in the objects in <code class="highlighter-rouge">_links</code> are actually the URIs or <code class="highlighter-rouge">@id</code> values of these properties. We do this by adding an <code class="highlighter-rouge">@context</code> object to the <code class="highlighter-rouge">_links</code> body that binds <code class="highlighter-rouge">href</code> to <code class="highlighter-rouge">@id</code>.</li>
+  <li>The <code class="highlighter-rouge">_links</code> body contains useful information, don’t skip it, parser! For the JSON-LD playground parser, we can do this by mapping <code class="highlighter-rouge">_links</code> to some arbitrary URL. Since documenting such a hacky solution might be useful, let’s link to this article.</li>
+</ul>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"@id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/orders/123"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/ns/shipping#currency"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/ns/shipping#status"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/ns/shipping#total"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"warehouse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/ns/shipping#warehouse"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"invoice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/ns/shipping#invoice"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://ontola.io/blog/json-hal-ld"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"@id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/orders/123"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@id"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/orders/523"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"warehouse"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/warehouse/56"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"invoice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/invoices/873"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shipped"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.20</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>If we <a href="https://json-ld.org/playground-dev/#startTab=tab-nquads&amp;json-ld=%7B%22%40id%22%3A%22https%3A%2F%2Fexample.com%2Forders%2F123%22%2C%22%40context%22%3A%7B%22currency%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23currency%22%2C%22status%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23status%22%2C%22total%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23total%22%2C%22warehouse%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23warehouse%22%2C%22invoice%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23invoice%22%2C%22_links%22%3A%22https%3A%2F%2Fontola.io%2Fblog%2Fjson-hal-ld%22%7D%2C%22_links%22%3A%7B%22%40id%22%3A%22https%3A%2F%2Fexample.com%2Forders%2F123%22%2C%22%40context%22%3A%7B%22href%22%3A%22%40id%22%7D%2C%22self%22%3A%7B%22href%22%3A%22%2Forders%2F523%22%7D%2C%22warehouse%22%3A%7B%22href%22%3A%22%2Fwarehouse%2F56%22%7D%2C%22invoice%22%3A%7B%22href%22%3A%22%2Finvoices%2F873%22%7D%7D%2C%22currency%22%3A%22USD%22%2C%22status%22%3A%22shipped%22%2C%22total%22%3A10.2%7D">parse this as JSON-LD</a>, we get all six triples:</p>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">&lt;https://example.com/orders/123&gt;</span><span class="w"> </span><span class="nl">&lt;https://example.com/ns/shipping#currency&gt;</span><span class="w"> </span><span class="s">"USD"</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="nl">&lt;https://example.com/orders/123&gt;</span><span class="w"> </span><span class="nl">&lt;https://example.com/ns/shipping#invoice&gt;</span><span class="w"> </span><span class="nl">&lt;https://json-ld.org/invoices/873&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="nl">&lt;https://example.com/orders/123&gt;</span><span class="w"> </span><span class="nl">&lt;https://example.com/ns/shipping#status&gt;</span><span class="w"> </span><span class="s">"shipped"</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="nl">&lt;https://example.com/orders/123&gt;</span><span class="w"> </span><span class="nl">&lt;https://example.com/ns/shipping#total&gt;</span><span class="w"> </span><span class="s">"1.02E1"</span><span class="p">^^</span><span class="nl">&lt;http://www.w3.org/2001/XMLSchema#double&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="nl">&lt;https://example.com/orders/123&gt;</span><span class="w"> </span><span class="nl">&lt;https://example.com/ns/shipping#warehouse&gt;</span><span class="w"> </span><span class="nl">&lt;https://json-ld.org/warehouse/56&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span><span class="nl">&lt;https://example.com/orders/123&gt;</span><span class="w"> </span><span class="nl">&lt;https://ontola.io/blog/json-hal-ld&gt;</span><span class="w"> </span><span class="nl">&lt;https://example.com/orders/123&gt;</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Awesome! Just by adding a few keys, we converted JSON-HAL into JSON-LD, without breaking anything. However, the resulting object is not that pretty and quite verbose. Only use this is you really <em>have</em> to support both JSON-HAL and JSON-LD. If you haven’t invested in JSON-HAL yet, but do need a linked data API, I recommend you go with JSON-LD plus <a href="https://www.hydra-cg.com/spec/latest/core/">Hydra</a>, which also offers standardization for things like actions, collections and pagination.</p>
+
+<h2 id="tldr">TL;DR</h2>
+
+<ul>
+  <li>Add an <code class="highlighter-rouge">@id</code> to both the root object and the <code class="highlighter-rouge">_links</code> object with the main resouce URL.</li>
+  <li>In the root <code class="highlighter-rouge">@context</code>, add your usual JSON-LD mapping.</li>
+  <li>In the root <code class="highlighter-rouge">@context</code>, map<code class="highlighter-rouge">_links</code> to some URL.</li>
+  <li>In the <code class="highlighter-rouge">_links</code> <code class="highlighter-rouge">@context</code>, map<code class="highlighter-rouge">href</code> to <code class="highlighter-rouge">@id</code>.</li>
+</ul>
+
+</div>
+<div class="post__navigation">
+  <div class="post__navigation__wrapper">
+    
+      <a class="post__navigation__previous" href="/blog/api-design/">&laquo; Best practices for RESTful API design</a>
+    
+    
+  </div>
+</div>
+
+  </div>
+  <div class="footer--wrapper" id="footer">
+    <div class="footer">
+      <div class="footer-row">
+        <div href="/" class="footer__header">
+          Ontola
+        </div>
+        <a href="/nl/">Home</a>
+        <a href="/nl/about">About</a>
+        <a href="/nl/blog">Blog</a>
+        <a href="/nl/contact">Contact</a>
+        
+          
+          
+            <a href="/blog/json-hal-ld/">English</a>
+          
+        
+           
+        <!-- <a href="/about">About</a> -->
+      </div>
+      <div class="footer-row">
+        <div class="footer__header">What we do</div>
+        <a href="/nl/">Linked data</a>
+        <a href="/nl/software-development">Softwareontwikkeling</a>
+        <a href="/nl/continuous-integration">Continuous integration</a>
+      </div>
+      <div class="footer-row">
+        <div href="/" class="footer__header">Find us</div>
+        <div class="footer__social_logos">
+          <a href="https://github.com/ontola">
+            <i title="Github" aria-label="Github" class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/ontola/">
+            <i title="LinkedIn" aria-label="LinkedIn" class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.facebook.com/ontola.io/">
+            <i title="Facebook" aria-label="Facebook" class="fab fa-facebook"></i>
+          </a>
+          <a href="https://twitter.com/ontola_io">
+            <i title="Twitter" aria-label="Twitter" class="fab fa-twitter"></i>
+          </a>
+        </div>
+        <a href="mailto:info@ontola.io">
+          <i class="fas fa-envelope"></i>
+          info@ontola.io
+        </a>
+        <a href="tel:0031636020942">
+          <i class="fas fa-phone"></i>
+          +316 360 209 42
+        </a>
+        <a href="https://goo.gl/maps/x5Sggs9X7L32">
+          <i class="fas fa-map-marker-alt"></i>
+          Koningslaan 62, Utrecht, NL
+        </a>
+        <div><a href="https://argu.co">
+          <i class="fas fa-briefcase"></i>
+          Argu B.V.</a> kvk 65684168<div>
+        </div>
+      </div>
+    </div>
+    <img class="footer__logo" src="/img/logo.svg" />
+  </div>
+  </div>
+  <script src="/js/main.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121994595-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-121994595-1');
+  </script>
+</body>
+
+</html>
