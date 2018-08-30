@@ -11,12 +11,14 @@ particlesJS.load('particles-js', 'particles.json', function() {
 
 /* Otherwise just put the config content (json): */
 
+var particleAmount = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) / 18;
+
 particlesJS('particles-js',
 
   {
     "particles": {
       "number": {
-        "value": 50,
+        "value": particleAmount,
         "density": {
           "enable": false,
           "value_area": 40
