@@ -135,14 +135,18 @@ JSON is without a doubt the most popular way to handle data in webapplications.
 You can turn your regular plain old JSON into RDF by adding [`@context`](https://json-ld.org/spec/latest/json-ld/#the-context).
 This object mainly serves as a mapping, so your plain keys get turned into fancy links to RDF Classes and Properties.
 You can add context either by adding an `@content` header in your HTTP response, by including the link in your JSON body, or by adding the entire `@context` object to you JSON.
+This means that if you want to upgrade your JSON API to JSON-LD, you get to keep your serializers.
 
 JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
-Because it's still valid JSON, it's usable to those who don't need the semantic adata.
+Because it's still valid JSON, it's usable to those who don't want to deal with URLs.
 
 Unfortunately, it's difficult to parse if you need the RDF data instead of the JSON object.
 This means that there are few (bugfree) JSON-LD parsers available, and it also means that parsing JSON-LD is costly for your CPU.
 
+JSON-LD is a compromise.
+It supports RDF, it supports JSON, and it does both _okay_.
 Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.
+Since JSON is so popular, I think this is the way to go for _most_ of the existing APIs.
 
 ## HDT
 
@@ -163,9 +167,9 @@ Therefore, you can implement a serialization library (e.g. our [rdf-serializers]
 
 - Use N-Triples or HDT if you want performant machine-to-machine communication.
 - Use HDT if you have huge datasets and require the best performance.
-- Use JSON-LD if you want to extend your existing JSON serializer.
+- Use JSON-LD if you want to improve your exsting JSON API.
 - Use Turtle if you want to manually read & edit your RDF.
 - Use Notation3 if you need RDF rules.
 - Use RDFa to extend your existing HTML pages.
 - Use RDF/XML if you need to use XML.
-- If you can, support all of them and use HTTP content negotiation.
+- If you can, support all of them.
