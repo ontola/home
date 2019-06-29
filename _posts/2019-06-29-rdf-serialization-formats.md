@@ -2,17 +2,16 @@
 layout: post
 title: "What's the best RDF serialization format?"
 author: joep
-permalink: /rdf-serialization-formats/
+permalink: /blog/rdf-serialization-formats/
 ---
 
-The main datamodel for [linked data](http://ontola.io/what-is-linked-data) is RDF.
 Contrary to some other datamodels, RDF is not bound by a single serializiation format.
-Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my RDF data?
+Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my [linked data](/what-is-linked-data)?
 
 To answer the title's question: _it depends_.
 So, let's discuss the various formats and when you should use which.
 The order in which they appear is chronological, and does not reflect preference.
-Skip to the [TL;DR](#TL;DR) if you're feeling hasty.
+Skip to the [TL;DR](#tldr) if you're feeling hasty.
 
 ## RDF/XML
 
@@ -26,7 +25,7 @@ For XML developers, it might look familiar, but since it does not clearly reflec
 
 Use it only if you really need to work with XML.
 
-``` xml
+```xml
 <?xml version="1.0"?>
 
 <rdf:RDF
@@ -55,7 +54,7 @@ This makes it less useable if your application relies on a lot of RDF data.
 
 Use RDFa if you want to make your existing website / blog / HTML based application more semantic.
 
-``` html
+```html
 <div about="https://www.w3.org/People/Berners-Lee/">
   <p>
     Tim is born on
@@ -83,7 +82,7 @@ It's also quite feature-heavy, since it support [RDF rules](http://www.ninebynin
 
 Unless you need the reasoning / rules features of N3, use its more popular (and very similar) successor Turtle.
 
-``` notation3
+```notation3
 @prefix tim: <https://www.w3.org/People/Berners-Lee/>.
 @prefix schema: <http://schema.org/>.
 @prefix dbpedia: <http://dbpedia.org/resource/>.
@@ -103,7 +102,7 @@ Unfortunately, it's still quite costly to parse compared to [N-Triples](#N-Tripl
 
 Turtle is highly human-readable and is therefore a good candidate if you need to edit RDF by hand.
 
-``` turtle
+```turtle
 @prefix tim: <https://www.w3.org/People/Berners-Lee/>.
 @prefix schema: <http://schema.org/>.
 @prefix dbpedia: <http://dbpedia.org/resource/>.
@@ -112,19 +111,19 @@ Turtle is highly human-readable and is therefore a good candidate if you need to
 <tim> schema:birthPlace <dbpedia:London>.
 ```
 
-## N-Triples (.nt) N-Quads(.nq)
+## N-Triples (.nt) and N-Quads (.nq)
 
-N-Triples is a very simple subset of Turtle, which in turn is a simple subset of N3.
-N-Triples does not support `@prefixes` or any fany shorthands.
-This makes N-Triples trivial to parse / serialize, which means that many libraries are available and you could easily write one yourself.
+[N-Triples](https://www.w3.org/TR/n-triples/) is a very simple subset of Turtle, which in turn is a simple subset of N3.
+N-Triples does not support `@prefixes` or any fancy features.
+This makes N-Triples trivial to parse / serialize, so many libraries are available and you can easily write one yourself.
 It also makes parsing highly performant.
 
 However, the lack of prefixes and shorthands makes the format lengthy and a bit tough to read.
 The lenghty URLs also mean that you'll need some form of compression if you don't want to waste precious bandwith or storage capacity.
 
-Use N-Triples for machine to machine communication, which is probably most of the time.
+Use N-Triples for machine-to-machine communication, which is probably most of the time.
 
-``` n-triples
+```n-triples
 <https://www.w3.org/People/Berners-Lee/> <http://schema.org/birthDate> "1955-06-08".
 <https://www.w3.org/People/Berners-Lee/> <http://schema.org/birthPlace> <http://dbpedia.org/resource/London>.
 ```
@@ -154,7 +153,7 @@ Check out the impressive [technical specification](http://www.rdfhdt.org/technic
 
 Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.
 
-## You don't have to choose
+## Let your users choose a format
 
 Choosing an RDF serialization format for your application or service might be a false dilemma.
 Since you control your application, and probably have an internal model, you can offer multiple serialization options.
@@ -163,7 +162,7 @@ Therefore, you can implement a serialization library (e.g. our [rdf-serializers]
 ## TL;DR
 
 - Use N-Triples or HDT if you want performant machine-to-machine communication.
-- Use HDT if you have huge datasets and require high performance.
+- Use HDT if you have huge datasets and require the best performance.
 - Use JSON-LD if you want to extend your existing JSON serializer.
 - Use Turtle if you want to manually read & edit your RDF.
 - Use Notation3 if you need RDF rules.
