@@ -625,14 +625,6 @@ th,td {
     text-decoration: none;
 }
 
-.post h2 {
-    margin-top: 1.5em;
-}
-
-.post img {
-    max-width: 100%;
-}
-
 .project {
     margin-bottom: 2em;
     display: flex;
@@ -712,6 +704,15 @@ th,td {
 
 .section h2 {
     margin-bottom: 1.2em;
+}
+
+/* A block of text with headers, images and paragraphs */
+.text h2 {
+    margin-top: 1.5em;
+}
+
+.text img {
+    max-width: 100%;
 }
 
 #waves {

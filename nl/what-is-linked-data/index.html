@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <meta name="description" content="Linked data is a way to structure and share information, using links.These links make data more meaningful and useful.To understand why, let’s take a piece o...">
-<meta property="og:site_name" content="">
+<meta property="og:site_name" content="ontola.github.io">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@ontola.io">
 
@@ -69,7 +69,8 @@ I’ll discuss the RDF data model, serialization formats, ontologies and publish
       </a>
       <div class="nav__links nav__links--collapsed">
         <a href="/nl/">home</a>
-        <a href="/nl/about">Over ons</a>
+        <a href="/nl/services">services</a>
+        <a href="/nl/about">about</a>
         <a href="/nl/blog">blog</a>
         <a href="/nl/contact">contact</a>
       </div>
@@ -86,7 +87,7 @@ I’ll discuss the RDF data model, serialization formats, ontologies and publish
     </a>
   </div>
 </div>
-<div class="post">
+<div class="post text">
   <h1>A brief introduction to linked data</h1>
   
   
@@ -247,7 +248,7 @@ For example, here’s the same triples from the table and the graph above, seria
 
 <p>This example doesn’t look as good as the graph above, right?
 Long URLs tend to take up a lot of space and make the data a bit tough to read.
-We can use <em>namespaces</em> (denoted with  <code class="highlighter-rouge">@prefix</code>) to compress RDF data and make it more readable.</p>
+We can use <em>namespaces</em> (denoted with  <code class="highlighter-rouge"><span class="kd">@prefix</span></code>) to compress RDF data and make it more readable.</p>
 
 <div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@prefix</span><span class="w"> </span><span class="nn">tim:</span><span class="w"> </span><span class="nl">&lt;https://www.w3.org/People/Berners-Lee/&gt;</span><span class="p">.</span><span class="w">
 </span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">schema:</span><span class="w"> </span><span class="nl">&lt;http://schema.org/&gt;</span><span class="p">.</span><span class="w">
@@ -401,7 +402,8 @@ For SPARQL, the <a href="https://jena.apache.org/tutorials/sparql.html">Apache J
           Ontola
         </div>
         <a href="/nl/">Home</a>
-        <a href="/nl/about">Over ons</a>
+        <a href="/nl/services">Services</a>
+        <a href="/nl/about">About</a>
         <a href="/nl/blog">Blog</a>
         <a href="/nl/contact">Contact</a>
         
