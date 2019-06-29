@@ -19,4 +19,5 @@ Create a `yyyy-mm-dd-title.md` file in `./_posts`.
 Since Github does [not yet support i18n plugins](https://github.com/github/pages-gem/issues/401), we need to compile the page locally.
 
 * Install node gh-pages for publishing: `npm i -g gh-pages`
-* Commit and push to `gh-pages` branch: `gh-pages -d _site`
+* Build `bundle exec jekyll build`
+* Commit and push to the gh-pages branch: `gh-pages -d _site`
