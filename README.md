@@ -2,6 +2,10 @@
 Check it out [here](https://ontola.io).
 This project runs on Jekyll and is hosted by Github Pages.
 
+## Adding a post
+
+Create a `yyyy-mm-dd-title.md` file in `./_posts`.
+
 ## Run
 * `git clone git@github.com:ontola/ontola.github.io.git`
 * Install [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
