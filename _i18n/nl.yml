@@ -54,7 +54,7 @@ home:
       body: We kunnen een ETL architectuur opzetten die data importeert uit diverse bestaande systemen. Dit kunnen data dumps zijn, bestaande API's van applicaties, of iets anders. We zetten alles om naar Linked Data. Onze ETL structuur werkt op basis van 'events', zodat we direct een notification service kunnen opzetten.
     four:
       title: Software ontwikkeling
-      body: "We bouwen systemen die het gemakkelijk maken om jouw linked data weer te geven en aan te passen. Of je een eenvoudige webinterface of een specifieke machine interface nodig hebt: wij kunnen het. We zijn ervaren full stack developers die zowel back-ends als front-ends ontwikkelen. We hebben onder andere ervaring met Ruby (on Rails), Javascript, Node, Typescript, Python, HTML, CSS, Docker en Continuous Integration."
+      body: "We bouwen systemen die het gemakkelijk maken om jouw linked data weer te geven en aan te passen. Of je een eenvoudige webinterface of een specifieke machine interface nodig hebt: wij kunnen het. We zijn ervaren full stack developers die zowel back-ends als front-ends ontwikkelen. We hebben onder andere ervaring met Ruby (on Rails), Javascript, Node, Typescript, Python, HTML, CSS, Docker en het opzetten van een OTAP straat."
     five:
       title: Publiceren
       body: Al jouw data kunnen we beschikbaar stellen middels een RESTful Hypermedia API die serializeert naar JSON, JSON-LD, N3, N-Triples, CSV, RDF/XML en meer. We kunnen alles doorzoekbaar maken en beschikbaar maken via Cypher, SPARQL, GRAPHQL en ElasticSearch. Jij kunt instellen wie wat mag bekijken of bewerken.
@@ -69,12 +69,12 @@ contact:
 ci:
   hero: Verbeter jouw ontwikkelstraat
   short: Continuous integration
-  title: Continuous integration advies
-  intro: Wij kunnen je helpen kosten te besparen door jouw ontwikkelproces te optimaliseren. Voorkom bugs, release features sneller en krijg eerder feedback van klanten. Draai je software in containers om downtime te voorkomen.
+  title: OTAP straat advies
+  intro: Continuous integration is Wij kunnen je helpen kosten te besparen door jouw software ontwikkelproces te optimaliseren. Voorkom bugs, release features sneller en krijg eerder feedback van klanten.
   build:
     title: build
     header: Build Automation
-    body: Automatiseer het compileren van software en verlaag zo de kosten aan serveronderhoud en devops. Gebruik Docker om je software te laten draaien in virtuele machines, zodat je snel kan schalen en je geen zorgen hoeft te maken over hardware falen. Zorg er voor dat exceptions automatisch worden afgevangen, zodat ontwikkelaars direct van fouten op de hoogte worden gesteld. Gebruik containers om je online service in minuten in plaats van dagen op te schalen. Hanteer één omgeving voor ontwikkel, test en productie. Sluit eenvoudig aan op honderden diensten en datacenters.
+    body: Automatiseer het compileren van software en verlaag zo de kosten aan serveronderhoud en devops. Gebruik Docker om je software te laten draaien in virtuele machines, zodat je snel kan schalen en je geen zorgen hoeft te maken over falende hardware. Zorg er voor dat exceptions automatisch worden afgevangen, zodat ontwikkelaars direct van fouten op de hoogte worden gesteld. Schaal je online service in minuten in plaats van dagen met Kubernetes. Hanteer één omgeving voor ontwikkel, test en productie. Sluit eenvoudig aan op honderden diensten en datacenters.
   test:
     title: test
     header: Test Automation
@@ -93,7 +93,7 @@ ci:
     body: Het releasen van een nieuwe versie gaat volledig automatisch. Wanneer code wijzigingen door de tests komen, worden ze automatisch uitgerold. Hiermee is je value cycle nog korter dan bij continuous delivery.
   us:
     header: Hoe wij kunnen helpen
-    body: Wij kunnen helpen met advies en software ontwikkeling. We kunnen helpen met het opzetten of verbeteren van een OTAP straat en het configureren van dockerfiles. Ook kunnen we ontwikkelteams trainen om hun workflow efficiënter te maken.
+    body: Wij geven advies over het inrichten of verbeteren van ontwikkelstraten. Wij helpen met configuratie (zoals het schrijven van dockerfiles) en geven advies over devops. Ook kunnen we ontwikkelteams trainen om hun workflow efficiënter te maken. Het is onze insteek om zo veel mogelijk kennis over te dragen, zodat wij maar tijdelijk nodig zijn. Zo zorgen we er voor dat jij zo snel mogelijk een beter geautomatiseerd ontwikkeproces hebt dat zelf te beheren is.
 sd:
   hero: Wij realiseren online platforms
   short: Softwareontwikkeling
@@ -102,7 +102,7 @@ sd:
   flexible:
     title: flexibel
     header: Software die evolueert met jouw organisatie
-    body: Onze software is ontworpen om te veranderen. Wijzigingen in jouw ontwerpen of modellen kunnen met minimale veranderingen in de code worden gerealiseerd. Zo blijven de kosten voor onderhoud en doorontwikkeling zo laag mogelijk.
+    body: Wij schrijven software die ontworpen is om te veranderen. Wijzigingen in jouw ontwerpen of modellen kunnen met minimale veranderingen in de code worden gerealiseerd. Zo blijven de kosten voor onderhoud en doorontwikkeling zo laag mogelijk.
   extensive:
     title: uitgebreid
     header: Jouw wensen, jouw platform
@@ -114,7 +114,7 @@ sd:
   standardized:
     title: open
     header: Voorkom lock-in
-    body: Standaarden maken software beter. De RESTful linked data API's van onze software hanteren W3C standaarden, zodat hergebruikers eenvoudig met jouw data aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelteam eventueel zelf verder kunnen met onze code. Zo blijf je niet van ons afhankelijk.
+    body: Standaarden maken software beter. De RESTful linked data API's van onze software hanteren W3C standaarden, zodat hergebruikers eenvoudig met jouw data aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelteam eventueel zelf verder kan gaan met onze code. Mocht het nodig zijn, dan trainen we jouw ontwikkelaars zodat de software effectief kan worden over te dragen. Zo blijf je niet van ons afhankelijk.
     read_more: Lees meer over hoe wij API's ontwerpen...
   hi_tech:
     title: high tech
