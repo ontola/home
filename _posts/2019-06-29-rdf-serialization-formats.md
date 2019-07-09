@@ -8,7 +8,8 @@ permalink: /blog/rdf-serialization-formats/
 Contrary to some other datamodels, RDF is not bound by a single serializiation format.
 Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my [linked data](/what-is-linked-data)?
 
-To answer the title's question: _it depends_.
+To answer the title's question: _it depends_, but probably N-Triples / N-Quads.
+
 So, let's discuss the various formats and when you should use which.
 The order in which they appear is chronological, and does not reflect preference.
 Skip to the [TL;DR](#tldr) if you're feeling hasty.
@@ -119,16 +120,20 @@ This makes N-Triples trivial to parse / serialize, so many libraries are availab
 It also makes parsing highly performant.
 
 However, the lack of prefixes and shorthands makes the format lengthy and a bit tough to read.
-The lenghty URLs also mean that you'll need some form of compression if you don't want to waste precious bandwith or storage capacity.
+The lenghty URLs also mean that you'll need some form of compression (e.g.g-zip) if you don't want to waste precious bandwith or storage capacity.
 
 Use N-Triples for machine-to-machine communication, which is probably most of the time.
+Since writing a parser / serializer for N-Triples is so simple, it's a good idea to support this pretty much always.
 
 ```n-triples
 <https://www.w3.org/People/Berners-Lee/> <http://schema.org/birthDate> "1955-06-08".
 <https://www.w3.org/People/Berners-Lee/> <http://schema.org/birthPlace> <http://dbpedia.org/resource/London>.
 ```
 
-## JSON-LD (.json-ld)
+[N-Quads](https://www.w3.org/TR/n-quads/) are like N-Turiples, but they have an optional fourth column, which can be used to denote a graph label.
+The graph label often refers to the source of the data, e.g. the URL of the HTML document or some external RDF resource.
+
+## JSON-LD (.jsonld)
 
 JSON is without a doubt the most popular way to handle data in webapplications.
 [JSON-LD](https://json-ld.org/spec/latest/json-ld/) is an extension of JSON, and is valid JSON as well.
@@ -165,8 +170,8 @@ Therefore, you can implement a serialization library (e.g. our [rdf-serializers]
 
 ## TL;DR
 
-- Use N-Triples or HDT if you want performant machine-to-machine communication.
-- Use HDT if you have huge datasets and require the best performance.
+- Use N-Triples if you want performant machine-to-machine communication.
+- Use HDT if you have huge datasets and require the best performance, and if you can find / build a fitting HDT implementation for your stack.
 - Use JSON-LD if you want to improve your exsting JSON API.
 - Use Turtle if you want to manually read & edit your RDF.
 - Use Notation3 if you need RDF rules.
