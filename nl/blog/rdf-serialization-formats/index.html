@@ -97,8 +97,9 @@ Triple statements (the data atoms of RDF) can be serialized in many ways, which 
   <p>Contrary to some other datamodels, RDF is not bound by a single serializiation format.
 Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my <a href="/what-is-linked-data">linked data</a>?</p>
 
-<p>To answer the title’s question: <em>it depends</em>.
-So, let’s discuss the various formats and when you should use which.
+<p>To answer the title’s question: <em>it depends</em>, but probably N-Triples / N-Quads.</p>
+
+<p>So, let’s discuss the various formats and when you should use which.
 The order in which they appear is chronological, and does not reflect preference.
 Skip to the <a href="#tldr">TL;DR</a> if you’re feeling hasty.</p>
 
@@ -204,29 +205,37 @@ This makes N-Triples trivial to parse / serialize, so many libraries are availab
 It also makes parsing highly performant.</p>
 
 <p>However, the lack of prefixes and shorthands makes the format lengthy and a bit tough to read.
-The lenghty URLs also mean that you’ll need some form of compression if you don’t want to waste precious bandwith or storage capacity.</p>
+The lenghty URLs also mean that you’ll need some form of compression (e.g.g-zip) if you don’t want to waste precious bandwith or storage capacity.</p>
 
-<p>Use N-Triples for machine-to-machine communication, which is probably most of the time.</p>
+<p>Use N-Triples for machine-to-machine communication, which is probably most of the time.
+Since writing a parser / serializer for N-Triples is so simple, it’s a good idea to support this pretty much always.</p>
 
 <pre><code class="language-n-triples">&lt;https://www.w3.org/People/Berners-Lee/&gt; &lt;http://schema.org/birthDate&gt; "1955-06-08".
 &lt;https://www.w3.org/People/Berners-Lee/&gt; &lt;http://schema.org/birthPlace&gt; &lt;http://dbpedia.org/resource/London&gt;.
 </code></pre>
 
-<h2 id="json-ld-json-ld">JSON-LD (.json-ld)</h2>
+<p><a href="https://www.w3.org/TR/n-quads/">N-Quads</a> are like N-Turiples, but they have an optional fourth column, which can be used to denote a graph label.
+The graph label often refers to the source of the data, e.g. the URL of the HTML document or some external RDF resource.</p>
+
+<h2 id="json-ld-jsonld">JSON-LD (.jsonld)</h2>
 
 <p>JSON is without a doubt the most popular way to handle data in webapplications.
 <a href="https://json-ld.org/spec/latest/json-ld/">JSON-LD</a> is an extension of JSON, and is valid JSON as well.
 You can turn your regular plain old JSON into RDF by adding <a href="https://json-ld.org/spec/latest/json-ld/#the-context"><code class="highlighter-rouge">@context</code></a>.
 This object mainly serves as a mapping, so your plain keys get turned into fancy links to RDF Classes and Properties.
-You can add context either by adding an <code class="highlighter-rouge">@content</code> header in your HTTP response, by including the link in your JSON body, or by adding the entire <code class="highlighter-rouge">@context</code> object to you JSON.</p>
+You can add context either by adding an <code class="highlighter-rouge">@content</code> header in your HTTP response, by including the link in your JSON body, or by adding the entire <code class="highlighter-rouge">@context</code> object to you JSON.
+This means that if you want to upgrade your JSON API to JSON-LD, you get to keep your serializers.</p>
 
 <p>JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
-Because it’s still valid JSON, it’s usable to those who don’t need the semantic adata.</p>
+Because it’s still valid JSON, it’s usable to those who don’t want to deal with URLs.</p>
 
 <p>Unfortunately, it’s difficult to parse if you need the RDF data instead of the JSON object.
 This means that there are few (bugfree) JSON-LD parsers available, and it also means that parsing JSON-LD is costly for your CPU.</p>
 
-<p>Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.</p>
+<p>JSON-LD is a compromise.
+It supports RDF, it supports JSON, and it does both <em>okay</em>.
+Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.
+Since JSON is so popular, I think this is the way to go for <em>most</em> of the existing APIs.</p>
 
 <h2 id="hdt">HDT</h2>
 
@@ -246,14 +255,14 @@ Therefore, you can implement a serialization library (e.g. our <a href="https://
 <h2 id="tldr">TL;DR</h2>
 
 <ul>
-  <li>Use N-Triples or HDT if you want performant machine-to-machine communication.</li>
-  <li>Use HDT if you have huge datasets and require the best performance.</li>
-  <li>Use JSON-LD if you want to extend your existing JSON serializer.</li>
+  <li>Use N-Triples if you want performant machine-to-machine communication.</li>
+  <li>Use HDT if you have huge datasets and require the best performance, and if you can find / build a fitting HDT implementation for your stack.</li>
+  <li>Use JSON-LD if you want to improve your exsting JSON API.</li>
   <li>Use Turtle if you want to manually read &amp; edit your RDF.</li>
   <li>Use Notation3 if you need RDF rules.</li>
   <li>Use RDFa to extend your existing HTML pages.</li>
   <li>Use RDF/XML if you need to use XML.</li>
-  <li>If you can, support all of them and use HTTP content negotiation.</li>
+  <li>If you can, support all of them.</li>
 </ul>
 
 </div>
