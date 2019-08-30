@@ -68,9 +68,9 @@ contact:
   send: Verzenden
 ci:
   hero: Verbeter jouw ontwikkelstraat
-  short: Continuous integration
+  short: OTAP straat
   title: OTAP straat advies
-  intro: Continuous integration is Wij kunnen je helpen kosten te besparen door jouw software ontwikkelproces te optimaliseren. Voorkom bugs, release features sneller en krijg eerder feedback van klanten.
+  intro: Wij kunnen je helpen kosten te besparen door jouw software ontwikkelproces te optimaliseren. Voorkom bugs, release features sneller en krijg eerder feedback van klanten.
   build:
     title: build
     header: Build Automation
@@ -96,7 +96,7 @@ ci:
     body: Wij geven advies over het inrichten of verbeteren van ontwikkelstraten. Wij helpen met configuratie (zoals het schrijven van dockerfiles) en geven advies over devops. Ook kunnen we ontwikkelteams trainen om hun workflow efficiënter te maken. Het is onze insteek om zo veel mogelijk kennis over te dragen, zodat wij maar tijdelijk nodig zijn. Zo zorgen we er voor dat jij zo snel mogelijk een beter geautomatiseerd ontwikkeproces hebt dat zelf te beheren is.
 sd:
   hero: Wij realiseren online platforms
-  short: Webapplicacaites
+  short: Webapplicaties
   title: Softwareontwikkeling voor online platforms
   intro: Van jouw idee naar een volledige webapplicatie binnen enkele weken.
   flexible:
@@ -114,12 +114,12 @@ sd:
   standardized:
     title: open
     header: Voorkom lock-in
-    body: Standaarden maken software beter. De RESTful linked data API's van onze software hanteren W3C standaarden, zodat hergebruikers eenvoudig met jouw data aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelteam eventueel zelf verder kan gaan met onze code. Mocht het nodig zijn, dan trainen we jouw ontwikkelaars zodat de software effectief kan worden over te dragen. Zo blijf je niet van ons afhankelijk.
+    body: Standaarden maken software beter. De RESTful linked data API's van onze software hanteren W3C standaarden, zodat hergebruikers eenvoudig met jouw data aan de slag kunnen. Ook bij het schrijven van de code zelf hanteren we conventies en veelgebruikte technologie, zodat jouw ontwikkelteam eventueel zelf verder kan gaan met onze code. Mocht het nodig zijn, dan trainen we jouw ontwikkelaars zodat de software effectief kan worden overgedragen. Zo blijf je niet van ons afhankelijk.
     read_more: Lees meer over hoe wij API's ontwerpen...
   hi_tech:
     title: high tech
     header: Technologie op enterprise niveau
-    body_html: Benieuwd naar ons gereedschap? De kern van een back-end bouwen wij op Ruby on Rails, gepaard met ons WebTools framework. Wij hanteren een microservice architectuur om flexibiliteit en herbruikbaarheid te waarborgen. Onze software wordt geleverd in docker images, zodat schalen zo eenvoudig mogelijk is. We ontwikkelen snelle, gebruiksvriendelijke front-ends in React. Om de ontwikkelsnelheid zo hoog mogelijk te houden en fouten te voorkomen hanteren we <a href="/nl/continuous-integration">strikte ontwikkelmethoden</a>.
+    body_html: Benieuwd naar ons gereedschap? De kern van een back-end bouwen wij op Ruby on Rails, in combinatie met ons WebTools framework. Wij hanteren een microservice architectuur om flexibiliteit en herbruikbaarheid te waarborgen. Onze software wordt geleverd in Docker Images, zodat schalen zo eenvoudig mogelijk is. We ontwikkelen snelle, gebruiksvriendelijke front-ends in React. Om de ontwikkelsnelheid zo hoog mogelijk te houden en fouten te voorkomen hanteren we <a href="/nl/continuous-integration">strikte ontwikkelmethoden</a>.
   us:
     header: Hoe wij kunnen helpen
     body: "Wij kunnen helpen met het realiseren van een MVP voor jouw project of start-up, we kunnen een op maat gemaakte intranet applicatie opzetten, of de back-end bouwen voor jouw nieuwe SAAS dienst. Open source of volledig gesloten: de keus is aan jou. Neem contact op om te kijken wat wij voor jou kunnen doen!"

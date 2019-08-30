@@ -1,7 +1,8 @@
 # Powered by Ontola WebTools
 
 Ontola WebTools is een modern en breed inzetbaar online informatiemanagement systeem.
-De WebTools technologie is over meer dan vijf jaar ontworpen om rijke, interactieve webapplicaties te ontwikkelen.
+Er is al ruim vijf jaar gewerkt aan de WebTools-technologie.
+Met WebTools kun je rijke, interactieve webapplicaties ontwikkelen.
 Het is een combinatie van een CMS met een moderne, volledig aanpasbare front-end waarmee een groot scala aan features kan worden gemaakt.
 
 ## Waarom WebTools
@@ -28,7 +29,7 @@ Het is een combinatie van een CMS met een moderne, volledig aanpasbare front-end
 ## Waarvoor is WebTools geschikt?
 
 De WebTools technologie is een sterke basis om betrouwbare, uitgebreide applicaties op te ontwikkelen.
-Het werkt in het bijzonder goed (grote) groepen mensen interactie kunnen hebben.
+Het is uitermate geschikt als platform om online interactie mee te hebben met grote groepen mensen..
 
 Voorbeelden hiervan zijn:
 
