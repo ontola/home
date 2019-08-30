@@ -247,6 +247,7 @@ PLATFORMS
 DEPENDENCIES
   github-pages
   jekyll-multiple-languages-plugin
+  jekyll-redirect-from
   jekyll-release
 
 BUNDLED WITH

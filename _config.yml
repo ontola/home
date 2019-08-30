@@ -3,6 +3,7 @@ highlighter: rouge
 plugins:
   - jekyll-multiple-languages-plugin
   - jekyll-release
+  - jekyll-redirect-from
 #i18n
 languages: ["en", "nl"]
 defaultLang: en
