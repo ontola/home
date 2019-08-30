@@ -110,7 +110,7 @@ sd:
   fast:
     title: fast
     header: Online within weeks
-    body: Using our APEX technology, we can realize feature-rich and customized applications in short timeframes. We work Agile, so you get to see the changes as they happen and maintain a high degree of control during the development process.
+    body: Using our WebTools technology, we can realize feature-rich and customized applications in short timeframes. We work Agile, so you get to see the changes as they happen and maintain a high degree of control during the development process.
   standardized:
     title: open
     header: No lock-in
@@ -119,7 +119,7 @@ sd:
   hi_tech:
     title: high tech
     header: Technology on an enterprise level
-    body_html: Curious about our tools? We build our back-ends on Ruby on Rails, coupled with our APEX framework. We use a microservice architecture to maximize flexibility and reusability. Our software is built in docker images, which makes scaling as easy as possible. We develop user-friendly, fast, responsive and offline-capable front-ends in React. To maximize development speed and prevent bugs, we follow <a href="continuous-integration">strict development methods</a>.
+    body_html: Curious about our tools? We build our back-ends on Ruby on Rails, coupled with our WebTools framework. We use a microservice architecture to maximize flexibility and reusability. Our software is built in docker images, which makes scaling as easy as possible. We develop user-friendly, fast, responsive and offline-capable front-ends in React. To maximize development speed and prevent bugs, we follow <a href="continuous-integration">strict development methods</a>.
   us:
     header: How we can help
     body: We can help realize a fully functional MVP for your project or start-up, realize a custom made intranet platform or set up the core for a new SAAS company. Get in touch to find out what we can do for you!
@@ -129,3 +129,4 @@ about:
 footer:
   what_we_do: What we do
   find_us: Find us
+  freelance: Freelance development
