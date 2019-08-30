@@ -172,16 +172,19 @@ The links solve three problems:</p>
 <p>These three characteristics make linked data more reusable.
 The data quality has been improved, because other people and machines can now interpret and use the information more reliably.</p>
 
-<p>Let’s take a step back and look at what went wrong in our first non-linked table.
-The problems were obvious to someone who reuses the data but were not that relevant for the creator of the table.
+<p>Let’s look at the questions about the first table again.
+The ambiguity in the table is obvious to someone who reuses the data, but is not apparent for the creator of the table.
 I made the table, I knew which Tim and London I was talking about, I knew how the birthdate should be read.
-This closed worldview is the root cause of much of the problems in digital systems today.
-Developers tend to make software that produces data that only they can fully understand.
+There was no ambiguity for me.</p>
+
+<p>This closed worldview is the root cause of much of the problems in digital systems today.
+We tend to ignore the information that is stored in the context of data.
+Developers tend to make software that produces data that only their systems can fully understand.
 They have their own assumptions, identifiers, and models.
-Linked data solves this problem by creating <em>consensus</em> about what data represents and how it should be interpreted.</p>
+Linked data solves this problem by removing all ambiguity about what data represents and how it should be interpreted.</p>
 
 <h2 id="triples--the-rdf-data-model">Triples &amp; the RDF data model</h2>
-<p>In the example above, we’re making two separate statements about Tim: one about his birthdate and one about his birthplace.
+<p>In the tables above, we were making two separate statements about Tim: one about his birthdate and one about his birthplace.
 Each statement had it’s own cell in the table.
 In linked data, these statements are called  <em>triples</em>.
 That’s because every triple statement has three parts: a <em>subject</em>, a <em>predicate</em>, and an <em>object</em>.</p>
@@ -210,7 +213,7 @@ That’s because every triple statement has three parts: a <em>subject</em>, a <
 
 <p>A bunch of triples about a single subject (such as Tim) is called a <em>resource</em>.
 That’s why we call this data model the Resource Description Framework: <em>RDF</em>.
-It is the de facto standard for linked data.</p>
+RDF is the de facto standard for linked data.</p>
 
 <p>Instead of using a table of triples, we could visualize the RDF data as a <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)"><em>graph</em></a>.</p>
 
@@ -220,13 +223,14 @@ It is the de facto standard for linked data.</p>
 The object of the second triple (the birthDate) is not a link, but a so-called <em>literal value</em>.
 The literal value cannot have any properties, since it’s not a resource.</p>
 
-<p>That’s a lot of concepts that can be a bit confusing at first. However, they will appear all the time when you’re actually working with linked data, so try to get an accurate mental model of these concepts.</p>
+<p>That’s a lot of new words and concepts, which can be a bit confusing at first.
+However, they will appear all the time when you’re actually working with linked data, so try to get an accurate mental model of these concepts.</p>
 
-<p>Again, let’s take a step back and reflect.
+<p>Let’s take a step back and reflect.
 What can we say about the RDF model, looking at how it works?
 First, this shows that RDF is actually a ridiculously <em>simple</em> model.
 You can represent anything in RDF with just three columns.
-Second, you should note that it is not possible to add extra information on edges (these arrows in the graph).
+Second, you should note that it is not possible to add extra information on <em>edges</em> (these arrows in the graph).
 This is different from most graph models, where edges can have their own properties.
 Another characteristic of the RDF model is that it is really easy to combine two RDF graphs.
 Integrating two datasets is a luxury that most data models don’t have.
@@ -317,16 +321,17 @@ It defines the concept of Person and some attributes, such as a profile image.
 We used the <code class="highlighter-rouge">schema.org</code> ontology for the concepts of <code class="highlighter-rouge">birthDate</code> and <code class="highlighter-rouge">birthPlace</code>.</p>
 
 <p>There exist many ontologies, ranging from <a href="https://www.w3.org/TR/vocab-org/">organizations</a> (which describes concepts like <em>memberships</em>) to <a href="https://protege.stanford.edu/ontologies/pizza/pizza.owl">pizza</a> (which describes concepts like <em>ingredients</em>).
-These ontologies are often described in the OWL format, which is a subset of RDF.</p>
+These ontologies should be described in RDF as well.
+A powerful and popular to describe ontologies, is with the <a href="https://www.w3.org/2001/sw/wiki/OWL">OWL</a> format (the Web Ontology Language).
+The new <a href="https://shacl.org/playground/">SHACL</a> ontology help to define <em>shapes</em> of RDF, and can be used to <em>constrain</em>.</p>
 
-<p>That means that OWL ontologies are open data models that can be interpreted by machines.</p>
-
-<p>Having an machine-readable data model opens up some really cool possibilities.
+<p>An ontology described in RDF is a machine-readable data model.
+This opens up some really cool possibilities.
 You can <a href="https://github.com/dgarijo/Widoco">generate documentation</a>.
-You can use reasoners to <em>infer</em> new knowledge about your data.
-You can even generate forms and other UI components in React using <a href="https://github.com/fletcher91/link-lib">Link-Lib</a>.</p>
+You can use <a href="https://en.wikipedia.org/wiki/Semantic_reasoner">reasoners</a> to <em>infer</em> new knowledge about your data.
+You can even generate forms and other UI components in React using libraries such as <a href="https://github.com/fletcher91/link-redux">Link-Redux</a>.</p>
 
-<p>The power of the ontology goes far, but that deserves its own article.</p>
+<p>The power of the ontology goes far, but that probably deserves its own article.</p>
 
 <h2 id="publishing-linked-data">Publishing linked data</h2>
 <p>Linked data is meant to be shared.
@@ -374,15 +379,17 @@ For most linked data projects, I’d recommend to use a conventional database an
 
 <p>Note that there’s a difference between linked data and linked <em>open</em> data.
 Although linked data would be a great choice for publishing open data, you don’t have to make your linked data accessible to others.
-It’s perfectly possible to secure linked data.</p>
+It’s perfectly possible to secure linked data using <a href="https://oauth.net/2/">OAuth</a>, [WebID], ACL or other methods.</p>
 
 <h2 id="further-reading">Further reading</h2>
-<p>If you want to learn more about the vision behind the semantic web and linked data, read the <a href="https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf">2006 paper</a> by some of the original inventors.
+<p>If you want to learn more about the vision behind the semantic web and linked data, read the <a href="https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf">2006 paper</a> by some of the original inventors).
 If you’re looking for inspiration and example projects, check out the <a href="https://lod-cloud.net/">Linked Open Data Cloud</a>.
 If you want to learn more about reasoning and ontologies, try the <a href="https://www.w3.org/TR/2012/REC-owl2-primer-20121211/">W3C OWL primer</a>.
-For SPARQL, the <a href="https://jena.apache.org/tutorials/sparql.html">Apache Jena tutorial</a> could help.</p>
+For SPARQL, the <a href="https://jena.apache.org/tutorials/sparql.html">Apache Jena tutorial</a> could help.
+Check out the <a href="https://www.reddit.com/r/semanticweb/">/r/semanticweb</a> community on Reddit for interesting posts and discussions.
+Here’s <a href="https://twitter.com/joepmeindertsma/lists/linked-data">a list</a> of some interesting Twitter accounts you might want to follow.</p>
 
-<p>And of course, if you want to get help with your linked data project, feel free to send me an <a href="mailto:joep@argu.co">email</a>!</p>
+<p>If you want to get help with your linked data project, feel free to send me an <a href="mailto:joep@ontola.io">email</a>!</p>
 
 </div>
 <div class="post__navigation">
@@ -418,8 +425,9 @@ For SPARQL, the <a href="https://jena.apache.org/tutorials/sparql.html">Apache J
       <div class="footer-row">
         <div class="footer__header">Wat wij doen</div>
         <a href="/nl/">Linked data</a>
-        <a href="/nl/software-development">Softwareontwikkeling</a>
+        <a href="/nl/webdevelopment">Webapplicacaites</a>
         <a href="/nl/continuous-integration">Continuous integration</a>
+        <a href="/nl/freelance">Freelance ontwikkeling</a>
       </div>
       <div class="footer-row">
         <div href="/" class="footer__header">Vind ons</div>
