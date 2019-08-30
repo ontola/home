@@ -50,16 +50,19 @@ The links solve three problems:
 These three characteristics make linked data more reusable.
 The data quality has been improved, because other people and machines can now interpret and use the information more reliably.
 
-Let's take a step back and look at what went wrong in our first non-linked table.
-The problems were obvious to someone who reuses the data but were not that relevant for the creator of the table.
+Let's look at the questions about the first table again.
+The ambiguity in the table is obvious to someone who reuses the data, but is not apparent for the creator of the table.
 I made the table, I knew which Tim and London I was talking about, I knew how the birthdate should be read.
+There was no ambiguity for me.
+
 This closed worldview is the root cause of much of the problems in digital systems today.
-Developers tend to make software that produces data that only they can fully understand.
+We tend to ignore the information that is stored in the context of data.
+Developers tend to make software that produces data that only their systems can fully understand.
 They have their own assumptions, identifiers, and models.
-Linked data solves this problem by creating _consensus_ about what data represents and how it should be interpreted.
+Linked data solves this problem by removing all ambiguity about what data represents and how it should be interpreted.
 
 ## Triples & the RDF data model
-In the example above, we're making two separate statements about Tim: one about his birthdate and one about his birthplace.
+In the tables above, we were making two separate statements about Tim: one about his birthdate and one about his birthplace.
 Each statement had it's own cell in the table.
 In linked data, these statements are called  _triples_.
 That's because every triple statement has three parts: a _subject_, a _predicate_, and an _object_.
@@ -71,7 +74,7 @@ That's because every triple statement has three parts: a _subject_, a _predicate
 
 A bunch of triples about a single subject (such as Tim) is called a _resource_.
 That's why we call this data model the Resource Description Framework: _RDF_.
-It is the de facto standard for linked data.
+RDF is the de facto standard for linked data.
 
 Instead of using a table of triples, we could visualize the RDF data as a [_graph_](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)).
 
@@ -81,13 +84,14 @@ The object of the first triple, for the birthPlace, contains a link (an [_IRI_](
 The object of the second triple (the birthDate) is not a link, but a so-called _literal value_.
 The literal value cannot have any properties, since it's not a resource.
 
-That's a lot of concepts that can be a bit confusing at first. However, they will appear all the time when you're actually working with linked data, so try to get an accurate mental model of these concepts.
+That's a lot of new words and concepts, which can be a bit confusing at first.
+However, they will appear all the time when you're actually working with linked data, so try to get an accurate mental model of these concepts.
 
-Again, let's take a step back and reflect.
+Let's take a step back and reflect.
 What can we say about the RDF model, looking at how it works?
 First, this shows that RDF is actually a ridiculously _simple_ model.
 You can represent anything in RDF with just three columns.
-Second, you should note that it is not possible to add extra information on edges (these arrows in the graph).
+Second, you should note that it is not possible to add extra information on _edges_ (these arrows in the graph).
 This is different from most graph models, where edges can have their own properties.
 Another characteristic of the RDF model is that it is really easy to combine two RDF graphs.
 Integrating two datasets is a luxury that most data models don't have.
@@ -183,16 +187,17 @@ It defines the concept of Person and some attributes, such as a profile image.
 We used the `schema.org` ontology for the concepts of `birthDate` and `birthPlace`.
 
 There exist many ontologies, ranging from [organizations](https://www.w3.org/TR/vocab-org/) (which describes concepts like _memberships_) to [pizza](https://protege.stanford.edu/ontologies/pizza/pizza.owl) (which describes concepts like _ingredients_).
-These ontologies are often described in the OWL format, which is a subset of RDF.
+These ontologies should be described in RDF as well.
+A powerful and popular to describe ontologies, is with the [OWL](https://www.w3.org/2001/sw/wiki/OWL) format (the Web Ontology Language).
+The new [SHACL](https://shacl.org/playground/) ontology help to define _shapes_ of RDF, and can be used to _constrain_.
 
-That means that OWL ontologies are open data models that can be interpreted by machines.
-
-Having an machine-readable data model opens up some really cool possibilities.
+An ontology described in RDF is a machine-readable data model.
+This opens up some really cool possibilities.
 You can [generate documentation](https://github.com/dgarijo/Widoco).
-You can use reasoners to _infer_ new knowledge about your data.
-You can even generate forms and other UI components in React using [Link-Lib](https://github.com/fletcher91/link-lib).
+You can use [reasoners](https://en.wikipedia.org/wiki/Semantic_reasoner) to _infer_ new knowledge about your data.
+You can even generate forms and other UI components in React using libraries such as [Link-Redux](https://github.com/fletcher91/link-redux).
 
-The power of the ontology goes far, but that deserves its own article.
+The power of the ontology goes far, but that probably deserves its own article.
 
 ## Publishing linked data
 Linked data is meant to be shared.
@@ -240,12 +245,14 @@ Other technologies like [Linked Data Fragments](http://linkeddatafragments.org/)
 
 Note that there's a difference between linked data and linked _open_ data.
 Although linked data would be a great choice for publishing open data, you don't have to make your linked data accessible to others.
-It's perfectly possible to secure linked data.
+It's perfectly possible to secure linked data using [OAuth](https://oauth.net/2/), [WebID], ACL or other methods.
 
 ## Further reading
-If you want to learn more about the vision behind the semantic web and linked data, read the [2006 paper](https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf) by some of the original inventors.
+If you want to learn more about the vision behind the semantic web and linked data, read the [2006 paper](https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf) by some of the original inventors).
 If you're looking for inspiration and example projects, check out the [Linked Open Data Cloud](https://lod-cloud.net/).
 If you want to learn more about reasoning and ontologies, try the [W3C OWL primer](https://www.w3.org/TR/2012/REC-owl2-primer-20121211/).
 For SPARQL, the [Apache Jena tutorial](https://jena.apache.org/tutorials/sparql.html) could help.
+Check out the [/r/semanticweb](https://www.reddit.com/r/semanticweb/) community on Reddit for interesting posts and discussions.
+Here's [a list](https://twitter.com/joepmeindertsma/lists/linked-data) of some interesting Twitter accounts you might want to follow.
 
-And of course, if you want to get help with your linked data project, feel free to send me an [email](mailto:joep@argu.co)!
+If you want to get help with your linked data project, feel free to send me an [email](mailto:joep@ontola.io)!
