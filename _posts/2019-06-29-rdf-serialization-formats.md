@@ -73,7 +73,7 @@ Use RDFa if you want to make your existing website / blog / HTML based applicati
 
 ## Notation3 (.n3)
 
-Tim-Berners Lee wanted something better than RDF/XML, and came up with N3.
+Tim-Berners Lee wanted something better than RDF/XML, and came up with [N3](https://www.w3.org/TeamSubmission/n3/).
 Contrary to RDF/XML, N3 closely resembles the RDF Subject / Predicate / Object model.
 This makes N3 very easy on the eyes, and helps to understand how RDF works.
 By using @prefixes, N3 can be quite compact.
@@ -94,7 +94,7 @@ Unless you need the reasoning / rules features of N3, use its more popular (and 
 
 ## Turtle (.ttl)
 
-Turtle, the _Terse RDF Triple Language_, is a subset of N3.
+[Turtle](https://www.w3.org/TR/turtle/), the _Terse RDF Triple Language_, is a subset of N3.
 
 It strips some of the syntactic sugar en features of N3, which makes parsing Turtle a bit simpler.
 This, in turn, made Turtle more popular, which means that it's easier to find libraries for it.
