@@ -37,6 +37,14 @@
         <a href="{% tl about %}">about</a>
         <a href="{% tl blog %}">blog</a>
         <a href="{% tl contact %}">contact</a>
+        {% for lang in site.languageNames %}
+          {% if lang[0] == site.lang %} {% continue %} {% endif %}
+          {% if lang[0] == 'en' %}
+            <a href="{{ site.baseurl_root }}{{ page.url}}">{{ lang[1] }}</a>
+          {% else %}
+            <a href="{{ site.baseurl_root }}/{{ lang[0] }}{{ page.url}}">{{ lang[1] }}</a>
+          {% endif %}
+        {% endfor %}
       </div>
     </div>
   </nav>
@@ -62,7 +70,6 @@
             <a href="{{ site.baseurl_root }}/{{ lang[0] }}{{ page.url}}">{{ lang[1] }}</a>
           {% endif %}
         {% endfor %}
-        <!-- <a href="/about">About</a> -->
       </div>
       <div class="footer-row">
         <div class="footer__header">{% t footer.what_we_do %}</div>
