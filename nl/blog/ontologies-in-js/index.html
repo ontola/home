@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Linked Data Blog</title>
+  <title>Using ontologies in Javascript apps</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
@@ -19,26 +19,41 @@
   <link rel="stylesheet" href="/css/syntax.css"/>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  <meta name="description" content="Ontola web page">
+  <meta name="description" content="Ontologies are resources that describe how several classes and properties in a certain domain relate to each other.For example, if you’re creating a social n...">
 <meta property="og:site_name" content="ontola.github.io">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@ontola.io">
 
-<title>Linked Data Blog</title>
-<meta property="og:title" content="Linked Data Blog">
-<meta name="twitter:title" content="Linked Data Blog">
-<meta property="og:description" content=""/>
+<title>Using ontologies in Javascript apps</title>
+<meta property="og:title" content="Using ontologies in Javascript apps">
+<meta name="twitter:title" content="Using ontologies in Javascript apps">
+<meta property="og:description" content="Ontologies are resources that describe how several classes and properties in a certain domain relate to each other.
+For example, if you’re creating a social network app, you might want to use the Friend of a Friend (FOAF) ontology, which describes things like “Person” and “knows”.
+When creating linked data applications, you’re likely to work a lot with ontologies.
+Since ontologies, their classes and their properties all use URLs as identifiers, that means that you might write a lot of long strings.
+This is not only bothersome, but also a source of unnecessary typos and a possible performance bottleneck.
 
+"/>
+
+
+<meta property="article:published_time" content="2019-09-20T00:00:00+02:00">
 
 
 <meta property="og:image" content="/img/default.jpg">
 <meta name="twitter:image" content="/img/default.jpg">
 
-<meta property="og:url" content="http://ontola.io/blog" />
+<meta property="og:url" content="http://ontola.io/blog/ontologies-in-js/" />
+
+<meta itemprop="keywords" content="" />
 
 
-<meta property="article:author" content="http://ontola.io/about/">
-<meta property="og:type" content="website">
+
+
+<meta property="article:author" content="Joep Meindertsma" />
+<meta property="og:type" content="article">
+  
+  <meta name="twitter:creator" content="@joepmeindertsma">
+  
 
 
 </head>
@@ -64,89 +79,52 @@
   <div class="container">
       <div class="hero hero--smaller hero--narrow">
   <div class="hero__wrapper">
-    <h1 id="hero-text">
-      Linked Data Blog
-    </h1>
+    <a href="/blog"class="hero__link">
+      <h3 id="hero-text">
+        <i class="fas fa-level-up-alt"></i>
+        Linked Data Blog
+      </h3>
+    </a>
   </div>
 </div>
 <div class="post text">
+  <h1>Using ontologies in Javascript apps</h1>
   
-	<div class="post__preview">
-		<h2>
-				<a href="/blog/ontologies-in-js/" title="Using ontologies in Javascript apps">Using ontologies in Javascript apps</a>
-		</h2>
-		
+  
 
 <div class="details">
   <a href="https://twitter.com/@joepmeindertsma" target="_blank" class="details__author">Joep Meindertsma, </a>20 Sep 2019
 </div>
 
 
-		Ontologies are resources that describe how several classes and properties in a certain domain relate to each other. For example, if you’re creating a social network app, you might want to use the Friend of a Friend (FOAF) ontology, which...<br>
-		<a href="/blog/ontologies-in-js/">Read more...</a><br><br>
-	</div>
+  <p>Ontologies are resources that describe how several classes and properties in a certain domain relate to each other.
+For example, if you’re creating a social network app, you might want to use the Friend of a Friend (<a href="http://xmlns.com/foaf/spec/">FOAF</a>) ontology, which describes things like <a href="http://xmlns.com/foaf/spec/#term_Person">“Person”</a> and <a href="http://xmlns.com/foaf/spec/#term_knows">“knows”</a>.
+When creating linked data applications, you’re likely to work a lot with ontologies.
+Since ontologies, their classes and their properties all use URLs as identifiers, that means that you might write a lot of long strings.
+This is not only bothersome, but also a source of unnecessary typos and a possible performance bottleneck.</p>
 
-	<div class="post__preview">
-		<h2>
-				<a href="/blog/rdf-serialization-formats/" title="What's the best RDF serialization format?">What's the best RDF serialization format?</a>
-		</h2>
-		
+<p>That’s why we created the <a href="https://github.com/ontola/ontologies">@ontologies</a> project.
+This is an open source repository that converts RDF ontologies into JS exports, pubslihed in NPM for easy re-use.
+If your IDE is smart enough, it will auto-import the ontologies and provide and useful tooltips with ontological descriptions for each item.</p>
 
-<div class="details">
-  <a href="https://twitter.com/@joepmeindertsma" target="_blank" class="details__author">Joep Meindertsma, </a>29 Jun 2019
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">## Add it to your project</span>
+yarn add @ontologies/schema
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Use it in your code</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">name</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@ontologies/schema'</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="c1">// http://schema.org/name</span>
+</code></pre></div></div>
+
 </div>
-
-
-		Contrary to some other datamodels, RDF is not bound by a single serializiation format. Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my...<br>
-		<a href="/blog/rdf-serialization-formats/">Read more...</a><br><br>
-	</div>
-
-	<div class="post__preview">
-		<h2>
-				<a href="/blog/json-hal-ld/" title="Upgrade JSON-HAL to JSON-LD">Upgrade JSON-HAL to JSON-LD</a>
-		</h2>
-		
-
-<div class="details">
-  <a href="https://twitter.com/@joepmeindertsma" target="_blank" class="details__author">Joep Meindertsma, </a>29 Aug 2018
-</div>
-
-
-		JSON-HAL and JSON-LD are pretty popular formats for desiging APIs. They both have their merits, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys....<br>
-		<a href="/blog/json-hal-ld/">Read more...</a><br><br>
-	</div>
-
-	<div class="post__preview">
-		<h2>
-				<a href="/blog/api-design/" title="Best practices for RESTful API design">Best practices for RESTful API design</a>
-		</h2>
-		
-
-<div class="details">
-  <a href="https://twitter.com/@joepmeindertsma" target="_blank" class="details__author">Joep Meindertsma, </a>12 Jul 2018
-</div>
-
-
-		The internet started off as a place for linked documents. However, where humans are perfectly capable of understanding HTML documents through a browser, this does not apply for machines that need a specific piece of information. That’s why every decent...<br>
-		<a href="/blog/api-design/">Read more...</a><br><br>
-	</div>
-
-	<div class="post__preview">
-		<h2>
-				<a href="/what-is-linked-data/" title="A brief introduction to linked data">A brief introduction to linked data</a>
-		</h2>
-		
-
-<div class="details">
-  <a href="https://twitter.com/@joepmeindertsma" target="_blank" class="details__author">Joep Meindertsma, </a>03 Jul 2018
-</div>
-
-
-		Linked data is a way to structure and share information, using links. These links make data more meaningful and useful. To understand why, let’s take a piece of information and upgrade its data quality step by step, until it’s linked...<br>
-		<a href="/what-is-linked-data/">Read more...</a><br><br>
-	</div>
-
-
+<div class="post__navigation">
+  <div class="post__navigation__wrapper">
+    
+      <a class="post__navigation__previous" href="/blog/rdf-serialization-formats/">&laquo; What's the best RDF serialization format?</a>
+    
+    
+  </div>
 </div>
 
   </div>
@@ -164,7 +142,7 @@
         
           
           
-            <a href="/blog">English</a>
+            <a href="/blog/ontologies-in-js/">English</a>
           
         
            
