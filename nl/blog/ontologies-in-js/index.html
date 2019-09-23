@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="/css/syntax.css"/>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  <meta name="description" content="Ontologies are resources that describe how several classes and properties in a certain domain relate to each other.For example, if you’re creating a social n...">
+  <meta name="description" content="Ontologies are resources that describe concepts and how several classes and properties in a certain domain relate to each other.For example, if you’re creati...">
 <meta property="og:site_name" content="ontola.github.io">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@ontola.io">
@@ -27,7 +27,7 @@
 <title>Using ontologies in Javascript apps</title>
 <meta property="og:title" content="Using ontologies in Javascript apps">
 <meta name="twitter:title" content="Using ontologies in Javascript apps">
-<meta property="og:description" content="Ontologies are resources that describe how several classes and properties in a certain domain relate to each other.
+<meta property="og:description" content="Ontologies are resources that describe concepts and how several classes and properties in a certain domain relate to each other.
 For example, if you’re creating a social network app, you might want to use the Friend of a Friend (FOAF) ontology, which describes things like “Person” and “knows”.
 When creating linked data applications, you’re likely to work a lot with ontologies.
 Since ontologies, their classes and their properties all use URLs as identifiers, that means that you might write a lot of long strings.
@@ -97,7 +97,7 @@ This is not only bothersome, but also a source of unnecessary typos and a possib
 </div>
 
 
-  <p>Ontologies are resources that describe how several classes and properties in a certain domain relate to each other.
+  <p>Ontologies are resources that describe concepts and how several classes and properties in a certain domain relate to each other.
 For example, if you’re creating a social network app, you might want to use the Friend of a Friend (<a href="http://xmlns.com/foaf/spec/">FOAF</a>) ontology, which describes things like <a href="http://xmlns.com/foaf/spec/#term_Person">“Person”</a> and <a href="http://xmlns.com/foaf/spec/#term_knows">“knows”</a>.
 When creating linked data applications, you’re likely to work a lot with ontologies.
 Since ontologies, their classes and their properties all use URLs as identifiers, that means that you might write a lot of long strings.
@@ -107,15 +107,30 @@ This is not only bothersome, but also a source of unnecessary typos and a possib
 This is an open source repository that converts RDF ontologies into JS exports, pubslihed in NPM for easy re-use.
 If your IDE is smart enough, it will auto-import the ontologies and provide and useful tooltips with ontological descriptions for each item.</p>
 
+<h2 id="how-to-use-it">How to use it</h2>
+
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">## Add it to your project</span>
-yarn add @ontologies/schema
+yarn add @ontologies/core @ontologies/schema
 </code></pre></div></div>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Use it in your code</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">name</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@ontologies/schema'</span>
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="c1">// http://schema.org/name</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Initialize it once (./init.js)</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">setup</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"@ontologies/core"</span><span class="p">;</span>
+<span class="nx">setup</span><span class="p">();</span>
 </code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Use it</span>
+<span class="k">import</span> <span class="s2">"./init"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">name</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"@ontologies/schema"</span><span class="p">;</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"app"</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">`
+&lt;h1&gt;Schema URL: </span><span class="p">${</span><span class="nx">name</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span><span class="s2">&lt;/h1&gt;
+`</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Check out a <a href="https://codesandbox.io/s/ontologies-41zgg">running example on CodeSandbox</a></p>
+
+<p>We’ve currently added ActivityStreams, DCElements, DCTerms, DCMIType, FOAF, OWL, PROV-O, RDF, RDFS, Schema, SHACL, SKOS and XSD.
+PRs for new ontologies are welcome!</p>
 
 </div>
 <div class="post__navigation">
