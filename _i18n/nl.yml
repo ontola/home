@@ -70,11 +70,11 @@ ci:
   hero: Verbeter jouw ontwikkelstraat
   short: OTAP straat
   title: OTAP straat advies
-  intro: Wij kunnen je helpen kosten te besparen door jouw software ontwikkelproces te optimaliseren. Voorkom bugs, release features sneller en krijg eerder feedback van klanten.
+  intro: Wij kunnen je helpen kosten te besparen door jouw software ontwikkelproces te optimaliseren. Voorkom fouten, lanceer functionaliteiten sneller en krijg eerder terugkoppeling van klanten.
   build:
     title: build
     header: Build Automation
-    body: Automatiseer het compileren van software en verlaag zo de kosten aan serveronderhoud en devops. Gebruik Docker om je software te laten draaien in virtuele machines, zodat je snel kan schalen en je geen zorgen hoeft te maken over falende hardware. Zorg er voor dat exceptions automatisch worden afgevangen, zodat ontwikkelaars direct van fouten op de hoogte worden gesteld. Schaal je online service in minuten in plaats van dagen met Kubernetes. Hanteer één omgeving voor ontwikkel, test en productie. Sluit eenvoudig aan op honderden diensten en datacenters.
+    body: Automatiseer het compileren van software builds en verlaag zo de kosten aan serveronderhoud en devops. Gebruik Docker om je software te laten draaien in virtuele machines, zodat je snel kan schalen en je geen zorgen hoeft te maken over falende hardware. Zorg er voor dat fouten automatisch worden afgevangen, zodat ontwikkelaars direct van fouten op de hoogte worden gesteld. Schaal je online dienst in minuten in plaats van dagen met Kubernetes. Hanteer losse omgevingen voor ontwikkeling, test, acceptatie en productie. Sluit eenvoudig aan op honderden diensten en datacenters.
   test:
     title: test
     header: Test Automation
@@ -82,18 +82,18 @@ ci:
   integrate:
     title: integrate
     header: Continuous Integration
-    body: In plaats van wachten op de ‘release day’, integreren ontwikkelaars hun code zo snel mogelijk naar de master branch. Deze nieuwe, geïntegreerde code wordt automatisch getest. Dit zorgt voor een snelle ontwikkelcyclus en een hogere veiligheid. Doordat er meer code wordt gedeeld, ontstaat er minder frictie in jouw ontwikkelteam.
+    body: In plaats van wachten op de dag van lancering, integreren ontwikkelaars hun code zo snel mogelijk naar de master branch. Deze nieuwe, geïntegreerde code wordt automatisch getest. Dit zorgt voor een snelle ontwikkelcyclus en een hogere veiligheid. Doordat er meer code wordt gedeeld, ontstaat er minder frictie in jouw ontwikkelteam.
   deliver:
     title: deliver
     header: Continuous Delivery
-    body: Release een nieuwe versie van jouw software met een druk op de knop. Ga zo snel mogelijk van idee naar uitgerolde feature. Doordat code zo snel mogelijk live staat, ontvangt het team direct feedback. Een korte value cycle is waardevol voor jou en voor je klanten.
+    body: Release een nieuwe versie van jouw software met een druk op de knop. Ga zo snel mogelijk van idee naar uitgerolde functionaliteit. Doordat code zo snel mogelijk live staat, ontvangt het team direct respons. Een korte value cycle is waardevol voor jou en voor je klanten.
   deploy:
     title: deploy
     header: Continuous Deployment
-    body: Het releasen van een nieuwe versie gaat volledig automatisch. Wanneer code wijzigingen door de tests komen, worden ze automatisch uitgerold. Hiermee is je value cycle nog korter dan bij continuous delivery.
+    body: Het lanceren van een nieuwe versie gaat volledig automatisch. Wanneer code wijzigingen door de tests komen, worden ze automatisch uitgerold. Hiermee is je value cycle nog korter dan bij continuous delivery.
   us:
     header: Hoe wij kunnen helpen
-    body: Wij geven advies over het inrichten of verbeteren van ontwikkelstraten. Wij helpen met configuratie (zoals het schrijven van dockerfiles) en geven advies over devops. Ook kunnen we ontwikkelteams trainen om hun workflow efficiënter te maken. Het is onze insteek om zo veel mogelijk kennis over te dragen, zodat wij maar tijdelijk nodig zijn. Zo zorgen we er voor dat jij zo snel mogelijk een beter geautomatiseerd ontwikkeproces hebt dat zelf te beheren is.
+    body: Wij geven advies over het inrichten of verbeteren van ontwikkelstraten. Wij helpen met configuratie (zoals het schrijven van dockerfiles) en geven advies over devops. Ook kunnen we ontwikkelteams trainen om hun workflow efficiënter te maken. Het is onze insteek om zo veel mogelijk kennis over te dragen, zodat wij maar tijdelijk nodig zijn. Zo zorgen we er voor dat jij zo snel mogelijk een beter geautomatiseerd ontwikkelproces hebt dat zelf te beheren is.
 sd:
   hero: Wij realiseren online platforms
   short: Webapplicaties
