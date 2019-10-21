@@ -5,8 +5,7 @@ Onze ontwikkelaars kunnen vanuit ons kantoor werken, maar kunnen ook bij u langs
 
 ## Technologie
 
-- Python
-- Django
+- [Python / Django](/nl/django-webdevelopment)
 - Typescript / Javascript
 - Kotlin / Java
 - Ruby on Rails

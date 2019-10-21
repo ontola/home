@@ -36,3 +36,5 @@ Wij ontwikkelen nieuwe en bestaande Django opdrachten. Heeft u al een bestaand D
 hoe we dit kunnen doorontwikkelen om het naar een hoger plan te brengen. We richten het proces in met een 
 [geautomatiseerde ontwikkelstraat](/nl/continuous-integration), om een stabiel ontwikkelproces te garanderen. 
 Daarnaast leveren wij ook freelance Django experts / Django professionals. Benieuwd naar wat wij voor u kunnen betekenen?
+
+Wij hanteren een standaard uurtarief van **&euro;85,- per uur**. Benieuwd naar wat wij voor u kunnen betekenen?

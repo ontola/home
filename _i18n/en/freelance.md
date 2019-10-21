@@ -5,8 +5,7 @@ Our developers can work remotely from our office in Utrecht, but on-site develop
 
 ## Technologie
 
-- Python
-- Django
+- [Python / Django](/django-webdevelopment)
 - Typescript / Javascript
 - Kotlin / Java
 - Ruby on Rails

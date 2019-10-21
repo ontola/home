@@ -70,6 +70,7 @@
         <a href="{% tl webdevelopment %}">{% t sd.short %}</a>
         <a href="{% tl continuous-integration %}">{% t ci.short %}</a>
         <a href="{% tl freelance %}">{% t footer.freelance %}</a>
+        {% if site.lang != 'en' %}<a href="{% tl django %}">{% t footer.django %}</a>{% endif %}
       </div>
       <div class="footer-row">
         <div href="/" class="footer__header">{% t footer.find_us %}</div>
