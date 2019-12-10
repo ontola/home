@@ -199,6 +199,17 @@ You can even generate forms and other UI components in React using libraries suc
 
 The power of the ontology goes far, but that probably deserves its own article.
 
+## What can we do with linked data
+The use of links help to provide extra information, remove ambiguity, and help with standardization.
+These are abstract advantages, but they have a real-world impact on how we can use data.
+
+- Linked data enables a decentralized architecture. Since URLs directly point to the source, even if the data is on a completely different domain,
+- Because of the decentralized nature, data tends to stay at the source. This means that less data is copied, and we have
+- Since linked data is highly standardized, writing interfaces becomes really easy. This means that you don't need expensive.
+- We can merge two datasets, without having any collissions in identifiers. This is because URLs are unique even accross multiple domains. This might seem like a minor benefit, but it makes integration multiple systems exceptionally trivial.
+- Linked data can be converted to many serialization formats. It's easy to convert Linked Data to JSON, but the other way around is more difficult.
+-
+
 ## Publishing linked data
 Linked data is meant to be shared.
 We can do this in several ways:

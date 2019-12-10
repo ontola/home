@@ -30,8 +30,8 @@ home:
   projects:
     title: Een greep uit onze projecten
     ori:
-      title: Open Raadsinformatie
-      body: Open Raadsinformatie is een applicatie die vergader- en besluitinformatie verzamelt uit software van meer dan 100 Nederlandse gemeenten. Dit wordt vervolgens toegankelijk gemaakt als linked data via een API en een zoekmachine. Open Raadsinformatie hebben wij samen met de VNG en de Open State Foundation gerealiseerd.
+      title: Open Besluitvorming
+      body: Open Besluitvorming is een applicatie die vergader- en besluitinformatie verzamelt uit software van meer dan 120 Nederlandse gemeenten en provincies. Dit wordt vervolgens toegankelijk gemaakt als linked data via een API en een zoekmachine.
     link:
       title: Link-Lib / Link-Redux
       body: Link is een door ons ontwikkelde verzameling van open source libraries voor front-end webapplicaties. Ze helpen bij het binnenhalen, opslaan, toegankelijk maken en het weergeven van linked data. De ingebouwde reasoner helpt bij het bepalen van de beste weergave voor nieuwe type data.

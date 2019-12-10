@@ -30,8 +30,8 @@ home:
   projects:
     title: Some of our projects
     ori:
-      title: Open Raadsinformatie
-      body: Open Raadsinformatie collects meeting data from over 100 Dutch local governments and converts everything to linked open data, accessible through a uniform API and search engine. This project is a collaboration between the VNG, the Open State Foundation and us.
+      title: Open Besluitvorming
+      body: Open Besluitvorming (Open Decision Making) collects meeting data from over 120 Dutch local governments and converts everything to linked open data, accessible through a uniform API and search engine. This project is a collaboration between the VNG, the Open State Foundation and us.
     link:
       title: Link-Lib / Link-Redux
       body: We've developed Link as a set of open source libraries for front-end web applications. They help to fetch, store, access and ultimately render linked data. The built-in reasoner helps to find the best fitting view for new types of data.
