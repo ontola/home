@@ -34,15 +34,15 @@
       <div class="nav__links nav__links--collapsed">
         <a href="{% tl linked-data %}">home</a>
         <!-- <a href="{% tl services %}">services</a> -->
-        <a href="{% tl about %}">about</a>
+        <a href="{% tl about %}">{% t about.title %}</a>
         <a href="{% tl blog %}">blog</a>
         <a href="{% tl contact %}">contact</a>
         {% for lang in site.languageNames %}
           {% if lang[0] == site.lang %} {% continue %} {% endif %}
           {% if lang[0] == 'en' %}
-            <a href="{{ site.baseurl_root }}{{ page.url}}">{{ lang[1] }}</a>
+            <a title="{{ lang[1] }}" href="{{ site.baseurl_root }}{{ page.url}}">{{ lang[0] }}</a>
           {% else %}
-            <a href="{{ site.baseurl_root }}/{{ lang[0] }}{{ page.url}}">{{ lang[1] }}</a>
+            <a title="{{ lang[1] }}" href="{{ site.baseurl_root }}/{{ lang[0] }}{{ page.url}}">{{ lang[0] }}</a>
           {% endif %}
         {% endfor %}
       </div>
