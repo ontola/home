@@ -1,0 +1,287 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Hoe we Nederlandse gemeenten Linked Data hebben gemaakt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
+  <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="apple-mobile-web-app-title" content="Ontola.io">
+  <meta name="application-name" content="Ontola.io">
+  <meta name="msapplication-TileColor" content="#5a91af">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="/css/normalize.css"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/syntax.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <meta name="description" content="Open Raadsinformatie laat je zien wat er besproken is in de Nederlandse gemeenten.Nooit eerder waren er zoveel gemeenten op één plek doorzoekbaar voor het br...">
+<meta property="og:site_name" content="home">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@ontola.io">
+
+<title>Hoe we Nederlandse gemeenten Linked Data hebben gemaakt</title>
+<meta property="og:title" content="Hoe we Nederlandse gemeenten Linked Data hebben gemaakt">
+<meta name="twitter:title" content="Hoe we Nederlandse gemeenten Linked Data hebben gemaakt">
+<meta property="og:description" content="Open Raadsinformatie laat je zien wat er besproken is in de Nederlandse gemeenten.
+Nooit eerder waren er zoveel gemeenten op één plek doorzoekbaar voor het bredere publiek.
+Daardoor kun je nu gemakkelijk vinden wat er allemaal is besproken in jouw stad.
+Data die eerst overal verspreid was op allemaal kleine data eilandjes, hebben we samengebracht en uitgebreid.
+
+"/>
+
+
+<meta property="article:published_time" content="2019-12-16T00:00:00+01:00">
+
+
+<meta property="og:image" content="/img/default.jpg">
+<meta name="twitter:image" content="/img/default.jpg">
+
+<meta property="og:url" content="http://ontola.io/blog/nl/hoe-we-nederlandse-gemeenten-linked-data-hebben-gemaakt/" />
+
+<meta itemprop="keywords" content="" />
+
+
+
+
+<meta property="article:author" content="Jurrian Tromp" />
+<meta property="og:type" content="article">
+  
+
+
+</head>
+<body>
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <nav  id="navbar" class="nav__wrapper">
+    <div class="nav">
+      <a href="/nl/" class="nav__logo">
+        <img src="/img/logo.svg" />
+        <span>Ontola</span><span class="nav__logo__tld">.io</span>
+      </a>
+      <div class="nav__links nav__links--collapsed">
+        <a href="/nl/">home</a>
+        <!-- <a href="">services</a> -->
+        <a href="/nl/about">about</a>
+        <a href="/nl/blog">blog</a>
+        <a href="/nl/contact">contact</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+      <div class="hero hero--smaller hero--narrow">
+  <div class="hero__wrapper">
+    <a href="/blog"class="hero__link">
+      <h3 id="hero-text">
+        <i class="fas fa-level-up-alt"></i>
+        Linked Data Blog
+      </h3>
+    </a>
+  </div>
+</div>
+<div class="post text">
+  <h1>Hoe we Nederlandse gemeenten Linked Data hebben gemaakt</h1>
+  
+  
+
+<div class="details">
+  <a href="https://twitter.com/" target="_blank" class="details__author">Jurrian Tromp, </a>16 Dec 2019
+</div>
+
+
+  <p>Open Raadsinformatie laat je zien wat er besproken is in de Nederlandse gemeenten.
+Nooit eerder waren er zoveel gemeenten op één plek doorzoekbaar voor het bredere publiek.
+Daardoor kun je nu gemakkelijk vinden wat er allemaal is besproken in jouw stad.
+Data die eerst overal verspreid was op allemaal kleine data eilandjes, hebben we samengebracht en uitgebreid.</p>
+
+<p>Al deze open informatie maakt het eenvoudiger voor journalisten, beleidsmakers en geïnformeerde burgers om de overheid te volgen en controleren.
+Met de principes van <a href="/what-is-linked-data/">Linked Data</a> in ons achterhoofd hebben we er voor gezorgd dat onze data open, uniform en herbruikbaar is voor iedereen die erop verder wil bouwen.</p>
+
+<p>Bezoek onze website <a href="https://openbesluitvorming.nl">openbesluitvorming.nl</a> om <strong>alle publieke documenten</strong> vanaf 2000 van meer dan 127 overheden te vinden.</p>
+
+<h2 id="hoe-het-begon">Hoe het begon</h2>
+<p>Eind 2016 begonnen we samen te werken met de Open State Foundation, die het Open Raadsinformatie project waren gestart.
+Aan het begin van deze samenwerking waren er enkel 7 gemeenten geïndexeerd.
+Uiteindelijk groeide het aantal participanten naar 120 Nederlandse gemeenten, later kwamen daar nog eens 6 provincies bij.
+Nieuwe gemeenten deden mee op vrijwillige basis, Open State heeft fantastisch werk verricht door zoveel gemeenten aan boord te krijgen.</p>
+
+<p>In eerste instantie bevatte Open Raadsinformatie alleen maar “platte” JSON bestanden, geïndexeerd in Elasticsearch.
+De laatste jaren hebben we vanuit Ontola gewerkt om alles om te zetten in Linked Open Data, met zowel <a href="https://api.openraadsinformatie.nl/v1/elastic/_search">Json-LD in Elasticsearch</a> als andere RDF formaten in de <a href="https://id.openraadsinformatie.nl/">ORI API</a>.
+We hebben gepoogd om de informatie uit de bronsystemen zo goed mogelijk te consolideren, zodat de gebruikte classen en eigenschappen uniform bruikbaar zijn.
+Op dit moment stellen we meer dan een miljoen documenten beschikbaar via onze API.
+Deze dataset blijft groeien, elke nacht komen er honderden nieuwe documenten bij.</p>
+
+<h2 id="van-pdf-naar-verrijkte-text">Van PDF naar verrijkte text</h2>
+<p>Nederlandse gemeenten produceren een <em>hoop</em> informatie, ze gebruiken allemaal een raadsinformatiesysteem om vergaderingen, documenten, moties en rapportages te organiseren en te publiceren.
+Er zijn echter verschillende raadsinformatiesystemen beschikbaar die allemaal anders werken en een eigen informatiemodel hebben.
+Daarnaast zijn de meeste stukken en documenten opgeslagen in PDF formaat, en vaak niet publiekelijk toegankelijk beschikbaar.
+Doordat wij toegang hebben tot al deze systemen, kunnen wij alles samenbrengen in een altijd publiek beschikbare centrale dataset.</p>
+
+<p>De meest interessante informatie zit in PDF bestanden verborgen en kan niet worden doorzocht.
+Door de teksten uit al deze miljoenen PDF bestanden te extraheren, hebben we al deze teksten voor het eerst doorzoekbaar gemaakt.
+We slaan de bestanden op voor caching in Google Cloud Storage, samen met de bronnen en metadata.
+Daardoor kunnen we altijd een specifieke versie terughalen of zien wat er is gewijzigd tussen versies.
+Daarnaast hebben we twee zogeheten ‘enrichers’ die de informatie verrijken:</p>
+
+<ul>
+  <li>
+    <p>ORI thema classificatie: een <a href="https://github.com/openstate/ori-theme-classifier">machine-learning classifier</a> gemaakt door Open State.
+Geeft relevantie scores van een document op basis van een set gespecificeerde thema’s waaronder: Economie, Veiligheid en Onderwijs.</p>
+  </li>
+  <li>
+    <p>Waaroverheid enricher: gebaseerd op het project <a href="https://bitbucket.org/aolieman/loclinkvis/">LocLinkVis</a> van onder andere Alex Olieman en de Universiteit van Amsterdam.
+Het zoekt straten en locaties in document teksten en koppelt het aan de geografische coördinaten van een buurt of wijk.</p>
+  </li>
+</ul>
+
+<p>Deze enrichers zorgen dat alle gebruikers van Open Raadsinformatie kunnen filteren op thema tags en kunnen zoeken welke documenten er binnen een geografisch gebied vallen.</p>
+
+<p>Er zijn op dit moment al verschillende applicaties die gebruik maken van de vrij beschikbare data via onze API:</p>
+
+<h2 id="use-cases">Use cases</h2>
+
+<h3 id="openbesluitvormingnl">Openbesluitvorming.nl</h3>
+<p>We hebben de <a href="https://openbesluitvorming.nl">primaire zoekapplicatie</a> gebouwd, zodat gebruikers kunnen ontdekken wat er is gezegd in hun lokale overheid.
+Het mooie van open data is dat iedereen een eigen applicatie kan bouwen op basis van onze API, we hebben gewoonweg een begin gemaakt.</p>
+
+<p><img src="/img/posts/zoek-openraadsinformatie.jpg" alt="openbesluitvorming.nl" title="openbesluitvorming.nl" /></p>
+
+<p> </p>
+
+<h3 id="raadstalknl">Raadstalk.nl</h3>
+<p>VNG is de koepelorganisatie voor alle Nederlandse gemeenten en is de drijvende kracht achter het project.
+Ze hebben ons gevraagd om een <a href="https://raadstalk.nl">simpele weergave</a> te bouwen om te kunnen zien welke woorden er trending zijn per maand.</p>
+
+<p><img src="/img/posts/raadstalk.jpg" alt="raadstalk.nl" title="Raadstalk.nl" /></p>
+
+<p> </p>
+
+<h3 id="waaroverheidnl">Waaroverheid.nl</h3>
+<p><a href="https://waaroverheid.nl">WaarOverheid</a> toont alle documenten die een locatie bevatten in jouw buurt of wijk.
+Op een kaart kun je tussen buurten navigeren om documenten in de daargelegen straten te vinden.</p>
+
+<p><img src="/img/posts/waaroverheid.jpg" alt="waaroverheid.nl" title="Waaroverheid.nl" /></p>
+
+<p> </p>
+
+<h3 id="1848nl">1848.nl</h3>
+<p><a href="https://1848.nl">1848</a> verzamelt politieke informatie en nieuws van verschillende bronnen.
+Door te zoeken en notificaties te onvangen kan men zo op de hoogte blijven van ontwikkelingen.</p>
+
+<p><img src="/img/posts/1848.jpg" alt="1848.nl" title="1848.nl" /></p>
+
+<p> </p>
+
+<h2 id="nu-en-de-toekomst">Nu en de toekomst</h2>
+
+<p>Het begon allemaal met openraadsinformatie.nl, maar het project bevat al lang niet enkel raadsinformatie meer.
+De scope van het project is verbreed naar provinciale data en binnenkort ook nationale data.
+Op dit moment werken we samen met De Tweede Kamer der Staten-Generaal om hun nieuwe API in het project te integreren.
+Dit heeft geleidt tot een nieuwe naam voor besluitvorming op alle niveaus: <a href="https://openbesluitvorming.nl">openbesluitvorming.nl</a>.</p>
+
+<p>We hebben een hoop positieve en inspirerende reacties gehad van deelnemende partijen.
+Ze zeggen dat dit project een mooie manier is om de politiek en bestuur meer open toegankelijk te maken en dichter bij de burger te brengen.
+Door nieuwe gemeenten en provincies toe te voegen hopen we het succes nog groter te maken.<br />
+Als u een gemeente of provincie vertegenwoordigt en deel zou willen nemen, vragen we u vriendelijk <a href="https://formulieren.vngrealisatie.nl/deelname_openraadsinformatie">dit formulier</a> in te vullen of een email te sturen naar <a href="mailto:sander.bakker@vng.nl">Sander Bakker</a> van VNG.
+Meedoen aan het project is kosteloos, meer informatie over deelname en het project kunt u <a href="https://www.vngrealisatie.nl/producten/open-raadsinformatie">hier</a> vinden.</p>
+
+<p>Werken aan dit project is een uitdaging geweest, we hebben een behoorlijk aantal hordes genomen die komen bij het beheren van zulke hoeveelheden data en verschillende systemen.
+Onderweg hebben we ervaring opgedaan met ETL processen, Elasticsearch, Kafka en Kubernetes om er een paar te noemen.</p>
+
+<p><a href="/contact">Neem contact met ons op</a> om erachter te komen hoe u uw doelen kunt halen in het modelleren en transformeren van grote hoeveelheden Linked Data.</p>
+
+</div>
+<div class="post__navigation">
+  <div class="post__navigation__wrapper">
+    
+      <a class="post__navigation__previous" href="/blog/how-we-transformed-dutch-municipality-linked-data/">&laquo; How we transformed Dutch municipality Linked Data</a>
+    
+    
+  </div>
+</div>
+
+  </div>
+  <div class="footer--wrapper" id="footer">
+    <div class="footer">
+      <div class="footer-row">
+        <div href="/" class="footer__header">
+          Ontola
+        </div>
+        <a href="/nl/">Home</a>
+        <!-- <a href="">Services</a> -->
+        <a href="/nl/about">About</a>
+        <a href="/nl/blog">Blog</a>
+        <a href="/nl/contact">Contact</a>
+        
+          
+          
+            <a href="/blog/nl/hoe-we-nederlandse-gemeenten-linked-data-hebben-gemaakt/">English</a>
+          
+        
+           
+        <!-- <a href="/about">About</a> -->
+      </div>
+      <div class="footer-row">
+        <div class="footer__header">Wat wij doen</div>
+        <a href="/nl/">Linked data</a>
+        <a href="/nl/webdevelopment">Webapplicaties</a>
+        <a href="/nl/continuous-integration">OTAP straat</a>
+        <a href="/nl/freelance">Freelance ontwikkeling</a>
+        <a href="/nl/django-webdevelopment">Django webdevelopment</a>
+      </div>
+      <div class="footer-row">
+        <div href="/" class="footer__header">Vind ons</div>
+        <div class="footer__social_logos">
+          <a href="https://github.com/ontola">
+            <i title="Github" aria-label="Github" class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/ontola/">
+            <i title="LinkedIn" aria-label="LinkedIn" class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.facebook.com/ontola.io/">
+            <i title="Facebook" aria-label="Facebook" class="fab fa-facebook"></i>
+          </a>
+          <a href="https://twitter.com/ontola_io">
+            <i title="Twitter" aria-label="Twitter" class="fab fa-twitter"></i>
+          </a>
+        </div>
+        <a href="mailto:info@ontola.io">
+          <i class="fas fa-envelope"></i>
+          info@ontola.io
+        </a>
+        <a href="tel:0031636020942">
+          <i class="fas fa-phone"></i>
+          +316 360 209 42
+        </a>
+        <a href="https://goo.gl/maps/x5Sggs9X7L32">
+          <i class="fas fa-map-marker-alt"></i>
+          Koningslaan 62, Utrecht, NL
+        </a>
+        <div><a href="https://argu.co">
+          <i class="fas fa-briefcase"></i>
+          Argu B.V.</a> kvk 65684168<div>
+        </div>
+      </div>
+    </div>
+    <img class="footer__logo" src="/img/logo.svg" />
+  </div>
+  </div>
+  <script src="/js/main.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121994595-1">
+    gtag('config', 'AW-940871433');
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-121994595-1');
+  </script>
+</body>
+
+</html>

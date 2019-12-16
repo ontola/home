@@ -206,7 +206,7 @@ th,td {
 
 .form button {
     margin-top: 1em;
-    background-color: #5A91AF;
+    background-color: #71A1BC;
     color: white;
     border: solid 2px #1a5576;
     cursor: pointer;
@@ -281,7 +281,7 @@ th,td {
     height: 30em;
     overflow: hidden;
     width: 100%;
-    background: linear-gradient(180deg, #1A5576 0%, #5A91AF 100%);
+    background: linear-gradient(180deg, #1A5576 0%, #71A1BC 100%);
 }
 
 .hero__image {
