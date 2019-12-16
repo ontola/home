@@ -38,7 +38,8 @@ document.getElementById("app").innerHTML = `
 `;
 ```
 
-Check out a [running example on CodeSandbox](https://codesandbox.io/s/ontologies-41zgg)
+Check out a [running example on CodeSandbox](https://codesandbox.io/s/ontologies-41zgg).
 
 We've currently added ActivityStreams, DCElements, DCTerms, DCMIType, FOAF, OWL, PROV-O, RDF, RDFS, Schema, SHACL, SKOS and XSD.
+
 PRs for new ontologies are welcome!
