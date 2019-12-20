@@ -55,7 +55,7 @@ Er zijn op dit moment al verschillende applicaties die gebruik maken van de vrij
 We hebben de [primaire zoekapplicatie](https://openbesluitvorming.nl) gebouwd, zodat gebruikers kunnen ontdekken wat er is gezegd in hun lokale overheid.
 Het mooie van open data is dat iedereen een eigen applicatie kan bouwen op basis van onze API, we hebben gewoonweg een begin gemaakt.
 
-![openbesluitvorming.nl](/img/posts/zoek-openraadsinformatie.jpg "openbesluitvorming.nl")
+![openbesluitvorming.nl](/img/posts/ori/zoek-openraadsinformatie.jpg "openbesluitvorming.nl")
 
 &nbsp;
 
@@ -63,7 +63,7 @@ Het mooie van open data is dat iedereen een eigen applicatie kan bouwen op basis
 VNG is de koepelorganisatie voor alle Nederlandse gemeenten en is de drijvende kracht achter het project.
 Ze hebben ons gevraagd om een [simpele weergave](https://raadstalk.nl) te bouwen om te kunnen zien welke woorden er trending zijn per maand.
 
-![raadstalk.nl](/img/posts/raadstalk.jpg "Raadstalk.nl")
+![raadstalk.nl](/img/posts/ori/raadstalk.jpg "Raadstalk.nl")
 
 &nbsp;
 
@@ -71,7 +71,7 @@ Ze hebben ons gevraagd om een [simpele weergave](https://raadstalk.nl) te bouwen
 [WaarOverheid](https://waaroverheid.nl) toont alle documenten die een locatie bevatten in jouw buurt of wijk.
 Op een kaart kun je tussen buurten navigeren om documenten in de daargelegen straten te vinden.
 
-![waaroverheid.nl](/img/posts/waaroverheid.jpg "Waaroverheid.nl")
+![waaroverheid.nl](/img/posts/ori/waaroverheid.jpg "Waaroverheid.nl")
 
 &nbsp;
 
@@ -79,7 +79,7 @@ Op een kaart kun je tussen buurten navigeren om documenten in de daargelegen str
 [1848](https://1848.nl) verzamelt politieke informatie en nieuws van verschillende bronnen.
 Door te zoeken en notificaties te onvangen kan men zo op de hoogte blijven van ontwikkelingen.
 
-![1848.nl](/img/posts/1848.jpg "1848.nl")
+![1848.nl](/img/posts/ori/1848.jpg "1848.nl")
 
 &nbsp;
 
@@ -92,11 +92,11 @@ Dit heeft geleidt tot een nieuwe naam voor besluitvorming op alle niveaus: [open
 
 We hebben een hoop positieve en inspirerende reacties gehad van deelnemende partijen.
 Ze zeggen dat dit project een mooie manier is om de politiek en bestuur meer open toegankelijk te maken en dichter bij de burger te brengen.
-Door nieuwe gemeenten en provincies toe te voegen hopen we het succes nog groter te maken.  
+Door nieuwe gemeenten en provincies toe te voegen hopen we het succes nog groter te maken.
 Als u een gemeente of provincie vertegenwoordigt en deel zou willen nemen, vragen we u vriendelijk [dit formulier](https://formulieren.vngrealisatie.nl/deelname_openraadsinformatie) in te vullen of een email te sturen naar [Sander Bakker](mailto:sander.bakker@vng.nl) van VNG.
 Meedoen aan het project is kosteloos, meer informatie over deelname en het project kunt u [hier](https://www.vngrealisatie.nl/producten/open-raadsinformatie) vinden.
 
 Werken aan dit project is een uitdaging geweest, we hebben een behoorlijk aantal hordes genomen die komen bij het beheren van zulke hoeveelheden data en verschillende systemen.
 Onderweg hebben we ervaring opgedaan met ETL processen, Elasticsearch, Kafka en Kubernetes om er een paar te noemen.
 
-[Neem contact met ons op](/contact) om erachter te komen hoe u uw doelen kunt halen in het modelleren en transformeren van grote hoeveelheden Linked Data. 
+[Neem contact met ons op](/contact) om erachter te komen hoe u uw doelen kunt halen in het modelleren en transformeren van grote hoeveelheden Linked Data.
