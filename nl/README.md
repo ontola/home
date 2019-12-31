@@ -22,6 +22,3 @@ Since Github does [not yet support i18n plugins](https://github.com/github/pages
 * Install node gh-pages for publishing: `npm i -g gh-pages`
 * Make sure you have the correct write rights on this repo.
 * Run `./deploy.sh`
-* Build `bundle exec jekyll build`
-* Manually copy the CNAME file to `_site`, this is skipped in build. ``
-* Commit and push to the gh-pages branch: `gh-pages -d _site`
