@@ -18,7 +18,7 @@ Create a `yyyy-mm-dd-title.md` file in `./_posts`.
 ## Edit and publish
 Since Github does [not yet support i18n plugins](https://github.com/github/pages-gem/issues/401), we need to compile the page locally.
 
+* Install [ruby](https://www.ruby-lang.org/en/downloads/) (> v2.5) and [bundler](https://bundler.io/).
 * Install node gh-pages for publishing: `npm i -g gh-pages`
-* Build `bundle exec jekyll build`
-* Manually copy the CNAME file to `_site`, this is skipped in build.
-* Commit and push to the gh-pages branch: `gh-pages -d _site`
+* Make sure you have the correct write rights on this repo.
+* Run `./deploy.sh`
