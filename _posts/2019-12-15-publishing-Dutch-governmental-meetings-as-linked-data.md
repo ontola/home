@@ -7,7 +7,7 @@ permalink: /blog/publishing-dutch-governmental-meetings-as-linked-data/
 
 [Open Decision Making](https://openbesluitvorming.nl) (Open Besluitvorming in Dutch) lets you search through what has been discussed in Dutch governments.
 In collaboration with local governments, the VNG and the Open State Foundation, we've built software that standardizes and aggregates the meeting data of more than 120 governments.
-All this open information makes it eaasier for journalists, policymakers and well-informed citizens to get involed in.
+All this open information makes it easier for journalists, policymakers and well-informed citizens to get involed in.
 With the principles of [linked data](/what-is-linked-data/) we ensured that the data is open, uniform and reusable for anyone that likes to build upon it.
 
 ## How it started
