@@ -87,7 +87,7 @@ It all started with municipality data, but the scope has now broadened to provin
 We are working with the Dutch parliament on integrating their brand new API.
 
 We believe that this is just a preview of what is possible with open governemnt data.
-If we can convince goverments to adopt a more data-focused information publishing strategy (using machine readable formats, such as RDF, in stead of PDF), we can create even more engaging web applications: imagine clicking on a representative to see which motions they submitted, or compare voting behavior between political parties.
+If we can convince goverments to adopt a more data-focused information publishing strategy (using machine readable formats, such as RDF, instead of PDF), we can create even more engaging web applications: imagine clicking on a representative to see which motions they submitted, or compare voting behavior between political parties.
 
 Working on this project has been challenging, we've overcome quite some hurdles that come with managing such amounts of data and systems.
 On the way we have learned a great deal about ETL processes, Elasticsearch, Kafka and Kubernetes, to name a few.
