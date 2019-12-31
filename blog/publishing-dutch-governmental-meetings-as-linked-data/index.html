@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>How we transformed Dutch municipality Linked Data</title>
+  <title>Publishing Dutch governmental meetings as linked data</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
@@ -19,17 +19,18 @@
   <link rel="stylesheet" href="/css/syntax.css"/>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  <meta name="description" content="Open Raadsinformatie lets you see what has been discussed in Dutch municipalities.Never before so many municipalities were searchable on one place for the gr...">
-<meta property="og:site_name" content="home">
+  <meta name="description" content="Open Decision Making (Open Besluitvorming in Dutch) lets you search through what has been discussed in Dutch governments.In collaboration with local governme...">
+<meta property="og:site_name" content="ontola.github.io">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@ontola.io">
 
-<title>How we transformed Dutch municipality Linked Data</title>
-<meta property="og:title" content="How we transformed Dutch municipality Linked Data">
-<meta name="twitter:title" content="How we transformed Dutch municipality Linked Data">
-<meta property="og:description" content="Open Raadsinformatie lets you see what has been discussed in Dutch municipalities.
-Never before so many municipalities were searchable on one place for the greater public, making it easy to see what has been discussed in your city.
-We brought together and expanded data that was scattered around on tiny data islands, inaccessible for those not knowing where to look.
+<title>Publishing Dutch governmental meetings as linked data</title>
+<meta property="og:title" content="Publishing Dutch governmental meetings as linked data">
+<meta name="twitter:title" content="Publishing Dutch governmental meetings as linked data">
+<meta property="og:description" content="Open Decision Making (Open Besluitvorming in Dutch) lets you search through what has been discussed in Dutch governments.
+In collaboration with local governments, the VNG and the Open State Foundation, we’ve built software that standardizes and aggregates the meeting data of more than 120 governments.
+All this open information makes it eaasier for journalists, policymakers and well-informed citizens to get involed in.
+With the principles of linked data we ensured that the data is open, uniform and reusable for anyone that likes to build upon it.
 
 "/>
 
@@ -40,7 +41,7 @@ We brought together and expanded data that was scattered around on tiny data isl
 <meta property="og:image" content="/img/default.jpg">
 <meta name="twitter:image" content="/img/default.jpg">
 
-<meta property="og:url" content="http://ontola.io/blog/how-we-transformed-dutch-municipality-linked-data/" />
+<meta property="og:url" content="http://ontola.io/blog/publishing-dutch-governmental-meetings-as-linked-data/" />
 
 <meta itemprop="keywords" content="" />
 
@@ -66,9 +67,16 @@ We brought together and expanded data that was scattered around on tiny data isl
       <div class="nav__links nav__links--collapsed">
         <a href="/">home</a>
         <!-- <a href="">services</a> -->
-        <a href="/about">about</a>
+        <a href="/about">About us</a>
         <a href="/blog">blog</a>
         <a href="/contact">contact</a>
+        
+           
+          
+          
+            <a title="Nederlands" href="/nl/blog/publishing-dutch-governmental-meetings-as-linked-data/">nl</a>
+          
+        
       </div>
     </div>
   </nav>
@@ -84,7 +92,7 @@ We brought together and expanded data that was scattered around on tiny data isl
   </div>
 </div>
 <div class="post text">
-  <h1>How we transformed Dutch municipality Linked Data</h1>
+  <h1>Publishing Dutch governmental meetings as linked data</h1>
   
   
 
@@ -93,68 +101,69 @@ We brought together and expanded data that was scattered around on tiny data isl
 </div>
 
 
-  <p>Open Raadsinformatie lets you see what has been discussed in Dutch municipalities.
-Never before so many municipalities were searchable on one place for the greater public, making it easy to see what has been discussed in your city.
-We brought together and expanded data that was scattered around on tiny data islands, inaccessible for those not knowing where to look.</p>
-
-<p>All this open information makes accountability of governance more accessible for journalists, policymakers and well-informed citizens.
-With the principles of <a href="/what-is-linked-data/">Linked Data</a> we ensured that our data is open, uniform and reusable for anyone that likes to build upon it.</p>
-
-<p>Visit our site <a href="https://openbesluitvorming.nl">openbesluitvorming.nl</a> to find <strong>all public documents</strong> that has been produced since 2000.</p>
+  <p><a href="https://openbesluitvorming.nl">Open Decision Making</a> (Open Besluitvorming in Dutch) lets you search through what has been discussed in Dutch governments.
+In collaboration with local governments, the VNG and the Open State Foundation, we’ve built software that standardizes and aggregates the meeting data of more than 120 governments.
+All this open information makes it eaasier for journalists, policymakers and well-informed citizens to get involed in.
+With the principles of <a href="/what-is-linked-data/">linked data</a> we ensured that the data is open, uniform and reusable for anyone that likes to build upon it.</p>
 
 <h2 id="how-it-started">How it started</h2>
-<p>In the end of 2016 we started working with Open State Foundation, which had started the Open Raadsinformatie initiative.
-When we joined the project, just 7 municipalities were indexed.
-Eventually, the number of participants grew to 120 of the 335 Dutch municipalities, later on 6 provinces joined.
-New municipalities were participating on voluntary basis, Open State did a great job in getting as much of them on board.</p>
 
-<p>At first, Open Raadsinformatie contained plain Json documents indexed in Elasticsearch.
-Last years Ontola has been working towards Linked Open Data using <a href="https://api.openraadsinformatie.nl/v1/elastic/_search">Json-LD in Elasticsearch</a> and various RDF formats in the <a href="https://id.openraadsinformatie.nl/">ORI API</a>.
-We have tried to consolidate the different information systems as best as we could so that the classes and properties used are uniform.
-Currently we share over a million of documents through our API and counting, each night hundreds of new items are added.</p>
+<p>In 2014 we started our e-democracy platform <a href="https://argu.co">Argu.co</a>, which aims to engage citizens in decision making processes.
+We worked with many governments and hosted online discussions where people shared ideas, opinions and voted on issues.
+Although we’ve seen that e-democracy and civic participation can be very succesful, one key element is often missing: the actual decision making process.
+This has to do with the fact that e-democracy discussion tend to happen in parallel of the actual governmental meetings.
+We wanted to bring these two worlds together.
+In order to achieve that goal, we decided to work on gathering and standardizing the data that these decision makers create: meetings, votes, agenda items and many other documents.</p>
+
+<p>In 2016 we started working with the <a href="https://openstate.eu/">Open State Foundation</a>, who initiated Open Raadsinformatie (Open Municipality Data).
+VNG (the Dutch Municipality Union) provided funding, we joined forces, got involved with the technology, and helped to scale the project up from 7 to over 120 municipalities and 6 provinces.</p>
 
 <h2 id="going-from-pdf-to-enriched-text">Going from PDF to enriched text</h2>
-<p>Dutch municipalities produce a <em>lot</em> of information, they all use a information system to organize and distribute their meetings, documents, motions and reports online.
-However, there are several information systems available which all work differently, all with their own information schemes.
-Also, many of the proceedings and documents are saved in PDF format and are often not publicly accessible to download.
-With our access to these systems, bringing everything together allows us to create a huge central base of information which is always publicly accessible.</p>
 
-<p>Most of all the interesting information is hidden away in PDF files since the text in there can’t be searched.
-We have made it possible to search those PDF files by extracting text from millions of files.
+<p>Dutch municipalities produce a <em>lot</em> of information in their meetings.
+They use meeting software to organize and distribute their agenda items, documents, motions and reports online.
+However, all these application tend to work quite differently, all with their own information schemes.
+Also, many of the proceedings and documents are saved in PDF format and are often not publicly accessible to download.
+With our access to these systems, and a lot of time to understand and implement the various APIs, we were able to bring everything together and create a standardized, searchable base of information which is always publicly accessible.</p>
+
+<p>Most of the interesting information is hidden away in PDF files.
+We wrote ETL (extract, load, transform) software using Python, Celery and Elasticsearch that gets all the source files, standardizes it to a single model and loads the text into various query systems.
 We store and cache all these files in Google Cloud Storage, along with the referencing sources and metadata.
-Enabling to always serve a particular version of a resource or to be able to see what changed between versions.
-Additionally, there are currently two so called ‘enrichers’ which add derived information to our resources:</p>
+This enables us to serve files that are not accessible through the default API of the meeting software sources.
+This also makes it possible to see what has changed between versions.</p>
+
+<p>Additionally, two organizations contributed two enrichers that add derived information to the resources:</p>
 
 <ul>
   <li>
-    <p>ORI theme classifier: a <a href="https://github.com/openstate/ori-theme-classifier">machine-learning classifier</a> written by Open State.
+    <p>Theme classifier: a <a href="https://github.com/openstate/ori-theme-classifier">machine-learning classifier</a> written by the Open State Foundation.
 Scores document relevance to a set of specified themes like: Economy, Safety and Education.</p>
   </li>
   <li>
-    <p>WaarOverheid enricher: based on the project <a href="https://bitbucket.org/aolieman/loclinkvis/">LocLinkVis</a> made by Alex Olieman and the University of Amsterdam. 
+    <p>Location classifier: based on the project <a href="https://bitbucket.org/aolieman/loclinkvis/">LocLinkVis</a> made by Alex Olieman and the University of Amsterdam.
 It finds streets and locations in document texts and translates it into geographical coordinates of city neighborhoods and districts.</p>
   </li>
 </ul>
 
-<p>These enrichers enables all user of Open Raadsinformatie to filter documents by theme tags and use geographical information to pinpoint which locations are mentioned.</p>
+<p>These enrichers allow all users of Open Decision Making to filter documents by theme tags and use geographical information to pinpoint which locations are mentioned.</p>
 
-<p>Several applications now actively use the free available data from Open Raadsinformatie:</p>
+<p>Several applications now actively use the free available data from Open Decision Making:</p>
 
 <h2 id="use-cases">Use cases</h2>
 
-<h3 id="openbesluitvormingnl">Openbesluitvorming.nl</h3>
-<p>We have built the <a href="https://openbesluitvorming.nl">primary search application</a> for users to discover and explore what is being said in their local government.
-The beauty of open data is that everyone can build their own application based on our API, we’ve just created something to start with.</p>
+<h3 id="openbesluitvormingnl">OpenBesluitvorming.nl</h3>
+<p>We have built the <a href="https://openbesluitvorming.nl">primary open source search application (Dutch)</a> for users to discover and explore what is being said in their local government.
+The beauty of open data is that everyone can build their own application based on the same API.</p>
 
-<p><img src="/img/posts/zoek-openraadsinformatie.jpg" alt="openbesluitvorming.nl" title="openbesluitvorming.nl" /></p>
+<p><img src="/img/posts/ori/zoek-openraadsinformatie.jpg" alt="openbesluitvorming.nl" title="openbesluitvorming.nl" /></p>
 
 <p> </p>
 
 <h3 id="raadstalknl">Raadstalk.nl</h3>
 <p>VNG is the Dutch umbrella organization for all municipalities and has been the driving force in this project.
-They’ve asked us to create a <a href="https://raadstalk.nl">simple view</a> to see what words are trending for all municipalities in each month.</p>
+They’ve asked us to create a <a href="https://raadstalk.nl">widget</a> to see what words are trending for all municipalities in each month.</p>
 
-<p><img src="/img/posts/raadstalk.jpg" alt="raadstalk.nl" title="Raadstalk.nl" /></p>
+<p><img src="/img/posts/ori/raadstalk.jpg" alt="raadstalk.nl" title="Raadstalk.nl" /></p>
 
 <p> </p>
 
@@ -162,32 +171,29 @@ They’ve asked us to create a <a href="https://raadstalk.nl">simple view</a> to
 <p><a href="https://waaroverheid.nl">WaarOverheid</a> shows all documents that mention a location in your neighborhood and district.
 It provides a map interface to navigate from neighborhood to neighborhood to find documents in streets located there.</p>
 
-<p><img src="/img/posts/waaroverheid.jpg" alt="waaroverheid.nl" title="Waaroverheid.nl" /></p>
+<p><img src="/img/posts/ori/waaroverheid.jpg" alt="waaroverheid.nl" title="Waaroverheid.nl" /></p>
 
 <p> </p>
 
 <h3 id="1848nl">1848.nl</h3>
 <p><a href="https://1848.nl">1848</a> gathers political information from different sources to search and receive alerts to be able to stay on top of things.</p>
 
-<p><img src="/img/posts/1848.jpg" alt="1848.nl" title="1848.nl" /></p>
+<p><img src="/img/posts/ori/1848.jpg" alt="1848.nl" title="1848.nl" /></p>
 
 <p> </p>
 
 <h2 id="going-forward">Going forward</h2>
 
-<p>It all started with openraadsinformatie.nl which translates to “open municipality information”.
-However, the scope has now broadened to provincial data and will soon include the national level as well.
-At this moment we are working together with the Dutch parliament, De Tweede Kamer der Staten-Generaal, on integrating their brand new API.
-This required a new name that will incorporate all bodies: <a href="https://openbesluitvorming.nl">openbesluitvorming.nl</a>.</p>
+<p>It all started with municipality data, but the scope has now broadened to provincial data and will soon include data from the national level as well.
+We are working with the Dutch parliament on integrating their brand new API.</p>
 
-<p>We’ve had a lot of positive responses from the participating organizations.
-They feel that this project is an effort in bringing politics and decision making closer to the civilian.
-We hope to make this success even bigger by inviting more participants on the local as well as the provincial level.</p>
+<p>We believe that this is just a preview of what is possible with open governemnt data.
+If we can convince goverments to adopt a more data-focused information publishing strategy (using machine readable formats, such as RDF, in stead of PDF), we can create even more engaging web applications: imagine clicking on a representative to see which motions they submitted, or compare voting behavior between political parties.</p>
 
 <p>Working on this project has been challenging, we’ve overcome quite some hurdles that come with managing such amounts of data and systems.
 On the way we have learned a great deal about ETL processes, Elasticsearch, Kafka and Kubernetes, to name a few.</p>
 
-<p><a href="/contact">Contact us</a> to know how we can help you achieving your goals in modelling and transforming large amounts of Linked Data.</p>
+<p><a href="/contact">Contact us</a> to know how we can help you achieving your goals in modelling and transforming information to linked data.</p>
 
 </div>
 <div class="post__navigation">
@@ -195,8 +201,6 @@ On the way we have learned a great deal about ETL processes, Elasticsearch, Kafk
     
       <a class="post__navigation__previous" href="/blog/ontologies-in-js/">&laquo; Using ontologies in Javascript apps</a>
     
-    
-      <a class="post__navigation__next" href="/blog/nl/hoe-we-nederlandse-gemeenten-linked-data-hebben-gemaakt/">Hoe we Nederlandse gemeenten Linked Data hebben gemaakt &raquo;</a>
     
   </div>
 </div>
@@ -217,10 +221,9 @@ On the way we have learned a great deal about ETL processes, Elasticsearch, Kafk
            
           
           
-            <a href="/nl/blog/how-we-transformed-dutch-municipality-linked-data/">Nederlands</a>
+            <a href="/nl/blog/publishing-dutch-governmental-meetings-as-linked-data/">Nederlands</a>
           
         
-        <!-- <a href="/about">About</a> -->
       </div>
       <div class="footer-row">
         <div class="footer__header">What we do</div>
