@@ -81,13 +81,40 @@ It provides a map interface to navigate from neighborhood to neighborhood to fin
 
 &nbsp;
 
+## Storing RDF
+
+Working with linked data poses new challenges, in the first place: choosing the right data store for RDF linked data.
+Before we joined the project, Elasticsearch as data store caused some problems.
+Although Elasticsearch has an extremely detailed and comprehensive query-language, it is really for searching - not for relational database queries.
+
+So, looking for a better store, we started off with ArangoDB which is a NoSQL document-based graph store.
+It seemed appropriate at the time, because we were working with lots of documents, all connected to each other in a graph.
+However, we found that the graph queries were taking too long to be suitable in this project.
+
+Next on our quest we also tried Neo4j, which is market leader in Graph databases.
+As promised it has a powerful query language called Cypher, but we found that memory use was growing too early too fast.  
+Another thing is we found it quite tricky to store RDF data and use IRI's as attributes.
+In theory it's possible, but not ideal in practice since IRI's have to be escaped and queries become long and dreadful.  
+Also, you have to think about how to cope with external resources.
+Whereas in an RDF store one can add a triple referencing an external resource, in Neo4j one should create a node to mimic the same behaviour.
+
+In the end we abandoned graph databases altogether for this project and stuck with Postgres.
+I am not saying that those graph databases are not good enough, merely not suitable for our purpose and budget.
+
+Since the project depends heavily on fast search queries, we found that Elasticsearch is still essential.
+So we kept it on for full-text searching.
+But since its Query DSL is changing quite a lot over time, it is not suitable as a stable API.
+We had to come up with an answer to this and created the ORI API service which can be found here: https://id.openraadsinformatie.nl/  
+The idea here was that every resource should have its own resolvable identifier that would stay the same.
+
+
 ## Going forward
 
 It all started with municipality data, but the scope has now broadened to provincial data and will soon include data from the national level as well.
 We are working with the Dutch parliament on integrating their brand new API.
 
-We believe that this is just a preview of what is possible with open governemnt data.
-If we can convince goverments to adopt a more data-focused information publishing strategy (using machine readable formats, such as RDF, instead of PDF), we can create even more engaging web applications: imagine clicking on a representative to see which motions they submitted, or compare voting behavior between political parties.
+We believe that this is just a preview of what is possible with open government data.
+If we can convince governments to adopt a more data-focused information publishing strategy (using machine readable formats, such as RDF, instead of PDF), we can create even more engaging web applications: imagine clicking on a representative to see which motions they submitted, or compare voting behavior between political parties.
 
 Working on this project has been challenging, we've overcome quite some hurdles that come with managing such amounts of data and systems.
 On the way we have learned a great deal about ETL processes, Elasticsearch, Kafka and Kubernetes, to name a few.
