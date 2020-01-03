@@ -5,13 +5,13 @@ author: joep
 permalink: /blog/rdf-serialization-formats/
 ---
 
-Contrary to some other datamodels, RDF is not bound by a single serializiation format.
+Contrary to some other data models, RDF is not bound by a single serialization format.
 Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my [linked data](/what-is-linked-data)?
 
 **To answer the title's question: _it depends_, but probably N-Triples / N-Quads.**
 
-So, let's discuss the various formats and when you should use which.
-The order in which they appear is chronological, and does not reflect preference.
+So, let's discuss the various formats and when you should use which one.
+The order in which they appear is chronological and does not reflect preference.
 Skip to the [TL;DR](#tldr) if you're feeling hasty.
 
 ## RDF/XML
@@ -24,7 +24,7 @@ Unfortunately, RDF/XML is a weird mixture of two fundamentally different concept
 This makes RDF/XML conceptually difficult and quite verbose, compared to other standards.
 For XML developers, it might look familiar, but since it does not clearly reflect the triple model, it will probably cause confusion.
 
-Use it only if you really need to work with XML.
+Use it only if you need to work with XML.
 
 ```xml
 <?xml version="1.0"?>
@@ -44,16 +44,16 @@ xmlns:schema="http://schema.org/">
 ## RDFa
 
 [RDFa](https://www.w3.org/TR/rdfa-core/) is RDF inside HTML.
-By adding attributes to HTML elements, you can give semantic context to content inside your webpages.
+By adding attributes to HTML elements, you can give semantic context to the content inside your webpages.
 Google parses it (amongst [JSON-LD](#JSON-LD), [Microdata](https://w3c.github.io/microdata/#microdata-and-rdf), Microformats and Pagemaps) to [enhance their search previews](https://developers.google.com/custom-search/docs/structured_data), although they [recommend using JSON-LD](https://www.searchenginejournal.com/google-structured-data-preference/297479/).
 W3C's own Respec documentation tool [dropped support for RDFa](https://github.com/w3c/respec/issues/1503),
-mainly because adoption of RDFa was too low, the required code was messy and even Google didn't parse it correctly.
+mainly because the adoption of RDFa was too low, the required code was messy and even Google didn't parse it correctly.
 
 RDFa is fundamentally different from the other mentioned formats: it combines RDF with view data (HTML).
 This means that it makes your HTML documents a bit larger and more complicated, and parsing it for triples will be more costly than parsing an RDF only format like N-Triples.
-This makes it less useable if your application relies on a lot of RDF data.
+This makes it less useful if your application relies on a lot of RDF data.
 
-Use RDFa if you want to make your existing website / blog / HTML based application more semantic.
+Use RDFa if you want to make your existing website/ blog / HTML based application more semantic.
 
 ```html
 <div about="https://www.w3.org/People/Berners-Lee/">
@@ -75,13 +75,13 @@ Use RDFa if you want to make your existing website / blog / HTML based applicati
 
 Tim-Berners Lee wanted something better than RDF/XML, and came up with [N3](https://www.w3.org/TeamSubmission/n3/).
 Contrary to RDF/XML, N3 closely resembles the RDF Subject / Predicate / Object model.
-This makes N3 very easy on the eyes, and helps to understand how RDF works.
+This makes N3 very easy on the eyes and helps to understand how RDF works.
 By using @prefixes, N3 can be quite compact.
 
 However, N3 is relatively costly to serialize, which could hinder performance.
-It's also quite feature-heavy, since it support [RDF rules](http://www.ninebynine.org/RDFNotes/RDFFactsAndRules.html), which makes it harder to parse.
+It's also quite feature-heavy since it supports [RDF rules](http://www.ninebynine.org/RDFNotes/RDFFactsAndRules.html), which makes it harder to parse.
 
-Unless you need the reasoning / rules features of N3, use its more popular (and very similar) successor Turtle.
+Unless you need the reasoning/rules features of N3, use its more popular (and very similar) successor Turtle.
 
 ```notation3
 @prefix tim: <https://www.w3.org/People/Berners-Lee/>.
@@ -102,7 +102,7 @@ This, in turn, made Turtle more popular, which means that it's easier to find li
 
 Unfortunately, it's still quite costly to parse compared to [N-Triples](#N-Triples).
 
-Turtle is highly human-readable and is therefore a good candidate if you need to edit RDF by hand.
+Turtle is highly human-readable and is, therefore, a good candidate if you need to edit RDF by hand.
 
 ```turtle
 @prefix tim: <https://www.w3.org/People/Berners-Lee/>.
@@ -137,8 +137,8 @@ The graph label often refers to the source of the data, e.g. the URL of the HTML
 
 ## JSON-LD (.jsonld)
 
-JSON is without a doubt the most popular way to handle data in webapplications.
-[JSON-LD](https://json-ld.org/spec/latest/json-ld/) is an extension of JSON, and is valid JSON as well.
+JSON is, without a doubt, the most popular way to handle data in web applications.
+[JSON-LD](https://json-ld.org/spec/latest/json-ld/) is an extension of JSON and is valid JSON as well.
 You can turn your regular plain old JSON into RDF by adding [`@context`](https://json-ld.org/spec/latest/json-ld/#the-context).
 This object mainly serves as a mapping, so your plain keys get turned into fancy links to RDF Classes and Properties.
 You can add context either by adding an `@content` header in your HTTP response, by including the link in your JSON body, or by adding the entire `@context` object to you JSON.
@@ -192,8 +192,8 @@ It is not yet properly documented.
 ## HDT
 
 [HDT](http://www.rdfhdt.org/what-is-hdt/) (Header, Dictionary, Triples) is a compact data structure and binary serialization format for RDF, so it's more than just a way to serialize RDF.
-Its data structure saves space and bandwith (it's half the size of gzipped N-Triples).
-It's design has indexing built-in, which means it can be searched or browsed efficiently.
+Its data structure saves space and bandwidth (it's half the size of gzipped N-Triples).
+Its design has indexing built-in, which means it can be searched or browsed efficiently.
 Check out the impressive [technical specification](http://www.rdfhdt.org/technical-specification/) if you want to learn more about how it works.
 HDT compression is a costly process, so it's not that attractive for highly dynamic data / data that changes over time.
 Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.
@@ -208,7 +208,7 @@ I've never used it, but it sounds interesting, although you'll need Thrift tooli
 ## Let your users choose a format
 
 Choosing an RDF serialization format for your application or service might be a false dilemma.
-Since you control your application, and probably have an internal model, you can offer multiple serialization options.
+Since you control your application and probably have an internal model, you can offer multiple serialization options.
 Therefore, you can implement a serialization library (e.g. our [rdf-serializers](https://github.com/ontola/rdf-serializers) gem for Rails) and use [HTTP Content negotation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation), so your project can handle all kinds of formats.
 
 ## TL;DR
