@@ -17,7 +17,7 @@ We worked with many governments and hosted online discussions where people share
 Although we've seen that e-democracy and civic participation can be very successful, one key element is often missing: the actual decision-making process.
 This has to do with the fact that e-democracy discussions tend to happen parallel to the actual governmental meetings.
 We wanted to bring these two worlds together.
-In order to achieve that goal, we decided to work on gathering and standardizing the data that these decision-makers create: meetings, votes, agenda items and many other documents.
+To achieve that goal, we decided to work on gathering and standardizing the data that these decision-makers create: meetings, votes, agenda-items and many other documents.
 
 In 2016 we started working with the [Open State Foundation](https://openstate.eu/), who initiated Open Raadsinformatie (Open Municipality Data).
 VNG (the Dutch Municipality Union) provided funding, we joined forces, got involved with the technology, and helped to scale the project up from 7 to over 120 municipalities and 6 provinces.
@@ -28,9 +28,9 @@ Dutch municipalities produce a *lot* of information in their meetings.
 They use meeting software to organize and distribute their agenda items, documents, motions, and reports online.
 However, all these applications tend to work quite differently, all with their own information schemes.
 Also, many of the proceedings and documents are saved in PDF format and are often not publicly accessible to download.
-With our access to these systems and a lot of time to understand and implement the various APIs, we were able to bring everything together and create a standardized, searchable base of information which is always publicly accessible.
+With our access to these systems and a lot of time to understand and implement the various APIs, we were able to bring everything together and create a standardized, searchable base of information that is always publicly accessible.
 
-Most of the interesting information is hidden away in PDF files.
+Most of the interesting information hides in PDF files.
 We wrote ETL (extract, load, transform) software using Python, Celery and Elasticsearch that gets all the source files, standardizes it to a single model and loads the text into various query systems.
 We store and cache all these files in Google Cloud Storage, along with the referencing sources and metadata.
 This enables us to serve files that are not accessible through the default API of the meeting software sources.
@@ -59,9 +59,9 @@ The primary goal was providing full-text search and RDF REST resources.
 
 Before we joined the project, Elasticsearch was used as the source of truth and the only data store.
 It ticked the text search box, as Elasticsearch has an extremely detailed and comprehensive query-language, but it is not designed for relational database queries.
-It's not really a database and as such, it's not ACID compliant (i.e. highly resistant to corruption or data loss).
+It's not a database and as such, it's not ACID compliant (i.e., highly resistant to corruption or data loss).
 
-So, looking for a better store, we started off with ArangoDB, which is a NoSQL document-based graph store.
+So, looking for a better store, we started with ArangoDB, which is a NoSQL document-based graph store.
 It seemed appropriate at the time because we were working with lots of documents, all connected to each other in a graph.
 However, we found that the graph queries were taking too long to be suitable for this project.
 
