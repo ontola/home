@@ -52,14 +52,14 @@ The links solve three problems:
 - **Links add standardization.** The birthDate link tells us we need to use the YYYY-MM-DD notation.
 
 These three characteristics make linked data more reusable.
-The data quality has been improved, because other people and machines can now interpret and use the information more reliably.
+The data quality has been improved because other people and machines can now interpret and use the information more reliably.
 
 Let's look at the questions about the first table again.
-The ambiguity in the table is obvious to someone who reuses the data, but is not apparent for the creator of the table.
+The ambiguity in the table is obvious to someone who reuses the data but is not apparent for the creator of the table.
 I made the table, I knew which Tim and London I was talking about, I knew how the birthdate should be read.
 There was no ambiguity for me.
 
-This closed worldview is the root cause of much of the problems in digital systems today.
+This closed worldview is the root cause of many of the problems in digital systems today.
 We tend to ignore the information that is stored in the context of data.
 Developers tend to make software that produces data that only their systems can fully understand.
 They have their own assumptions, identifiers, and models.
@@ -68,7 +68,7 @@ Linked data solves this problem by removing all ambiguity about what data repres
 ## Triples & the RDF data model
 
 In the tables above, we were making two separate statements about Tim: one about his birthdate and one about his birthplace.
-Each statement had it's own cell in the table.
+Each statement had its own cell in the table.
 In linked data, these statements are called  _triples_.
 That's because every triple statement has three parts: a _subject_, a _predicate_, and an _object_.
 
@@ -87,7 +87,7 @@ Instead of using a table of triples, we could visualize the RDF data as a [_grap
 
 The object of the first triple, for the birthPlace, contains a link (an [_IRI_](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier)) to some other resource (London).
 The object of the second triple (the birthDate) is not a link, but a so-called _literal value_.
-The literal value cannot have any properties, since it's not a resource.
+The literal value cannot have any properties since it's not a resource.
 
 That's a lot of new words and concepts, which can be a bit confusing at first.
 However, they will appear all the time when you're actually working with linked data, so try to get an accurate mental model of these concepts.
@@ -169,7 +169,7 @@ Or as HTML with some extra RDFa attributes:
 </div>
 ```
 
-The Turtle, JSON-LD and HTML+RDFa each contain the same RDF triples and can be automatically converted into each other.
+The Turtle, JSON-LD, and HTML+RDFa each contain the same RDF triples and can be automatically converted into each other.
 You can try this [for yourself](http://rdf-translator.appspot.com/) and discover even more RDF serialization formats, such as microformats, RDF/XML (don't use this, [please](https://github.com/mhausenblas/rdfxml.info/blob/master/input/RDF-XML%20sucks%20-%20praise%20and%20damnation.txt)) and N-Triples.
 
 The number of serialization options for RDF might be a bit intimidating, but you shouldn't feel the need to understand and know every single one.
@@ -209,6 +209,16 @@ You can even generate forms and other UI components in React using libraries suc
 
 The power of the ontology goes far, but that probably deserves its own article.
 
+## What can we do with linked data
+The use of links help to provide extra information, remove ambiguity, and help with standardization.
+These are abstract advantages, but they have a real-world impact on how we can use data.
+
+- Linked data enables a decentralized architecture. Since URLs directly point to the source, even if the data is on a completely different domain,
+- Because of the decentralized nature, data tends to stay at the source. This means that less data is copied, and we have
+- Since linked data is highly standardized, writing interfaces becomes easy. This means that you don't need expensive.
+- We can merge two datasets, without having any collisions in identifiers. This is because URLs are unique even across multiple domains. This might seem like a minor benefit, but it makes integration of multiple systems exceptionally trivial.
+- Linked data can be converted to many serialization formats. It's easy to convert Linked Data to JSON, but the other way around is more difficult.
+
 ## Publishing linked data
 
 Linked data is meant to be shared.
@@ -218,23 +228,23 @@ Firstly, there's the **data dump**.
 Serialize your RDF the way you like and make it accessible as a single file.
 It's the easiest and often the cheapest way to publish your data.
 However, if someone just wants to know something about a single subject (or resource) in your data dump, he'd have to download the entire data dump.
-That's cumbersome, and makes your data not as re-usable as it could be.
+That's cumbersome and makes your data not as re-usable as it could be.
 All processing and querying efforts are left to the downloader.
 Furthermore, data dumps are hard to manage and therefore likely to be outdated.
 
 **Subject pages** to the rescue!
 Make the RDF data available through HTTP at the location where you'd expect it: at _the same link as the resource IRI_.
-Doing this makes your data truly linked, since every resource can now be downloaded separately and automatically.
+Doing this makes your data truly linked since every resource can now be downloaded separately and automatically.
 Subject pages can be either _static_ or _dynamic_.
 Static subject pages are simply RDF files hosted on some URL.
 Sharing static subject pages is very simple, but static data is hard to maintain or edit.
 Dynamic pages are generated by a server, so the underlying data could be edited by any framework.
-Another advantage of using dynamic subject pages, is that you can serialize to many different formats.
+Another advantage of using dynamic subject pages is that you can serialize to many different formats.
 You can show HTML to humans and RDF to computers.
 For example, our project [Argu](https://argu.co) (an online democracy and discussion tool) works like this.
 Visit a webpage (or subject page) (e.g. [argu.co/nederland/m/46](https://argu.co/nederland/m/46)).
 If you want the same content as linked data, add a serialization extension (e.g. [.ttl](https://argu.co/nederland/m/46.ttl)) or use [HTTP Accept Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept).
-Note that even though this project serializes to all sorts of RDF formats, the project itself does not use an RDF database / triple store.
+Note that even though this project serializes all sorts of RDF formats, the project itself does not use an RDF database / triple store.
 
 Perhaps the most popular and easiest way to publish linked data is with **annotated pages**.
 Remember the RDFa serialization format, discussed above? That's annotated pages.
@@ -246,7 +256,7 @@ Parsing (reading) RDFa from a large HTML document will always be more expensive 
 A radically different way to share your linked data is through a **SPARQL** endpoint.
 SPARQL is a _query language_, like SQL, designed to perform complex search queries in large RDF graphs.
 With SPARQL, you can run queries such as 'which pianists live in the Netherlands', or 'what proteins are involved in signal transductions and related to pyramidal neurons?'.
-SPARQL is without any doupt extremely powerful, but using it as the primary measure to share your RDF data might be difficult for your project.
+SPARQL is without any doubt extremely powerful, but using it as the primary measure to share your RDF data might be difficult for your project.
 If you want one, you will probably need to store your RDF data in a specialized triple store that features a SPARQL endpoint.
 Not many databases do, unfortunately, so you'll be limited to either proprietary solutions or projects with relatively little adoption and support.
 Ask yourself if your users will need to run complex queries on your data.
