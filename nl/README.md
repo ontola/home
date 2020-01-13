@@ -12,7 +12,7 @@ Create a `yyyy-mm-dd-title.md` file in `./_posts`.
 * Install Bundler: `gem install bundler`
 * Install jekyll using bundler: `bundle install`
 * Install [GitHub Pages](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/) or [Jekyll](https://jekyllrb.com/docs/installation/)
-* Run the server `bunlde exec jekyll serve`
+* Run the server `bundle exec jekyll serve`
 * Visit [`localhost:4000`](http://localhost:4000)
 
 ## Edit and publish

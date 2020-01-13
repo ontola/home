@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2020-01-13T11:50:57+01:00</updated><id>https://ontola.io/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Publishing Dutch governmental meetings as linked data</title><link href="https://ontola.io/blog/publishing-dutch-governmental-meetings-as-linked-data/" rel="alternate" type="text/html" title="Publishing Dutch governmental meetings as linked data" /><published>2019-12-15T00:00:00+01:00</published><updated>2019-12-15T00:00:00+01:00</updated><id>https://ontola.io/blog/publishing-Dutch-governmental-meetings-as-linked-data</id><content type="html" xml:base="https://ontola.io/blog/publishing-dutch-governmental-meetings-as-linked-data/">&lt;p&gt;&lt;a href=&quot;https://openbesluitvorming.nl&quot;&gt;Open Decision Making&lt;/a&gt; (Open Besluitvorming in Dutch) lets you search through what has been discussed in Dutch governments.
+In collaboration with local governments, the VNG and the Open State Foundation, we’ve built software that standardizes and aggregates the meeting data of more than 120 governments.
+All this open information makes it easier for journalists, policymakers and well-informed citizens to get involved in.
+With the principles of &lt;a href=&quot;/what-is-linked-data/&quot;&gt;linked data&lt;/a&gt; we ensured that the data is open, uniform and reusable for anyone that likes to build upon it.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-it-started&quot;&gt;How it started&lt;/h2&gt;
+
+&lt;p&gt;In 2014 we started our e-democracy platform &lt;a href=&quot;https://argu.co&quot;&gt;Argu.co&lt;/a&gt;, which aims to engage citizens in decision-making processes.
+We worked with many governments and hosted online discussions where people shared ideas, opinions and voted on issues.
+Although we’ve seen that e-democracy and civic participation can be very successful, one key element is often missing: the actual decision-making process.
+This has to do with the fact that e-democracy discussions tend to happen parallel to the actual governmental meetings.
+We wanted to bring these two worlds together.
+To achieve that goal, we decided to work on gathering and standardizing the data that these decision-makers create: meetings, votes, agenda-items and many other documents.&lt;/p&gt;
+
+&lt;p&gt;In 2016 we started working with the &lt;a href=&quot;https://openstate.eu/&quot;&gt;Open State Foundation&lt;/a&gt;, who initiated Open Raadsinformatie (Open Municipality Data).
+VNG (the Dutch Municipality Union) provided funding, we joined forces, got involved with the technology, and helped to scale the project up from 7 to over 120 municipalities and 6 provinces.&lt;/p&gt;
+
+&lt;h2 id=&quot;going-from-pdf-to-enriched-text&quot;&gt;Going from PDF to enriched text&lt;/h2&gt;
+
+&lt;p&gt;Dutch municipalities produce a &lt;em&gt;lot&lt;/em&gt; of information in their meetings.
+They use meeting software to organize and distribute their agenda items, documents, motions, and reports online.
+However, all these applications tend to work quite differently, all with their own information schemes.
+Also, many of the proceedings and documents are saved in PDF format and are often not publicly accessible to download.
+With our access to these systems and a lot of time to understand and implement the various APIs, we were able to bring everything together and create a standardized, searchable base of information that is always publicly accessible.&lt;/p&gt;
+
+&lt;p&gt;Most of the interesting information hides in PDF files.
+We wrote ETL (extract, load, transform) software using Python, Celery and Elasticsearch that gets all the source files, standardizes it to a single model and loads the text into various query systems.
+We store and cache all these files in Google Cloud Storage, along with the referencing sources and metadata.
+This enables us to serve files that are not accessible through the default API of the meeting software sources.
+This also makes it possible to see what has changed between versions.&lt;/p&gt;
+
+&lt;p&gt;Additionally, two organizations contributed two enrichers that add derived information to the resources:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Theme classifier: a &lt;a href=&quot;https://github.com/openstate/ori-theme-classifier&quot;&gt;machine-learning classifier&lt;/a&gt; written by the Open State Foundation.
+Scores document relevance to a set of specified themes, such as Economy, Safety and Education.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Location classifier: based on the project &lt;a href=&quot;https://bitbucket.org/aolieman/loclinkvis/&quot;&gt;LocLinkVis&lt;/a&gt; made by Alex Olieman and the University of Amsterdam.
+It finds streets and locations in document texts and translates it into geographical coordinates of city neighborhoods and districts.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These enrichers allow all users of Open Decision Making to filter documents by theme tags and use geographical information to pinpoint which locations are mentioned.&lt;/p&gt;
+
+&lt;h2 id=&quot;storing-rdf&quot;&gt;Storing RDF&lt;/h2&gt;
+
+&lt;p&gt;We love &lt;a href=&quot;https://ontola.io/what-is-linked-data/&quot;&gt;linked data&lt;/a&gt;, and its merits are exceptionally valuable in a project such as this one.
+Linked data is highly re-usable in other applications without needing duplication, and the diverse serialization formats of RDF will provide something for any use-case.&lt;/p&gt;
+
+&lt;p&gt;However, working with linked data poses new challenges, such as choosing the right data store for the statements.
+You might think that an existing triple store is the most logical option since we’re working with RDF, but you don’t need triple stores to do serve linked data.
+Triple stores make a lot of sense when you have schema-less RDF data and require SPARQL as a query language.
+We didn’t need those, as our schema was constrained by our internal models, and SPARQL didn’t suit our query goals.
+The primary goal was providing full-text search and RDF REST resources.&lt;/p&gt;
+
+&lt;p&gt;Before we joined the project, Elasticsearch was used as the source of truth and the only data store.
+It ticked the text search box, as Elasticsearch has an extremely detailed and comprehensive query-language, but it is not designed for relational database queries.
+It’s not a database and as such, it’s not ACID compliant (i.e., highly resistant to corruption or data loss).&lt;/p&gt;
+
+&lt;p&gt;So, looking for a better store, we started with ArangoDB, which is a NoSQL document-based graph store.
+It seemed appropriate at the time because we were working with lots of documents, all connected to each other in a graph.
+However, we found that the graph queries were taking too long to be suitable for this project.&lt;/p&gt;
+
+&lt;p&gt;Next on our quest we also tried Neo4j, which is the market leader in Graph databases.
+As promised it has a powerful query language called Cypher, but we found that memory use was growing too early too fast.
+Another thing is we found it quite tricky to store RDF data and use IRIs as attributes.
+In theory, it’s possible, but not ideal in practice since IRIs have to be escaped and queries become long and dreadful.
+Also, you have to think about how to cope with external resources.
+Whereas in an RDF store one can add a triple referencing an external resource, in Neo4j one should create a node to mimic the same behavior.&lt;/p&gt;
+
+&lt;p&gt;In the end, we abandoned graph databases altogether for this project and stuck with Postgres.
+We didn’t need graph-like queries or schemaless storage of triples.
+I am not saying that those graph databases are not good enough, merely not suitable for our purpose and budget.&lt;/p&gt;
+
+&lt;p&gt;Since the project depends heavily on fast text search queries, we found that Elasticsearch is still essential.
+So we kept it on for full-text searching.
+But since its Query DSL is changing quite a lot over time, it is not suitable as a stable API.
+We had to come up with an answer to this and created the ORI API service which can be found here: https://id.openraadsinformatie.nl/
+The idea here was that every resource should have its own resolvable identifier that would stay the same.&lt;/p&gt;
+
+&lt;h2 id=&quot;open-data&quot;&gt;Open Data&lt;/h2&gt;
+
+&lt;p&gt;Several applications now actively use the freely available data from Open Decision Making:&lt;/p&gt;
+
+&lt;h3 id=&quot;openbesluitvormingnl&quot;&gt;OpenBesluitvorming.nl&lt;/h3&gt;
+
+&lt;p&gt;We have built the &lt;a href=&quot;https://openbesluitvorming.nl&quot;&gt;primary open-source search application (Dutch)&lt;/a&gt; for users to discover and explore what is being said in their local government.
+The beauty of open data is that everyone can build their own applications based on the same API.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/ori/zoek-openraadsinformatie.jpg&quot; alt=&quot;openbesluitvorming.nl&quot; title=&quot;openbesluitvorming.nl&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;
+
+&lt;h3 id=&quot;raadstalknl&quot;&gt;Raadstalk.nl&lt;/h3&gt;
+
+&lt;p&gt;VNG is the Dutch umbrella organization for all municipalities and has been the driving force in this project.
+They’ve asked us to create a &lt;a href=&quot;https://raadstalk.nl&quot;&gt;widget&lt;/a&gt; to see what words are trending for all municipalities in each month.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/ori/raadstalk.jpg&quot; alt=&quot;raadstalk.nl&quot; title=&quot;Raadstalk.nl&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;
+
+&lt;h3 id=&quot;waaroverheidnl&quot;&gt;Waaroverheid.nl&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://waaroverheid.nl&quot;&gt;WaarOverheid&lt;/a&gt; shows all documents that mention a location in your neighborhood and district.
+It provides a map interface to navigate from neighborhood to neighborhood to find documents in streets located there.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/ori/waaroverheid.jpg&quot; alt=&quot;waaroverheid.nl&quot; title=&quot;Waaroverheid.nl&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;
+
+&lt;h3 id=&quot;1848nl&quot;&gt;1848.nl&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://1848.nl&quot;&gt;1848&lt;/a&gt; gathers political information from different sources to search and receive alerts to be able to stay on top of things.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/ori/1848.jpg&quot; alt=&quot;1848.nl&quot; title=&quot;1848.nl&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;
+
+&lt;h2 id=&quot;going-forward&quot;&gt;Going forward&lt;/h2&gt;
+
+&lt;p&gt;It all started with municipality data, but the scope has now broadened to provincial data and will soon include data from the national level as well.
+We are working with the Dutch parliament on integrating their brand new API.&lt;/p&gt;
+
+&lt;p&gt;We believe that this is just a preview of what is possible with open government data.
+If we can convince governments to adopt a more data-focused information publishing strategy (using machine-readable formats, such as RDF, instead of PDF), we can create even more engaging web applications: imagine clicking on a representative to see which motions they submitted, or compare voting behavior between political parties.&lt;/p&gt;
+
+&lt;p&gt;Working on this project has been challenging, we’ve overcome quite some hurdles that come with managing such amounts of data and systems.
+Along the way, we have learned a great deal about ETL processes, Elasticsearch, Kafka and Kubernetes, to name a few.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/contact&quot;&gt;Contact us&lt;/a&gt; to know how we can help you achieving your goals in modeling and transforming information to linked data.&lt;/p&gt;</content><author><name>Jurrian Tromp</name><email>jurrian@ontola.io</email></author><summary type="html">Open Decision Making (Open Besluitvorming in Dutch) lets you search through what has been discussed in Dutch governments. In collaboration with local governments, the VNG and the Open State Foundation, we’ve built software that standardizes and aggregates the meeting data of more than 120 governments. All this open information makes it easier for journalists, policymakers and well-informed citizens to get involved in. With the principles of linked data we ensured that the data is open, uniform and reusable for anyone that likes to build upon it.</summary></entry><entry><title type="html">Using ontologies in Javascript apps</title><link href="https://ontola.io/blog/ontologies-in-js/" rel="alternate" type="text/html" title="Using ontologies in Javascript apps" /><published>2019-09-20T00:00:00+02:00</published><updated>2019-09-20T00:00:00+02:00</updated><id>https://ontola.io/blog/ontologies-in-js</id><content type="html" xml:base="https://ontola.io/blog/ontologies-in-js/">&lt;p&gt;Ontologies are resources that describe concepts and how several classes and properties in a certain domain relate to each other.
+For example, if you’re creating a social network app, you might want to use the Friend of a Friend (&lt;a href=&quot;http://xmlns.com/foaf/spec/&quot;&gt;FOAF&lt;/a&gt;) ontology, which describes things like &lt;a href=&quot;http://xmlns.com/foaf/spec/#term_Person&quot;&gt;“Person”&lt;/a&gt; and &lt;a href=&quot;http://xmlns.com/foaf/spec/#term_knows&quot;&gt;“knows”&lt;/a&gt;.
+When creating linked data applications, you’re likely to work a lot with ontologies.
+Since ontologies, their classes and their properties all use URLs as identifiers, that means that you might write a lot of long strings.
+This is not only bothersome, but also a source of unnecessary typos and a possible performance bottleneck.&lt;/p&gt;
+
+&lt;p&gt;That’s why we created the &lt;a href=&quot;https://github.com/ontola/ontologies&quot;&gt;@ontologies&lt;/a&gt; project.
+This is an open source repository that converts RDF ontologies into JS exports, pubslihed in NPM for easy re-use.
+If your IDE is smart enough, it will auto-import the ontologies and provide and useful tooltips with ontological descriptions for each item.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-use-it&quot;&gt;How to use it&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;## Add it to your project&lt;/span&gt;
+yarn add @ontologies/core @ontologies/schema
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Initialize it once (./init.js)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;setup&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;@ontologies/core&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Use it&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;./init&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;@ontologies/schema&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;app&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHTML&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`
+&amp;lt;h1&amp;gt;Schema URL: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;lt;/h1&amp;gt;
+`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Check out a &lt;a href=&quot;https://codesandbox.io/s/ontologies-41zgg&quot;&gt;running example on CodeSandbox&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We’ve currently added ActivityStreams, DCElements, DCTerms, DCMIType, FOAF, OWL, PROV-O, RDF, RDFS, Schema, SHACL, SKOS and XSD.&lt;/p&gt;
+
+&lt;p&gt;PRs for new ontologies are welcome!&lt;/p&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Ontologies are resources that describe concepts and how several classes and properties in a certain domain relate to each other. For example, if you’re creating a social network app, you might want to use the Friend of a Friend (FOAF) ontology, which describes things like “Person” and “knows”. When creating linked data applications, you’re likely to work a lot with ontologies. Since ontologies, their classes and their properties all use URLs as identifiers, that means that you might write a lot of long strings. This is not only bothersome, but also a source of unnecessary typos and a possible performance bottleneck.</summary></entry><entry><title type="html">What’s the best RDF serialization format?</title><link href="https://ontola.io/blog/rdf-serialization-formats/" rel="alternate" type="text/html" title="What's the best RDF serialization format?" /><published>2019-06-29T00:00:00+02:00</published><updated>2019-06-29T00:00:00+02:00</updated><id>https://ontola.io/blog/rdf-serialization-formats</id><content type="html" xml:base="https://ontola.io/blog/rdf-serialization-formats/">&lt;p&gt;Contrary to some other datamodels, RDF is not bound by a single serializiation format.
+Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my &lt;a href=&quot;/what-is-linked-data&quot;&gt;linked data&lt;/a&gt;?&lt;/p&gt;
+
+&lt;p&gt;To answer the title’s question: &lt;em&gt;it depends&lt;/em&gt;, but probably N-Triples / N-Quads.&lt;/p&gt;
+
+&lt;p&gt;So, let’s discuss the various formats and when you should use which.
+The order in which they appear is chronological, and does not reflect preference.
+Skip to the &lt;a href=&quot;#tldr&quot;&gt;TL;DR&lt;/a&gt; if you’re feeling hasty.&lt;/p&gt;
+
+&lt;h2 id=&quot;rdfxml&quot;&gt;RDF/XML&lt;/h2&gt;
+
+&lt;p&gt;The first and perhaps most well-known RDF serialization format is &lt;a href=&quot;https://www.w3.org/TR/rdf-syntax-grammar/&quot;&gt;RDF/XML&lt;/a&gt;.
+It’s also the most &lt;a href=&quot;https://github.com/mhausenblas/rdfxml.info/blob/master/input/RDF-XML%20sucks%20-%20praise%20and%20damnation.txt&quot;&gt;despised&lt;/a&gt;.
+Many systems were able to parse, store and serialize XML when RDF was invented almost 20 years ago, so RDF/XML seemed like a logical default.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, RDF/XML is a weird mixture of two fundamentally different concepts: a tree-like document, and a triple-based graph.
+This makes RDF/XML conceptually difficult and quite verbose, compared to other standards.
+For XML developers, it might look familiar, but since it does not clearly reflect the triple model, it will probably cause confusion.&lt;/p&gt;
+
+&lt;p&gt;Use it only if you really need to work with XML.&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot;?&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;rdf:RDF&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;xmlns:rdf=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;xmlns:schema=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://schema.org/&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;rdf:Description&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rdf:about=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.w3.org/People/Berners-Lee/&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;schema:birthDate&amp;gt;&lt;/span&gt;1966-06-08&lt;span class=&quot;nt&quot;&gt;&amp;lt;/schema:birthDate&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;schema:birthPlace&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rdf:resource=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://dbpedia.org/resource/London&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/rdf:Description&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/rdf:RDF&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;rdfa&quot;&gt;RDFa&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.w3.org/TR/rdfa-core/&quot;&gt;RDFa&lt;/a&gt; is RDF inside HTML.
+By adding attributes to HTML elements, you can give semantic context to content inside your webpages.
+Google parses it (amongst &lt;a href=&quot;#JSON-LD&quot;&gt;JSON-LD&lt;/a&gt;, &lt;a href=&quot;https://w3c.github.io/microdata/#microdata-and-rdf&quot;&gt;Microdata&lt;/a&gt;, Microformats and Pagemaps) to &lt;a href=&quot;https://developers.google.com/custom-search/docs/structured_data&quot;&gt;enhance their search previews&lt;/a&gt;, although they &lt;a href=&quot;https://www.searchenginejournal.com/google-structured-data-preference/297479/&quot;&gt;recommend using JSON-LD&lt;/a&gt;.
+W3C’s own Respec documentation tool &lt;a href=&quot;https://github.com/w3c/respec/issues/1503&quot;&gt;dropped support for RDFa&lt;/a&gt;,
+mainly because adoption of RDFa was too low, the required code was messy and even Google didn’t parse it correctly.&lt;/p&gt;
+
+&lt;p&gt;RDFa is fundamentally different from the other mentioned formats: it combines RDF with view data (HTML).
+This means that it makes your HTML documents a bit larger and more complicated, and parsing it for triples will be more costly than parsing an RDF only format like N-Triples.
+This makes it less useable if your application relies on a lot of RDF data.&lt;/p&gt;
+
+&lt;p&gt;Use RDFa if you want to make your existing website / blog / HTML based application more semantic.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;about=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.w3.org/People/Berners-Lee/&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;
+    Tim is born on
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;property=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://schema.org/birthDate&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;1955-06-07&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+    in
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;property=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://schema.org/birthPlace&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://dbpedia.org/resource/London&quot;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+      London
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;notation3-n3&quot;&gt;Notation3 (.n3)&lt;/h2&gt;
+
+&lt;p&gt;Tim-Berners Lee wanted something better than RDF/XML, and came up with &lt;a href=&quot;https://www.w3.org/TeamSubmission/n3/&quot;&gt;N3&lt;/a&gt;.
+Contrary to RDF/XML, N3 closely resembles the RDF Subject / Predicate / Object model.
+This makes N3 very easy on the eyes, and helps to understand how RDF works.
+By using @prefixes, N3 can be quite compact.&lt;/p&gt;
+
+&lt;p&gt;However, N3 is relatively costly to serialize, which could hinder performance.
+It’s also quite feature-heavy, since it support &lt;a href=&quot;http://www.ninebynine.org/RDFNotes/RDFFactsAndRules.html&quot;&gt;RDF rules&lt;/a&gt;, which makes it harder to parse.&lt;/p&gt;
+
+&lt;p&gt;Unless you need the reasoning / rules features of N3, use its more popular (and very similar) successor Turtle.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-notation3&quot;&gt;@prefix tim: &amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt;.
+@prefix schema: &amp;lt;http://schema.org/&amp;gt;.
+@prefix dbpedia: &amp;lt;http://dbpedia.org/resource/&amp;gt;.
+
+&amp;lt;tim&amp;gt; schema:birthDate &quot;1955-06-08&quot;.
+&amp;lt;tim&amp;gt; schema:birthPlace &amp;lt;dbpedia:London&amp;gt;.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;turtle-ttl&quot;&gt;Turtle (.ttl)&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.w3.org/TR/turtle/&quot;&gt;Turtle&lt;/a&gt;, the &lt;em&gt;Terse RDF Triple Language&lt;/em&gt;, is a subset of N3.&lt;/p&gt;
+
+&lt;p&gt;It strips some of the syntactic sugar en features of N3, which makes parsing Turtle a bit simpler.
+This, in turn, made Turtle more popular, which means that it’s easier to find libraries for it.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, it’s still quite costly to parse compared to &lt;a href=&quot;#N-Triples&quot;&gt;N-Triples&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Turtle is highly human-readable and is therefore a good candidate if you need to edit RDF by hand.&lt;/p&gt;
+
+&lt;div class=&quot;language-turtle highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;tim:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://schema.org/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;dbpedia:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://dbpedia.org/resource/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;tim&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birthDate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1955-06-08&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;tim&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birthPlace&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;dbpedia:London&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;n-triples-nt-and-n-quads-nq&quot;&gt;N-Triples (.nt) and N-Quads (.nq)&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.w3.org/TR/n-triples/&quot;&gt;N-Triples&lt;/a&gt; is a very simple subset of Turtle, which in turn is a simple subset of N3.
+N-Triples does not support &lt;code class=&quot;highlighter-rouge&quot;&gt;@prefixes&lt;/code&gt; or any fancy features.
+This makes N-Triples trivial to parse / serialize, so many libraries are available and you can easily write one yourself.
+It also makes parsing highly performant.&lt;/p&gt;
+
+&lt;p&gt;However, the lack of prefixes and shorthands makes the format lengthy and a bit tough to read.
+The lenghty URLs also mean that you’ll need some form of compression (e.g.g-zip) if you don’t want to waste precious bandwith or storage capacity.&lt;/p&gt;
+
+&lt;p&gt;Use N-Triples for machine-to-machine communication, which is probably most of the time.
+Since writing a parser / serializer for N-Triples is so simple, it’s a good idea to support this pretty much always.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-n-triples&quot;&gt;&amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt; &amp;lt;http://schema.org/birthDate&amp;gt; &quot;1955-06-08&quot;.
+&amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt; &amp;lt;http://schema.org/birthPlace&amp;gt; &amp;lt;http://dbpedia.org/resource/London&amp;gt;.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.w3.org/TR/n-quads/&quot;&gt;N-Quads&lt;/a&gt; are like N-Turiples, but they have an optional fourth column, which can be used to denote a graph label.
+The graph label often refers to the source of the data, e.g. the URL of the HTML document or some external RDF resource.&lt;/p&gt;
+
+&lt;h2 id=&quot;json-ld-jsonld&quot;&gt;JSON-LD (.jsonld)&lt;/h2&gt;
+
+&lt;p&gt;JSON is without a doubt the most popular way to handle data in webapplications.
+&lt;a href=&quot;https://json-ld.org/spec/latest/json-ld/&quot;&gt;JSON-LD&lt;/a&gt; is an extension of JSON, and is valid JSON as well.
+You can turn your regular plain old JSON into RDF by adding &lt;a href=&quot;https://json-ld.org/spec/latest/json-ld/#the-context&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@context&lt;/code&gt;&lt;/a&gt;.
+This object mainly serves as a mapping, so your plain keys get turned into fancy links to RDF Classes and Properties.
+You can add context either by adding an &lt;code class=&quot;highlighter-rouge&quot;&gt;@content&lt;/code&gt; header in your HTTP response, by including the link in your JSON body, or by adding the entire &lt;code class=&quot;highlighter-rouge&quot;&gt;@context&lt;/code&gt; object to you JSON.
+This means that if you want to upgrade your JSON API to JSON-LD, you get to keep your serializers.&lt;/p&gt;
+
+&lt;p&gt;JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
+Because it’s still valid JSON, it’s usable to those who don’t want to deal with URLs.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, it’s difficult to parse if you need the RDF data instead of the JSON object.
+This means that there are few (bugfree) JSON-LD parsers available, and it also means that parsing JSON-LD is costly for your CPU.&lt;/p&gt;
+
+&lt;p&gt;JSON-LD is a compromise.
+It supports RDF, it supports JSON, and it does both &lt;em&gt;okay&lt;/em&gt;.
+Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.
+Since JSON is so popular, I think this is the way to go for &lt;em&gt;most&lt;/em&gt; of the existing APIs.&lt;/p&gt;
+
+&lt;h2 id=&quot;hdt&quot;&gt;HDT&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.rdfhdt.org/what-is-hdt/&quot;&gt;HDT&lt;/a&gt; (Header, Dictionary, Triples) is a compact data structure and binary serialization format for RDF, so it’s more than just a way to serialize RDF.
+Its data structure saves space and bandwith (it’s half the size of gzipped N-Triples).
+It’s design has indexing built-in, which means it can be searched or browsed efficiently.
+Check out the impressive &lt;a href=&quot;http://www.rdfhdt.org/technical-specification/&quot;&gt;technical specification&lt;/a&gt; if you want to learn more about how it works.&lt;/p&gt;
+
+&lt;p&gt;Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.&lt;/p&gt;
+
+&lt;h2 id=&quot;let-your-users-choose-a-format&quot;&gt;Let your users choose a format&lt;/h2&gt;
+
+&lt;p&gt;Choosing an RDF serialization format for your application or service might be a false dilemma.
+Since you control your application, and probably have an internal model, you can offer multiple serialization options.
+Therefore, you can implement a serialization library (e.g. our &lt;a href=&quot;https://github.com/ontola/rdf-serializers&quot;&gt;rdf-serializers&lt;/a&gt; gem for Rails) and use &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation&quot;&gt;HTTP Content negotation&lt;/a&gt;, so your project can handle all kinds of formats.&lt;/p&gt;
+
+&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use N-Triples if you want performant machine-to-machine communication.&lt;/li&gt;
+  &lt;li&gt;Use HDT if you have huge datasets and require the best performance, and if you can find / build a fitting HDT implementation for your stack.&lt;/li&gt;
+  &lt;li&gt;Use JSON-LD if you want to improve your exsting JSON API.&lt;/li&gt;
+  &lt;li&gt;Use Turtle if you want to manually read &amp;amp; edit your RDF.&lt;/li&gt;
+  &lt;li&gt;Use Notation3 if you need RDF rules.&lt;/li&gt;
+  &lt;li&gt;Use RDFa to extend your existing HTML pages.&lt;/li&gt;
+  &lt;li&gt;Use RDF/XML if you need to use XML.&lt;/li&gt;
+  &lt;li&gt;If you can, support all of them.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Contrary to some other datamodels, RDF is not bound by a single serializiation format. Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my linked data?</summary></entry><entry><title type="html">Upgrade JSON-HAL to JSON-LD</title><link href="https://ontola.io/blog/json-hal-ld/" rel="alternate" type="text/html" title="Upgrade JSON-HAL to JSON-LD" /><published>2018-08-29T00:00:00+02:00</published><updated>2018-08-29T00:00:00+02:00</updated><id>https://ontola.io/blog/json-hal-ld</id><content type="html" xml:base="https://ontola.io/blog/json-hal-ld/">&lt;p&gt;&lt;a href=&quot;http://stateless.co/hal_specification.html&quot;&gt;JSON-HAL&lt;/a&gt; and &lt;a href=&quot;https://json-ld.org/&quot;&gt;JSON-LD&lt;/a&gt; are pretty popular formats for desiging APIs. They both have &lt;a href=&quot;https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/&quot;&gt;their merits&lt;/a&gt;, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This way, you can keep compatibility with HAL clients and benefit from the &lt;a href=&quot;/what-is-linked-data&quot;&gt;advantages of linked data&lt;/a&gt;, such as conversion to other RDF formats.&lt;/p&gt;
+
+&lt;p&gt;Let’s start with a JSON-HAL body object from the &lt;a href=&quot;https://tools.ietf.org/html/draft-kelly-json-hal-08&quot;&gt;docs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_links&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;self&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/orders/523&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;warehouse&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/warehouse/56&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;invoice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/invoices/873&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;currency&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;USD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;shipped&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;total&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;10.20&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To identify the main resource, we add an &lt;code class=&quot;highlighter-rouge&quot;&gt;@id&lt;/code&gt; value:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/orders/123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_links&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;self&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/orders/523&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;warehouse&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/warehouse/56&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;invoice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/invoices/873&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;currency&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;USD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;shipped&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;total&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;10.20&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s add an &lt;code class=&quot;highlighter-rouge&quot;&gt;@context&lt;/code&gt; object to map our keys to URIs:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/orders/123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@context&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;currency&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/ns/shipping#currency&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/ns/shipping#status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;total&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/ns/shipping#total&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;warehouse&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/ns/shipping#warehouse&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;invoice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/ns/shipping#invoice&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_links&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;self&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/orders/523&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;warehouse&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/warehouse/56&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;invoice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/invoices/873&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;currency&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;USD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;shipped&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;total&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;10.20&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If we try to &lt;a href=&quot;https://json-ld.org/playground/#startTab=tab-nquads&amp;amp;json-ld=%7B%22%40id%22%3A%22https%3A%2F%2Fexample.com%2Forders%2F123%22%2C%22%40context%22%3A%7B%22currency%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23currency%22%2C%22status%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23status%22%2C%22total%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23total%22%2C%22warehouse%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23warehouse%22%2C%22invoice%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23invoice%22%7D%2C%22_links%22%3A%7B%22self%22%3A%7B%22href%22%3A%22%2Forders%2F523%22%7D%2C%22warehouse%22%3A%7B%22href%22%3A%22%2Fwarehouse%2F56%22%7D%2C%22invoice%22%3A%7B%22href%22%3A%22%2Finvoices%2F873%22%7D%7D%2C%22currency%22%3A%22USD%22%2C%22status%22%3A%22shipped%22%2C%22total%22%3A10.2%7D&quot;&gt;parse this as JSON-LD&lt;/a&gt;, we only get three valid triples. That’s because the items in &lt;code class=&quot;highlighter-rouge&quot;&gt;_links&lt;/code&gt; are not yet parsed. To do this, we need to let the JSON-LD parser know three things:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The object in &lt;code class=&quot;highlighter-rouge&quot;&gt;_links&lt;/code&gt; describes the same resource as the root object. We do this by adding an &lt;code class=&quot;highlighter-rouge&quot;&gt;@id&lt;/code&gt; value in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_links&lt;/code&gt; object with a value identical to the &lt;code class=&quot;highlighter-rouge&quot;&gt;@id&lt;/code&gt; of the root object.&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;href&lt;/code&gt; values in the objects in &lt;code class=&quot;highlighter-rouge&quot;&gt;_links&lt;/code&gt; are actually the URI values of these properties. We do this by adding an2 &lt;code class=&quot;highlighter-rouge&quot;&gt;@context&lt;/code&gt; object to the &lt;code class=&quot;highlighter-rouge&quot;&gt;_links&lt;/code&gt; body that binds &lt;code class=&quot;highlighter-rouge&quot;&gt;href&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;@id&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;_links&lt;/code&gt; object contains useful information, don’t skip it, parser! For the JSON-LD playground parser, we can do this by mapping &lt;code class=&quot;highlighter-rouge&quot;&gt;_links&lt;/code&gt; to some arbitrary URL. Since documenting such a hacky solution might be useful, let’s link to this article. This is the most hacky part of my solution, so let me know if you find something better!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/orders/123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@context&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;currency&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/ns/shipping#currency&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/ns/shipping#status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;total&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/ns/shipping#total&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;warehouse&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/ns/shipping#warehouse&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;invoice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/ns/shipping#invoice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_links&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://ontola.io/blog/json-hal-ld&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_links&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.com/orders/123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@context&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;self&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/orders/523&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;warehouse&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/warehouse/56&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;invoice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;href&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/invoices/873&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;currency&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;USD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;shipped&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;total&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;10.20&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If we &lt;a href=&quot;https://json-ld.org/playground-dev/#startTab=tab-nquads&amp;amp;json-ld=%7B%22%40id%22%3A%22https%3A%2F%2Fexample.com%2Forders%2F123%22%2C%22%40context%22%3A%7B%22currency%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23currency%22%2C%22status%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23status%22%2C%22total%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23total%22%2C%22warehouse%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23warehouse%22%2C%22invoice%22%3A%22https%3A%2F%2Fexample.com%2Fns%2Fshipping%23invoice%22%2C%22_links%22%3A%22https%3A%2F%2Fontola.io%2Fblog%2Fjson-hal-ld%22%7D%2C%22_links%22%3A%7B%22%40id%22%3A%22https%3A%2F%2Fexample.com%2Forders%2F123%22%2C%22%40context%22%3A%7B%22href%22%3A%22%40id%22%7D%2C%22self%22%3A%7B%22href%22%3A%22%2Forders%2F523%22%7D%2C%22warehouse%22%3A%7B%22href%22%3A%22%2Fwarehouse%2F56%22%7D%2C%22invoice%22%3A%7B%22href%22%3A%22%2Finvoices%2F873%22%7D%7D%2C%22currency%22%3A%22USD%22%2C%22status%22%3A%22shipped%22%2C%22total%22%3A10.2%7D&quot;&gt;parse this as JSON-LD&lt;/a&gt;, we get all six triples:&lt;/p&gt;
+
+&lt;div class=&quot;language-turtle highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/orders/123&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/ns/shipping#currency&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;USD&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/orders/123&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/ns/shipping#invoice&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://json-ld.org/invoices/873&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/orders/123&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/ns/shipping#status&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;shipped&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/orders/123&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/ns/shipping#total&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1.02E1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;^^&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://www.w3.org/2001/XMLSchema#double&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/orders/123&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/ns/shipping#warehouse&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://json-ld.org/warehouse/56&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/orders/123&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://ontola.io/blog/json-hal-ld&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://example.com/orders/123&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Awesome! Just by adding a few keys, we converted JSON-HAL into JSON-LD, without breaking anything. However, the resulting object is not that pretty and quite verbose. Only use this is you really &lt;em&gt;have&lt;/em&gt; to support both JSON-HAL and JSON-LD. If you haven’t invested in JSON-HAL yet, but do need a linked data API, I recommend you go with JSON-LD plus &lt;a href=&quot;https://www.hydra-cg.com/spec/latest/core/&quot;&gt;Hydra&lt;/a&gt;, which also offers standardization for things like actions, collections and pagination.&lt;/p&gt;
+
+&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Add an &lt;code class=&quot;highlighter-rouge&quot;&gt;@id&lt;/code&gt; to both the root object and the &lt;code class=&quot;highlighter-rouge&quot;&gt;_links&lt;/code&gt; object with the main resouce URL.&lt;/li&gt;
+  &lt;li&gt;In the root &lt;code class=&quot;highlighter-rouge&quot;&gt;@context&lt;/code&gt;, add your usual JSON-LD mapping.&lt;/li&gt;
+  &lt;li&gt;In the root &lt;code class=&quot;highlighter-rouge&quot;&gt;@context&lt;/code&gt;, map&lt;code class=&quot;highlighter-rouge&quot;&gt;_links&lt;/code&gt; to some URL.&lt;/li&gt;
+  &lt;li&gt;In the &lt;code class=&quot;highlighter-rouge&quot;&gt;_links&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;@context&lt;/code&gt;, map &lt;code class=&quot;highlighter-rouge&quot;&gt;href&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;@id&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">JSON-HAL and JSON-LD are pretty popular formats for desiging APIs. They both have their merits, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This way, you can keep compatibility with HAL clients and benefit from the advantages of linked data, such as conversion to other RDF formats.</summary></entry><entry><title type="html">Best practices for RESTful API design</title><link href="https://ontola.io/blog/api-design/" rel="alternate" type="text/html" title="Best practices for RESTful API design" /><published>2018-07-12T00:00:00+02:00</published><updated>2018-07-12T00:00:00+02:00</updated><id>https://ontola.io/blog/api-design</id><content type="html" xml:base="https://ontola.io/blog/api-design/">&lt;p&gt;The internet started off as a place for linked documents.
+However, where humans are perfectly capable of understanding HTML documents through a browser, this does not apply for machines that need a specific piece of information.
+That’s why every decent web service has an API, and probably uses it for their website, app, integrations and external services.
+Unfortunately, too many APIs are unnecessarily hard to use and unintuitive.
+In this article, I’ll give some practical advice on designing a RESTful, hypermedia API that follows web conventions.&lt;/p&gt;
+
+&lt;h2 id=&quot;use-urls-as-ids&quot;&gt;Use URLs as IDs&lt;/h2&gt;
+&lt;p&gt;Every thing in your API, every individual resource, should have its own URL. The URL should serve as both an &lt;em&gt;identifier&lt;/em&gt; as well as a &lt;em&gt;locator&lt;/em&gt;: it is the identity of the thing and it provides a way to fetch information about that thing. This makes URLs really useful.&lt;/p&gt;
+
+&lt;p&gt;Firstly, URLs make your responses &lt;em&gt;far easier to navigate&lt;/em&gt;. Imagine a JSON object representing a social media post that references some author with an identity of &lt;code class=&quot;highlighter-rouge&quot;&gt;18EA91FB19&lt;/code&gt;. From this information, you wouldn’t know where to find that author. You need to read the API docs, discover the endpoint for authors and compose your request. If the ID was a URL, you would instantly know where to send that request to. This is not just great for humans, but also for machines, since they can’t read your API docs - but they can navigate URLs.&lt;/p&gt;
+
+&lt;p&gt;Secondly, URLs are always unique. URLs are not just unique identifiers in a single system, but also unique across different systems. The domain name takes care of that. This means that you can use your data across multiple systems without worrying about name collisions in identifiers. This is one of the properties &lt;a href=&quot;https://ontola.io/what-is-linked-data&quot;&gt;that makes linked data awesome&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Make sure that your URLs are stable. &lt;a href=&quot;https://www.w3.org/Provider/Style/URI&quot;&gt;Cool URIs don’t change&lt;/a&gt;. If they really have to change, make sure the old URLs redirect to the new ones. Nobody likes broken links.&lt;/p&gt;
+
+&lt;h2 id=&quot;your-api-endpoint-is-your-website&quot;&gt;Your API endpoint is your website&lt;/h2&gt;
+&lt;p&gt;You don’t need a subdomain for your API, like &lt;code class=&quot;highlighter-rouge&quot;&gt;api.example.com&lt;/code&gt; or a sub-path, like &lt;code class=&quot;highlighter-rouge&quot;&gt;example.com/api&lt;/code&gt;. Your endpoint should be the root of your webpage: &lt;code class=&quot;highlighter-rouge&quot;&gt;example.com&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is useful, because as discussed above the URL should be both the identifier as the locator of a single resource. Whether someone is looking for a HTML version or for example a JSON representation of a resource, he should be able to use the same URL. This makes your API easier to use, because someone who navigates your website can know at any time how to access the same resource in some other format.&lt;/p&gt;
+
+&lt;p&gt;But if the URL does not change across format, how do you request the right one? This is where &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept&quot;&gt;HTTP content negotiation&lt;/a&gt; comes in handy. A client can send preferences about what kind of content it wants to receive in the &lt;code class=&quot;highlighter-rouge&quot;&gt;Accept&lt;/code&gt; HTTP header. The default header for web browsers is &lt;code class=&quot;highlighter-rouge&quot;&gt;text/HTML&lt;/code&gt;, but for most APIs, a machine readable setting such as &lt;code class=&quot;highlighter-rouge&quot;&gt;application/json&lt;/code&gt; is more suitable.&lt;/p&gt;
+
+&lt;p&gt;But what about API versioning? We want our URLs &lt;em&gt;not to change&lt;/em&gt;, so we should not use different URLs for different API versions. The solution, again, is to use a HTTP header. Use an &lt;code class=&quot;highlighter-rouge&quot;&gt;api-version&lt;/code&gt; header or a &lt;a href=&quot;https://developer.github.com/v3/media/&quot;&gt;specific Mime type&lt;/a&gt; in your requests.&lt;/p&gt;
+
+&lt;h2 id=&quot;use-sensible-hierarchy-in-url-paths&quot;&gt;Use sensible hierarchy in URL paths&lt;/h2&gt;
+&lt;p&gt;Having a URL hierarchy that makes sense is not just important for your website, but also for your API - especially if your API structure resembles your website structure. Try to come up with a sensible URL strategy, discuss it with your colleages and do all of this early in the development process.&lt;/p&gt;
+
+&lt;p&gt;A few things to consdier:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Move from large to small, from generic to specific.&lt;/li&gt;
+  &lt;li&gt;The user should be able to remove the last part of the URL and arrive at a parent resource.&lt;/li&gt;
+  &lt;li&gt;Let the hierarchy reflect the UX of navigating the website.&lt;/li&gt;
+  &lt;li&gt;Try to keep URLs as short as possible.&lt;/li&gt;
+  &lt;li&gt;Human readable URLs are easier to understand and share, and they are great for SEO.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.w3.org/Provider/Style/URI&quot;&gt;Cool URIs don’t change&lt;/a&gt;. Leave out anything that might change, such as author, file name extensions, status or subject.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;use-query-parameters-correctly&quot;&gt;Use query parameters correctly&lt;/h2&gt;
+&lt;p&gt;The &lt;a href=&quot;https://tools.ietf.org/html/rfc3986#section-3.4&quot;&gt;URI spec&lt;/a&gt; tells us to use query parameters only for &lt;em&gt;non-hierarchical data&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Don’t use query parameters to identify a resource; use a path.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Bad&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;example.com/posts?id=123&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Good&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;example.com/posts/123&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Use query parameters for &lt;em&gt;optional&lt;/em&gt; things like limiting, sorting, filtering and other modifiers:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Good&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;example.com/posts?limit=30&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Good&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;example.com/posts/123?show_hidden=true&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;use-http-methods&quot;&gt;Use HTTP methods&lt;/h2&gt;
+&lt;p&gt;Instead of having a bunch of endpoints for various types of actions, use &lt;em&gt;a single URL for every single resource&lt;/em&gt; in your application. Distinguish between actions using &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods&quot;&gt;HTTP methods&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Bad&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;GET example.com/showPost/123&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Bad&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;GET example.com/removePost/123&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Good&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;GET example.com/posts/123&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Good&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE example.com/posts/123&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There is a big difference between requests that aim to read content, create content or edit content. Make sure to use the GET, POST, PUT and PATCH HTTP methods correctly. The GET and PUT operations are &lt;em&gt;idempotent&lt;/em&gt;, which means that a request can be repeated multiple times without side effects. This distinction is important, because it tells the client whether it can try again if an error occurs. It also helps with caching, since only GET request should be cacheable.&lt;/p&gt;
+
+&lt;p&gt;If you want to offer a form to delete or edit a resource, &lt;em&gt;that form will be a different resource from the original item&lt;/em&gt;, so it will need a seperate URL. A nice convention is to nest that form resource below the original item. This way, the user just adds &lt;code class=&quot;highlighter-rouge&quot;&gt;/edit&lt;/code&gt; to the a URL if he wants to edit that resource.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Good&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;GET example.com/posts/123/remove&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Good&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;GET example.com/posts/123/edit&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;use-http-status-codes&quot;&gt;Use HTTP status codes&lt;/h2&gt;
+&lt;p&gt;Pretty much all types of error messages can be categorized in the existing &lt;a href=&quot;https://developer.mozilla.org/nl/docs/Web/HTTP/Status&quot;&gt;HTTP status codes&lt;/a&gt;. These are not just useful to humans, but especially to machines. Status codes can be parsed far more quickly than a body text. Another advantage is that they are standardized, so the client library is likely to know what the status code represents. You don’t have to support every single one, but at the very least make sure that you use the five categories:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;1xx: informational&lt;/strong&gt; - just letting you know&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;2xx: successful&lt;/strong&gt; - everything’s OK&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;3xx: redirection&lt;/strong&gt; - your content is somewhere else&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;4xx: client error&lt;/strong&gt; - you’re doing something wrong&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;5xx: server error&lt;/strong&gt; - we’re doing something wrong&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;add-context-to-your-json&quot;&gt;Add context to your JSON&lt;/h2&gt;
+&lt;p&gt;Assuming you use JSON as a serialization format, you can use &lt;a href=&quot;https://json-ld.org/spec/FCGS/json-ld/20180607/#the-context&quot;&gt;@context&lt;/a&gt;. The @context object is a nifty little idea to make your API more self-descriptive. It describes what the various keys in your JSON actually represent. It provides links to where the definition can be found.&lt;/p&gt;
+
+&lt;p&gt;Make sure all your IDs are actually links, and your context is included. Now all your JSON has become JSON-LD, which is &lt;a href=&quot;https://ontola.io/what-is-linked-data&quot;&gt;linked data&lt;/a&gt;. That means that your JSON data is now convertible to other RDF formats (Turtle, N3, N-triples, etc.), which means it becomes far more reusable.&lt;/p&gt;
+
+&lt;p&gt;Keep in mind that the links that you use should preferably resolve to some document that explains what your concept represents. A good starting point to find relevant concepts is &lt;a href=&quot;https://schema.org&quot;&gt;schema.org&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;offer-various-serialization-options&quot;&gt;Offer various serialization options&lt;/h2&gt;
+&lt;p&gt;Be as flexible as possible in your serialization options. Someone who uses your API might be good at dealing with JSON, but may not know how to work with XML. Serializing an in-memory object to various serialization options is often not that complicated. If you use Ruby on Rails, check out our &lt;a href=&quot;https://github.com/argu-co/rdf-serializers&quot;&gt;rdf-serializers library&lt;/a&gt; which supports JSON-LD, RDF/XML, N3, N-triples and Turtle. Use the &lt;a href=&quot;#your-api-endpoint-is-your-website&quot;&gt;aforementioned&lt;/a&gt; HTTP accept header to handle content negotiation.&lt;/p&gt;
+
+&lt;h2 id=&quot;standardize-index-pages-and-pagination&quot;&gt;Standardize index pages and pagination&lt;/h2&gt;
+&lt;p&gt;You’re probably going to need index pages with pagination. How to deal with that? Pagination is not a trivial problem, but luckily for you, you’re not the first to encounter it. Don’t try to reinvent the wheel; use something that already exists, such as &lt;a href=&quot;https://www.w3.org/TR/activitystreams-core/#collections&quot;&gt;W3C activity stream collections&lt;/a&gt; or &lt;a href=&quot;http://www.hydra-cg.com/spec/latest/core/#collections&quot;&gt;Hydra collections&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;dont-require-an-api-key&quot;&gt;Don’t require an API key&lt;/h2&gt;
+&lt;p&gt;Your default API (the HTML one) doesn’t need one, so your JSON API &lt;a href=&quot;https://ruben.verborgh.org/blog/2013/11/29/the-lie-of-the-api/#api-keys-are-a-lie&quot;&gt;shouldn’t need one&lt;/a&gt; as well. Use rate limiting to make sure your servers don’t fry. You can still use API keys or authentication to give access to special parts of your API, of course.&lt;/p&gt;
+
+&lt;h2 id=&quot;use-a-doc-subdomain-for-api-docs&quot;&gt;Use a &lt;code class=&quot;highlighter-rouge&quot;&gt;doc.&lt;/code&gt; subdomain for API docs&lt;/h2&gt;
+&lt;p&gt;Here’s &lt;a href=&quot;https://medium.com/@fletcher91/semantic-documentation-1177d563783c&quot;&gt;a clever little idea&lt;/a&gt;: make your API documentation available at &lt;code class=&quot;highlighter-rouge&quot;&gt;doc.example.com&lt;/code&gt;. If a user wants to know how your api works for a certain page, he just adds &lt;code class=&quot;highlighter-rouge&quot;&gt;doc.&lt;/code&gt; in front of his current URL. Show the user a page that tells something useful about how to use the API at that route.&lt;/p&gt;
+
+&lt;h2 id=&quot;use-your-own-api&quot;&gt;Use your own API&lt;/h2&gt;
+&lt;p&gt;Finally, and perhaps most importantly: eat your own dog food. Make your API a first-class citizen by using it as the only way to access information from that system. API-driven development forces you to make your API actually work. It helps you document your API properly, since your colleagues need to use it as well. Besides, you’ll make your application more modular and gradually realize a microservice architecture, which has its own set of benefits.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;mailto:joep@argu.co&quot;&gt;Let me know&lt;/a&gt; if I’m missing something, or if you want help with API design!&lt;/p&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">The internet started off as a place for linked documents. However, where humans are perfectly capable of understanding HTML documents through a browser, this does not apply for machines that need a specific piece of information. That’s why every decent web service has an API, and probably uses it for their website, app, integrations and external services. Unfortunately, too many APIs are unnecessarily hard to use and unintuitive. In this article, I’ll give some practical advice on designing a RESTful, hypermedia API that follows web conventions.</summary></entry><entry><title type="html">A brief introduction to linked data</title><link href="https://ontola.io/what-is-linked-data/" rel="alternate" type="text/html" title="A brief introduction to linked data" /><published>2018-07-03T00:00:00+02:00</published><updated>2018-07-03T00:00:00+02:00</updated><id>https://ontola.io/a-brief-introduction-to-linked-data.1</id><content type="html" xml:base="https://ontola.io/what-is-linked-data/">&lt;p&gt;Linked data is a way to structure and share information, using links.
+These links make data more meaningful and useful.
+To understand why, let’s take a piece of information and upgrade its data quality step by step, until it’s linked data.
+In the later paragraphs, I’ll get a little more technical.
+I’ll discuss the RDF data model, serialization formats, ontologies and publishing strategies.&lt;/p&gt;
+
+&lt;h2 id=&quot;human-language&quot;&gt;Human Language&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Tim is born in London on the 8th of June, 1955.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Humans understand what this sentence means, but to a computer, this is just a string of characters.
+If we wanted an application to do something with this sentence, such as display Tim’s birthdate, we’d need the computer to understand English.
+A simpler solution would be to structure our information in a way that’s useful to a computer.&lt;/p&gt;
+
+&lt;h2 id=&quot;tables&quot;&gt;Tables&lt;/h2&gt;
+&lt;p&gt;If we put the information in a table, we can simply let the computer read the &lt;code class=&quot;highlighter-rouge&quot;&gt;birthDate&lt;/code&gt; field for Tim.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;name&lt;/th&gt;
+      &lt;th&gt;birthPlace&lt;/th&gt;
+      &lt;th&gt;birthDate&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Tim&lt;/td&gt;
+      &lt;td&gt;London&lt;/td&gt;
+      &lt;td&gt;06-08-1955&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Great! By structuring data, computers can be programmed to do more useful things with it.&lt;/p&gt;
+
+&lt;p&gt;But now someone else wants to use this data and has a couple of questions.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Who is Tim?&lt;/li&gt;
+  &lt;li&gt;Which London do you mean, the big one in the UK or the smaller one in Canada?&lt;/li&gt;
+  &lt;li&gt;Does &lt;code class=&quot;highlighter-rouge&quot;&gt;06-08&lt;/code&gt; mean June 8th or August 6th?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;links&quot;&gt;Links&lt;/h2&gt;
+&lt;p&gt;Now, let’s add links to our data:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;name&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;http://schema.org/birthPlace&quot;&gt;birthPlace&lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;http://schema.org/birthDate&quot;&gt;birthDate&lt;/a&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.w3.org/People/Berners-Lee/&quot;&gt;Tim&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;http://dbpedia.org/resource/London&quot;&gt;London&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;1955-06-08&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;By adding these links, others can answer all previous questions by themselves.
+The links solve three problems:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Links provide extra information.&lt;/strong&gt; Follow the link to Tim to find out more about him.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Links remove ambiguity.&lt;/strong&gt; We now know exactly which London we’re talking about.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Links add standardization.&lt;/strong&gt; The birthDate link tells us we need to use the YYYY-MM-DD notation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These three characteristics make linked data more reusable.
+The data quality has been improved, because other people and machines can now interpret and use the information more reliably.&lt;/p&gt;
+
+&lt;p&gt;Let’s look at the questions about the first table again.
+The ambiguity in the table is obvious to someone who reuses the data, but is not apparent for the creator of the table.
+I made the table, I knew which Tim and London I was talking about, I knew how the birthdate should be read.
+There was no ambiguity for me.&lt;/p&gt;
+
+&lt;p&gt;This closed worldview is the root cause of much of the problems in digital systems today.
+We tend to ignore the information that is stored in the context of data.
+Developers tend to make software that produces data that only their systems can fully understand.
+They have their own assumptions, identifiers, and models.
+Linked data solves this problem by removing all ambiguity about what data represents and how it should be interpreted.&lt;/p&gt;
+
+&lt;h2 id=&quot;triples--the-rdf-data-model&quot;&gt;Triples &amp;amp; the RDF data model&lt;/h2&gt;
+&lt;p&gt;In the tables above, we were making two separate statements about Tim: one about his birthdate and one about his birthplace.
+Each statement had it’s own cell in the table.
+In linked data, these statements are called  &lt;em&gt;triples&lt;/em&gt;.
+That’s because every triple statement has three parts: a &lt;em&gt;subject&lt;/em&gt;, a &lt;em&gt;predicate&lt;/em&gt;, and an &lt;em&gt;object&lt;/em&gt;.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Subject&lt;/th&gt;
+      &lt;th&gt;Predicate&lt;/th&gt;
+      &lt;th&gt;Object&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.w3.org/People/Berners-Lee/&quot;&gt;Tim&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;http://schema.org/birthPlace&quot;&gt;birthPlace&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;http://dbpedia.org/resource/London&quot;&gt;London&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.w3.org/People/Berners-Lee/&quot;&gt;Tim&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;http://schema.org/birthDate&quot;&gt;birthDate&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;1955-06-08&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;A bunch of triples about a single subject (such as Tim) is called a &lt;em&gt;resource&lt;/em&gt;.
+That’s why we call this data model the Resource Description Framework: &lt;em&gt;RDF&lt;/em&gt;.
+RDF is the de facto standard for linked data.&lt;/p&gt;
+
+&lt;p&gt;Instead of using a table of triples, we could visualize the RDF data as a &lt;a href=&quot;https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)&quot;&gt;&lt;em&gt;graph&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/tim_graph.svg&quot; alt=&quot;A visualization of the above triples in a graph&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The object of the first triple, for the birthPlace, contains a link (an &lt;a href=&quot;https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier&quot;&gt;&lt;em&gt;IRI&lt;/em&gt;&lt;/a&gt;) to some other resource (London).
+The object of the second triple (the birthDate) is not a link, but a so-called &lt;em&gt;literal value&lt;/em&gt;.
+The literal value cannot have any properties, since it’s not a resource.&lt;/p&gt;
+
+&lt;p&gt;That’s a lot of new words and concepts, which can be a bit confusing at first.
+However, they will appear all the time when you’re actually working with linked data, so try to get an accurate mental model of these concepts.&lt;/p&gt;
+
+&lt;p&gt;Let’s take a step back and reflect.
+What can we say about the RDF model, looking at how it works?
+First, this shows that RDF is actually a ridiculously &lt;em&gt;simple&lt;/em&gt; model.
+You can represent anything in RDF with just three columns.
+Second, you should note that it is not possible to add extra information on &lt;em&gt;edges&lt;/em&gt; (these arrows in the graph).
+This is different from most graph models, where edges can have their own properties.
+Another characteristic of the RDF model is that it is really easy to combine two RDF graphs.
+Integrating two datasets is a luxury that most data models don’t have.
+Finally, having a database model that is decoupled from your application models, means high &lt;em&gt;extensibility&lt;/em&gt; and &lt;em&gt;flexibility&lt;/em&gt;.
+Changing your model or adding properties do not require any schema changes.
+This makes RDF so great for systems that change over time.&lt;/p&gt;
+
+&lt;h2 id=&quot;rdf-serialization&quot;&gt;RDF Serialization&lt;/h2&gt;
+&lt;p&gt;Let’s get a little more technical (feel free to skip to &lt;a href=&quot;#ontologies&quot;&gt;Ontologies&lt;/a&gt; if you don’t like all this code).
+RDF is a &lt;em&gt;data model&lt;/em&gt;, not a &lt;em&gt;serialization format&lt;/em&gt;.
+In other words: The subject, predicate, object model can be represented in several ways.
+For example, here’s the same triples from the table and the graph above, serialized in the &lt;em&gt;Turtle&lt;/em&gt; format:&lt;/p&gt;
+
+&lt;div class=&quot;language-turtle highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://schema.org/birthDate&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1955-06-08&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://schema.org/birthPlace&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://dbpedia.org/resource/London&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&amp;gt;&lt;/code&gt; symbols indicate IRIs and the &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;&quot;&lt;/code&gt; symbols indicate literal values.&lt;/p&gt;
+
+&lt;p&gt;This example doesn’t look as good as the graph above, right?
+Long URLs tend to take up a lot of space and make the data a bit tough to read.
+We can use &lt;em&gt;namespaces&lt;/em&gt; (denoted with  &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;/code&gt;) to compress RDF data and make it more readable.&lt;/p&gt;
+
+&lt;div class=&quot;language-turtle highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;tim:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://schema.org/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;dbpedia:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://dbpedia.org/resource/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;tim&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birthDate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1955-06-08&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;tim&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birthPlace&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;dbpedia:London&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You could also express the same RDF triples as JSON-LD:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@context&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;schema&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://schema.org/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dbpedia&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://dbpedia.org/resource/&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://www.w3.org/People/Berners-Lee/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;schema:birthDate&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1955-06-08&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;schema:birthPlace&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dbpedia:London&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or as HTML with some extra RDFa attributes:&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/1999/xhtml&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;prefix=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;
+    schema: http://schema.org/
+    rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+    rdfs: http://www.w3.org/2000/01/rdf-schema#&quot;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;typeof=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;rdfs:Resource&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;about=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.w3.org/People/Berners-Lee/&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    Tim
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;schema:birthPlace&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;resource=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://dbpedia.org/resource/London&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+      is born in London
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;property=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;schema:birthDate&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1955-06-08&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+      on the 8th of June, 1955
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The Turtle, JSON-LD and HTML+RDFa each contain the same RDF triples and can be automatically converted into each other.
+You can try this &lt;a href=&quot;http://rdf-translator.appspot.com/&quot;&gt;for yourself&lt;/a&gt; and discover even more RDF serialization formats, such as microformats, RDF/XML (don’t use this, &lt;a href=&quot;https://github.com/mhausenblas/rdfxml.info/blob/master/input/RDF-XML%20sucks%20-%20praise%20and%20damnation.txt&quot;&gt;please&lt;/a&gt;) and N-Triples.&lt;/p&gt;
+
+&lt;p&gt;The number of serialization options for RDF might be a bit intimidating, but you shouldn’t feel the need to understand and know every single one.
+The important thing to remember is that there’s a lot of options that are compatible with each other and use the RDF data model.&lt;/p&gt;
+
+&lt;h2 id=&quot;ontologies&quot;&gt;Ontologies&lt;/h2&gt;
+&lt;p&gt;Let’s tell a bit more about Tim. First of all, it might be useful to specify that Tim is a person:&lt;/p&gt;
+
+&lt;div class=&quot;language-turtle highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;tim:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://schema.org/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;dbpedia:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://dbpedia.org/resource/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;foaf:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://xmlns.com/foaf/spec/#term_&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;tim&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;foaf:Person&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birthDate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1955-06-08&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birthPlace&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;dbpedia:London&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We’ve referred to &lt;a href=&quot;http://xmlns.com/foaf/spec/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;foaf:Person&lt;/code&gt;&lt;/a&gt; to specify that Tim is an &lt;em&gt;instance&lt;/em&gt; of the class &lt;em&gt;Person&lt;/em&gt;.
+Foaf (Friend Of A Friend) is an &lt;em&gt;ontology&lt;/em&gt; that is designed to describe data related to people in social networks.
+It defines the concept of Person and some attributes, such as a profile image.
+We used the &lt;code class=&quot;highlighter-rouge&quot;&gt;schema.org&lt;/code&gt; ontology for the concepts of &lt;code class=&quot;highlighter-rouge&quot;&gt;birthDate&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;birthPlace&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;There exist many ontologies, ranging from &lt;a href=&quot;https://www.w3.org/TR/vocab-org/&quot;&gt;organizations&lt;/a&gt; (which describes concepts like &lt;em&gt;memberships&lt;/em&gt;) to &lt;a href=&quot;https://protege.stanford.edu/ontologies/pizza/pizza.owl&quot;&gt;pizza&lt;/a&gt; (which describes concepts like &lt;em&gt;ingredients&lt;/em&gt;).
+These ontologies should be described in RDF as well.
+A powerful and popular to describe ontologies, is with the &lt;a href=&quot;https://www.w3.org/2001/sw/wiki/OWL&quot;&gt;OWL&lt;/a&gt; format (the Web Ontology Language).
+The new &lt;a href=&quot;https://shacl.org/playground/&quot;&gt;SHACL&lt;/a&gt; ontology help to define &lt;em&gt;shapes&lt;/em&gt; of RDF, and can be used to &lt;em&gt;constrain&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;An ontology described in RDF is a machine-readable data model.
+This opens up some really cool possibilities.
+You can &lt;a href=&quot;https://github.com/dgarijo/Widoco&quot;&gt;generate documentation&lt;/a&gt;.
+You can use &lt;a href=&quot;https://en.wikipedia.org/wiki/Semantic_reasoner&quot;&gt;reasoners&lt;/a&gt; to &lt;em&gt;infer&lt;/em&gt; new knowledge about your data.
+You can even generate forms and other UI components in React using libraries such as &lt;a href=&quot;https://github.com/fletcher91/link-redux&quot;&gt;Link-Redux&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The power of the ontology goes far, but that probably deserves its own article.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-can-we-do-with-linked-data&quot;&gt;What can we do with linked data&lt;/h2&gt;
+&lt;p&gt;The use of links help to provide extra information, remove ambiguity, and help with standardization.
+These are abstract advantages, but they have a real-world impact on how we can use data.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Linked data enables a decentralized architecture. Since URLs directly point to the source, even if the data is on a completely different domain,&lt;/li&gt;
+  &lt;li&gt;Because of the decentralized nature, data tends to stay at the source. This means that less data is copied, and we have&lt;/li&gt;
+  &lt;li&gt;Since linked data is highly standardized, writing interfaces becomes really easy. This means that you don’t need expensive.&lt;/li&gt;
+  &lt;li&gt;We can merge two datasets, without having any collissions in identifiers. This is because URLs are unique even accross multiple domains. This might seem like a minor benefit, but it makes integration multiple systems exceptionally trivial.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;h2 id=&quot;linked-data-can-be-converted-to-many-serialization-formats-its-easy-to-convert-linked-data-to-json-but-the-other-way-around-is-more-difficult&quot;&gt;Linked data can be converted to many serialization formats. It’s easy to convert Linked Data to JSON, but the other way around is more difficult.&lt;/h2&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;publishing-linked-data&quot;&gt;Publishing linked data&lt;/h2&gt;
+&lt;p&gt;Linked data is meant to be shared.
+We can do this in several ways:&lt;/p&gt;
+
+&lt;p&gt;Firstly, there’s the &lt;strong&gt;data dump&lt;/strong&gt;.
+Serialize your RDF the way you like and make it accessible as a single file.
+It’s the easiest and often the cheapest way to publish your data.
+However, if someone just wants to know something about a single subject (or resource) in your data dump, he’d have to download the entire data dump.
+That’s cumbersome, and makes your data not as re-usable as it could be.
+All processing and querying efforts are left to the downloader.
+Furthermore, data dumps are hard to manage and therefore likely to be outdated.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Subject pages&lt;/strong&gt; to the rescue!
+Make the RDF data available through HTTP at the location where you’d expect it: at &lt;em&gt;the same link as the resource IRI&lt;/em&gt;.
+Doing this makes your data truly linked, since every resource can now be downloaded separately and automatically.
+Subject pages can be either &lt;em&gt;static&lt;/em&gt; or &lt;em&gt;dynamic&lt;/em&gt;.
+Static subject pages are simply RDF files hosted on some URL.
+Sharing static subject pages is very simple, but static data is hard to maintain or edit.
+Dynamic pages are generated by a server, so the underlying data could be edited by any framework.
+Another advantage of using dynamic subject pages, is that you can serialize to many different formats.
+You can show HTML to humans and RDF to computers.
+For example, our project &lt;a href=&quot;https://argu.co&quot;&gt;Argu&lt;/a&gt; (an online democracy and discussion tool) works like this.
+Visit a webpage (or subject page) (e.g. &lt;a href=&quot;https://argu.co/nederland/m/46&quot;&gt;argu.co/nederland/m/46&lt;/a&gt;).
+If you want the same content as linked data, add a serialization extension (e.g. &lt;a href=&quot;https://argu.co/nederland/m/46.ttl&quot;&gt;.ttl&lt;/a&gt;) or use &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept&quot;&gt;HTTP Accept Headers&lt;/a&gt;.
+Note that even though this project serializes to all sorts of RDF formats, the project itself does not use an RDF database / triple store.&lt;/p&gt;
+
+&lt;p&gt;Perhaps the most popular and easiest way to publish linked data is with &lt;strong&gt;annotated pages&lt;/strong&gt;.
+Remember the RDFa serialization format, discussed above? That’s annotated pages.
+Using RDFa or Microdata in your existing web pages provides some benefits, especially to SEO.
+For example, you can get these &lt;a href=&quot;https://developers.google.com/search/docs/guides/intro-structured-data?visit_id=1-636649250129274125-3755783713&amp;amp;hl=en&amp;amp;rd=1&quot;&gt;cool boxes in google&lt;/a&gt;, which show things like star ratings in search previews.
+However, annotated pages are more for adding a bit of spice to your existing webpage than to make huge datasets available.
+Parsing (reading) RDFa from a large HTML document will always be more expensive than reading Turtle or any other simple triple RDF format.&lt;/p&gt;
+
+&lt;p&gt;A radically different way to share your linked data is through a &lt;strong&gt;SPARQL&lt;/strong&gt; endpoint.
+SPARQL is a &lt;em&gt;query language&lt;/em&gt;, like SQL, designed to perform complex search queries in large RDF graphs.
+With SPARQL, you can run queries such as ‘which pianists live in the Netherlands’, or ‘what proteins are involved in signal transductions and related to pyramidal neurons?’.
+SPARQL is without any doupt extremely powerful, but using it as the primary measure to share your RDF data might be difficult for your project.
+If you want one, you will probably need to store your RDF data in a specialized triple store that features a SPARQL endpoint.
+Not many databases do, unfortunately, so you’ll be limited to either proprietary solutions or projects with relatively little adoption and support.
+Ask yourself if your users will need to run complex queries on your data.
+For most linked data projects, I’d recommend to use a conventional database and serialize the data to some RDF format when a user sends a request, i.e. use the aforementioned subject pages pattern instead of a SPARQL endpoint.&lt;/p&gt;
+
+&lt;p&gt;Other technologies like &lt;a href=&quot;http://linkeddatafragments.org/&quot;&gt;Linked Data Fragments&lt;/a&gt; and &lt;a href=&quot;http://www.rdfhdt.org/what-is-hdt/&quot;&gt;HDT&lt;/a&gt; allow for even more efficient sharing and storing of linked data.&lt;/p&gt;
+
+&lt;p&gt;Note that there’s a difference between linked data and linked &lt;em&gt;open&lt;/em&gt; data.
+Although linked data would be a great choice for publishing open data, you don’t have to make your linked data accessible to others.
+It’s perfectly possible to secure linked data using &lt;a href=&quot;https://oauth.net/2/&quot;&gt;OAuth&lt;/a&gt;, [WebID], ACL or other methods.&lt;/p&gt;
+
+&lt;h2 id=&quot;further-reading&quot;&gt;Further reading&lt;/h2&gt;
+&lt;p&gt;If you want to learn more about the vision behind the semantic web and linked data, read the &lt;a href=&quot;https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf&quot;&gt;2006 paper&lt;/a&gt; by some of the original inventors).
+If you’re looking for inspiration and example projects, check out the &lt;a href=&quot;https://lod-cloud.net/&quot;&gt;Linked Open Data Cloud&lt;/a&gt;.
+If you want to learn more about reasoning and ontologies, try the &lt;a href=&quot;https://www.w3.org/TR/2012/REC-owl2-primer-20121211/&quot;&gt;W3C OWL primer&lt;/a&gt;.
+For SPARQL, the &lt;a href=&quot;https://jena.apache.org/tutorials/sparql.html&quot;&gt;Apache Jena tutorial&lt;/a&gt; could help.
+Check out the &lt;a href=&quot;https://www.reddit.com/r/semanticweb/&quot;&gt;/r/semanticweb&lt;/a&gt; community on Reddit for interesting posts and discussions.
+Here’s &lt;a href=&quot;https://twitter.com/joepmeindertsma/lists/linked-data&quot;&gt;a list&lt;/a&gt; of some interesting Twitter accounts you might want to follow.&lt;/p&gt;
+
+&lt;p&gt;If you want to get help with your linked data project, feel free to send me an &lt;a href=&quot;mailto:joep@ontola.io&quot;&gt;email&lt;/a&gt;!&lt;/p&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Linked data is a way to structure and share information, using links. These links make data more meaningful and useful. To understand why, let’s take a piece of information and upgrade its data quality step by step, until it’s linked data. In the later paragraphs, I’ll get a little more technical. I’ll discuss the RDF data model, serialization formats, ontologies and publishing strategies.</summary></entry></feed>
