@@ -246,9 +246,10 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
+  jekyll-feed
   jekyll-multiple-languages-plugin
   jekyll-redirect-from
   jekyll-release
 
 BUNDLED WITH
-   2.0.2
+   2.1.2

@@ -1,6 +1,11 @@
 permalink: /blog/:year/:month/:day/:title
 highlighter: rouge
+title: Ontola.io
+description: Linked Data software developemnt
+url: https://ontola.io
+author:
 plugins:
+  - jekyll-feed
   - jekyll-multiple-languages-plugin
   - jekyll-release
   - jekyll-redirect-from
