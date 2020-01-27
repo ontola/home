@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <meta name="description" content="Open Decision Making (Open Besluitvorming in Dutch) lets you search through what has been discussed in Dutch governments.In collaboration with local governme...">
-<meta property="og:site_name" content="Ontola.io">
+<meta property="og:site_name" content="home">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@ontola.io">
 
@@ -29,7 +29,7 @@
 <meta name="twitter:title" content="Publishing Dutch governmental meetings as linked data">
 <meta property="og:description" content="Open Decision Making (Open Besluitvorming in Dutch) lets you search through what has been discussed in Dutch governments.
 In collaboration with local governments, the VNG and the Open State Foundation, we’ve built software that standardizes and aggregates the meeting data of more than 120 governments.
-All this open information makes it easier for journalists, policymakers and well-informed citizens to get involved in.
+All this open information makes it easier for journalists, policymakers and well-informed citizens to get involed in.
 With the principles of linked data we ensured that the data is open, uniform and reusable for anyone that likes to build upon it.
 
 "/>
@@ -103,17 +103,17 @@ With the principles of linked data we ensured that the data is open, uniform and
 
   <p><a href="https://openbesluitvorming.nl">Open Decision Making</a> (Open Besluitvorming in Dutch) lets you search through what has been discussed in Dutch governments.
 In collaboration with local governments, the VNG and the Open State Foundation, we’ve built software that standardizes and aggregates the meeting data of more than 120 governments.
-All this open information makes it easier for journalists, policymakers and well-informed citizens to get involved in.
+All this open information makes it easier for journalists, policymakers and well-informed citizens to get involed in.
 With the principles of <a href="/what-is-linked-data/">linked data</a> we ensured that the data is open, uniform and reusable for anyone that likes to build upon it.</p>
 
 <h2 id="how-it-started">How it started</h2>
 
-<p>In 2014 we started our e-democracy platform <a href="https://argu.co">Argu.co</a>, which aims to engage citizens in decision-making processes.
+<p>In 2014 we started our e-democracy platform <a href="https://argu.co">Argu.co</a>, which aims to engage citizens in decision making processes.
 We worked with many governments and hosted online discussions where people shared ideas, opinions and voted on issues.
-Although we’ve seen that e-democracy and civic participation can be very successful, one key element is often missing: the actual decision-making process.
-This has to do with the fact that e-democracy discussions tend to happen parallel to the actual governmental meetings.
+Although we’ve seen that e-democracy and civic participation can be very succesful, one key element is often missing: the actual decision making process.
+This has to do with the fact that e-democracy discussion tend to happen in parallel of the actual governmental meetings.
 We wanted to bring these two worlds together.
-To achieve that goal, we decided to work on gathering and standardizing the data that these decision-makers create: meetings, votes, agenda-items and many other documents.</p>
+In order to achieve that goal, we decided to work on gathering and standardizing the data that these decision makers create: meetings, votes, agenda items and many other documents.</p>
 
 <p>In 2016 we started working with the <a href="https://openstate.eu/">Open State Foundation</a>, who initiated Open Raadsinformatie (Open Municipality Data).
 VNG (the Dutch Municipality Union) provided funding, we joined forces, got involved with the technology, and helped to scale the project up from 7 to over 120 municipalities and 6 provinces.</p>
@@ -121,12 +121,12 @@ VNG (the Dutch Municipality Union) provided funding, we joined forces, got invol
 <h2 id="going-from-pdf-to-enriched-text">Going from PDF to enriched text</h2>
 
 <p>Dutch municipalities produce a <em>lot</em> of information in their meetings.
-They use meeting software to organize and distribute their agenda items, documents, motions, and reports online.
-However, all these applications tend to work quite differently, all with their own information schemes.
+They use meeting software to organize and distribute their agenda items, documents, motions and reports online.
+However, all these application tend to work quite differently, all with their own information schemes.
 Also, many of the proceedings and documents are saved in PDF format and are often not publicly accessible to download.
-With our access to these systems and a lot of time to understand and implement the various APIs, we were able to bring everything together and create a standardized, searchable base of information that is always publicly accessible.</p>
+With our access to these systems, and a lot of time to understand and implement the various APIs, we were able to bring everything together and create a standardized, searchable base of information which is always publicly accessible.</p>
 
-<p>Most of the interesting information hides in PDF files.
+<p>Most of the interesting information is hidden away in PDF files.
 We wrote ETL (extract, load, transform) software using Python, Celery and Elasticsearch that gets all the source files, standardizes it to a single model and loads the text into various query systems.
 We store and cache all these files in Google Cloud Storage, along with the referencing sources and metadata.
 This enables us to serve files that are not accessible through the default API of the meeting software sources.
@@ -137,7 +137,7 @@ This also makes it possible to see what has changed between versions.</p>
 <ul>
   <li>
     <p>Theme classifier: a <a href="https://github.com/openstate/ori-theme-classifier">machine-learning classifier</a> written by the Open State Foundation.
-Scores document relevance to a set of specified themes, such as Economy, Safety and Education.</p>
+Scores document relevance to a set of specified themes like: Economy, Safety and Education.</p>
   </li>
   <li>
     <p>Location classifier: based on the project <a href="https://bitbucket.org/aolieman/loclinkvis/">LocLinkVis</a> made by Alex Olieman and the University of Amsterdam.
@@ -147,57 +147,19 @@ It finds streets and locations in document texts and translates it into geograph
 
 <p>These enrichers allow all users of Open Decision Making to filter documents by theme tags and use geographical information to pinpoint which locations are mentioned.</p>
 
-<h2 id="storing-rdf">Storing RDF</h2>
+<p>Several applications now actively use the free available data from Open Decision Making:</p>
 
-<p>We love <a href="https://ontola.io/what-is-linked-data/">linked data</a>, and its merits are exceptionally valuable in a project such as this one.
-Linked data is highly re-usable in other applications without needing duplication, and the diverse serialization formats of RDF will provide something for any use-case.</p>
-
-<p>However, working with linked data poses new challenges, such as choosing the right data store for the statements.
-You might think that an existing triple store is the most logical option since we’re working with RDF, but you don’t need triple stores to do serve linked data.
-Triple stores make a lot of sense when you have schema-less RDF data and require SPARQL as a query language.
-We didn’t need those, as our schema was constrained by our internal models, and SPARQL didn’t suit our query goals.
-The primary goal was providing full-text search and RDF REST resources.</p>
-
-<p>Before we joined the project, Elasticsearch was used as the source of truth and the only data store.
-It ticked the text search box, as Elasticsearch has an extremely detailed and comprehensive query-language, but it is not designed for relational database queries.
-It’s not a database and as such, it’s not ACID compliant (i.e., highly resistant to corruption or data loss).</p>
-
-<p>So, looking for a better store, we started with ArangoDB, which is a NoSQL document-based graph store.
-It seemed appropriate at the time because we were working with lots of documents, all connected to each other in a graph.
-However, we found that the graph queries were taking too long to be suitable for this project.</p>
-
-<p>Next on our quest we also tried Neo4j, which is the market leader in Graph databases.
-As promised it has a powerful query language called Cypher, but we found that memory use was growing too early too fast.
-Another thing is we found it quite tricky to store RDF data and use IRIs as attributes.
-In theory, it’s possible, but not ideal in practice since IRIs have to be escaped and queries become long and dreadful.
-Also, you have to think about how to cope with external resources.
-Whereas in an RDF store one can add a triple referencing an external resource, in Neo4j one should create a node to mimic the same behavior.</p>
-
-<p>In the end, we abandoned graph databases altogether for this project and stuck with Postgres.
-We didn’t need graph-like queries or schemaless storage of triples.
-I am not saying that those graph databases are not good enough, merely not suitable for our purpose and budget.</p>
-
-<p>Since the project depends heavily on fast text search queries, we found that Elasticsearch is still essential.
-So we kept it on for full-text searching.
-But since its Query DSL is changing quite a lot over time, it is not suitable as a stable API.
-We had to come up with an answer to this and created the ORI API service which can be found here: https://id.openraadsinformatie.nl/
-The idea here was that every resource should have its own resolvable identifier that would stay the same.</p>
-
-<h2 id="open-data">Open Data</h2>
-
-<p>Several applications now actively use the freely available data from Open Decision Making:</p>
+<h2 id="use-cases">Use cases</h2>
 
 <h3 id="openbesluitvormingnl">OpenBesluitvorming.nl</h3>
-
-<p>We have built the <a href="https://openbesluitvorming.nl">primary open-source search application (Dutch)</a> for users to discover and explore what is being said in their local government.
-The beauty of open data is that everyone can build their own applications based on the same API.</p>
+<p>We have built the <a href="https://openbesluitvorming.nl">primary open source search application (Dutch)</a> for users to discover and explore what is being said in their local government.
+The beauty of open data is that everyone can build their own application based on the same API.</p>
 
 <p><img src="/img/posts/ori/zoek-openraadsinformatie.jpg" alt="openbesluitvorming.nl" title="openbesluitvorming.nl" /></p>
 
 <p> </p>
 
 <h3 id="raadstalknl">Raadstalk.nl</h3>
-
 <p>VNG is the Dutch umbrella organization for all municipalities and has been the driving force in this project.
 They’ve asked us to create a <a href="https://raadstalk.nl">widget</a> to see what words are trending for all municipalities in each month.</p>
 
@@ -206,7 +168,6 @@ They’ve asked us to create a <a href="https://raadstalk.nl">widget</a> to see 
 <p> </p>
 
 <h3 id="waaroverheidnl">Waaroverheid.nl</h3>
-
 <p><a href="https://waaroverheid.nl">WaarOverheid</a> shows all documents that mention a location in your neighborhood and district.
 It provides a map interface to navigate from neighborhood to neighborhood to find documents in streets located there.</p>
 
@@ -215,12 +176,37 @@ It provides a map interface to navigate from neighborhood to neighborhood to fin
 <p> </p>
 
 <h3 id="1848nl">1848.nl</h3>
-
 <p><a href="https://1848.nl">1848</a> gathers political information from different sources to search and receive alerts to be able to stay on top of things.</p>
 
 <p><img src="/img/posts/ori/1848.jpg" alt="1848.nl" title="1848.nl" /></p>
 
 <p> </p>
+
+<h2 id="storing-rdf">Storing RDF</h2>
+
+<p>Working with linked data poses new challenges, in the first place: choosing the right data store for RDF linked data.
+Before we joined the project, Elasticsearch as data store caused some problems.
+Although Elasticsearch has an extremely detailed and comprehensive query-language, it is really for searching - not for relational database queries.</p>
+
+<p>So, looking for a better store, we started off with ArangoDB which is a NoSQL document-based graph store.
+It seemed appropriate at the time, because we were working with lots of documents, all connected to each other in a graph.
+However, we found that the graph queries were taking too long to be suitable in this project.</p>
+
+<p>Next on our quest we also tried Neo4j, which is market leader in Graph databases.
+As promised it has a powerful query language called Cypher, but we found that memory use was growing too early too fast.<br />
+Another thing is we found it quite tricky to store RDF data and use IRI’s as attributes.
+In theory it’s possible, but not ideal in practice since IRI’s have to be escaped and queries become long and dreadful.<br />
+Also, you have to think about how to cope with external resources.
+Whereas in an RDF store one can add a triple referencing an external resource, in Neo4j one should create a node to mimic the same behaviour.</p>
+
+<p>In the end we abandoned graph databases altogether for this project and stuck with Postgres.
+I am not saying that those graph databases are not good enough, merely not suitable for our purpose and budget.</p>
+
+<p>Since the project depends heavily on fast search queries, we found that Elasticsearch is still essential.
+So we kept it on for full-text searching.
+But since its Query DSL is changing quite a lot over time, it is not suitable as a stable API.
+We had to come up with an answer to this and created the ORI API service which can be found here: https://id.openraadsinformatie.nl/<br />
+The idea here was that every resource should have its own resolvable identifier that would stay the same.</p>
 
 <h2 id="going-forward">Going forward</h2>
 
@@ -228,12 +214,12 @@ It provides a map interface to navigate from neighborhood to neighborhood to fin
 We are working with the Dutch parliament on integrating their brand new API.</p>
 
 <p>We believe that this is just a preview of what is possible with open government data.
-If we can convince governments to adopt a more data-focused information publishing strategy (using machine-readable formats, such as RDF, instead of PDF), we can create even more engaging web applications: imagine clicking on a representative to see which motions they submitted, or compare voting behavior between political parties.</p>
+If we can convince governments to adopt a more data-focused information publishing strategy (using machine readable formats, such as RDF, instead of PDF), we can create even more engaging web applications: imagine clicking on a representative to see which motions they submitted, or compare voting behavior between political parties.</p>
 
 <p>Working on this project has been challenging, we’ve overcome quite some hurdles that come with managing such amounts of data and systems.
-Along the way, we have learned a great deal about ETL processes, Elasticsearch, Kafka and Kubernetes, to name a few.</p>
+On the way we have learned a great deal about ETL processes, Elasticsearch, Kafka and Kubernetes, to name a few.</p>
 
-<p><a href="/contact">Contact us</a> to know how we can help you achieving your goals in modeling and transforming information to linked data.</p>
+<p><a href="/contact">Contact us</a> to know how we can help you achieving your goals in modelling and transforming information to linked data.</p>
 
 </div>
 <div class="post__navigation">
@@ -287,9 +273,6 @@ Along the way, we have learned a great deal about ETL processes, Elasticsearch, 
           </a>
           <a href="https://twitter.com/ontola_io">
             <i title="Twitter" aria-label="Twitter" class="fab fa-twitter"></i>
-          </a>
-          <a href="/feed.xml">
-            <i title="Atom / RSS feed" aria-label="Atom / RSS feed" class="fa fa-rss"></i>
           </a>
         </div>
         <a href="mailto:info@ontola.io">
