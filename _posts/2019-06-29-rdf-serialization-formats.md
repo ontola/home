@@ -144,8 +144,9 @@ This means that if you want to upgrade your JSON API to JSON-LD, you get to keep
 
 JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
 Because it's still valid JSON, it's usable to those who don't want to deal with URLs.
+JSON arrays are converted to [RDF Lists](/blog/ordered-data-in-rdf/).
 
-Unfortunately, it's difficult to parse if you need the RDF data instead of the JSON object.
+Unfortunately, it's [difficult and costly to parse](http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/) if you need the RDF data instead of the JSON object.
 This means that there are few (bugfree) JSON-LD parsers available, and it also means that parsing JSON-LD is costly for your CPU.
 
 JSON-LD is a compromise.
@@ -159,7 +160,7 @@ Since JSON is so popular, I think this is the way to go for _most_ of the existi
 Its data structure saves space and bandwith (it's half the size of gzipped N-Triples).
 It's design has indexing built-in, which means it can be searched or browsed efficiently.
 Check out the impressive [technical specification](http://www.rdfhdt.org/technical-specification/) if you want to learn more about how it works.
-
+HDT compression is a costly process, so it's not that attractive for highly dynamic data.
 Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.
 
 ## Let your users choose a format
@@ -171,7 +172,7 @@ Therefore, you can implement a serialization library (e.g. our [rdf-serializers]
 ## TL;DR
 
 - Use N-Triples if you want performant machine-to-machine communication.
-- Use HDT if you have huge datasets and require the best performance, and if you can find / build a fitting HDT implementation for your stack.
+- Use HDT if you have huge (static) datasets, want best performance, and if you can find / build a fitting HDT implementation for your stack.
 - Use JSON-LD if you want to improve your exsting JSON API.
 - Use Turtle if you want to manually read & edit your RDF.
 - Use Notation3 if you need RDF rules.
