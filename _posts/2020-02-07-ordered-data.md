@@ -5,13 +5,15 @@ author: joep
 permalink: /blog/ordered-data-in-rdf/
 ---
 
-Sooner or later when working with RDF, you'll need to work with ordered data.
+Sooner or later when working with RDF, you'll need to work with ordered data / n-ary relations.
 The `subject predicate object` model does not support Arrays, and no - you can't use the order in which triples appear.
 
 However, RDF _does_ support _Collections_ (`rdf:List`) and _Containers_ (`rdf:Bag`, `rdf:Seq`, `rdf:Alt`).
 And the open nature of RDF allows for even more alternatives, such as the [Ordered List Ontology](http://smiy.sourceforge.net/olo/spec/orderedlistontology.html).
 All these concepts are (subtly) different, and can be quite confusing.
 In this article, I'll explain the models behind these concepts, show how they are serialized, and give some insights into when you should use which.
+
+[TL;DR](#tldr)
 
 ## RDF Collections
 
@@ -30,7 +32,8 @@ someList :b ( "Arnold" "Bob" "Catherine")
 ```
 
 These are `rdf:Collection`s.
-In these serialization formats, Collections appear as regular arrays, but under the hood they have a very different data model.
+These serialization formats (turtle and JSON-LD) have syntactic sugar for Collections, so they appear as regular arrays.
+Under the hood, however, they have a very different data model.
 Collections are [linked lists](https://en.wikipedia.org/wiki/Linked_list) and its chains consist of `rdf:List` nodes, connected by `rdf:rest` relations:
 
 ![RDF:List](/img/posts/ordered/rdflist_basic.png)
@@ -84,13 +87,19 @@ _:someSeq <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> "Catherine" .
 
 Appending items is easy as well, simply add one new statement and increment the predicate.
 
-Inserting items, contrary to
+However, inserting items requires you to rewrite many triples.
 
 ## Hydra Collections
 
 The Hydra ontology defines the [`hydra:Collection`](https://www.hydra-cg.com/spec/latest/core/#collections).
 This ontology introduces standardized **pagination**, which will be very useful when your arrays will be either too long to serialize, or too computationally heavy to generate at run-time.
-Hydra seems to be designed with `JSON-LD` serialization in mind, so it relies on JSON arrays, which represent RDF Collections.
+Hydra seems to be designed with `JSON-LD` serialization in mind, so it relies on JSON arrays, which represent `rdf:List` Collections.
+
+## Converting to Arrays
+
+If you're building an RDF application, and you want to access your RDF Lists / Collections / Sequences as an array, make sure to find an RDF library that has support for ordered data.
+We've open-sourced a JS library that might be useful for this: [`@rdfdev/collections`](https://js.rdf.dev/modules/_rdfdev_collections).
+[Get in touch](mailto:joep@ontola.io) if we can help!
 
 ## TL;DR
 
@@ -110,15 +119,5 @@ There are no arrays in RDF, and don't use the order in which serialized triples 
 - Must be stored in a single graph / machine / server (centralized)
 - Have a known ending (the `rdf:nil`)
 
-**Hydra Collections**
-- Support pagination, so they are useful for larger numbers of items
-- Designed with JSON-LD in mind, so it uses arrays.
-
-<!--
-## Related:
-- [https://www.w3.org/2011/rdf-wg/track/issues/24](ISSUE-24: Should we deprecate RDF containers (Alt, Bag, Seq)?)
-- [http://ceur-ws.org/Vol-2496/paper2.pdf](Modelling and Querying Lists in RDF. A Pragmatic Study)
-- https://www.oreilly.com/library/view/practical-rdf/0596002637/ch04.html
-
-## Issue for
-https://github.com/w3c/json-ld-syntax/issues -->
+**Converting to arrays:**
+- Use a library, such as [`@rdfdev/collections`](https://js.rdf.dev/modules/_rdfdev_collections)

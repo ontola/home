@@ -48,8 +48,8 @@ These enrichers allow all users of Open Decision Making to filter documents by t
 
 ## Storing RDF
 
-We love [linked data](https://ontola.io/what-is-linked-data/), and its merits are exceptionally valuable in a project such as this one.
-Linked data is highly re-usable in other applications without needing duplication, and the diverse serialization formats of RDF will provide something for any use-case.
+We love [linked data](what-is-linked-data/), and its merits are exceptionally valuable in a project such as this one.
+Linked data is highly re-usable in other applications without needing duplication, and the [diverse serialization formats](/blog/rdf-serialization-formats/) of RDF will provide something for any use-case.
 
 However, working with linked data poses new challenges, such as choosing the right data store for the statements.
 You might think that an existing triple store is the most logical option since we're working with RDF, but you don't need triple stores to do serve linked data.
