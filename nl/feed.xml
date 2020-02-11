@@ -1,4 +1,123 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-01-27T14:37:36+01:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Publishing Dutch governmental meetings as linked data</title><link href="https://ontola.io/nl/blog/publishing-dutch-governmental-meetings-as-linked-data/" rel="alternate" type="text/html" title="Publishing Dutch governmental meetings as linked data" /><published>2019-12-15T00:00:00+01:00</published><updated>2019-12-15T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/publishing-Dutch-governmental-meetings-as-linked-data</id><content type="html" xml:base="https://ontola.io/nl/blog/publishing-dutch-governmental-meetings-as-linked-data/">&lt;p&gt;&lt;a href=&quot;https://openbesluitvorming.nl&quot;&gt;Open Decision Making&lt;/a&gt; (Open Besluitvorming in Dutch) lets you search through what has been discussed in Dutch governments.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-02-11T17:15:51+01:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags</title><link href="https://ontola.io/nl/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/nl/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;subject predicate object&lt;/code&gt; model does not support Arrays, and no - you can’t use the order in which triples appear.&lt;/p&gt;
+
+&lt;p&gt;However, RDF &lt;em&gt;does&lt;/em&gt; support &lt;em&gt;Collections&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt;) and &lt;em&gt;Containers&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Bag&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Seq&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Alt&lt;/code&gt;).
+And the open nature of RDF allows for even more alternatives, such as the &lt;a href=&quot;http://smiy.sourceforge.net/olo/spec/orderedlistontology.html&quot;&gt;Ordered List Ontology&lt;/a&gt;.
+All these concepts are (subtly) different, and can be quite confusing.
+In this article, I’ll explain the models behind these concepts, show how they are serialized, and give some insights into when you should use which.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#tldr&quot;&gt;TL;DR&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;rdf-collections&quot;&gt;RDF Collections&lt;/h2&gt;
+
+&lt;p&gt;Maybe you’ve seen something like this in JSON-LD:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@list&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Arnold&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Catherine&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or something like this in a Turtle document:&lt;/p&gt;
+
+&lt;div class=&quot;language-turtle highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;someList&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Arnold&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Bob&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Catherine&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;These are &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Collection&lt;/code&gt;s.
+These serialization formats (turtle and JSON-LD) have syntactic sugar for Collections, so they appear as regular arrays.
+Under the hood, however, they have a very different data model.
+Collections are &lt;a href=&quot;https://en.wikipedia.org/wiki/Linked_list&quot;&gt;linked lists&lt;/a&gt; and its chains consist of &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt; nodes, connected by &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:rest&lt;/code&gt; relations:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/ordered/rdflist_basic.png&quot; alt=&quot;RDF:List&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Every &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt; has a &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:first&lt;/code&gt; object, which refers to the actual content of the list item.
+Intuitively, it might be a bit weird to refer to Bob as a &lt;code class=&quot;highlighter-rouge&quot;&gt;first&lt;/code&gt; in a List.
+However, since Lists are recursive and often contain other Lists, it actually makes sense to refer to the content as &lt;code class=&quot;highlighter-rouge&quot;&gt;first&lt;/code&gt;.
+Collections always end with an &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:nil&lt;/code&gt; namednode, which means they have a &lt;em&gt;finite amount of items&lt;/em&gt;.
+If we’d express the same information in N-Triples, we’d get something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-ntriples&quot;&gt;_:b0 &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&amp;gt; &quot;Arnold&quot; .
+_:b0 &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&amp;gt; _:b1 .
+_:b1 &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&amp;gt; &quot;Bob&quot; .
+_:b1 &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&amp;gt; _:b2 .
+_:b2 &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&amp;gt; &quot;Catherine&quot; .
+_:b2 &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&amp;gt; &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#nil&amp;gt; .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This explicitly linked nature means that it’s possible to start a list in location A, and have it continue in a completely different domain:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/ordered/rdflist_external.png&quot; alt=&quot;RDF:List&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It also means that inserting items is quite easy, as only the node before it has to be adjusted:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/ordered/rdflist_insert.png&quot; alt=&quot;RDF:List&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;However… This structure can be kind of hard to deal with.
+Parsing is non-trivial, and might require a lot of lookups, which is very costly.
+Also, appending a single node to a List is hard, because it requires that the link of the item before it is adjusted.&lt;/p&gt;
+
+&lt;h2 id=&quot;rdf-containers&quot;&gt;RDF Containers&lt;/h2&gt;
+
+&lt;p&gt;There are three types of RDF Containers &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Seq&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Bag&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Alt&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;An &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Seq&lt;/code&gt; is an &lt;em&gt;ordered&lt;/em&gt; container&lt;/li&gt;
+  &lt;li&gt;An &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Bag&lt;/code&gt; is an &lt;em&gt;unordered&lt;/em&gt; container&lt;/li&gt;
+  &lt;li&gt;An &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Alt&lt;/code&gt; is an &lt;em&gt;unordered&lt;/em&gt; set of alternatives, in which the first one is the default option&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;RDF Containers use a numbered predicate (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:_1&lt;/code&gt;) to indicate that something is a child / member of the Container:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/posts/ordered/rdfseq.png&quot; alt=&quot;RDF:Seq&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This model is often easier to parse and serialize than an &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-ntriples&quot;&gt;_:someSeq &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#_1&amp;gt; &quot;Arnold&quot; .
+_:someSeq &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#_2&amp;gt; &quot;Bob&quot; .
+_:someSeq &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#_3&amp;gt; &quot;Catherine&quot; .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Appending items is easy as well, simply add one new statement and increment the predicate.&lt;/p&gt;
+
+&lt;p&gt;However, inserting items requires you to rewrite many triples.&lt;/p&gt;
+
+&lt;h2 id=&quot;hydra-collections&quot;&gt;Hydra Collections&lt;/h2&gt;
+
+&lt;p&gt;The Hydra ontology defines the &lt;a href=&quot;https://www.hydra-cg.com/spec/latest/core/#collections&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hydra:Collection&lt;/code&gt;&lt;/a&gt;.
+This ontology introduces standardized &lt;strong&gt;pagination&lt;/strong&gt;, which will be very useful when your arrays will be either too long to serialize, or too computationally heavy to generate at run-time.
+Hydra seems to be designed with &lt;code class=&quot;highlighter-rouge&quot;&gt;JSON-LD&lt;/code&gt; serialization in mind, so it relies on JSON arrays, which represent &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt; Collections.&lt;/p&gt;
+
+&lt;h2 id=&quot;converting-to-arrays&quot;&gt;Converting to Arrays&lt;/h2&gt;
+
+&lt;p&gt;If you’re building an RDF application, and you want to access your RDF Lists / Collections / Sequences as an array, make sure to find an RDF library that has support for ordered data.
+We’ve open-sourced a JS library that might be useful for this: &lt;a href=&quot;https://js.rdf.dev/modules/_rdfdev_collections&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@rdfdev/collections&lt;/code&gt;&lt;/a&gt;.
+&lt;a href=&quot;mailto:joep@ontola.io&quot;&gt;Get in touch&lt;/a&gt; if we can help!&lt;/p&gt;
+
+&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
+
+&lt;p&gt;There are no arrays in RDF, and don’t use the order in which serialized triples appear.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;RDF Containers:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Come in three forms: &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Seq&lt;/code&gt; (ordered), &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Bag&lt;/code&gt; (unordered), &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Alt&lt;/code&gt; (alternatives with default)&lt;/li&gt;
+  &lt;li&gt;You can add new items by simply adding RDF triples&lt;/li&gt;
+  &lt;li&gt;Inserting items is hard: requires rewriting &lt;em&gt;many&lt;/em&gt; statements&lt;/li&gt;
+  &lt;li&gt;Can span many graphs / machines / servers (decentralized)&lt;/li&gt;
+  &lt;li&gt;Have a formally unknown length (open world assumption)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;RDF Collections:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;An ordered chain of &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt; resources&lt;/li&gt;
+  &lt;li&gt;You have to edit / remove statements before you can add new items&lt;/li&gt;
+  &lt;li&gt;Inserting items is easy: requires changing &lt;em&gt;just a few&lt;/em&gt; statements&lt;/li&gt;
+  &lt;li&gt;Must be stored in a single graph / machine / server (centralized)&lt;/li&gt;
+  &lt;li&gt;Have a known ending (the &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:nil&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Converting to arrays:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Use a library, such as &lt;a href=&quot;https://js.rdf.dev/modules/_rdfdev_collections&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@rdfdev/collections&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations. The subject predicate object model does not support Arrays, and no - you can’t use the order in which triples appear.</summary></entry><entry><title type="html">Publishing Dutch governmental meetings as linked data</title><link href="https://ontola.io/nl/blog/publishing-dutch-governmental-meetings-as-linked-data/" rel="alternate" type="text/html" title="Publishing Dutch governmental meetings as linked data" /><published>2019-12-15T00:00:00+01:00</published><updated>2019-12-15T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/publishing-Dutch-governmental-meetings-as-linked-data</id><content type="html" xml:base="https://ontola.io/nl/blog/publishing-dutch-governmental-meetings-as-linked-data/">&lt;p&gt;&lt;a href=&quot;https://openbesluitvorming.nl&quot;&gt;Open Decision Making&lt;/a&gt; (Open Besluitvorming in Dutch) lets you search through what has been discussed in Dutch governments.
 In collaboration with local governments, the VNG and the Open State Foundation, we’ve built software that standardizes and aggregates the meeting data of more than 120 governments.
 All this open information makes it easier for journalists, policymakers and well-informed citizens to get involved in.
 With the principles of &lt;a href=&quot;/what-is-linked-data/&quot;&gt;linked data&lt;/a&gt; we ensured that the data is open, uniform and reusable for anyone that likes to build upon it.&lt;/p&gt;
@@ -46,8 +165,8 @@ It finds streets and locations in document texts and translates it into geograph
 
 &lt;h2 id=&quot;storing-rdf&quot;&gt;Storing RDF&lt;/h2&gt;
 
-&lt;p&gt;We love &lt;a href=&quot;https://ontola.io/what-is-linked-data/&quot;&gt;linked data&lt;/a&gt;, and its merits are exceptionally valuable in a project such as this one.
-Linked data is highly re-usable in other applications without needing duplication, and the diverse serialization formats of RDF will provide something for any use-case.&lt;/p&gt;
+&lt;p&gt;We love &lt;a href=&quot;what-is-linked-data/&quot;&gt;linked data&lt;/a&gt;, and its merits are exceptionally valuable in a project such as this one.
+Linked data is highly re-usable in other applications without needing duplication, and the &lt;a href=&quot;/blog/rdf-serialization-formats/&quot;&gt;diverse serialization formats&lt;/a&gt; of RDF will provide something for any use-case.&lt;/p&gt;
 
 &lt;p&gt;However, working with linked data poses new challenges, such as choosing the right data store for the statements.
 You might think that an existing triple store is the most logical option since we’re working with RDF, but you don’t need triple stores to do serve linked data.
@@ -297,9 +416,10 @@ You can add context either by adding an &lt;code class=&quot;highlighter-rouge&q
 This means that if you want to upgrade your JSON API to JSON-LD, you get to keep your serializers.&lt;/p&gt;
 
 &lt;p&gt;JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
-Because it’s still valid JSON, it’s usable to those who don’t want to deal with URLs.&lt;/p&gt;
+Because it’s still valid JSON, it’s usable to those who don’t want to deal with URLs.
+JSON arrays are converted to &lt;a href=&quot;/blog/ordered-data-in-rdf/&quot;&gt;RDF Lists&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Unfortunately, it’s difficult to parse if you need the RDF data instead of the JSON object.
+&lt;p&gt;Unfortunately, it’s &lt;a href=&quot;http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/&quot;&gt;difficult and costly to parse&lt;/a&gt; if you need the RDF data instead of the JSON object.
 This means that there are few (bugfree) JSON-LD parsers available, and it also means that parsing JSON-LD is costly for your CPU.&lt;/p&gt;
 
 &lt;p&gt;JSON-LD is a compromise.
@@ -312,9 +432,9 @@ Since JSON is so popular, I think this is the way to go for &lt;em&gt;most&lt;/e
 &lt;p&gt;&lt;a href=&quot;http://www.rdfhdt.org/what-is-hdt/&quot;&gt;HDT&lt;/a&gt; (Header, Dictionary, Triples) is a compact data structure and binary serialization format for RDF, so it’s more than just a way to serialize RDF.
 Its data structure saves space and bandwith (it’s half the size of gzipped N-Triples).
 It’s design has indexing built-in, which means it can be searched or browsed efficiently.
-Check out the impressive &lt;a href=&quot;http://www.rdfhdt.org/technical-specification/&quot;&gt;technical specification&lt;/a&gt; if you want to learn more about how it works.&lt;/p&gt;
-
-&lt;p&gt;Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.&lt;/p&gt;
+Check out the impressive &lt;a href=&quot;http://www.rdfhdt.org/technical-specification/&quot;&gt;technical specification&lt;/a&gt; if you want to learn more about how it works.
+HDT compression is a costly process, so it’s not that attractive for highly dynamic data.
+Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.&lt;/p&gt;
 
 &lt;h2 id=&quot;let-your-users-choose-a-format&quot;&gt;Let your users choose a format&lt;/h2&gt;
 
@@ -326,7 +446,7 @@ Therefore, you can implement a serialization library (e.g. our &lt;a href=&quot;
 
 &lt;ul&gt;
   &lt;li&gt;Use N-Triples if you want performant machine-to-machine communication.&lt;/li&gt;
-  &lt;li&gt;Use HDT if you have huge datasets and require the best performance, and if you can find / build a fitting HDT implementation for your stack.&lt;/li&gt;
+  &lt;li&gt;Use HDT if you have huge (static) datasets, want best performance, and if you can find / build a fitting HDT implementation for your stack.&lt;/li&gt;
   &lt;li&gt;Use JSON-LD if you want to improve your exsting JSON API.&lt;/li&gt;
   &lt;li&gt;Use Turtle if you want to manually read &amp;amp; edit your RDF.&lt;/li&gt;
   &lt;li&gt;Use Notation3 if you need RDF rules.&lt;/li&gt;

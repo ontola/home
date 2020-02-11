@@ -1,0 +1,316 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
+  <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="apple-mobile-web-app-title" content="Ontola.io">
+  <meta name="application-name" content="Ontola.io">
+  <meta name="msapplication-TileColor" content="#5a91af">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="/css/normalize.css"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/syntax.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <meta name="description" content="Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.The subject predicate object model does not support Arrays, an...">
+<meta property="og:site_name" content="Ontola.io">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@ontola.io">
+
+<title>Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags</title>
+<meta property="og:title" content="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags">
+<meta name="twitter:title" content="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags">
+<meta property="og:description" content="Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
+The subject predicate object model does not support Arrays, and no - you can’t use the order in which triples appear.
+
+"/>
+
+
+<meta property="article:published_time" content="2020-02-07T00:00:00+01:00">
+
+
+<meta property="og:image" content="/img/default.jpg">
+<meta name="twitter:image" content="/img/default.jpg">
+
+<meta property="og:url" content="http://ontola.io/blog/ordered-data-in-rdf/" />
+
+<meta itemprop="keywords" content="" />
+
+
+
+
+<meta property="article:author" content="Joep Meindertsma" />
+<meta property="og:type" content="article">
+  
+  <meta name="twitter:creator" content="@joepmeindertsma">
+  
+
+
+</head>
+<body>
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <nav  id="navbar" class="nav__wrapper">
+    <div class="nav">
+      <a href="/" class="nav__logo">
+        <img src="/img/logo.svg" />
+        <span>Ontola</span><span class="nav__logo__tld">.io</span>
+      </a>
+      <div class="nav__links nav__links--collapsed">
+        <a href="/">home</a>
+        <!-- <a href="">services</a> -->
+        <a href="/about">About us</a>
+        <a href="/blog">blog</a>
+        <a href="/contact">contact</a>
+        
+           
+          
+          
+            <a title="Nederlands" href="/nl/blog/ordered-data-in-rdf/">nl</a>
+          
+        
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+      <div class="hero hero--smaller hero--narrow">
+  <div class="hero__wrapper">
+    <a href="/blog"class="hero__link">
+      <h3 id="hero-text">
+        <i class="fas fa-level-up-alt"></i>
+        Linked Data Blog
+      </h3>
+    </a>
+  </div>
+</div>
+<div class="post text">
+  <h1>Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags</h1>
+  
+  
+
+<div class="details">
+  <a href="https://twitter.com/@joepmeindertsma" target="_blank" class="details__author">Joep Meindertsma, </a>07 Feb 2020
+</div>
+
+
+  <p>Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
+The <code class="highlighter-rouge">subject predicate object</code> model does not support Arrays, and no - you can’t use the order in which triples appear.</p>
+
+<p>However, RDF <em>does</em> support <em>Collections</em> (<code class="highlighter-rouge">rdf:List</code>) and <em>Containers</em> (<code class="highlighter-rouge">rdf:Bag</code>, <code class="highlighter-rouge">rdf:Seq</code>, <code class="highlighter-rouge">rdf:Alt</code>).
+And the open nature of RDF allows for even more alternatives, such as the <a href="http://smiy.sourceforge.net/olo/spec/orderedlistontology.html">Ordered List Ontology</a>.
+All these concepts are (subtly) different, and can be quite confusing.
+In this article, I’ll explain the models behind these concepts, show how they are serialized, and give some insights into when you should use which.</p>
+
+<p><a href="#tldr">TL;DR</a></p>
+
+<h2 id="rdf-collections">RDF Collections</h2>
+
+<p>Maybe you’ve seen something like this in JSON-LD:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"@list"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"Arnold"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bob"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Catherine"</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Or something like this in a Turtle document:</p>
+
+<div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">someList</span><span class="w"> </span><span class="err">:</span><span class="n">b</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="s">"Arnold"</span><span class="w"> </span><span class="s">"Bob"</span><span class="w"> </span><span class="s">"Catherine"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>These are <code class="highlighter-rouge">rdf:Collection</code>s.
+These serialization formats (turtle and JSON-LD) have syntactic sugar for Collections, so they appear as regular arrays.
+Under the hood, however, they have a very different data model.
+Collections are <a href="https://en.wikipedia.org/wiki/Linked_list">linked lists</a> and its chains consist of <code class="highlighter-rouge">rdf:List</code> nodes, connected by <code class="highlighter-rouge">rdf:rest</code> relations:</p>
+
+<p><img src="/img/posts/ordered/rdflist_basic.png" alt="RDF:List" /></p>
+
+<p>Every <code class="highlighter-rouge">rdf:List</code> has a <code class="highlighter-rouge">rdf:first</code> object, which refers to the actual content of the list item.
+Intuitively, it might be a bit weird to refer to Bob as a <code class="highlighter-rouge">first</code> in a List.
+However, since Lists are recursive and often contain other Lists, it actually makes sense to refer to the content as <code class="highlighter-rouge">first</code>.
+Collections always end with an <code class="highlighter-rouge">rdf:nil</code> namednode, which means they have a <em>finite amount of items</em>.
+If we’d express the same information in N-Triples, we’d get something like this:</p>
+
+<pre><code class="language-ntriples">_:b0 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; "Arnold" .
+_:b0 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; _:b1 .
+_:b1 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; "Bob" .
+_:b1 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; _:b2 .
+_:b2 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; "Catherine" .
+_:b2 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#nil&gt; .
+</code></pre>
+
+<p>This explicitly linked nature means that it’s possible to start a list in location A, and have it continue in a completely different domain:</p>
+
+<p><img src="/img/posts/ordered/rdflist_external.png" alt="RDF:List" /></p>
+
+<p>It also means that inserting items is quite easy, as only the node before it has to be adjusted:</p>
+
+<p><img src="/img/posts/ordered/rdflist_insert.png" alt="RDF:List" /></p>
+
+<p>However… This structure can be kind of hard to deal with.
+Parsing is non-trivial, and might require a lot of lookups, which is very costly.
+Also, appending a single node to a List is hard, because it requires that the link of the item before it is adjusted.</p>
+
+<h2 id="rdf-containers">RDF Containers</h2>
+
+<p>There are three types of RDF Containers <code class="highlighter-rouge">rdf:Seq</code>, <code class="highlighter-rouge">rdf:Bag</code>, <code class="highlighter-rouge">rdf:Alt</code></p>
+
+<ul>
+  <li>An <code class="highlighter-rouge">rdf:Seq</code> is an <em>ordered</em> container</li>
+  <li>An <code class="highlighter-rouge">rdf:Bag</code> is an <em>unordered</em> container</li>
+  <li>An <code class="highlighter-rouge">rdf:Alt</code> is an <em>unordered</em> set of alternatives, in which the first one is the default option</li>
+</ul>
+
+<p>RDF Containers use a numbered predicate (e.g. <code class="highlighter-rouge">rdf:_1</code>) to indicate that something is a child / member of the Container:</p>
+
+<p><img src="/img/posts/ordered/rdfseq.png" alt="RDF:Seq" /></p>
+
+<p>This model is often easier to parse and serialize than an <code class="highlighter-rouge">rdf:List</code>.</p>
+
+<pre><code class="language-ntriples">_:someSeq &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#_1&gt; "Arnold" .
+_:someSeq &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#_2&gt; "Bob" .
+_:someSeq &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#_3&gt; "Catherine" .
+</code></pre>
+
+<p>Appending items is easy as well, simply add one new statement and increment the predicate.</p>
+
+<p>However, inserting items requires you to rewrite many triples.</p>
+
+<h2 id="hydra-collections">Hydra Collections</h2>
+
+<p>The Hydra ontology defines the <a href="https://www.hydra-cg.com/spec/latest/core/#collections"><code class="highlighter-rouge">hydra:Collection</code></a>.
+This ontology introduces standardized <strong>pagination</strong>, which will be very useful when your arrays will be either too long to serialize, or too computationally heavy to generate at run-time.
+Hydra seems to be designed with <code class="highlighter-rouge">JSON-LD</code> serialization in mind, so it relies on JSON arrays, which represent <code class="highlighter-rouge">rdf:List</code> Collections.</p>
+
+<h2 id="converting-to-arrays">Converting to Arrays</h2>
+
+<p>If you’re building an RDF application, and you want to access your RDF Lists / Collections / Sequences as an array, make sure to find an RDF library that has support for ordered data.
+We’ve open-sourced a JS library that might be useful for this: <a href="https://js.rdf.dev/modules/_rdfdev_collections"><code class="highlighter-rouge">@rdfdev/collections</code></a>.
+<a href="mailto:joep@ontola.io">Get in touch</a> if we can help!</p>
+
+<h2 id="tldr">TL;DR</h2>
+
+<p>There are no arrays in RDF, and don’t use the order in which serialized triples appear.</p>
+
+<p><strong>RDF Containers:</strong></p>
+<ul>
+  <li>Come in three forms: <code class="highlighter-rouge">rdf:Seq</code> (ordered), <code class="highlighter-rouge">rdf:Bag</code> (unordered), <code class="highlighter-rouge">rdf:Alt</code> (alternatives with default)</li>
+  <li>You can add new items by simply adding RDF triples</li>
+  <li>Inserting items is hard: requires rewriting <em>many</em> statements</li>
+  <li>Can span many graphs / machines / servers (decentralized)</li>
+  <li>Have a formally unknown length (open world assumption)</li>
+</ul>
+
+<p><strong>RDF Collections:</strong></p>
+<ul>
+  <li>An ordered chain of <code class="highlighter-rouge">rdf:List</code> resources</li>
+  <li>You have to edit / remove statements before you can add new items</li>
+  <li>Inserting items is easy: requires changing <em>just a few</em> statements</li>
+  <li>Must be stored in a single graph / machine / server (centralized)</li>
+  <li>Have a known ending (the <code class="highlighter-rouge">rdf:nil</code>)</li>
+</ul>
+
+<p><strong>Converting to arrays:</strong></p>
+<ul>
+  <li>Use a library, such as <a href="https://js.rdf.dev/modules/_rdfdev_collections"><code class="highlighter-rouge">@rdfdev/collections</code></a></li>
+</ul>
+
+</div>
+<div class="post__navigation">
+  <div class="post__navigation__wrapper">
+    
+      <a class="post__navigation__previous" href="/blog/publishing-dutch-governmental-meetings-as-linked-data/">&laquo; Publishing Dutch governmental meetings as linked data</a>
+    
+    
+  </div>
+</div>
+
+  </div>
+  <div class="footer--wrapper" id="footer">
+    <div class="footer">
+      <div class="footer-row">
+        <div href="/" class="footer__header">
+          Ontola
+        </div>
+        <a href="/">Home</a>
+        <!-- <a href="">Services</a> -->
+        <a href="/about">About</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+        
+           
+          
+          
+            <a href="/nl/blog/ordered-data-in-rdf/">Nederlands</a>
+          
+        
+      </div>
+      <div class="footer-row">
+        <div class="footer__header">What we do</div>
+        <a href="/">Linked data</a>
+        <a href="/webdevelopment">Software development</a>
+        <a href="/continuous-integration">Continuous integration</a>
+        <a href="/freelance">Freelance development</a>
+        
+      </div>
+      <div class="footer-row">
+        <div href="/" class="footer__header">Find us</div>
+        <div class="footer__social_logos">
+          <a href="https://github.com/ontola">
+            <i title="Github" aria-label="Github" class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/ontola/">
+            <i title="LinkedIn" aria-label="LinkedIn" class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.facebook.com/ontola.io/">
+            <i title="Facebook" aria-label="Facebook" class="fab fa-facebook"></i>
+          </a>
+          <a href="https://twitter.com/ontola_io">
+            <i title="Twitter" aria-label="Twitter" class="fab fa-twitter"></i>
+          </a>
+          <a href="/feed.xml">
+            <i title="Atom / RSS feed" aria-label="Atom / RSS feed" class="fa fa-rss"></i>
+          </a>
+        </div>
+        <a href="mailto:info@ontola.io">
+          <i class="fas fa-envelope"></i>
+          info@ontola.io
+        </a>
+        <a href="tel:0031636020942">
+          <i class="fas fa-phone"></i>
+          +316 360 209 42
+        </a>
+        <a href="https://goo.gl/maps/fW8PURcxhFCAemQN8">
+          <i class="fas fa-map-marker-alt"></i>
+          Willem de Zwijgerstraat 1b, Utrecht, NL
+        </a>
+        <div><a href="https://argu.co">
+          <i class="fas fa-briefcase"></i>
+          Argu B.V.</a> kvk 65684168<div>
+        </div>
+      </div>
+    </div>
+    <img class="footer__logo" src="/img/logo.svg" />
+  </div>
+  </div>
+  <script src="/js/main.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121994595-1">
+    gtag('config', 'AW-940871433');
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-121994595-1');
+  </script>
+</body>
+
+</html>

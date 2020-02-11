@@ -234,9 +234,10 @@ You can add context either by adding an <code class="highlighter-rouge">@content
 This means that if you want to upgrade your JSON API to JSON-LD, you get to keep your serializers.</p>
 
 <p>JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
-Because it’s still valid JSON, it’s usable to those who don’t want to deal with URLs.</p>
+Because it’s still valid JSON, it’s usable to those who don’t want to deal with URLs.
+JSON arrays are converted to <a href="/blog/ordered-data-in-rdf/">RDF Lists</a>.</p>
 
-<p>Unfortunately, it’s difficult to parse if you need the RDF data instead of the JSON object.
+<p>Unfortunately, it’s <a href="http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/">difficult and costly to parse</a> if you need the RDF data instead of the JSON object.
 This means that there are few (bugfree) JSON-LD parsers available, and it also means that parsing JSON-LD is costly for your CPU.</p>
 
 <p>JSON-LD is a compromise.
@@ -249,9 +250,9 @@ Since JSON is so popular, I think this is the way to go for <em>most</em> of the
 <p><a href="http://www.rdfhdt.org/what-is-hdt/">HDT</a> (Header, Dictionary, Triples) is a compact data structure and binary serialization format for RDF, so it’s more than just a way to serialize RDF.
 Its data structure saves space and bandwith (it’s half the size of gzipped N-Triples).
 It’s design has indexing built-in, which means it can be searched or browsed efficiently.
-Check out the impressive <a href="http://www.rdfhdt.org/technical-specification/">technical specification</a> if you want to learn more about how it works.</p>
-
-<p>Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.</p>
+Check out the impressive <a href="http://www.rdfhdt.org/technical-specification/">technical specification</a> if you want to learn more about how it works.
+HDT compression is a costly process, so it’s not that attractive for highly dynamic data.
+Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.</p>
 
 <h2 id="let-your-users-choose-a-format">Let your users choose a format</h2>
 
@@ -263,7 +264,7 @@ Therefore, you can implement a serialization library (e.g. our <a href="https://
 
 <ul>
   <li>Use N-Triples if you want performant machine-to-machine communication.</li>
-  <li>Use HDT if you have huge datasets and require the best performance, and if you can find / build a fitting HDT implementation for your stack.</li>
+  <li>Use HDT if you have huge (static) datasets, want best performance, and if you can find / build a fitting HDT implementation for your stack.</li>
   <li>Use JSON-LD if you want to improve your exsting JSON API.</li>
   <li>Use Turtle if you want to manually read &amp; edit your RDF.</li>
   <li>Use Notation3 if you need RDF rules.</li>
@@ -339,9 +340,9 @@ Therefore, you can implement a serialization library (e.g. our <a href="https://
           <i class="fas fa-phone"></i>
           +316 360 209 42
         </a>
-        <a href="https://goo.gl/maps/x5Sggs9X7L32">
+        <a href="https://goo.gl/maps/fW8PURcxhFCAemQN8">
           <i class="fas fa-map-marker-alt"></i>
-          Koningslaan 62, Utrecht, NL
+          Willem de Zwijgerstraat 1b, Utrecht, NL
         </a>
         <div><a href="https://argu.co">
           <i class="fas fa-briefcase"></i>
