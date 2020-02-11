@@ -31,10 +31,13 @@ someList :b ( "Arnold" "Bob" "Catherine")
 
 These are `rdf:Collection`s.
 In these serialization formats, Collections appear as regular arrays, but under the hood they have a very different data model.
-Collections are [linked lists](https://en.wikipedia.org/wiki/Linked_list) and its chains consist of `rdf:List` nodes:
+Collections are [linked lists](https://en.wikipedia.org/wiki/Linked_list) and its chains consist of `rdf:List` nodes, connected by `rdf:rest` relations:
 
 ![RDF:List](/img/posts/ordered/rdflist_basic.png)
 
+Every `rdf:List` has a `rdf:first` object, which refers to the actual content of the list item.
+Intuitively, it might be a bit weird to refer to Bob as a `first` in a List.
+However, since Lists are recursive and often contain other Lists, it actually makes sense to refer to the content as `first`.
 Collections always end with an `rdf:nil` namednode, which means they have a _finite amount of items_.
 If we'd express the same information in N-Triples, we'd get something like this:
 
@@ -86,8 +89,8 @@ Inserting items, contrary to
 ## Hydra Collections
 
 The Hydra ontology defines the [`hydra:Collection`](https://www.hydra-cg.com/spec/latest/core/#collections).
-This ontology introduces standardized pagination, which will become very useful when your arrays will be either too long to serialize, or too computationally heavy to generate run-time.
-It seems to be designed with `JSON-LD` serialization in mind, so it relies on JSON arrays, which represent RDF Collections.
+This ontology introduces standardized **pagination**, which will be very useful when your arrays will be either too long to serialize, or too computationally heavy to generate at run-time.
+Hydra seems to be designed with `JSON-LD` serialization in mind, so it relies on JSON arrays, which represent RDF Collections.
 
 ## TL;DR
 
