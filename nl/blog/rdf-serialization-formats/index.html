@@ -233,9 +233,23 @@ This object mainly serves as a mapping, so your plain keys get turned into fancy
 You can add context either by adding an <code class="highlighter-rouge">@content</code> header in your HTTP response, by including the link in your JSON body, or by adding the entire <code class="highlighter-rouge">@context</code> object to you JSON.
 This means that if you want to upgrade your JSON API to JSON-LD, you get to keep your serializers.</p>
 
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"@context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"dbpedia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://dbpedia.org/resource/"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://schema.org/"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"@id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.w3.org/People/Berners-Lee/"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"schema:birthDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1955-06-08"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"schema:birthPlace"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"@id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dbpedia:London"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
 <p>JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
 Because it’s still valid JSON, it’s usable to those who don’t want to deal with URLs.
-JSON arrays are converted to <a href="/blog/ordered-data-in-rdf/">RDF Lists</a>.</p>
+JSON arrays are converted to <a href="/blog/ordered-data-in-rdf/">RDF Lists</a>.
+I recommend spending some time in the <a href="https://json-ld.org/playground/">JSON-LD playground</a> to get familiar with how it works.</p>
 
 <p>Unfortunately, it’s <a href="http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/">difficult and costly to parse</a> if you need the RDF data instead of the JSON object.
 This means that there are few (bugfree) JSON-LD parsers available, and it also means that parsing JSON-LD is costly for your CPU.</p>
