@@ -142,9 +142,24 @@ This object mainly serves as a mapping, so your plain keys get turned into fancy
 You can add context either by adding an `@content` header in your HTTP response, by including the link in your JSON body, or by adding the entire `@context` object to you JSON.
 This means that if you want to upgrade your JSON API to JSON-LD, you get to keep your serializers.
 
+```json
+{
+  "@context": {
+    "dbpedia": "http://dbpedia.org/resource/",
+    "schema": "http://schema.org/"
+  },
+  "@id": "https://www.w3.org/People/Berners-Lee/",
+  "schema:birthDate": "1955-06-08",
+  "schema:birthPlace": {
+    "@id": "dbpedia:London"
+  }
+}
+```
+
 JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
 Because it's still valid JSON, it's usable to those who don't want to deal with URLs.
 JSON arrays are converted to [RDF Lists](/blog/ordered-data-in-rdf/).
+I recommend spending some time in the [JSON-LD playground](https://json-ld.org/playground/) to get familiar with how it works.
 
 Unfortunately, it's [difficult and costly to parse](http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/) if you need the RDF data instead of the JSON object.
 This means that there are few (bugfree) JSON-LD parsers available, and it also means that parsing JSON-LD is costly for your CPU.
