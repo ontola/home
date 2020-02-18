@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags"
+title: "Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination"
 author: joep
 permalink: /blog/ordered-data-in-rdf/
 ---
@@ -41,7 +41,7 @@ Collections are [linked lists](https://en.wikipedia.org/wiki/Linked_list) and it
 Every `rdf:List` has a `rdf:first` object, which refers to the actual content of the list item.
 Intuitively, it might be a bit weird to refer to Bob as a `first` in a List.
 However, since Lists are recursive and often contain other Lists, it actually makes sense to refer to the content as `first`.
-Collections always end with an `rdf:nil` namednode, which means they have a _finite amount of items_.
+Collections always end with an `rdf:nil` namednode, which means they have a _formally known ending_.
 If we'd express the same information in N-Triples, we'd get something like this:
 
 ```ntriples
@@ -86,14 +86,19 @@ _:someSeq <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> "Catherine" .
 ```
 
 Appending items is easy as well, simply add one new statement and increment the predicate.
-
 However, inserting items requires you to rewrite many triples.
+If you use a reasoner that has implemented the basic RDFS spec, you can use [`rdfs:member`](https://www.w3.org/TR/rdf-schema/#ch_member) (the superclass of every `rdf:_n` property) to get all members of an RDF Container.
 
-## Hydra Collections
+## Pagination with ActivityStreams and Hydra Collections
 
-The Hydra ontology defines the [`hydra:Collection`](https://www.hydra-cg.com/spec/latest/core/#collections).
-This ontology introduces standardized **pagination**, which will be very useful when your arrays will be either too long to serialize, or too computationally heavy to generate at run-time.
-Hydra seems to be designed with `JSON-LD` serialization in mind, so it relies on JSON arrays, which represent `rdf:List` Collections.
+When your arrays will be either too long to serialize, or too computationally heavy to generate at run-time, you'll need some form of pagination.
+It's recommended to use an existing ontology for this.
+The W3C Activity Streams 2.0 ontology defines the [`as:Collection`](https://www.w3.org/TR/activitystreams-core/#collection).
+It provides keys for things like `next`, `totalItems` and `orderedItems`.
+This spec seems to be designed with `JSON-LD` serialization in mind, so it relies on JSON arrays, which represent `rdf:List` Collections.
+
+Similar to this is the [`hydra:Collection`](https://www.hydra-cg.com/spec/latest/core/#collections).
+The Hyrda spec still is in draft status, but it has been updated in october last year.
 
 ## Converting to Arrays
 
@@ -109,15 +114,18 @@ There are no arrays in RDF, and don't use the order in which serialized triples 
 - Come in three forms: `rdf:Seq` (ordered), `rdf:Bag` (unordered), `rdf:Alt` (alternatives with default)
 - You can add new items by simply adding RDF triples
 - Inserting items is hard: requires rewriting *many* statements
-- Can span many graphs / machines / servers (decentralized)
-- Have a formally unknown length (open world assumption)
+- Must be stored in a single graph / machine / server (centralized)
+- Have a formally unknown ending (open world assumption)
 
 **RDF Collections:**
 - An ordered chain of `rdf:List` resources
 - You have to edit / remove statements before you can add new items
 - Inserting items is easy: requires changing *just a few* statements
-- Must be stored in a single graph / machine / server (centralized)
+- Can span many graphs / machines / servers (decentralized)
 - Have a known ending (the `rdf:nil`)
+
+**Pagination:**
+- Use [ActivityStreams collections](https://www.w3.org/TR/activitystreams-core/#collection)
 
 **Converting to arrays:**
 - Use a library, such as [`@rdfdev/collections`](https://js.rdf.dev/modules/_rdfdev_collections)
