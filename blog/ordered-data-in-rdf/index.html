@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags</title>
+  <title>Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
@@ -24,9 +24,9 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@ontola.io">
 
-<title>Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags</title>
-<meta property="og:title" content="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags">
-<meta name="twitter:title" content="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags">
+<title>Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title>
+<meta property="og:title" content="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination">
+<meta name="twitter:title" content="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination">
 <meta property="og:description" content="Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
 The subject predicate object model does not support Arrays, and no - you can’t use the order in which triples appear.
 
@@ -92,7 +92,7 @@ The subject predicate object model does not support Arrays, and no - you can’t
   </div>
 </div>
 <div class="post text">
-  <h1>Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags</h1>
+  <h1>Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</h1>
   
   
 
@@ -135,7 +135,7 @@ Collections are <a href="https://en.wikipedia.org/wiki/Linked_list">linked lists
 <p>Every <code class="highlighter-rouge">rdf:List</code> has a <code class="highlighter-rouge">rdf:first</code> object, which refers to the actual content of the list item.
 Intuitively, it might be a bit weird to refer to Bob as a <code class="highlighter-rouge">first</code> in a List.
 However, since Lists are recursive and often contain other Lists, it actually makes sense to refer to the content as <code class="highlighter-rouge">first</code>.
-Collections always end with an <code class="highlighter-rouge">rdf:nil</code> namednode, which means they have a <em>finite amount of items</em>.
+Collections always end with an <code class="highlighter-rouge">rdf:nil</code> namednode, which means they have a <em>formally known ending</em>.
 If we’d express the same information in N-Triples, we’d get something like this:</p>
 
 <pre><code class="language-ntriples">_:b0 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; "Arnold" .
@@ -179,15 +179,20 @@ _:someSeq &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#_2&gt; "Bob" .
 _:someSeq &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#_3&gt; "Catherine" .
 </code></pre>
 
-<p>Appending items is easy as well, simply add one new statement and increment the predicate.</p>
+<p>Appending items is easy as well, simply add one new statement and increment the predicate.
+However, inserting items requires you to rewrite many triples.
+If you use a reasoner that has implemented the basic RDFS spec, you can use <a href="https://www.w3.org/TR/rdf-schema/#ch_member"><code class="highlighter-rouge">rdfs:member</code></a> (the superclass of every <code class="highlighter-rouge">rdf:_n</code> property) to get all members of an RDF Container.</p>
 
-<p>However, inserting items requires you to rewrite many triples.</p>
+<h2 id="pagination-with-activitystreams-and-hydra-collections">Pagination with ActivityStreams and Hydra Collections</h2>
 
-<h2 id="hydra-collections">Hydra Collections</h2>
+<p>When your arrays will be either too long to serialize, or too computationally heavy to generate at run-time, you’ll need some form of pagination.
+It’s recommended to use an existing ontology for this.
+The W3C Activity Streams 2.0 ontology defines the <a href="https://www.w3.org/TR/activitystreams-core/#collection"><code class="highlighter-rouge">as:Collection</code></a>.
+It provides keys for things like <code class="highlighter-rouge">next</code>, <code class="highlighter-rouge">totalItems</code> and <code class="highlighter-rouge">orderedItems</code>.
+This spec seems to be designed with <code class="highlighter-rouge">JSON-LD</code> serialization in mind, so it relies on JSON arrays, which represent <code class="highlighter-rouge">rdf:List</code> Collections.</p>
 
-<p>The Hydra ontology defines the <a href="https://www.hydra-cg.com/spec/latest/core/#collections"><code class="highlighter-rouge">hydra:Collection</code></a>.
-This ontology introduces standardized <strong>pagination</strong>, which will be very useful when your arrays will be either too long to serialize, or too computationally heavy to generate at run-time.
-Hydra seems to be designed with <code class="highlighter-rouge">JSON-LD</code> serialization in mind, so it relies on JSON arrays, which represent <code class="highlighter-rouge">rdf:List</code> Collections.</p>
+<p>Similar to this is the <a href="https://www.hydra-cg.com/spec/latest/core/#collections"><code class="highlighter-rouge">hydra:Collection</code></a>.
+The Hyrda spec still is in draft status, but it has been updated in october last year.</p>
 
 <h2 id="converting-to-arrays">Converting to Arrays</h2>
 
@@ -204,8 +209,8 @@ We’ve open-sourced a JS library that might be useful for this: <a href="https:
   <li>Come in three forms: <code class="highlighter-rouge">rdf:Seq</code> (ordered), <code class="highlighter-rouge">rdf:Bag</code> (unordered), <code class="highlighter-rouge">rdf:Alt</code> (alternatives with default)</li>
   <li>You can add new items by simply adding RDF triples</li>
   <li>Inserting items is hard: requires rewriting <em>many</em> statements</li>
-  <li>Can span many graphs / machines / servers (decentralized)</li>
-  <li>Have a formally unknown length (open world assumption)</li>
+  <li>Must be stored in a single graph / machine / server (centralized)</li>
+  <li>Have a formally unknown ending (open world assumption)</li>
 </ul>
 
 <p><strong>RDF Collections:</strong></p>
@@ -213,8 +218,13 @@ We’ve open-sourced a JS library that might be useful for this: <a href="https:
   <li>An ordered chain of <code class="highlighter-rouge">rdf:List</code> resources</li>
   <li>You have to edit / remove statements before you can add new items</li>
   <li>Inserting items is easy: requires changing <em>just a few</em> statements</li>
-  <li>Must be stored in a single graph / machine / server (centralized)</li>
+  <li>Can span many graphs / machines / servers (decentralized)</li>
   <li>Have a known ending (the <code class="highlighter-rouge">rdf:nil</code>)</li>
+</ul>
+
+<p><strong>Pagination:</strong></p>
+<ul>
+  <li>Use <a href="https://www.w3.org/TR/activitystreams-core/#collection">ActivityStreams collections</a></li>
 </ul>
 
 <p><strong>Converting to arrays:</strong></p>

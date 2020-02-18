@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-02-14T15:47:38+01:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags</title><link href="https://ontola.io/nl/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Bags" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/nl/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-02-18T16:46:01+01:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title><link href="https://ontola.io/nl/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/nl/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
 The &lt;code class=&quot;highlighter-rouge&quot;&gt;subject predicate object&lt;/code&gt; model does not support Arrays, and no - you can’t use the order in which triples appear.&lt;/p&gt;
 
 &lt;p&gt;However, RDF &lt;em&gt;does&lt;/em&gt; support &lt;em&gt;Collections&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt;) and &lt;em&gt;Containers&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Bag&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Seq&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Alt&lt;/code&gt;).
@@ -32,7 +32,7 @@ Collections are &lt;a href=&quot;https://en.wikipedia.org/wiki/Linked_list&quot;
 &lt;p&gt;Every &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt; has a &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:first&lt;/code&gt; object, which refers to the actual content of the list item.
 Intuitively, it might be a bit weird to refer to Bob as a &lt;code class=&quot;highlighter-rouge&quot;&gt;first&lt;/code&gt; in a List.
 However, since Lists are recursive and often contain other Lists, it actually makes sense to refer to the content as &lt;code class=&quot;highlighter-rouge&quot;&gt;first&lt;/code&gt;.
-Collections always end with an &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:nil&lt;/code&gt; namednode, which means they have a &lt;em&gt;finite amount of items&lt;/em&gt;.
+Collections always end with an &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:nil&lt;/code&gt; namednode, which means they have a &lt;em&gt;formally known ending&lt;/em&gt;.
 If we’d express the same information in N-Triples, we’d get something like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-ntriples&quot;&gt;_:b0 &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&amp;gt; &quot;Arnold&quot; .
@@ -76,15 +76,20 @@ _:someSeq &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#_2&amp;gt; &quot;Bo
 _:someSeq &amp;lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#_3&amp;gt; &quot;Catherine&quot; .
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Appending items is easy as well, simply add one new statement and increment the predicate.&lt;/p&gt;
+&lt;p&gt;Appending items is easy as well, simply add one new statement and increment the predicate.
+However, inserting items requires you to rewrite many triples.
+If you use a reasoner that has implemented the basic RDFS spec, you can use &lt;a href=&quot;https://www.w3.org/TR/rdf-schema/#ch_member&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rdfs:member&lt;/code&gt;&lt;/a&gt; (the superclass of every &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:_n&lt;/code&gt; property) to get all members of an RDF Container.&lt;/p&gt;
 
-&lt;p&gt;However, inserting items requires you to rewrite many triples.&lt;/p&gt;
+&lt;h2 id=&quot;pagination-with-activitystreams-and-hydra-collections&quot;&gt;Pagination with ActivityStreams and Hydra Collections&lt;/h2&gt;
 
-&lt;h2 id=&quot;hydra-collections&quot;&gt;Hydra Collections&lt;/h2&gt;
+&lt;p&gt;When your arrays will be either too long to serialize, or too computationally heavy to generate at run-time, you’ll need some form of pagination.
+It’s recommended to use an existing ontology for this.
+The W3C Activity Streams 2.0 ontology defines the &lt;a href=&quot;https://www.w3.org/TR/activitystreams-core/#collection&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;as:Collection&lt;/code&gt;&lt;/a&gt;.
+It provides keys for things like &lt;code class=&quot;highlighter-rouge&quot;&gt;next&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;totalItems&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;orderedItems&lt;/code&gt;.
+This spec seems to be designed with &lt;code class=&quot;highlighter-rouge&quot;&gt;JSON-LD&lt;/code&gt; serialization in mind, so it relies on JSON arrays, which represent &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt; Collections.&lt;/p&gt;
 
-&lt;p&gt;The Hydra ontology defines the &lt;a href=&quot;https://www.hydra-cg.com/spec/latest/core/#collections&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hydra:Collection&lt;/code&gt;&lt;/a&gt;.
-This ontology introduces standardized &lt;strong&gt;pagination&lt;/strong&gt;, which will be very useful when your arrays will be either too long to serialize, or too computationally heavy to generate at run-time.
-Hydra seems to be designed with &lt;code class=&quot;highlighter-rouge&quot;&gt;JSON-LD&lt;/code&gt; serialization in mind, so it relies on JSON arrays, which represent &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt; Collections.&lt;/p&gt;
+&lt;p&gt;Similar to this is the &lt;a href=&quot;https://www.hydra-cg.com/spec/latest/core/#collections&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hydra:Collection&lt;/code&gt;&lt;/a&gt;.
+The Hyrda spec still is in draft status, but it has been updated in october last year.&lt;/p&gt;
 
 &lt;h2 id=&quot;converting-to-arrays&quot;&gt;Converting to Arrays&lt;/h2&gt;
 
@@ -101,8 +106,8 @@ We’ve open-sourced a JS library that might be useful for this: &lt;a href=&quo
   &lt;li&gt;Come in three forms: &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Seq&lt;/code&gt; (ordered), &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Bag&lt;/code&gt; (unordered), &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Alt&lt;/code&gt; (alternatives with default)&lt;/li&gt;
   &lt;li&gt;You can add new items by simply adding RDF triples&lt;/li&gt;
   &lt;li&gt;Inserting items is hard: requires rewriting &lt;em&gt;many&lt;/em&gt; statements&lt;/li&gt;
-  &lt;li&gt;Can span many graphs / machines / servers (decentralized)&lt;/li&gt;
-  &lt;li&gt;Have a formally unknown length (open world assumption)&lt;/li&gt;
+  &lt;li&gt;Must be stored in a single graph / machine / server (centralized)&lt;/li&gt;
+  &lt;li&gt;Have a formally unknown ending (open world assumption)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;RDF Collections:&lt;/strong&gt;&lt;/p&gt;
@@ -110,8 +115,13 @@ We’ve open-sourced a JS library that might be useful for this: &lt;a href=&quo
   &lt;li&gt;An ordered chain of &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt; resources&lt;/li&gt;
   &lt;li&gt;You have to edit / remove statements before you can add new items&lt;/li&gt;
   &lt;li&gt;Inserting items is easy: requires changing &lt;em&gt;just a few&lt;/em&gt; statements&lt;/li&gt;
-  &lt;li&gt;Must be stored in a single graph / machine / server (centralized)&lt;/li&gt;
+  &lt;li&gt;Can span many graphs / machines / servers (decentralized)&lt;/li&gt;
   &lt;li&gt;Have a known ending (the &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:nil&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Pagination:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Use &lt;a href=&quot;https://www.w3.org/TR/activitystreams-core/#collection&quot;&gt;ActivityStreams collections&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Converting to arrays:&lt;/strong&gt;&lt;/p&gt;
