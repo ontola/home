@@ -1,11 +1,25 @@
 Ontola is een softwarebedrijf met een specialisme in webapplicaties, SAAS diensten en linked data.
-Wij houden van vernieuwende ideeën, open data en degelijke technologie.
-Het is onze missie om mensen meer controle te geven over hun data, en om gebruik van data makkelijker te maken.
+Wij houden van vernieuwende ideeën, open data en open technologie.
+
+## Onze missie: Controle teruggeven over jouw data
+
+Wij geloven dat bedrijven die met mooie woorden vertellen hoe ze de wereld gaan verbeteren doorgaans niet te vertrouwen zijn. Bedrijven worden bijna altijd primair opgericht om geld te verdienen, niet voor liefdadigheid. Als je deze tekst dus niet verder leest, begrijpen we dat volledig.
+
+Maar dan kunnen we je onze boodschap niet meegeven: een beetje vertrouwen is nodig in een digitale wereld, maar je kan dit tot een minimum terugbrengen als je de juiste software gebruikt.
+
+We hebben drie stippen op de horizon gezet, waardoor je ons in de toekomst zo min mogelijk vertrouwen hoeft te geven:
+
+- **Volledige data-eigenaarschap**. Zowel voor jou als klant (je host de software en database zelf als je dat wil, wij doen het voor je als je daar geen zin jn hebt), als voor de mensen die jouw software gaan gebruiken (het gebruik van Solid Pods zorgt ervoor dat zo min mogelijk persoonlijke data hoeft te worden opgeslagen).
+- **Geen lock-in**. Onze software is gebouwd op standaarden, waardoor het makkelijk te vervangen en uit te breiden is. Daarnaast streven we naar zo veel mogelijk [open-source software](http://github.com/ontola/).
+- **Onafhankelijkheid**. We streven naar het volledig onafhankelijk kunnen draaien van onze software, waardoor partijen als Google en Facebook of andere online diensten niet nodig zijn. Waar we de hulp van derde partijen wel als mogelijkheid bieden, dan zorgen we altijd voor een keuze uit meerdere opties.
+
+We zijn er nog niet, maar dit is waar we naartoe werken. We doen dat niet alleen om de wereld te verbeteren, maar ook om geld te verdienen. De wereld wordt steeds bewuster van de risico's van de digitale wereld, wij bieden graag de beste tools om weerbaar te zijn. Daarmee willen we niet verdienen aan jouw data of jouw afhankelijkheid, maar aan de vraag naar onze expertise.
+
+Het zijn nu alleen nog woorden. We vragen je niet om ons op ons woord te geloven, maar je mag ons hier altijd op aanspreken.
+
+## Waar we aan werken
 
 Als team werken wij onder andere aan het e-democracy platform [Argu](https://argu.co), wat ingezet door diverse organisaties om mensen te betrekken bij besluitvorming.
-In de ontwikkeling van Argu hebben wij veel kennis opgedaan over het bouwen van schaalbare webapplicaties.
-Verder zijn we de huidige ontwikkelkracht achter het project [Open Besluitvorming](https://openbesluitvorming.nl), waar we van meer dan honderd overheden data importeren, converteren en beschikbaar stellen als linked open data.
+Verder zijn we de huidige ontwikkelkracht achter het project [OpenBesluitvorming.nl](https://openbesluitvorming.nl), waar we van meer dan honderd overheden data importeren, converteren en beschikbaar stellen als linked open data.
 We wonnen onder meer de [NL Open Government Partnership Award](https://www.open-overheid.nl/open-overheid/argu-winnaar-nederlandse-inzending-ogp-awards/) en diverse hackathons.
-Momenteel werken we samen met [Inrupt](http://inrupt.com/) aan het [Solid](https://solid.mit.edu) project.
-
-We zijn liefhebbers van Open Source, dus check onze projecten op [Github](http://github.com/ontola/)!
+Momenteel werken we samen met [Inrupt](http://inrupt.com/) aan het [Solid](https://solid.mit.edu) project, waarmee we mensen meer controle over hun data willen geven.

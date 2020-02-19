@@ -11,9 +11,11 @@ description: We're linked data web development specialists that can help you imp
   <div class="section">
     <div class="section__content">
       <div class="section__wrapper">
-        <div class="section__text">
-          <h2>{% t about.title %}</h2>
+        <div class="text">
+          <h1>{% t about.title %}</h1>
           {% translate_file about.md %}
+          <h2>{% t home.contact.header %}</h2>
+          {% include contact.html %}
         </div>
       </div>
     </div>
