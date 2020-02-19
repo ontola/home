@@ -3,9 +3,12 @@ Wij houden van vernieuwende ideeën, open data en open technologie.
 
 ## Onze missie: Controle teruggeven over jouw data
 
-Wij geloven dat bedrijven die met mooie woorden vertellen hoe ze de wereld gaan verbeteren doorgaans niet te vertrouwen zijn. Bedrijven worden bijna altijd primair opgericht om geld te verdienen, niet voor liefdadigheid. Als je deze tekst dus niet verder leest, begrijpen we dat volledig.
+Wij geloven dat bedrijven die met mooie woorden vertellen hoe ze de wereld gaan verbeteren doorgaans niet te vertrouwen zijn.
+Bedrijven worden bijna altijd primair opgericht om geld te verdienen, niet voor liefdadigheid.
+Als je deze tekst dus niet verder leest, begrijpen we dat volledig.
 
-Maar dan kunnen we je onze boodschap niet meegeven: een beetje vertrouwen is nodig in een digitale wereld, maar je kan dit tot een minimum terugbrengen als je de juiste software gebruikt.
+Maar dan kunnen we je onze boodschap niet meegeven:
+een beetje vertrouwen is nodig in een digitale wereld, maar je kan dit tot een minimum terugbrengen als je de juiste ontwikkelprincipes hanteert.
 
 We hebben drie stippen op de horizon gezet, waardoor je ons in de toekomst zo min mogelijk vertrouwen hoeft te geven:
 
@@ -13,9 +16,13 @@ We hebben drie stippen op de horizon gezet, waardoor je ons in de toekomst zo mi
 - **Geen lock-in**. Onze software is gebouwd op standaarden, waardoor het makkelijk te vervangen en uit te breiden is. Daarnaast streven we naar zo veel mogelijk [open-source software](http://github.com/ontola/).
 - **Onafhankelijkheid**. We streven naar het volledig onafhankelijk kunnen draaien van onze software, waardoor partijen als Google en Facebook of andere online diensten niet nodig zijn. Waar we de hulp van derde partijen wel als mogelijkheid bieden, dan zorgen we altijd voor een keuze uit meerdere opties.
 
-We zijn er nog niet, maar dit is waar we naartoe werken. We doen dat niet alleen om de wereld te verbeteren, maar ook om geld te verdienen. De wereld wordt steeds bewuster van de risico's van de digitale wereld, wij bieden graag de beste tools om weerbaar te zijn. Daarmee willen we niet verdienen aan jouw data of jouw afhankelijkheid, maar aan de vraag naar onze expertise.
+We zijn er nog niet, maar dit is waar we naartoe werken.
+We doen dat niet alleen om de wereld te verbeteren, maar ook om geld te verdienen.
+De wereld wordt steeds bewuster van de risico's van de digitale wereld, wij bieden graag de beste tools om weerbaar te zijn.
+Daarmee willen we niet verdienen aan jouw data of jouw afhankelijkheid, maar aan de waarde die we toevoegen met onze expertise.
 
-Het zijn nu alleen nog woorden. We vragen je niet om ons op ons woord te geloven, maar je mag ons hier altijd op aanspreken.
+Het zijn nu alleen nog woorden.
+We verwachten niet dat je ons op ons woord zal geloven, maar je mag ons hier altijd op aanspreken.
 
 ## Waar we aan werken
 
