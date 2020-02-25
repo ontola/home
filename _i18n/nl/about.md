@@ -12,9 +12,9 @@ een beetje vertrouwen is nodig in een digitale wereld, maar je kan dit tot een m
 
 We hebben drie stippen op de horizon gezet, waardoor je ons in de toekomst zo min mogelijk vertrouwen hoeft te geven:
 
-- **Volledige data-eigenaarschap**. Zowel voor jou als klant (je host de software en database zelf als je dat wil, wij doen het voor je als je daar geen zin jn hebt), als voor de mensen die jouw software gaan gebruiken (het gebruik van Solid Pods zorgt ervoor dat zo min mogelijk persoonlijke data hoeft te worden opgeslagen).
-- **Geen lock-in**. Onze software is gebouwd op standaarden, waardoor het makkelijk te vervangen en uit te breiden is. Daarnaast streven we naar zo veel mogelijk [open-source software](http://github.com/ontola/).
-- **Onafhankelijkheid**. We streven naar het volledig onafhankelijk kunnen draaien van onze software, waardoor partijen als Google en Facebook of andere online diensten niet nodig zijn. Waar we de hulp van derde partijen wel als mogelijkheid bieden, dan zorgen we altijd voor een keuze uit meerdere opties.
+- **Volledige data-eigenaarschap**. Zowel voor jou als klant (je host de software en database zelf als je dat wil, wij doen het voor je als je daar geen zin jn hebt), als voor de mensen die jouw software gaan gebruiken (het gebruik van [Solid Pods](https://solidproject.org/) zorgt ervoor dat zo min mogelijk persoonlijke data hoeft te worden opgeslagen).
+- **Geen lock-in**. We bouwen software met standaarden, waardoor het makkelijk te vervangen en uit te breiden is. Daarnaast streven we naar zo veel mogelijk [open-source software](http://github.com/ontola/).
+- **Onafhankelijkheid**. We streven naar het volledig onafhankelijk kunnen draaien van onze software, waardoor partijen als Google, Facebook of andere online diensten niet nodig zijn. Waar we de hulp van derde partijen wel als mogelijkheid bieden, dan zorgen we altijd voor een keuze uit meerdere opties.
 
 We zijn er nog niet, maar dit is waar we naartoe werken.
 We doen dat niet alleen om de wereld te verbeteren, maar ook om geld te verdienen.

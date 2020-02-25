@@ -3,7 +3,7 @@ We love innovation, open data en open technology.
 
 ## Our mission: give back control over your data
 
-We believe that many companies with pretty words about how they will improve the word can often not be trusted.
+We believe that many companies with pretty words about how they will improve the world can often not be trusted.
 Companies almost always have a focus on making money, not charity.
 So if you stop reading after this line, we understand.
 
@@ -12,9 +12,9 @@ a little trust in necessary a digital world, but you can minimize how much you n
 
 We have three goals that will minimize how much trust you need to have in us as a company:
 
-- **Full data ownership**. Both you as a customer, as your users should have total control over your data.
-- **No vendor lock-in**. Our software is built using open standards, which makes it easy to extend. We strive to do as much [open-source software](http://github.com/ontola/) as possible.
-- **Independent**. We strive to make our software work without dependencies on third parties. No google analytics, full control over your identity provider.
+- **Full data ownership**. You (as either a customer or as a user of the software that we build) should have total control over your data. That's why we work on [Solid](https://solidproject.org/).
+- **No vendor lock-in**. We build software using open standards. That way, other developers can use and edit the same software and data. We strive to do as much [open source](http://github.com/ontola/) as possible.
+- **Independent**. We strive to make our software work without dependencies on third parties.
 
 We're not fully there yet, but this is where we're going.
 We don't do this just to make the world a little better, but also to make money.
@@ -28,6 +28,6 @@ We're not expecting you to believe everything we write, but you can always use t
 
 As a team we're working on the e-democracy platform [Argu](https://argu.co), which is used by many organizations to get people engaged in decision-making processes.
 We're also responsible for the technology of the [OpenBesluitvorming.nl](https://openbesluitvorming.nl) project, which aims to turn all Dutch governmental meeting minutes and decisions into linked open data.
-We're currently working with [Inrupt](http://inrupt.com/) on the [Solid](https://solid.mit.edu) project.
+We're currently working with [Inrupt](http://inrupt.com/) on the [Solid](https://solidproject.org/) project.
 
 We love Open Source, so make sure to check out our projects on [Github](http://github.com/ontola/)!
