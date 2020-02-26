@@ -78,6 +78,7 @@ Triple statements (the data atoms of RDF) can be serialized in many ways, which 
         <img src="/img/logo.svg" />
         <span>Ontola</span><span class="nav__logo__tld">.io</span>
       </a>
+      <button class="nav__menu-toggle" onClick="toggleMenu()">menu</button>
       <div class="nav__links nav__links--collapsed">
         <a href="/">home</a>
         <!-- <a href="">services</a> -->
@@ -118,7 +119,7 @@ Triple statements (the data atoms of RDF) can be serialized in many ways, which 
   <p>Contrary to some other datamodels, RDF is not bound by a single serializiation format.
 Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my <a href="/what-is-linked-data">linked data</a>?</p>
 
-<p>To answer the title’s question: <em>it depends</em>, but probably N-Triples / N-Quads.</p>
+<p><strong>To answer the title’s question: <em>it depends</em>, but probably N-Triples / N-Quads.</strong></p>
 
 <p>So, let’s discuss the various formats and when you should use which.
 The order in which they appear is chronological, and does not reflect preference.
@@ -279,8 +280,15 @@ Since JSON is so popular, I think this is the way to go for <em>most</em> of the
 Its data structure saves space and bandwith (it’s half the size of gzipped N-Triples).
 It’s design has indexing built-in, which means it can be searched or browsed efficiently.
 Check out the impressive <a href="http://www.rdfhdt.org/technical-specification/">technical specification</a> if you want to learn more about how it works.
-HDT compression is a costly process, so it’s not that attractive for highly dynamic data.
+HDT compression is a costly process, so it’s not that attractive for highly dynamic data / data that changes over time.
 Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.</p>
+
+<h2 id="rdf-binary-thrift">RDF Binary Thrift</h2>
+
+<p><a href="https://afs.github.io/rdf-thrift/rdf-binary-thrift.html">RDF Binary thrift</a> is an encoding of RDF data that uses Apache Thrift.
+It is used in the Apache Jena RDF store.
+It’s a binary format, and therefore it’s cheap to parse and serialize.
+I’ve never used it, but it sounds interesting, although you’ll need Thrift tooling for decoding it.</p>
 
 <h2 id="let-your-users-choose-a-format">Let your users choose a format</h2>
 
@@ -291,9 +299,9 @@ Therefore, you can implement a serialization library (e.g. our <a href="https://
 <h2 id="tldr">TL;DR</h2>
 
 <ul>
-  <li>Use N-Triples if you want performant machine-to-machine communication.</li>
-  <li>Use HDT if you have huge (static) datasets, want best performance, and if you can find / build a fitting HDT implementation for your stack.</li>
-  <li>Use JSON-LD if you want to improve your exsting JSON API.</li>
+  <li>Use N-Triples / N-Quads if you want decent performance and high compatibility.</li>
+  <li>Use HDT if you have big static datasets and want the best performance.</li>
+  <li>Use JSON-LD if you want to improve your exsting JSON API, and don’t need performant RDF parsing.</li>
   <li>Use Turtle if you want to manually read &amp; edit your RDF.</li>
   <li>Use Notation3 if you need RDF rules.</li>
   <li>Use RDFa to extend your existing HTML pages.</li>

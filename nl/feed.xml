@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-02-25T12:03:54+01:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title><link href="https://ontola.io/nl/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/nl/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-02-26T11:23:20+01:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title><link href="https://ontola.io/nl/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/nl/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
 The &lt;code class=&quot;highlighter-rouge&quot;&gt;subject predicate object&lt;/code&gt; model does not support Arrays, and no - you can’t use the order in which triples appear.&lt;/p&gt;
 
 &lt;p&gt;However, RDF &lt;em&gt;does&lt;/em&gt; support &lt;em&gt;Collections&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt;) and &lt;em&gt;Containers&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Bag&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Seq&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Alt&lt;/code&gt;).
@@ -296,7 +296,7 @@ yarn add @ontologies/core @ontologies/schema
 &lt;p&gt;PRs for new ontologies are welcome!&lt;/p&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Ontologies are resources that describe concepts and how several classes and properties in a certain domain relate to each other. For example, if you’re creating a social network app, you might want to use the Friend of a Friend (FOAF) ontology, which describes things like “Person” and “knows”. When creating linked data applications, you’re likely to work a lot with ontologies. Since ontologies, their classes and their properties all use URLs as identifiers, that means that you might write a lot of long strings. This is not only bothersome, but also a source of unnecessary typos and a possible performance bottleneck.</summary></entry><entry><title type="html">What’s the best RDF serialization format?</title><link href="https://ontola.io/nl/blog/rdf-serialization-formats/" rel="alternate" type="text/html" title="What's the best RDF serialization format?" /><published>2019-06-29T00:00:00+02:00</published><updated>2019-06-29T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/rdf-serialization-formats</id><content type="html" xml:base="https://ontola.io/nl/blog/rdf-serialization-formats/">&lt;p&gt;Contrary to some other datamodels, RDF is not bound by a single serializiation format.
 Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my &lt;a href=&quot;/what-is-linked-data&quot;&gt;linked data&lt;/a&gt;?&lt;/p&gt;
 
-&lt;p&gt;To answer the title’s question: &lt;em&gt;it depends&lt;/em&gt;, but probably N-Triples / N-Quads.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;To answer the title’s question: &lt;em&gt;it depends&lt;/em&gt;, but probably N-Triples / N-Quads.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;So, let’s discuss the various formats and when you should use which.
 The order in which they appear is chronological, and does not reflect preference.
@@ -457,8 +457,15 @@ Since JSON is so popular, I think this is the way to go for &lt;em&gt;most&lt;/e
 Its data structure saves space and bandwith (it’s half the size of gzipped N-Triples).
 It’s design has indexing built-in, which means it can be searched or browsed efficiently.
 Check out the impressive &lt;a href=&quot;http://www.rdfhdt.org/technical-specification/&quot;&gt;technical specification&lt;/a&gt; if you want to learn more about how it works.
-HDT compression is a costly process, so it’s not that attractive for highly dynamic data.
+HDT compression is a costly process, so it’s not that attractive for highly dynamic data / data that changes over time.
 Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.&lt;/p&gt;
+
+&lt;h2 id=&quot;rdf-binary-thrift&quot;&gt;RDF Binary Thrift&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://afs.github.io/rdf-thrift/rdf-binary-thrift.html&quot;&gt;RDF Binary thrift&lt;/a&gt; is an encoding of RDF data that uses Apache Thrift.
+It is used in the Apache Jena RDF store.
+It’s a binary format, and therefore it’s cheap to parse and serialize.
+I’ve never used it, but it sounds interesting, although you’ll need Thrift tooling for decoding it.&lt;/p&gt;
 
 &lt;h2 id=&quot;let-your-users-choose-a-format&quot;&gt;Let your users choose a format&lt;/h2&gt;
 
@@ -469,9 +476,9 @@ Therefore, you can implement a serialization library (e.g. our &lt;a href=&quot;
 &lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Use N-Triples if you want performant machine-to-machine communication.&lt;/li&gt;
-  &lt;li&gt;Use HDT if you have huge (static) datasets, want best performance, and if you can find / build a fitting HDT implementation for your stack.&lt;/li&gt;
-  &lt;li&gt;Use JSON-LD if you want to improve your exsting JSON API.&lt;/li&gt;
+  &lt;li&gt;Use N-Triples / N-Quads if you want decent performance and high compatibility.&lt;/li&gt;
+  &lt;li&gt;Use HDT if you have big static datasets and want the best performance.&lt;/li&gt;
+  &lt;li&gt;Use JSON-LD if you want to improve your exsting JSON API, and don’t need performant RDF parsing.&lt;/li&gt;
   &lt;li&gt;Use Turtle if you want to manually read &amp;amp; edit your RDF.&lt;/li&gt;
   &lt;li&gt;Use Notation3 if you need RDF rules.&lt;/li&gt;
   &lt;li&gt;Use RDFa to extend your existing HTML pages.&lt;/li&gt;
