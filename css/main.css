@@ -490,9 +490,14 @@ th,td {
 
 .nav__menu-toggle {
     display: none;
+    border: none;
     position: absolute;
+    background: none;
+    height: 3rem;
+    padding: 0;
     right: 1rem;
     color: white;
+    -webkit-appearance: none;
 }
 
 .pillars {
