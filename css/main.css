@@ -488,6 +488,13 @@ th,td {
     width: 2.4rem;
 }
 
+.nav__menu-toggle {
+    display: none;
+    position: absolute;
+    right: 1rem;
+    color: white;
+}
+
 .pillars {
     margin-bottom: 2em;
 }
@@ -738,8 +745,29 @@ th,td {
         overflow-x: auto;
     }
 
-    .nav__links--collapsed {
+    .menu-opened {
+        position: fixed;
+    }
+
+    .menu-opened .nav__links {
+        display: flex;
+    }
+
+    .nav__links {
+        justify-content: flex-start;
+        background-color: #1A5576;
+        position: fixed;
+        top: 3rem;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        flex-direction: column;
+        padding-top: 0.6rem;
         display: none;
+    }
+
+    .nav__menu-toggle {
+        display: block;
     }
 
     .pillars {

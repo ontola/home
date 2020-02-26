@@ -1,3 +1,8 @@
+// Navigation menu
+function toggleMenu() {
+  document.body.classList.toggle('menu-opened');
+}
+
 initSmoothScrolling();
 
 function initSmoothScrolling() {
