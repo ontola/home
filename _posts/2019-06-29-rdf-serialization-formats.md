@@ -8,7 +8,7 @@ permalink: /blog/rdf-serialization-formats/
 Contrary to some other datamodels, RDF is not bound by a single serializiation format.
 Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my [linked data](/what-is-linked-data)?
 
-To answer the title's question: _it depends_, but probably N-Triples / N-Quads.
+**To answer the title's question: _it depends_, but probably N-Triples / N-Quads.**
 
 So, let's discuss the various formats and when you should use which.
 The order in which they appear is chronological, and does not reflect preference.
@@ -175,8 +175,15 @@ Since JSON is so popular, I think this is the way to go for _most_ of the existi
 Its data structure saves space and bandwith (it's half the size of gzipped N-Triples).
 It's design has indexing built-in, which means it can be searched or browsed efficiently.
 Check out the impressive [technical specification](http://www.rdfhdt.org/technical-specification/) if you want to learn more about how it works.
-HDT compression is a costly process, so it's not that attractive for highly dynamic data.
+HDT compression is a costly process, so it's not that attractive for highly dynamic data / data that changes over time.
 Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.
+
+## RDF Binary Thrift
+
+[RDF Binary thrift](https://afs.github.io/rdf-thrift/rdf-binary-thrift.html) is an encoding of RDF data that uses Apache Thrift.
+It is used in the Apache Jena RDF store.
+It's a binary format, and therefore it's cheap to parse and serialize.
+I've never used it, but it sounds interesting, although you'll need Thrift tooling for decoding it.
 
 ## Let your users choose a format
 
@@ -186,9 +193,9 @@ Therefore, you can implement a serialization library (e.g. our [rdf-serializers]
 
 ## TL;DR
 
-- Use N-Triples if you want performant machine-to-machine communication.
-- Use HDT if you have huge (static) datasets, want best performance, and if you can find / build a fitting HDT implementation for your stack.
-- Use JSON-LD if you want to improve your exsting JSON API.
+- Use N-Triples / N-Quads if you want decent performance and high compatibility.
+- Use HDT if you have big static datasets and want the best performance.
+- Use JSON-LD if you want to improve your exsting JSON API, and don't need performant RDF parsing.
 - Use Turtle if you want to manually read & edit your RDF.
 - Use Notation3 if you need RDF rules.
 - Use RDFa to extend your existing HTML pages.
