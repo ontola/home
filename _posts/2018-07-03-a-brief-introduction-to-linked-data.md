@@ -11,6 +11,7 @@ In the later paragraphs, I'll get a little more technical.
 I'll discuss the RDF data model, serialization formats, ontologies and publishing strategies.
 
 ## Human Language
+
 ```
 Tim is born in London on the 8th of June, 1955.
 ```
@@ -19,6 +20,7 @@ If we wanted an application to do something with this sentence, such as display 
 A simpler solution would be to structure our information in a way that's useful to a computer.
 
 ## Tables
+
 If we put the information in a table, we can simply let the computer read the `birthDate` field for Tim.
 
 | name    | birthPlace | birthDate
@@ -34,6 +36,7 @@ But now someone else wants to use this data and has a couple of questions.
 * Does `06-08` mean June 8th or August 6th?
 
 ## Links
+
 Now, let's add links to our data:
 
 | name    | [birthPlace](http://schema.org/birthPlace) | [birthDate](http://schema.org/birthDate)      |
@@ -43,9 +46,9 @@ Now, let's add links to our data:
 By adding these links, others can answer all previous questions by themselves.
 The links solve three problems:
 
-* **Links provide extra information.** Follow the link to Tim to find out more about him.
-* **Links remove ambiguity.** We now know exactly which London we're talking about.
-* **Links add standardization.** The birthDate link tells us we need to use the YYYY-MM-DD notation.
+- **Links provide extra information.** Follow the link to Tim to find out more about him.
+- **Links remove ambiguity.** We now know exactly which London we're talking about.
+- **Links add standardization.** The birthDate link tells us we need to use the YYYY-MM-DD notation.
 
 These three characteristics make linked data more reusable.
 The data quality has been improved, because other people and machines can now interpret and use the information more reliably.
@@ -62,6 +65,7 @@ They have their own assumptions, identifiers, and models.
 Linked data solves this problem by removing all ambiguity about what data represents and how it should be interpreted.
 
 ## Triples & the RDF data model
+
 In the tables above, we were making two separate statements about Tim: one about his birthdate and one about his birthplace.
 Each statement had it's own cell in the table.
 In linked data, these statements are called  _triples_.
@@ -100,8 +104,11 @@ Changing your model or adding properties do not require any schema changes.
 This makes RDF so great for systems that change over time.
 
 ## RDF Serialization
+
 Let's get a little more technical (feel free to skip to [Ontologies](#ontologies) if you don't like all this code).
-RDF is a _data model_, not a _serialization format_.
+RDF is just a _data model_, not a _serialization format_.
+This is different from JSON or XML, for example, which are both a data models _and_ a serialization formats.
+
 In other words: The subject, predicate, object model can be represented in several ways.
 For example, here's the same triples from the table and the graph above, serialized in the _Turtle_ format:
 
@@ -167,6 +174,8 @@ You can try this [for yourself](http://rdf-translator.appspot.com/) and discover
 The number of serialization options for RDF might be a bit intimidating, but you shouldn't feel the need to understand and know every single one.
 The important thing to remember is that there's a lot of options that are compatible with each other and use the RDF data model.
 
+_Update: I've written an article about [when to choose which RDF serialization format](/blog/rdf-serilization-formats)!_
+
 ## Ontologies
 Let's tell a bit more about Tim. First of all, it might be useful to specify that Tim is a person:
 
@@ -199,18 +208,19 @@ You can even generate forms and other UI components in React using libraries suc
 
 The power of the ontology goes far, but that probably deserves its own article.
 
-## What can we do with linked data
-The use of links help to provide extra information, remove ambiguity, and help with standardization.
-These are abstract advantages, but they have a real-world impact on how we can use data.
+## Advantages of linked data
 
-- Linked data enables a decentralized architecture. Since URLs directly point to the source, even if the data is on a completely different domain,
-- Because of the decentralized nature, data tends to stay at the source. This means that less data is copied, and we have
+- Links provide a route to **extra information**, since your can follow them. If you link to other linked data resources, it means that machines can traverse these graphs as well.
+- Links **remove ambiguity**, so it becomes clear what the subject or predicat of some statement is.
+- Linked data enables a **decentralized architecture**. Since URLs point directly to the source of the data, even if the data is on a completely different domain and server, it can connect datasets to eachother.
+- Linked data **stays at the source**, does not have to be copied as much. Linked data stays at the source, and this prevents a lot of expensive issues related with data duplication.
 - Since linked data is highly standardized, writing interfaces becomes really easy. This means that you don't need expensive.
-- We can merge two datasets, without having any collissions in identifiers. This is because URLs are unique even accross multiple domains. This might seem like a minor benefit, but it makes integration multiple systems exceptionally trivial.
-- Linked data can be converted to many serialization formats. It's easy to convert Linked Data to JSON, but the other way around is more difficult.
--
+- We can **easily merge linked datasets** without any collissions in identifiers. This is because URLs are unique even accross multiple domains.
+- Linked data can be converted to **many serialization formats** (here's a blogpost that makes a coparison)[/blog/rdf-serialization-formats]. It's easy to convert Linked Data to JSON, but the other way around is more difficult.
+- Linked data is a standard with **many available tools, libraries and query options** (e.g. SPARQL).
 
 ## Publishing linked data
+
 Linked data is meant to be shared.
 We can do this in several ways:
 
