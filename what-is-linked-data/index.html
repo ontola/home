@@ -44,8 +44,9 @@
 <meta property="og:description" content="Linked data is a way to structure and share information, using links.
 These links make data more meaningful and useful.
 To understand why, let’s take a piece of information and upgrade its data quality step by step, until it’s linked data.
-In the later paragraphs, I’ll get a little more technical.
-I’ll discuss the RDF data model, serialization formats, ontologies and publishing strategies.
+In the later paragraphs, We’ll get a little more technical.
+We’ll discuss the RDF data model, serialization formats, ontologies and publishing strategies.
+If you’re just interested in why linked data is awesome, skip to the advantages of linked data.
 
 "/>
 
@@ -122,10 +123,12 @@ I’ll discuss the RDF data model, serialization formats, ontologies and publish
   <p>Linked data is a way to structure and share information, using links.
 These links make data more meaningful and useful.
 To understand why, let’s take a piece of information and upgrade its data quality step by step, until it’s linked data.
-In the later paragraphs, I’ll get a little more technical.
-I’ll discuss the RDF data model, serialization formats, ontologies and publishing strategies.</p>
+In the later paragraphs, We’ll get a little more technical.
+We’ll discuss the RDF data model, serialization formats, ontologies and publishing strategies.
+If you’re just interested in why linked data is awesome, skip to the <a href="#advantages-of-linked-data">advantages of linked data</a>.</p>
 
 <h2 id="human-language">Human Language</h2>
+
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Tim is born in London on the 8th of June, 1955.
 </code></pre></div></div>
 <p>Humans understand what this sentence means, but to a computer, this is just a string of characters.
@@ -133,6 +136,7 @@ If we wanted an application to do something with this sentence, such as display 
 A simpler solution would be to structure our information in a way that’s useful to a computer.</p>
 
 <h2 id="tables">Tables</h2>
+
 <p>If we put the information in a table, we can simply let the computer read the <code class="highlighter-rouge">birthDate</code> field for Tim.</p>
 
 <table>
@@ -163,6 +167,7 @@ A simpler solution would be to structure our information in a way that’s usefu
 </ul>
 
 <h2 id="links">Links</h2>
+
 <p>Now, let’s add links to our data:</p>
 
 <table>
@@ -206,6 +211,7 @@ They have their own assumptions, identifiers, and models.
 Linked data solves this problem by removing all ambiguity about what data represents and how it should be interpreted.</p>
 
 <h2 id="triples--the-rdf-data-model">Triples &amp; the RDF data model</h2>
+
 <p>In the tables above, we were making two separate statements about Tim: one about his birthdate and one about his birthplace.
 Each statement had it’s own cell in the table.
 In linked data, these statements are called  <em>triples</em>.
@@ -261,9 +267,12 @@ Changing your model or adding properties do not require any schema changes.
 This makes RDF so great for systems that change over time.</p>
 
 <h2 id="rdf-serialization">RDF Serialization</h2>
+
 <p>Let’s get a little more technical (feel free to skip to <a href="#ontologies">Ontologies</a> if you don’t like all this code).
-RDF is a <em>data model</em>, not a <em>serialization format</em>.
-In other words: The subject, predicate, object model can be represented in several ways.
+RDF is just a <em>data model</em>, not a <em>serialization format</em>.
+This is different from JSON or XML, for example, which are both a data models <em>and</em> a serialization formats.</p>
+
+<p>In other words: The subject, predicate, object model can be represented in several ways.
 For example, here’s the same triples from the table and the graph above, serialized in the <em>Turtle</em> format:</p>
 
 <div class="language-turtle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">&lt;https://www.w3.org/People/Berners-Lee/&gt;</span><span class="w"> </span><span class="nl">&lt;http://schema.org/birthDate&gt;</span><span class="w"> </span><span class="s">"1955-06-08"</span><span class="p">.</span><span class="w">
@@ -324,6 +333,8 @@ You can try this <a href="http://rdf-translator.appspot.com/">for yourself</a> a
 <p>The number of serialization options for RDF might be a bit intimidating, but you shouldn’t feel the need to understand and know every single one.
 The important thing to remember is that there’s a lot of options that are compatible with each other and use the RDF data model.</p>
 
+<p><em>Update: I’ve written an article about <a href="/blog/rdf-serilization-formats">when to choose which RDF serialization format</a>!</em></p>
+
 <h2 id="ontologies">Ontologies</h2>
 <p>Let’s tell a bit more about Tim. First of all, it might be useful to specify that Tim is a person:</p>
 
@@ -355,21 +366,8 @@ You can even generate forms and other UI components in React using libraries suc
 
 <p>The power of the ontology goes far, but that probably deserves its own article.</p>
 
-<h2 id="what-can-we-do-with-linked-data">What can we do with linked data</h2>
-<p>The use of links help to provide extra information, remove ambiguity, and help with standardization.
-These are abstract advantages, but they have a real-world impact on how we can use data.</p>
-
-<ul>
-  <li>Linked data enables a decentralized architecture. Since URLs directly point to the source, even if the data is on a completely different domain,</li>
-  <li>Because of the decentralized nature, data tends to stay at the source. This means that less data is copied, and we have</li>
-  <li>Since linked data is highly standardized, writing interfaces becomes really easy. This means that you don’t need expensive.</li>
-  <li>We can merge two datasets, without having any collissions in identifiers. This is because URLs are unique even accross multiple domains. This might seem like a minor benefit, but it makes integration multiple systems exceptionally trivial.</li>
-  <li>
-    <h2 id="linked-data-can-be-converted-to-many-serialization-formats-its-easy-to-convert-linked-data-to-json-but-the-other-way-around-is-more-difficult">Linked data can be converted to many serialization formats. It’s easy to convert Linked Data to JSON, but the other way around is more difficult.</h2>
-  </li>
-</ul>
-
 <h2 id="publishing-linked-data">Publishing linked data</h2>
+
 <p>Linked data is meant to be shared.
 We can do this in several ways:</p>
 
@@ -417,13 +415,38 @@ For most linked data projects, I’d recommend to use a conventional database an
 Although linked data would be a great choice for publishing open data, you don’t have to make your linked data accessible to others.
 It’s perfectly possible to secure linked data using <a href="https://oauth.net/2/">OAuth</a>, [WebID], ACL or other methods.</p>
 
+<h2 id="advantages-of-linked-data">Advantages of linked data</h2>
+
+<ul>
+  <li>Links provide a path to <strong>extra information</strong> on something, since you can follow them. If you link to other linked data resources, it means that machines can traverse these graphs as well.</li>
+  <li>Links <strong>remove ambiguity</strong>, so it becomes very clear what is being stated.</li>
+  <li>Linked data enables a <strong>decentralized architecture</strong>. Since URLs point directly to the source of the data, even if the data is on a completely different domain and server, it can connect datasets to eachother.</li>
+  <li>Linked data <strong>stays at the source</strong>, so it does not have to be copied as much. A user can simply request one specific part of the data, without having to download the entire dataset. This prevents a lot of expensive issues related with data duplication.</li>
+  <li>You <strong>don’t need new APIs and API descriptions</strong>, since you can just use HTTP + Content Negotiation to fetch specific items. The data itself is browseable, like webpages are.</li>
+  <li>You can <strong>easily merge linked datasets</strong> without any collissions in identifiers. This is because URLs are unique even accross multiple domains.</li>
+  <li>Linked data can be converted to <strong>many serialization formats</strong> (here’s a blogpost that makes a coparison)[/blog/rdf-serialization-formats]. It’s easy to convert Linked Data to JSON, but the other way around is more difficult.</li>
+  <li>Linked data is a standard with <strong>many available tools, libraries and query options</strong> (e.g. SPARQL).</li>
+</ul>
+
+<h2 id="disadvantages-of-linked-data">Disadvantages of linked data</h2>
+
+<ul>
+  <li>Creating new linked data can be <strong>more time consuming</strong>, since you are expected to use (working) links instead of the words that come to mind.</li>
+  <li>It can be a bit <strong>confusing</strong> at first, especially the plurality of serization formats.</li>
+  <li>There is <a href="/blog/ordered-data-in-rdf/">no native support for sequential data / arrays in RDF</a>.</li>
+  <li>A decent <strong>URL startegy</strong> becomes more important, especially when people will use your linked data.</li>
+  <li><strong>Rendering RDF data</strong> in a fancy GUI / web application can be tricky (check out our <a href="https://github.com/fletcher91/link-redux">link-redux</a> library for rendering linked data in React).</li>
+</ul>
+
 <h2 id="further-reading">Further reading</h2>
-<p>If you want to learn more about the vision behind the semantic web and linked data, read the <a href="https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf">2006 paper</a> by some of the original inventors).
+
+<p>If you want to learn more about the vision behind the semantic web and linked data, read the <a href="https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf">2006 paper</a> by some of the original inventors.
 If you’re looking for inspiration and example projects, check out the <a href="https://lod-cloud.net/">Linked Open Data Cloud</a>.
 If you want to learn more about reasoning and ontologies, try the <a href="https://www.w3.org/TR/2012/REC-owl2-primer-20121211/">W3C OWL primer</a>.
 For SPARQL, the <a href="https://jena.apache.org/tutorials/sparql.html">Apache Jena tutorial</a> could help.
 Check out the <a href="https://www.reddit.com/r/semanticweb/">/r/semanticweb</a> community on Reddit for interesting posts and discussions.
-Here’s <a href="https://twitter.com/joepmeindertsma/lists/linked-data">a list</a> of some interesting Twitter accounts you might want to follow.</p>
+Here’s a list of some <a href="https://twitter.com/joepmeindertsma/lists/linked-data">interesting Twitter accounts</a> you might want to follow.
+Check out the other articles of the <a href="/blog">Ontola Linked Data Blog</a>.</p>
 
 <p>If you want to get help with your linked data project, feel free to send me an <a href="mailto:joep@ontola.io">email</a>!</p>
 
