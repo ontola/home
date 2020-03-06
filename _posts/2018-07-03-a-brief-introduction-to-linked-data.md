@@ -7,8 +7,8 @@ permalink: /what-is-linked-data/
 Linked data is a way to structure and share information, using links.
 These links make data more meaningful and useful.
 To understand why, let’s take a piece of information and upgrade its data quality step by step, until it's linked data.
-In the later paragraphs, I'll get a little more technical.
-I'll discuss the RDF data model, serialization formats, ontologies and publishing strategies.
+In the later paragraphs, We'll get a little more technical.
+We'll discuss the RDF data model, serialization formats, ontologies and publishing strategies.
 
 ## Human Language
 
@@ -214,8 +214,8 @@ The power of the ontology goes far, but that probably deserves its own article.
 - Links **remove ambiguity**, so it becomes clear what the subject or predicat of some statement is.
 - Linked data enables a **decentralized architecture**. Since URLs point directly to the source of the data, even if the data is on a completely different domain and server, it can connect datasets to eachother.
 - Linked data **stays at the source**, does not have to be copied as much. Linked data stays at the source, and this prevents a lot of expensive issues related with data duplication.
-- Since linked data is highly standardized, writing interfaces becomes really easy. This means that you don't need expensive.
-- We can **easily merge linked datasets** without any collissions in identifiers. This is because URLs are unique even accross multiple domains.
+- You **don't need new / proprietary APIs** (or OpenAPI descriptions), since you can just use HTTP + Content Negotiation to fetch specific items. The data itself is browseable, like webpages are.
+- You can **easily merge linked datasets** without any collissions in identifiers. This is because URLs are unique even accross multiple domains.
 - Linked data can be converted to **many serialization formats** (here's a blogpost that makes a coparison)[/blog/rdf-serialization-formats]. It's easy to convert Linked Data to JSON, but the other way around is more difficult.
 - Linked data is a standard with **many available tools, libraries and query options** (e.g. SPARQL).
 
