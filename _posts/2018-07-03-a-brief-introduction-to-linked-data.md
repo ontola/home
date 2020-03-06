@@ -9,6 +9,7 @@ These links make data more meaningful and useful.
 To understand why, let’s take a piece of information and upgrade its data quality step by step, until it's linked data.
 In the later paragraphs, We'll get a little more technical.
 We'll discuss the RDF data model, serialization formats, ontologies and publishing strategies.
+If you're just interested in why linked data is awesome, skip to the [advantages of linked data](#advantages-of-linked-data).
 
 ## Human Language
 
@@ -208,17 +209,6 @@ You can even generate forms and other UI components in React using libraries suc
 
 The power of the ontology goes far, but that probably deserves its own article.
 
-## Advantages of linked data
-
-- Links provide a route to **extra information**, since your can follow them. If you link to other linked data resources, it means that machines can traverse these graphs as well.
-- Links **remove ambiguity**, so it becomes clear what the subject or predicat of some statement is.
-- Linked data enables a **decentralized architecture**. Since URLs point directly to the source of the data, even if the data is on a completely different domain and server, it can connect datasets to eachother.
-- Linked data **stays at the source**, does not have to be copied as much. Linked data stays at the source, and this prevents a lot of expensive issues related with data duplication.
-- You **don't need new / proprietary APIs** (or OpenAPI descriptions), since you can just use HTTP + Content Negotiation to fetch specific items. The data itself is browseable, like webpages are.
-- You can **easily merge linked datasets** without any collissions in identifiers. This is because URLs are unique even accross multiple domains.
-- Linked data can be converted to **many serialization formats** (here's a blogpost that makes a coparison)[/blog/rdf-serialization-formats]. It's easy to convert Linked Data to JSON, but the other way around is more difficult.
-- Linked data is a standard with **many available tools, libraries and query options** (e.g. SPARQL).
-
 ## Publishing linked data
 
 Linked data is meant to be shared.
@@ -267,6 +257,17 @@ Other technologies like [Linked Data Fragments](http://linkeddatafragments.org/)
 Note that there's a difference between linked data and linked _open_ data.
 Although linked data would be a great choice for publishing open data, you don't have to make your linked data accessible to others.
 It's perfectly possible to secure linked data using [OAuth](https://oauth.net/2/), [WebID], ACL or other methods.
+
+## Advantages of linked data
+
+- Links provide a route to **extra information**, since your can follow them. If you link to other linked data resources, it means that machines can traverse these graphs as well.
+- Links **remove ambiguity**, so it becomes clear what the subject or predicat of some statement is.
+- Linked data enables a **decentralized architecture**. Since URLs point directly to the source of the data, even if the data is on a completely different domain and server, it can connect datasets to eachother.
+- Linked data **stays at the source**, does not have to be copied as much. Linked data stays at the source, and this prevents a lot of expensive issues related with data duplication.
+- You **don't need new / proprietary APIs** (or OpenAPI descriptions), since you can just use HTTP + Content Negotiation to fetch specific items. The data itself is browseable, like webpages are.
+- You can **easily merge linked datasets** without any collissions in identifiers. This is because URLs are unique even accross multiple domains.
+- Linked data can be converted to **many serialization formats** (here's a blogpost that makes a coparison)[/blog/rdf-serialization-formats]. It's easy to convert Linked Data to JSON, but the other way around is more difficult.
+- Linked data is a standard with **many available tools, libraries and query options** (e.g. SPARQL).
 
 ## Further reading
 If you want to learn more about the vision behind the semantic web and linked data, read the [2006 paper](https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf) by some of the original inventors).
