@@ -260,21 +260,31 @@ It's perfectly possible to secure linked data using [OAuth](https://oauth.net/2/
 
 ## Advantages of linked data
 
-- Links provide a route to **extra information**, since your can follow them. If you link to other linked data resources, it means that machines can traverse these graphs as well.
-- Links **remove ambiguity**, so it becomes clear what the subject or predicat of some statement is.
+- Links provide a path to **extra information** on something, since you can follow them. If you link to other linked data resources, it means that machines can traverse these graphs as well.
+- Links **remove ambiguity**, so it becomes very clear what is being stated.
 - Linked data enables a **decentralized architecture**. Since URLs point directly to the source of the data, even if the data is on a completely different domain and server, it can connect datasets to eachother.
-- Linked data **stays at the source**, does not have to be copied as much. Linked data stays at the source, and this prevents a lot of expensive issues related with data duplication.
-- You **don't need new / proprietary APIs** (or OpenAPI descriptions), since you can just use HTTP + Content Negotiation to fetch specific items. The data itself is browseable, like webpages are.
+- Linked data **stays at the source**, so it does not have to be copied as much. A user can simply request one specific part of the data, without having to download the entire dataset. This prevents a lot of expensive issues related with data duplication.
+- You **don't need new APIs and API descriptions**, since you can just use HTTP + Content Negotiation to fetch specific items. The data itself is browseable, like webpages are.
 - You can **easily merge linked datasets** without any collissions in identifiers. This is because URLs are unique even accross multiple domains.
 - Linked data can be converted to **many serialization formats** (here's a blogpost that makes a coparison)[/blog/rdf-serialization-formats]. It's easy to convert Linked Data to JSON, but the other way around is more difficult.
 - Linked data is a standard with **many available tools, libraries and query options** (e.g. SPARQL).
 
+## Disadvantages of linked data
+
+- Creating new linked data can be **more time consuming**, since you are expected to use (working) links instead of the words that come to mind.
+- It can be a bit **confusing** at first, especially the plurality of serization formats.
+- There is [no native support for sequential data / arrays in RDF](/blog/ordered-data-in-rdf/).
+- A decent **URL startegy** becomes more important, especially when people will use your linked data.
+- **Rendering RDF data** in a fancy GUI / web application can be tricky (check out our [link-redux](https://github.com/fletcher91/link-redux) library for rendering linked data in React).
+
 ## Further reading
-If you want to learn more about the vision behind the semantic web and linked data, read the [2006 paper](https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf) by some of the original inventors).
+
+If you want to learn more about the vision behind the semantic web and linked data, read the [2006 paper](https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf) by some of the original inventors.
 If you're looking for inspiration and example projects, check out the [Linked Open Data Cloud](https://lod-cloud.net/).
 If you want to learn more about reasoning and ontologies, try the [W3C OWL primer](https://www.w3.org/TR/2012/REC-owl2-primer-20121211/).
 For SPARQL, the [Apache Jena tutorial](https://jena.apache.org/tutorials/sparql.html) could help.
 Check out the [/r/semanticweb](https://www.reddit.com/r/semanticweb/) community on Reddit for interesting posts and discussions.
-Here's [a list](https://twitter.com/joepmeindertsma/lists/linked-data) of some interesting Twitter accounts you might want to follow.
+Here's a list of some [interesting Twitter accounts](https://twitter.com/joepmeindertsma/lists/linked-data) you might want to follow.
+Check out the other articles of the [Ontola Linked Data Blog](/blog).
 
 If you want to get help with your linked data project, feel free to send me an [email](mailto:joep@ontola.io)!
