@@ -333,7 +333,7 @@ You can try this <a href="http://rdf-translator.appspot.com/">for yourself</a> a
 <p>The number of serialization options for RDF might be a bit intimidating, but you shouldn’t feel the need to understand and know every single one.
 The important thing to remember is that there’s a lot of options that are compatible with each other and use the RDF data model.</p>
 
-<p><em>Update: I’ve written an article about <a href="/blog/rdf-serilization-formats">when to choose which RDF serialization format</a>!</em></p>
+<p><em>Update: I’ve written an article about <a href="/blog/rdf-serialization-formats">when to choose which RDF serialization format</a>!</em></p>
 
 <h2 id="ontologies">Ontologies</h2>
 <p>Let’s tell a bit more about Tim. First of all, it might be useful to specify that Tim is a person:</p>
@@ -424,7 +424,7 @@ It’s perfectly possible to secure linked data using <a href="https://oauth.net
   <li>Linked data <strong>stays at the source</strong>, so it does not have to be copied as much. A user can simply request one specific part of the data, without having to download the entire dataset. This prevents a lot of expensive issues related with data duplication.</li>
   <li>You <strong>don’t need new APIs and API descriptions</strong>, since you can just use HTTP + Content Negotiation to fetch specific items. The data itself is browseable, like webpages are.</li>
   <li>You can <strong>easily merge linked datasets</strong> without any collissions in identifiers. This is because URLs are unique even accross multiple domains.</li>
-  <li>Linked data can be converted to <strong>many serialization formats</strong> (here’s a blogpost that makes a coparison)[/blog/rdf-serialization-formats]. It’s easy to convert Linked Data to JSON, but the other way around is more difficult.</li>
+  <li>Linked data can be converted to <strong>many serialization formats</strong>. <a href="/blog/rdf-serialization-formats">This blogpost compares them</a>. Since RDF contains more information, it’s easy to convert Linked Data to JSON (for example), but the other way around is more difficult.</li>
   <li>Linked data is a standard with <strong>many available tools, libraries and query options</strong> (e.g. SPARQL).</li>
 </ul>
 
