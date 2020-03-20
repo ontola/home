@@ -175,7 +175,7 @@ You can try this [for yourself](http://rdf-translator.appspot.com/) and discover
 The number of serialization options for RDF might be a bit intimidating, but you shouldn't feel the need to understand and know every single one.
 The important thing to remember is that there's a lot of options that are compatible with each other and use the RDF data model.
 
-_Update: I've written an article about [when to choose which RDF serialization format](/blog/rdf-serilization-formats)!_
+_Update: I've written an article about [when to choose which RDF serialization format](/blog/rdf-serialization-formats)!_
 
 ## Ontologies
 Let's tell a bit more about Tim. First of all, it might be useful to specify that Tim is a person:
@@ -266,7 +266,7 @@ It's perfectly possible to secure linked data using [OAuth](https://oauth.net/2/
 - Linked data **stays at the source**, so it does not have to be copied as much. A user can simply request one specific part of the data, without having to download the entire dataset. This prevents a lot of expensive issues related with data duplication.
 - You **don't need new APIs and API descriptions**, since you can just use HTTP + Content Negotiation to fetch specific items. The data itself is browseable, like webpages are.
 - You can **easily merge linked datasets** without any collissions in identifiers. This is because URLs are unique even accross multiple domains.
-- Linked data can be converted to **many serialization formats** (here's a blogpost that makes a coparison)[/blog/rdf-serialization-formats]. It's easy to convert Linked Data to JSON, but the other way around is more difficult.
+- Linked data can be converted to **many serialization formats**. [This blogpost compares them](/blog/rdf-serialization-formats). Since RDF contains more information, it's easy to convert Linked Data to JSON (for example), but the other way around is more difficult.
 - Linked data is a standard with **many available tools, libraries and query options** (e.g. SPARQL).
 
 ## Disadvantages of linked data
