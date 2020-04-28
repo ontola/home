@@ -176,11 +176,9 @@ HexTuples is an [NDJSON](http://ndjson.org/) (Newline Delimited JSON) based RDF 
 It is desgined to achieve the best possible performance in a JS context (i.e. the browser).
 It uses plain JSON arrays, in which the position of the items denote `subject`, `predicate`, `object`, `datatype`, `lang` and `graph`.
 
-```json
-[
-  ["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthDate", "1955-06-08", "http://www.w3.org/2001/XMLSchema#date", null, null],
-  ["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthPlace", "http://dbpedia.org/resource/London", null, null, null]
-]
+```ndjson
+["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthDate", "1955-06-08", "http://www.w3.org/2001/XMLSchema#date", null, null]
+["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthPlace", "http://dbpedia.org/resource/London", null, null, null]
 ```
 
 HexTuples is designed by Thom van Kalkeren (a colleague of mine) because he noticed that parsing / serialization was unnecessarily costly in our stack, even when using the relatively performant `n-quads` format.
