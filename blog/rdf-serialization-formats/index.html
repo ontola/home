@@ -196,7 +196,8 @@ It’s also quite feature-heavy, since it support <a href="http://www.ninebynine
 @prefix schema: &lt;http://schema.org/&gt;.
 @prefix dbpedia: &lt;http://dbpedia.org/resource/&gt;.
 
-&lt;tim&gt; schema:birthDate "1955-06-08".
+&lt;tim&gt; schema:birthDate "1955-06-08"^^&lt;http://www.w3.org/2001/XMLSchema#date&gt;.
+&lt;tim&gt; schema:birthPlace &lt;dbpedia:London&gt;.
 &lt;tim&gt; schema:birthPlace &lt;dbpedia:London&gt;.
 </code></pre>
 
@@ -215,7 +216,7 @@ This, in turn, made Turtle more popular, which means that it’s easier to find 
 </span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">schema:</span><span class="w"> </span><span class="nl">&lt;http://schema.org/&gt;</span><span class="p">.</span><span class="w">
 </span><span class="kd">@prefix</span><span class="w"> </span><span class="nn">dbpedia:</span><span class="w"> </span><span class="nl">&lt;http://dbpedia.org/resource/&gt;</span><span class="p">.</span><span class="w">
 
-</span><span class="nl">&lt;tim&gt;</span><span class="w"> </span><span class="nn">schema:</span><span class="n">birthDate</span><span class="w"> </span><span class="s">"1955-06-08"</span><span class="p">.</span><span class="w">
+</span><span class="nl">&lt;tim&gt;</span><span class="w"> </span><span class="nn">schema:</span><span class="n">birthDate</span><span class="w"> </span><span class="s">"1955-06-08"</span><span class="p">^^</span><span class="nl">&lt;http://www.w3.org/2001/XMLSchema#date&gt;</span><span class="p">.</span><span class="w">
 </span><span class="nl">&lt;tim&gt;</span><span class="w"> </span><span class="nn">schema:</span><span class="n">birthPlace</span><span class="w"> </span><span class="nl">&lt;dbpedia:London&gt;</span><span class="p">.</span><span class="w">
 </span></code></pre></div></div>
 
@@ -223,18 +224,19 @@ This, in turn, made Turtle more popular, which means that it’s easier to find 
 
 <p><a href="https://www.w3.org/TR/n-triples/">N-Triples</a> is a very simple subset of Turtle, which in turn is a simple subset of N3.
 N-Triples does not support <code class="highlighter-rouge">@prefixes</code> or any fancy features.
-This makes N-Triples trivial to parse / serialize, so many libraries are available and you can easily write one yourself.
-It also makes parsing highly performant.</p>
+This makes N-Triples trivial to parse / serialize.
+Therefore, many libraries for N-Triples are available and you can easily write one yourself.
+It also makes serialization and parsing highly performant.</p>
 
-<p>However, the lack of prefixes and shorthands makes the format lengthy and a bit tough to read.
-The lenghty URLs also mean that you’ll need some form of compression (e.g.g-zip) if you don’t want to waste precious bandwith or storage capacity.</p>
-
-<p>Use N-Triples for machine-to-machine communication, which is probably most of the time.
-Since writing a parser / serializer for N-Triples is so simple, it’s a good idea to support this pretty much always.</p>
-
-<pre><code class="language-n-triples">&lt;https://www.w3.org/People/Berners-Lee/&gt; &lt;http://schema.org/birthDate&gt; "1955-06-08".
+<pre><code class="language-n-triples">&lt;https://www.w3.org/People/Berners-Lee/&gt; &lt;http://schema.org/birthDate&gt; "1955-06-08"^^&lt;http://www.w3.org/2001/XMLSchema#date&gt;.
 &lt;https://www.w3.org/People/Berners-Lee/&gt; &lt;http://schema.org/birthPlace&gt; &lt;http://dbpedia.org/resource/London&gt;.
 </code></pre>
+
+<p>However, the lack of prefixes and shorthands makes the format lengthy and a bit tough to read.
+The lenghty URLs also mean that you’ll need some form of compression (e.g.g-zip) if you don’t want to waste precious bandwith or storage capacity, so make sure to enable that in your server.</p>
+
+<p>Since writing a parser / serializer for N-Triples is so simple, it’s a good idea to support this pretty much always.
+And since N-Triples is a suset of Turtle and N3, it means that Turtle / N3 parsers know how to deal with N-Triples, too.</p>
 
 <p><a href="https://www.w3.org/TR/n-quads/">N-Quads</a> are like N-Turiples, but they have an optional fourth column, which can be used to denote a graph label.
 The graph label often refers to the source of the data, e.g. the URL of the HTML document or some external RDF resource.</p>
@@ -266,13 +268,32 @@ Because it’s still valid JSON, it’s usable to those who don’t want to deal
 JSON arrays are converted to <a href="/blog/ordered-data-in-rdf/">RDF Lists</a>.
 I recommend spending some time in the <a href="https://json-ld.org/playground/">JSON-LD playground</a> to get familiar with how it works.</p>
 
-<p>Unfortunately, it’s <a href="http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/">difficult and costly to parse</a> if you need the RDF data instead of the JSON object.
-This means that there are few (bugfree) JSON-LD parsers available, and it also means that parsing JSON-LD is costly for your CPU.</p>
+<p>Unfortunately, JSON-LD <a href="http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/">difficult and costly to parse</a> if you need the RDF data instead of the JSON object.
+This complexity in parsing limits how many (bugfree) JSON-LD parsers are available, and it also means that parsing JSON-LD takes long.</p>
 
 <p>JSON-LD is a compromise.
 It supports RDF, it supports JSON, and it does both <em>okay</em>.
-Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.
-Since JSON is so popular, I think this is the way to go for <em>most</em> of the existing APIs.</p>
+Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.</p>
+
+<h2 id="hextuples">HexTuples</h2>
+
+<p>HexTuples is an <a href="http://ndjson.org/">NDJSON</a> (Newline Delimited JSON) based RDF serialization format.
+It is desgined to achieve the best possible performance in a JS context (i.e. the browser).
+It uses plain JSON arrays, in which the position of the items denote <code class="highlighter-rouge">subject</code>, <code class="highlighter-rouge">predicate</code>, <code class="highlighter-rouge">object</code>, <code class="highlighter-rouge">datatype</code>, <code class="highlighter-rouge">lang</code> and <code class="highlighter-rouge">graph</code>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">[</span><span class="s2">"https://www.w3.org/People/Berners-Lee/"</span><span class="p">,</span><span class="w"> </span><span class="s2">"http://schema.org/birthDate"</span><span class="p">,</span><span class="w"> </span><span class="s2">"1955-06-08"</span><span class="p">,</span><span class="w"> </span><span class="s2">"http://www.w3.org/2001/XMLSchema#date"</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">],</span><span class="w">
+  </span><span class="p">[</span><span class="s2">"https://www.w3.org/People/Berners-Lee/"</span><span class="p">,</span><span class="w"> </span><span class="s2">"http://schema.org/birthPlace"</span><span class="p">,</span><span class="w"> </span><span class="s2">"http://dbpedia.org/resource/London"</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">]</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>HexTuples is designed by Thom van Kalkeren (a colleague of mine) because he noticed that parsing / serialization was unnecessarily costly in our stack, even when using the relatively performant <code class="highlighter-rouge">n-quads</code> format.
+Since HexTuples is serialized in NDJSON, it benefits from the <a href="https://v8.dev/blog/cost-of-javascript-2019#json">highly optimised JSON parsers in browsers</a>.
+It uses NDJSON instead of regular JSON because it makes it easier to parse concatenated responses (multiple root objects in one document).
+As an added plus, this enables streaming parsing as well, which gives it another performance boost.
+Our JS RDF libraries (<a href="https://github.com/fletcher91/link-lib/">link-lib</a>, <a href="https://github.com/fletcher91/link-redux/">link-redux</a>) have an internal RDF graph model which uses these arrays as well, which means that there is minimal mapping cost when parsing Hex-Tuple statements.
+This format is especially suitable for real front-end applications that use dynamic RDF data.
+It is not yet properly documented.</p>
 
 <h2 id="hdt">HDT</h2>
 
@@ -299,14 +320,15 @@ Therefore, you can implement a serialization library (e.g. our <a href="https://
 <h2 id="tldr">TL;DR</h2>
 
 <ul>
+  <li>Use HDT if you have big static datasets and want the best performance and compression.</li>
+  <li>Use Hex-Tuples if you want high performance in JS with dynamic, non-static data.</li>
   <li>Use N-Triples / N-Quads if you want decent performance and high compatibility.</li>
-  <li>Use HDT if you have big static datasets and want the best performance.</li>
   <li>Use JSON-LD if you want to improve your exsting JSON API, and don’t need performant RDF parsing.</li>
   <li>Use Turtle if you want to manually read &amp; edit your RDF.</li>
   <li>Use Notation3 if you need RDF rules.</li>
   <li>Use RDFa to extend your existing HTML pages.</li>
   <li>Use RDF/XML if you need to use XML.</li>
-  <li>If you can, support all of them.</li>
+  <li>If you can, support all of them and use content negotation.</li>
 </ul>
 
 </div>

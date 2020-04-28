@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-03-20T08:18:03+01:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title><link href="https://ontola.io/nl/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/nl/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-04-28T09:16:47+02:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title><link href="https://ontola.io/nl/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/nl/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
 The &lt;code class=&quot;highlighter-rouge&quot;&gt;subject predicate object&lt;/code&gt; model does not support Arrays, and no - you can’t use the order in which triples appear.&lt;/p&gt;
 
 &lt;p&gt;However, RDF &lt;em&gt;does&lt;/em&gt; support &lt;em&gt;Collections&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt;) and &lt;em&gt;Containers&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Bag&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Seq&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Alt&lt;/code&gt;).
@@ -373,7 +373,8 @@ It’s also quite feature-heavy, since it support &lt;a href=&quot;http://www.ni
 @prefix schema: &amp;lt;http://schema.org/&amp;gt;.
 @prefix dbpedia: &amp;lt;http://dbpedia.org/resource/&amp;gt;.
 
-&amp;lt;tim&amp;gt; schema:birthDate &quot;1955-06-08&quot;.
+&amp;lt;tim&amp;gt; schema:birthDate &quot;1955-06-08&quot;^^&amp;lt;http://www.w3.org/2001/XMLSchema#date&amp;gt;.
+&amp;lt;tim&amp;gt; schema:birthPlace &amp;lt;dbpedia:London&amp;gt;.
 &amp;lt;tim&amp;gt; schema:birthPlace &amp;lt;dbpedia:London&amp;gt;.
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -392,7 +393,7 @@ This, in turn, made Turtle more popular, which means that it’s easier to find 
 &lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://schema.org/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;dbpedia:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://dbpedia.org/resource/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 
-&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;tim&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birthDate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1955-06-08&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;tim&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birthDate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1955-06-08&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;^^&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://www.w3.org/2001/XMLSchema#date&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;tim&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birthPlace&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;dbpedia:London&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -400,18 +401,19 @@ This, in turn, made Turtle more popular, which means that it’s easier to find 
 
 &lt;p&gt;&lt;a href=&quot;https://www.w3.org/TR/n-triples/&quot;&gt;N-Triples&lt;/a&gt; is a very simple subset of Turtle, which in turn is a simple subset of N3.
 N-Triples does not support &lt;code class=&quot;highlighter-rouge&quot;&gt;@prefixes&lt;/code&gt; or any fancy features.
-This makes N-Triples trivial to parse / serialize, so many libraries are available and you can easily write one yourself.
-It also makes parsing highly performant.&lt;/p&gt;
+This makes N-Triples trivial to parse / serialize.
+Therefore, many libraries for N-Triples are available and you can easily write one yourself.
+It also makes serialization and parsing highly performant.&lt;/p&gt;
 
-&lt;p&gt;However, the lack of prefixes and shorthands makes the format lengthy and a bit tough to read.
-The lenghty URLs also mean that you’ll need some form of compression (e.g.g-zip) if you don’t want to waste precious bandwith or storage capacity.&lt;/p&gt;
-
-&lt;p&gt;Use N-Triples for machine-to-machine communication, which is probably most of the time.
-Since writing a parser / serializer for N-Triples is so simple, it’s a good idea to support this pretty much always.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-n-triples&quot;&gt;&amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt; &amp;lt;http://schema.org/birthDate&amp;gt; &quot;1955-06-08&quot;.
+&lt;pre&gt;&lt;code class=&quot;language-n-triples&quot;&gt;&amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt; &amp;lt;http://schema.org/birthDate&amp;gt; &quot;1955-06-08&quot;^^&amp;lt;http://www.w3.org/2001/XMLSchema#date&amp;gt;.
 &amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt; &amp;lt;http://schema.org/birthPlace&amp;gt; &amp;lt;http://dbpedia.org/resource/London&amp;gt;.
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, the lack of prefixes and shorthands makes the format lengthy and a bit tough to read.
+The lenghty URLs also mean that you’ll need some form of compression (e.g.g-zip) if you don’t want to waste precious bandwith or storage capacity, so make sure to enable that in your server.&lt;/p&gt;
+
+&lt;p&gt;Since writing a parser / serializer for N-Triples is so simple, it’s a good idea to support this pretty much always.
+And since N-Triples is a suset of Turtle and N3, it means that Turtle / N3 parsers know how to deal with N-Triples, too.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.w3.org/TR/n-quads/&quot;&gt;N-Quads&lt;/a&gt; are like N-Turiples, but they have an optional fourth column, which can be used to denote a graph label.
 The graph label often refers to the source of the data, e.g. the URL of the HTML document or some external RDF resource.&lt;/p&gt;
@@ -443,13 +445,32 @@ Because it’s still valid JSON, it’s usable to those who don’t want to deal
 JSON arrays are converted to &lt;a href=&quot;/blog/ordered-data-in-rdf/&quot;&gt;RDF Lists&lt;/a&gt;.
 I recommend spending some time in the &lt;a href=&quot;https://json-ld.org/playground/&quot;&gt;JSON-LD playground&lt;/a&gt; to get familiar with how it works.&lt;/p&gt;
 
-&lt;p&gt;Unfortunately, it’s &lt;a href=&quot;http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/&quot;&gt;difficult and costly to parse&lt;/a&gt; if you need the RDF data instead of the JSON object.
-This means that there are few (bugfree) JSON-LD parsers available, and it also means that parsing JSON-LD is costly for your CPU.&lt;/p&gt;
+&lt;p&gt;Unfortunately, JSON-LD &lt;a href=&quot;http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/&quot;&gt;difficult and costly to parse&lt;/a&gt; if you need the RDF data instead of the JSON object.
+This complexity in parsing limits how many (bugfree) JSON-LD parsers are available, and it also means that parsing JSON-LD takes long.&lt;/p&gt;
 
 &lt;p&gt;JSON-LD is a compromise.
 It supports RDF, it supports JSON, and it does both &lt;em&gt;okay&lt;/em&gt;.
-Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.
-Since JSON is so popular, I think this is the way to go for &lt;em&gt;most&lt;/em&gt; of the existing APIs.&lt;/p&gt;
+Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.&lt;/p&gt;
+
+&lt;h2 id=&quot;hextuples&quot;&gt;HexTuples&lt;/h2&gt;
+
+&lt;p&gt;HexTuples is an &lt;a href=&quot;http://ndjson.org/&quot;&gt;NDJSON&lt;/a&gt; (Newline Delimited JSON) based RDF serialization format.
+It is desgined to achieve the best possible performance in a JS context (i.e. the browser).
+It uses plain JSON arrays, in which the position of the items denote &lt;code class=&quot;highlighter-rouge&quot;&gt;subject&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;predicate&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;object&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;datatype&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;lang&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;graph&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://www.w3.org/People/Berners-Lee/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://schema.org/birthDate&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1955-06-08&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://www.w3.org/2001/XMLSchema#date&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://www.w3.org/People/Berners-Lee/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://schema.org/birthPlace&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://dbpedia.org/resource/London&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;HexTuples is designed by Thom van Kalkeren (a colleague of mine) because he noticed that parsing / serialization was unnecessarily costly in our stack, even when using the relatively performant &lt;code class=&quot;highlighter-rouge&quot;&gt;n-quads&lt;/code&gt; format.
+Since HexTuples is serialized in NDJSON, it benefits from the &lt;a href=&quot;https://v8.dev/blog/cost-of-javascript-2019#json&quot;&gt;highly optimised JSON parsers in browsers&lt;/a&gt;.
+It uses NDJSON instead of regular JSON because it makes it easier to parse concatenated responses (multiple root objects in one document).
+As an added plus, this enables streaming parsing as well, which gives it another performance boost.
+Our JS RDF libraries (&lt;a href=&quot;https://github.com/fletcher91/link-lib/&quot;&gt;link-lib&lt;/a&gt;, &lt;a href=&quot;https://github.com/fletcher91/link-redux/&quot;&gt;link-redux&lt;/a&gt;) have an internal RDF graph model which uses these arrays as well, which means that there is minimal mapping cost when parsing Hex-Tuple statements.
+This format is especially suitable for real front-end applications that use dynamic RDF data.
+It is not yet properly documented.&lt;/p&gt;
 
 &lt;h2 id=&quot;hdt&quot;&gt;HDT&lt;/h2&gt;
 
@@ -476,14 +497,15 @@ Therefore, you can implement a serialization library (e.g. our &lt;a href=&quot;
 &lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;Use HDT if you have big static datasets and want the best performance and compression.&lt;/li&gt;
+  &lt;li&gt;Use Hex-Tuples if you want high performance in JS with dynamic, non-static data.&lt;/li&gt;
   &lt;li&gt;Use N-Triples / N-Quads if you want decent performance and high compatibility.&lt;/li&gt;
-  &lt;li&gt;Use HDT if you have big static datasets and want the best performance.&lt;/li&gt;
   &lt;li&gt;Use JSON-LD if you want to improve your exsting JSON API, and don’t need performant RDF parsing.&lt;/li&gt;
   &lt;li&gt;Use Turtle if you want to manually read &amp;amp; edit your RDF.&lt;/li&gt;
   &lt;li&gt;Use Notation3 if you need RDF rules.&lt;/li&gt;
   &lt;li&gt;Use RDFa to extend your existing HTML pages.&lt;/li&gt;
   &lt;li&gt;Use RDF/XML if you need to use XML.&lt;/li&gt;
-  &lt;li&gt;If you can, support all of them.&lt;/li&gt;
+  &lt;li&gt;If you can, support all of them and use content negotation.&lt;/li&gt;
 &lt;/ul&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Contrary to some other datamodels, RDF is not bound by a single serializiation format. Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my linked data?</summary></entry><entry><title type="html">Upgrade JSON-HAL to JSON-LD</title><link href="https://ontola.io/nl/blog/json-hal-ld/" rel="alternate" type="text/html" title="Upgrade JSON-HAL to JSON-LD" /><published>2018-08-29T00:00:00+02:00</published><updated>2018-08-29T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/json-hal-ld</id><content type="html" xml:base="https://ontola.io/nl/blog/json-hal-ld/">&lt;p&gt;&lt;a href=&quot;http://stateless.co/hal_specification.html&quot;&gt;JSON-HAL&lt;/a&gt; and &lt;a href=&quot;https://json-ld.org/&quot;&gt;JSON-LD&lt;/a&gt; are pretty popular formats for desiging APIs. They both have &lt;a href=&quot;https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/&quot;&gt;their merits&lt;/a&gt;, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This way, you can keep compatibility with HAL clients and benefit from the &lt;a href=&quot;/what-is-linked-data&quot;&gt;advantages of linked data&lt;/a&gt;, such as conversion to other RDF formats.&lt;/p&gt;
 
 &lt;p&gt;Let’s start with a JSON-HAL body object from the &lt;a href=&quot;https://tools.ietf.org/html/draft-kelly-json-hal-08&quot;&gt;docs&lt;/a&gt;.&lt;/p&gt;
