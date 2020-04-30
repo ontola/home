@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2020-04-28T09:58:32+02:00</updated><id>https://ontola.io/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title><link href="https://ontola.io/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2020-04-30T12:02:28+02:00</updated><id>https://ontola.io/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title><link href="https://ontola.io/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
 The &lt;code class=&quot;highlighter-rouge&quot;&gt;subject predicate object&lt;/code&gt; model does not support Arrays, and no - you can’t use the order in which triples appear.&lt;/p&gt;
 
 &lt;p&gt;However, RDF &lt;em&gt;does&lt;/em&gt; support &lt;em&gt;Collections&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt;) and &lt;em&gt;Containers&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Bag&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Seq&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Alt&lt;/code&gt;).
@@ -181,21 +181,21 @@ Linked data is highly re-usable in other applications without needing duplicatio
 &lt;p&gt;However, working with linked data poses new challenges, such as choosing the right data store for the statements.
 You might think that an existing triple store is the most logical option since we’re working with RDF, but you don’t need triple stores to do serve linked data.
 Triple stores make a lot of sense when you have schema-less RDF data and require SPARQL as a query language.
-We didn’t need those, as our schema was constrained by our internal models, and SPARQL didn’t suit our query goals.
-The primary goal was providing full-text search and RDF REST resources.&lt;/p&gt;
+We didn’t need those, as our schema was constrained by our internal models, and SPARQL didn’t suit our query requirements.
+The primary goal was providing full-text search and RESTful RDF resources.&lt;/p&gt;
 
-&lt;p&gt;Before we joined the project, Elasticsearch was used as the source of truth and the only data store.
-It ticked the text search box, as Elasticsearch has an extremely detailed and comprehensive query-language, but it is not designed for relational database queries.
-It’s not a database and as such, it’s not ACID compliant (i.e., highly resistant to corruption or data loss).&lt;/p&gt;
+&lt;p&gt;Before we joined the project, Elasticsearch was used as the only data store.
+It ticked the text search box, as Elasticsearch has a powerful text search query-language, but it is not designed for relational database queries.
+Also, it’s not a database as it’s not ACID compliant (i.e., highly resistant to corruption or data loss).&lt;/p&gt;
 
-&lt;p&gt;So, looking for a better store, we started with ArangoDB, which is a NoSQL document-based graph store.
-It seemed appropriate at the time because we were working with lots of documents, all connected to each other in a graph.
+&lt;p&gt;So, looking for a suitable store, we started with ArangoDB, which is a NoSQL document-based graph store.
+It seemed appropriate at the time because we were working with lots of documents, all connected in a graph.
 However, we found that the graph queries were taking too long to be suitable for this project.&lt;/p&gt;
 
-&lt;p&gt;Next on our quest we also tried Neo4j, which is the market leader in Graph databases.
-As promised it has a powerful query language called Cypher, but we found that memory use was growing too early too fast.
-Another thing is we found it quite tricky to store RDF data and use IRIs as attributes.
-In theory, it’s possible, but not ideal in practice since IRIs have to be escaped and queries become long and dreadful.
+&lt;p&gt;Next we tried Neo4j, which is the market leader in Graph databases.
+It offers a powerful query language called Cypher, but we found that memory use was growing too early too fast.
+Another problem related to storing RDF in Neo4j - it should be possible, but there are some differences between the graph models of RDF and Neo4j.
+We had some trouble with using URLs as keys (a requirement for RDF), which had to be escaped, making the queries long and dreadful.
 Also, you have to think about how to cope with external resources.
 Whereas in an RDF store one can add a triple referencing an external resource, in Neo4j one should create a node to mimic the same behavior.&lt;/p&gt;
 
@@ -206,7 +206,7 @@ I am not saying that those graph databases are not good enough, merely not suita
 &lt;p&gt;Since the project depends heavily on fast text search queries, we found that Elasticsearch is still essential.
 So we kept it on for full-text searching.
 But since its Query DSL is changing quite a lot over time, it is not suitable as a stable API.
-We had to come up with an answer to this and created the ORI API service which can be found here: https://id.openraadsinformatie.nl/
+We had to come up with an answer to this and created the ORI API service which can be found &lt;a href=&quot;https://id.openraadsinformatie.nl/&quot;&gt;here&lt;/a&gt;.
 The idea here was that every resource should have its own resolvable identifier that would stay the same.&lt;/p&gt;
 
 &lt;h2 id=&quot;open-data&quot;&gt;Open Data&lt;/h2&gt;
@@ -293,13 +293,13 @@ yarn add @ontologies/core @ontologies/schema
 
 &lt;p&gt;We’ve currently added ActivityStreams, DCElements, DCTerms, DCMIType, FOAF, OWL, PROV-O, RDF, RDFS, Schema, SHACL, SKOS and XSD.&lt;/p&gt;
 
-&lt;p&gt;PRs for new ontologies are welcome!&lt;/p&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Ontologies are resources that describe concepts and how several classes and properties in a certain domain relate to each other. For example, if you’re creating a social network app, you might want to use the Friend of a Friend (FOAF) ontology, which describes things like “Person” and “knows”. When creating linked data applications, you’re likely to work a lot with ontologies. Since ontologies, their classes and their properties all use URLs as identifiers, that means that you might write a lot of long strings. This is not only bothersome, but also a source of unnecessary typos and a possible performance bottleneck.</summary></entry><entry><title type="html">What’s the best RDF serialization format?</title><link href="https://ontola.io/blog/rdf-serialization-formats/" rel="alternate" type="text/html" title="What's the best RDF serialization format?" /><published>2019-06-29T00:00:00+02:00</published><updated>2019-06-29T00:00:00+02:00</updated><id>https://ontola.io/blog/rdf-serialization-formats</id><content type="html" xml:base="https://ontola.io/blog/rdf-serialization-formats/">&lt;p&gt;Contrary to some other datamodels, RDF is not bound by a single serializiation format.
+&lt;p&gt;PRs for new ontologies are welcome!&lt;/p&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Ontologies are resources that describe concepts and how several classes and properties in a certain domain relate to each other. For example, if you’re creating a social network app, you might want to use the Friend of a Friend (FOAF) ontology, which describes things like “Person” and “knows”. When creating linked data applications, you’re likely to work a lot with ontologies. Since ontologies, their classes and their properties all use URLs as identifiers, that means that you might write a lot of long strings. This is not only bothersome, but also a source of unnecessary typos and a possible performance bottleneck.</summary></entry><entry><title type="html">What’s the best RDF serialization format?</title><link href="https://ontola.io/blog/rdf-serialization-formats/" rel="alternate" type="text/html" title="What's the best RDF serialization format?" /><published>2019-06-29T00:00:00+02:00</published><updated>2019-06-29T00:00:00+02:00</updated><id>https://ontola.io/blog/rdf-serialization-formats</id><content type="html" xml:base="https://ontola.io/blog/rdf-serialization-formats/">&lt;p&gt;Contrary to some other data models, RDF is not bound by a single serialization format.
 Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my &lt;a href=&quot;/what-is-linked-data&quot;&gt;linked data&lt;/a&gt;?&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;To answer the title’s question: &lt;em&gt;it depends&lt;/em&gt;, but probably N-Triples / N-Quads.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;So, let’s discuss the various formats and when you should use which.
-The order in which they appear is chronological, and does not reflect preference.
+&lt;p&gt;So, let’s discuss the various formats and when you should use which one.
+The order in which they appear is chronological and does not reflect preference.
 Skip to the &lt;a href=&quot;#tldr&quot;&gt;TL;DR&lt;/a&gt; if you’re feeling hasty.&lt;/p&gt;
 
 &lt;h2 id=&quot;rdfxml&quot;&gt;RDF/XML&lt;/h2&gt;
@@ -312,7 +312,7 @@ Many systems were able to parse, store and serialize XML when RDF was invented a
 This makes RDF/XML conceptually difficult and quite verbose, compared to other standards.
 For XML developers, it might look familiar, but since it does not clearly reflect the triple model, it will probably cause confusion.&lt;/p&gt;
 
-&lt;p&gt;Use it only if you really need to work with XML.&lt;/p&gt;
+&lt;p&gt;Use it only if you need to work with XML.&lt;/p&gt;
 
 &lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot;?&amp;gt;&lt;/span&gt;
 
@@ -331,16 +331,16 @@ For XML developers, it might look familiar, but since it does not clearly reflec
 &lt;h2 id=&quot;rdfa&quot;&gt;RDFa&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.w3.org/TR/rdfa-core/&quot;&gt;RDFa&lt;/a&gt; is RDF inside HTML.
-By adding attributes to HTML elements, you can give semantic context to content inside your webpages.
+By adding attributes to HTML elements, you can give semantic context to the content inside your webpages.
 Google parses it (amongst &lt;a href=&quot;#JSON-LD&quot;&gt;JSON-LD&lt;/a&gt;, &lt;a href=&quot;https://w3c.github.io/microdata/#microdata-and-rdf&quot;&gt;Microdata&lt;/a&gt;, Microformats and Pagemaps) to &lt;a href=&quot;https://developers.google.com/custom-search/docs/structured_data&quot;&gt;enhance their search previews&lt;/a&gt;, although they &lt;a href=&quot;https://www.searchenginejournal.com/google-structured-data-preference/297479/&quot;&gt;recommend using JSON-LD&lt;/a&gt;.
 W3C’s own Respec documentation tool &lt;a href=&quot;https://github.com/w3c/respec/issues/1503&quot;&gt;dropped support for RDFa&lt;/a&gt;,
-mainly because adoption of RDFa was too low, the required code was messy and even Google didn’t parse it correctly.&lt;/p&gt;
+mainly because the adoption of RDFa was too low, the required code was messy and even Google didn’t parse it correctly.&lt;/p&gt;
 
 &lt;p&gt;RDFa is fundamentally different from the other mentioned formats: it combines RDF with view data (HTML).
 This means that it makes your HTML documents a bit larger and more complicated, and parsing it for triples will be more costly than parsing an RDF only format like N-Triples.
-This makes it less useable if your application relies on a lot of RDF data.&lt;/p&gt;
+This makes it less useful if your application relies on a lot of RDF data.&lt;/p&gt;
 
-&lt;p&gt;Use RDFa if you want to make your existing website / blog / HTML based application more semantic.&lt;/p&gt;
+&lt;p&gt;Use RDFa if you want to make your existing website/ blog / HTML based application more semantic.&lt;/p&gt;
 
 &lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;about=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.w3.org/People/Berners-Lee/&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;
@@ -361,13 +361,13 @@ This makes it less useable if your application relies on a lot of RDF data.&lt;/
 
 &lt;p&gt;Tim-Berners Lee wanted something better than RDF/XML, and came up with &lt;a href=&quot;https://www.w3.org/TeamSubmission/n3/&quot;&gt;N3&lt;/a&gt;.
 Contrary to RDF/XML, N3 closely resembles the RDF Subject / Predicate / Object model.
-This makes N3 very easy on the eyes, and helps to understand how RDF works.
+This makes N3 very easy on the eyes and helps to understand how RDF works.
 By using @prefixes, N3 can be quite compact.&lt;/p&gt;
 
 &lt;p&gt;However, N3 is relatively costly to serialize, which could hinder performance.
-It’s also quite feature-heavy, since it support &lt;a href=&quot;http://www.ninebynine.org/RDFNotes/RDFFactsAndRules.html&quot;&gt;RDF rules&lt;/a&gt;, which makes it harder to parse.&lt;/p&gt;
+It’s also quite feature-heavy since it supports &lt;a href=&quot;http://www.ninebynine.org/RDFNotes/RDFFactsAndRules.html&quot;&gt;RDF rules&lt;/a&gt;, which makes it harder to parse.&lt;/p&gt;
 
-&lt;p&gt;Unless you need the reasoning / rules features of N3, use its more popular (and very similar) successor Turtle.&lt;/p&gt;
+&lt;p&gt;Unless you need the reasoning/rules features of N3, use its more popular (and very similar) successor Turtle.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-notation3&quot;&gt;@prefix tim: &amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt;.
 @prefix schema: &amp;lt;http://schema.org/&amp;gt;.
@@ -387,7 +387,7 @@ This, in turn, made Turtle more popular, which means that it’s easier to find 
 
 &lt;p&gt;Unfortunately, it’s still quite costly to parse compared to &lt;a href=&quot;#N-Triples&quot;&gt;N-Triples&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Turtle is highly human-readable and is therefore a good candidate if you need to edit RDF by hand.&lt;/p&gt;
+&lt;p&gt;Turtle is highly human-readable and is, therefore, a good candidate if you need to edit RDF by hand.&lt;/p&gt;
 
 &lt;div class=&quot;language-turtle highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;tim:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;https://www.w3.org/People/Berners-Lee/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;@prefix&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;schema:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&amp;lt;http://schema.org/&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -420,8 +420,8 @@ The graph label often refers to the source of the data, e.g. the URL of the HTML
 
 &lt;h2 id=&quot;json-ld-jsonld&quot;&gt;JSON-LD (.jsonld)&lt;/h2&gt;
 
-&lt;p&gt;JSON is without a doubt the most popular way to handle data in webapplications.
-&lt;a href=&quot;https://json-ld.org/spec/latest/json-ld/&quot;&gt;JSON-LD&lt;/a&gt; is an extension of JSON, and is valid JSON as well.
+&lt;p&gt;JSON is, without a doubt, the most popular way to handle data in web applications.
+&lt;a href=&quot;https://json-ld.org/spec/latest/json-ld/&quot;&gt;JSON-LD&lt;/a&gt; is an extension of JSON and is valid JSON as well.
 You can turn your regular plain old JSON into RDF by adding &lt;a href=&quot;https://json-ld.org/spec/latest/json-ld/#the-context&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@context&lt;/code&gt;&lt;/a&gt;.
 This object mainly serves as a mapping, so your plain keys get turned into fancy links to RDF Classes and Properties.
 You can add context either by adding an &lt;code class=&quot;highlighter-rouge&quot;&gt;@content&lt;/code&gt; header in your HTTP response, by including the link in your JSON body, or by adding the entire &lt;code class=&quot;highlighter-rouge&quot;&gt;@context&lt;/code&gt; object to you JSON.
@@ -473,8 +473,8 @@ It is not yet properly documented.&lt;/p&gt;
 &lt;h2 id=&quot;hdt&quot;&gt;HDT&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.rdfhdt.org/what-is-hdt/&quot;&gt;HDT&lt;/a&gt; (Header, Dictionary, Triples) is a compact data structure and binary serialization format for RDF, so it’s more than just a way to serialize RDF.
-Its data structure saves space and bandwith (it’s half the size of gzipped N-Triples).
-It’s design has indexing built-in, which means it can be searched or browsed efficiently.
+Its data structure saves space and bandwidth (it’s half the size of gzipped N-Triples).
+Its design has indexing built-in, which means it can be searched or browsed efficiently.
 Check out the impressive &lt;a href=&quot;http://www.rdfhdt.org/technical-specification/&quot;&gt;technical specification&lt;/a&gt; if you want to learn more about how it works.
 HDT compression is a costly process, so it’s not that attractive for highly dynamic data / data that changes over time.
 Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.&lt;/p&gt;
@@ -489,7 +489,7 @@ I’ve never used it, but it sounds interesting, although you’ll need Thrift t
 &lt;h2 id=&quot;let-your-users-choose-a-format&quot;&gt;Let your users choose a format&lt;/h2&gt;
 
 &lt;p&gt;Choosing an RDF serialization format for your application or service might be a false dilemma.
-Since you control your application, and probably have an internal model, you can offer multiple serialization options.
+Since you control your application and probably have an internal model, you can offer multiple serialization options.
 Therefore, you can implement a serialization library (e.g. our &lt;a href=&quot;https://github.com/ontola/rdf-serializers&quot;&gt;rdf-serializers&lt;/a&gt; gem for Rails) and use &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation&quot;&gt;HTTP Content negotation&lt;/a&gt;, so your project can handle all kinds of formats.&lt;/p&gt;
 
 &lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
@@ -504,7 +504,7 @@ Therefore, you can implement a serialization library (e.g. our &lt;a href=&quot;
   &lt;li&gt;Use RDFa to extend your existing HTML pages.&lt;/li&gt;
   &lt;li&gt;Use RDF/XML if you need to use XML.&lt;/li&gt;
   &lt;li&gt;If you can, support all of them and use content negotation.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Contrary to some other datamodels, RDF is not bound by a single serializiation format. Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my linked data?</summary></entry><entry><title type="html">Upgrade JSON-HAL to JSON-LD</title><link href="https://ontola.io/blog/json-hal-ld/" rel="alternate" type="text/html" title="Upgrade JSON-HAL to JSON-LD" /><published>2018-08-29T00:00:00+02:00</published><updated>2018-08-29T00:00:00+02:00</updated><id>https://ontola.io/blog/json-hal-ld</id><content type="html" xml:base="https://ontola.io/blog/json-hal-ld/">&lt;p&gt;&lt;a href=&quot;http://stateless.co/hal_specification.html&quot;&gt;JSON-HAL&lt;/a&gt; and &lt;a href=&quot;https://json-ld.org/&quot;&gt;JSON-LD&lt;/a&gt; are pretty popular formats for desiging APIs. They both have &lt;a href=&quot;https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/&quot;&gt;their merits&lt;/a&gt;, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This way, you can keep compatibility with HAL clients and benefit from the &lt;a href=&quot;/what-is-linked-data&quot;&gt;advantages of linked data&lt;/a&gt;, such as conversion to other RDF formats.&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Contrary to some other data models, RDF is not bound by a single serialization format. Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my linked data?</summary></entry><entry><title type="html">Upgrade JSON-HAL to JSON-LD</title><link href="https://ontola.io/blog/json-hal-ld/" rel="alternate" type="text/html" title="Upgrade JSON-HAL to JSON-LD" /><published>2018-08-29T00:00:00+02:00</published><updated>2018-08-29T00:00:00+02:00</updated><id>https://ontola.io/blog/json-hal-ld</id><content type="html" xml:base="https://ontola.io/blog/json-hal-ld/">&lt;p&gt;&lt;a href=&quot;http://stateless.co/hal_specification.html&quot;&gt;JSON-HAL&lt;/a&gt; and &lt;a href=&quot;https://json-ld.org/&quot;&gt;JSON-LD&lt;/a&gt; are pretty popular formats for desiging APIs. They both have &lt;a href=&quot;https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/&quot;&gt;their merits&lt;/a&gt;, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This way, you can keep compatibility with HAL clients and benefit from the &lt;a href=&quot;/what-is-linked-data&quot;&gt;advantages of linked data&lt;/a&gt;, such as conversion to other RDF formats.&lt;/p&gt;
 
 &lt;p&gt;Let’s start with a JSON-HAL body object from the &lt;a href=&quot;https://tools.ietf.org/html/draft-kelly-json-hal-08&quot;&gt;docs&lt;/a&gt;.&lt;/p&gt;
 
@@ -789,14 +789,14 @@ The links solve three problems:&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;These three characteristics make linked data more reusable.
-The data quality has been improved, because other people and machines can now interpret and use the information more reliably.&lt;/p&gt;
+The data quality has been improved because other people and machines can now interpret and use the information more reliably.&lt;/p&gt;
 
 &lt;p&gt;Let’s look at the questions about the first table again.
-The ambiguity in the table is obvious to someone who reuses the data, but is not apparent for the creator of the table.
+The ambiguity in the table is obvious to someone who reuses the data but is not apparent for the creator of the table.
 I made the table, I knew which Tim and London I was talking about, I knew how the birthdate should be read.
 There was no ambiguity for me.&lt;/p&gt;
 
-&lt;p&gt;This closed worldview is the root cause of much of the problems in digital systems today.
+&lt;p&gt;This closed worldview is the root cause of many of the problems in digital systems today.
 We tend to ignore the information that is stored in the context of data.
 Developers tend to make software that produces data that only their systems can fully understand.
 They have their own assumptions, identifiers, and models.
@@ -805,7 +805,7 @@ Linked data solves this problem by removing all ambiguity about what data repres
 &lt;h2 id=&quot;triples--the-rdf-data-model&quot;&gt;Triples &amp;amp; the RDF data model&lt;/h2&gt;
 
 &lt;p&gt;In the tables above, we were making two separate statements about Tim: one about his birthdate and one about his birthplace.
-Each statement had it’s own cell in the table.
+Each statement had its own cell in the table.
 In linked data, these statements are called  &lt;em&gt;triples&lt;/em&gt;.
 That’s because every triple statement has three parts: a &lt;em&gt;subject&lt;/em&gt;, a &lt;em&gt;predicate&lt;/em&gt;, and an &lt;em&gt;object&lt;/em&gt;.&lt;/p&gt;
 
@@ -841,7 +841,7 @@ RDF is the de facto standard for linked data.&lt;/p&gt;
 
 &lt;p&gt;The object of the first triple, for the birthPlace, contains a link (an &lt;a href=&quot;https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier&quot;&gt;&lt;em&gt;IRI&lt;/em&gt;&lt;/a&gt;) to some other resource (London).
 The object of the second triple (the birthDate) is not a link, but a so-called &lt;em&gt;literal value&lt;/em&gt;.
-The literal value cannot have any properties, since it’s not a resource.&lt;/p&gt;
+The literal value cannot have any properties since it’s not a resource.&lt;/p&gt;
 
 &lt;p&gt;That’s a lot of new words and concepts, which can be a bit confusing at first.
 However, they will appear all the time when you’re actually working with linked data, so try to get an accurate mental model of these concepts.&lt;/p&gt;
@@ -919,7 +919,7 @@ We can use &lt;em&gt;namespaces&lt;/em&gt; (denoted with  &lt;code class=&quot;h
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;The Turtle, JSON-LD and HTML+RDFa each contain the same RDF triples and can be automatically converted into each other.
+&lt;p&gt;The Turtle, JSON-LD, and HTML+RDFa each contain the same RDF triples and can be automatically converted into each other.
 You can try this &lt;a href=&quot;http://rdf-translator.appspot.com/&quot;&gt;for yourself&lt;/a&gt; and discover even more RDF serialization formats, such as microformats, RDF/XML (don’t use this, &lt;a href=&quot;https://github.com/mhausenblas/rdfxml.info/blob/master/input/RDF-XML%20sucks%20-%20praise%20and%20damnation.txt&quot;&gt;please&lt;/a&gt;) and N-Triples.&lt;/p&gt;
 
 &lt;p&gt;The number of serialization options for RDF might be a bit intimidating, but you shouldn’t feel the need to understand and know every single one.
@@ -958,6 +958,18 @@ You can even generate forms and other UI components in React using libraries suc
 
 &lt;p&gt;The power of the ontology goes far, but that probably deserves its own article.&lt;/p&gt;
 
+&lt;h2 id=&quot;what-can-we-do-with-linked-data&quot;&gt;What can we do with linked data&lt;/h2&gt;
+&lt;p&gt;The use of links help to provide extra information, remove ambiguity, and help with standardization.
+These are abstract advantages, but they have a real-world impact on how we can use data.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Linked data enables a decentralized architecture. Since URLs directly point to the source, even if the data is on a completely different domain,&lt;/li&gt;
+  &lt;li&gt;Because of the decentralized nature, data tends to stay at the source. This means that less data is copied, and we have&lt;/li&gt;
+  &lt;li&gt;Since linked data is highly standardized, writing interfaces becomes easy. This means that you don’t need expensive.&lt;/li&gt;
+  &lt;li&gt;We can merge two datasets, without having any collisions in identifiers. This is because URLs are unique even across multiple domains. This might seem like a minor benefit, but it makes integration of multiple systems exceptionally trivial.&lt;/li&gt;
+  &lt;li&gt;Linked data can be converted to many serialization formats. It’s easy to convert Linked Data to JSON, but the other way around is more difficult.&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;publishing-linked-data&quot;&gt;Publishing linked data&lt;/h2&gt;
 
 &lt;p&gt;Linked data is meant to be shared.
@@ -967,23 +979,23 @@ We can do this in several ways:&lt;/p&gt;
 Serialize your RDF the way you like and make it accessible as a single file.
 It’s the easiest and often the cheapest way to publish your data.
 However, if someone just wants to know something about a single subject (or resource) in your data dump, he’d have to download the entire data dump.
-That’s cumbersome, and makes your data not as re-usable as it could be.
+That’s cumbersome and makes your data not as re-usable as it could be.
 All processing and querying efforts are left to the downloader.
 Furthermore, data dumps are hard to manage and therefore likely to be outdated.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Subject pages&lt;/strong&gt; to the rescue!
 Make the RDF data available through HTTP at the location where you’d expect it: at &lt;em&gt;the same link as the resource IRI&lt;/em&gt;.
-Doing this makes your data truly linked, since every resource can now be downloaded separately and automatically.
+Doing this makes your data truly linked since every resource can now be downloaded separately and automatically.
 Subject pages can be either &lt;em&gt;static&lt;/em&gt; or &lt;em&gt;dynamic&lt;/em&gt;.
 Static subject pages are simply RDF files hosted on some URL.
 Sharing static subject pages is very simple, but static data is hard to maintain or edit.
 Dynamic pages are generated by a server, so the underlying data could be edited by any framework.
-Another advantage of using dynamic subject pages, is that you can serialize to many different formats.
+Another advantage of using dynamic subject pages is that you can serialize to many different formats.
 You can show HTML to humans and RDF to computers.
 For example, our project &lt;a href=&quot;https://argu.co&quot;&gt;Argu&lt;/a&gt; (an online democracy and discussion tool) works like this.
 Visit a webpage (or subject page) (e.g. &lt;a href=&quot;https://argu.co/nederland/m/46&quot;&gt;argu.co/nederland/m/46&lt;/a&gt;).
 If you want the same content as linked data, add a serialization extension (e.g. &lt;a href=&quot;https://argu.co/nederland/m/46.ttl&quot;&gt;.ttl&lt;/a&gt;) or use &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept&quot;&gt;HTTP Accept Headers&lt;/a&gt;.
-Note that even though this project serializes to all sorts of RDF formats, the project itself does not use an RDF database / triple store.&lt;/p&gt;
+Note that even though this project serializes all sorts of RDF formats, the project itself does not use an RDF database / triple store.&lt;/p&gt;
 
 &lt;p&gt;Perhaps the most popular and easiest way to publish linked data is with &lt;strong&gt;annotated pages&lt;/strong&gt;.
 Remember the RDFa serialization format, discussed above? That’s annotated pages.
@@ -995,7 +1007,7 @@ Parsing (reading) RDFa from a large HTML document will always be more expensive 
 &lt;p&gt;A radically different way to share your linked data is through a &lt;strong&gt;SPARQL&lt;/strong&gt; endpoint.
 SPARQL is a &lt;em&gt;query language&lt;/em&gt;, like SQL, designed to perform complex search queries in large RDF graphs.
 With SPARQL, you can run queries such as ‘which pianists live in the Netherlands’, or ‘what proteins are involved in signal transductions and related to pyramidal neurons?’.
-SPARQL is without any doupt extremely powerful, but using it as the primary measure to share your RDF data might be difficult for your project.
+SPARQL is without any doubt extremely powerful, but using it as the primary measure to share your RDF data might be difficult for your project.
 If you want one, you will probably need to store your RDF data in a specialized triple store that features a SPARQL endpoint.
 Not many databases do, unfortunately, so you’ll be limited to either proprietary solutions or projects with relatively little adoption and support.
 Ask yourself if your users will need to run complex queries on your data.

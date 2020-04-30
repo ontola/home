@@ -170,21 +170,21 @@ Linked data is highly re-usable in other applications without needing duplicatio
 <p>However, working with linked data poses new challenges, such as choosing the right data store for the statements.
 You might think that an existing triple store is the most logical option since we’re working with RDF, but you don’t need triple stores to do serve linked data.
 Triple stores make a lot of sense when you have schema-less RDF data and require SPARQL as a query language.
-We didn’t need those, as our schema was constrained by our internal models, and SPARQL didn’t suit our query goals.
-The primary goal was providing full-text search and RDF REST resources.</p>
+We didn’t need those, as our schema was constrained by our internal models, and SPARQL didn’t suit our query requirements.
+The primary goal was providing full-text search and RESTful RDF resources.</p>
 
-<p>Before we joined the project, Elasticsearch was used as the source of truth and the only data store.
-It ticked the text search box, as Elasticsearch has an extremely detailed and comprehensive query-language, but it is not designed for relational database queries.
-It’s not a database and as such, it’s not ACID compliant (i.e., highly resistant to corruption or data loss).</p>
+<p>Before we joined the project, Elasticsearch was used as the only data store.
+It ticked the text search box, as Elasticsearch has a powerful text search query-language, but it is not designed for relational database queries.
+Also, it’s not a database as it’s not ACID compliant (i.e., highly resistant to corruption or data loss).</p>
 
-<p>So, looking for a better store, we started with ArangoDB, which is a NoSQL document-based graph store.
-It seemed appropriate at the time because we were working with lots of documents, all connected to each other in a graph.
+<p>So, looking for a suitable store, we started with ArangoDB, which is a NoSQL document-based graph store.
+It seemed appropriate at the time because we were working with lots of documents, all connected in a graph.
 However, we found that the graph queries were taking too long to be suitable for this project.</p>
 
-<p>Next on our quest we also tried Neo4j, which is the market leader in Graph databases.
-As promised it has a powerful query language called Cypher, but we found that memory use was growing too early too fast.
-Another thing is we found it quite tricky to store RDF data and use IRIs as attributes.
-In theory, it’s possible, but not ideal in practice since IRIs have to be escaped and queries become long and dreadful.
+<p>Next we tried Neo4j, which is the market leader in Graph databases.
+It offers a powerful query language called Cypher, but we found that memory use was growing too early too fast.
+Another problem related to storing RDF in Neo4j - it should be possible, but there are some differences between the graph models of RDF and Neo4j.
+We had some trouble with using URLs as keys (a requirement for RDF), which had to be escaped, making the queries long and dreadful.
 Also, you have to think about how to cope with external resources.
 Whereas in an RDF store one can add a triple referencing an external resource, in Neo4j one should create a node to mimic the same behavior.</p>
 
@@ -195,7 +195,7 @@ I am not saying that those graph databases are not good enough, merely not suita
 <p>Since the project depends heavily on fast text search queries, we found that Elasticsearch is still essential.
 So we kept it on for full-text searching.
 But since its Query DSL is changing quite a lot over time, it is not suitable as a stable API.
-We had to come up with an answer to this and created the ORI API service which can be found here: https://id.openraadsinformatie.nl/
+We had to come up with an answer to this and created the ORI API service which can be found <a href="https://id.openraadsinformatie.nl/">here</a>.
 The idea here was that every resource should have its own resolvable identifier that would stay the same.</p>
 
 <h2 id="open-data">Open Data</h2>
