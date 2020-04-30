@@ -1,17 +1,22 @@
-## Ontola webdevelopers
+## Freelance web development
 
-We have various talented developers in our team, who'd love to help you realize your webapplications.
+We have various talented developers in our team, who'd love to help you realize your web applications.
 Our developers can work remotely from our office in Utrecht, but on-site development is also possible.
 
-## Technology
+## Front-end
 
-- Python / Django
 - Typescript / Javascript
-- Kotlin / Java
-- Ruby on Rails
 - React
 - Vue
 - HTML5, CSS3
+
+## Back-end
+
+- Ruby on Rails
+- Python / Django
+- Kotlin / Java
 - NodeJS
+- Rust
+- Golang
 - SQL
-- Linked data / RDF
+- Docker / Kubernetes
