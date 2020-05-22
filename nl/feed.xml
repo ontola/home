@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-04-30T12:02:29+02:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title><link href="https://ontola.io/nl/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/nl/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-05-22T15:39:44+02:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title><link href="https://ontola.io/nl/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/nl/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
 The &lt;code class=&quot;highlighter-rouge&quot;&gt;subject predicate object&lt;/code&gt; model does not support Arrays, and no - you can’t use the order in which triples appear.&lt;/p&gt;
 
 &lt;p&gt;However, RDF &lt;em&gt;does&lt;/em&gt; support &lt;em&gt;Collections&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt;) and &lt;em&gt;Containers&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Bag&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Seq&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Alt&lt;/code&gt;).
@@ -802,11 +802,11 @@ Developers tend to make software that produces data that only their systems can 
 They have their own assumptions, identifiers, and models.
 Linked data solves this problem by removing all ambiguity about what data represents and how it should be interpreted.&lt;/p&gt;
 
-&lt;h2 id=&quot;triples--the-rdf-data-model&quot;&gt;Triples &amp;amp; the RDF data model&lt;/h2&gt;
+&lt;h2 id=&quot;statements--the-rdf-data-model&quot;&gt;Statements &amp;amp; the RDF data model&lt;/h2&gt;
 
 &lt;p&gt;In the tables above, we were making two separate statements about Tim: one about his birthdate and one about his birthplace.
 Each statement had its own cell in the table.
-In linked data, these statements are called  &lt;em&gt;triples&lt;/em&gt;.
+In linked data, these statements are often called  &lt;em&gt;triples&lt;/em&gt;.
 That’s because every triple statement has three parts: a &lt;em&gt;subject&lt;/em&gt;, a &lt;em&gt;predicate&lt;/em&gt;, and an &lt;em&gt;object&lt;/em&gt;.&lt;/p&gt;
 
 &lt;table&gt;
@@ -831,7 +831,7 @@ That’s because every triple statement has three parts: a &lt;em&gt;subject&lt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;A bunch of triples about a single subject (such as Tim) is called a &lt;em&gt;resource&lt;/em&gt;.
+&lt;p&gt;A bunch of statements about a single subject (such as Tim) is called a &lt;em&gt;resource&lt;/em&gt;.
 That’s why we call this data model the Resource Description Framework: &lt;em&gt;RDF&lt;/em&gt;.
 RDF is the de facto standard for linked data.&lt;/p&gt;
 
@@ -843,13 +843,18 @@ RDF is the de facto standard for linked data.&lt;/p&gt;
 The object of the second triple (the birthDate) is not a link, but a so-called &lt;em&gt;literal value&lt;/em&gt;.
 The literal value cannot have any properties since it’s not a resource.&lt;/p&gt;
 
-&lt;p&gt;That’s a lot of new words and concepts, which can be a bit confusing at first.
-However, they will appear all the time when you’re actually working with linked data, so try to get an accurate mental model of these concepts.&lt;/p&gt;
+&lt;p&gt;Calling RDF statements Triples can be a little confusing, because the earlier mentioned literal values can consist of multiple fields as well.
+A literal consists of a &lt;em&gt;value&lt;/em&gt;, a &lt;em&gt;datatype&lt;/em&gt; and a &lt;em&gt;language&lt;/em&gt;, which means that these triples would take up five columns in your database.
+In most serialization formats, the datatype and language fields are optional.
+A datatypes is always a link, and default datatype for literals is &lt;a href=&quot;&quot;&gt;&lt;em&gt;xsd:string&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;That’s a lot of new words and concepts, and they can be a bit confusing at first.
+However, these concepts will appear all the time when you’re actually working with linked data, so try to get an accurate mental model of these concepts.&lt;/p&gt;
 
 &lt;p&gt;Let’s take a step back and reflect.
 What can we say about the RDF model, looking at how it works?
-First, this shows that RDF is actually a ridiculously &lt;em&gt;simple&lt;/em&gt; model.
-You can represent anything in RDF with just three columns.
+First, this shows that RDF is actually a very &lt;em&gt;simple&lt;/em&gt; model.
+You can represent anything in RDF with just three (or five) columns.
 Second, you should note that it is not possible to add extra information on &lt;em&gt;edges&lt;/em&gt; (these arrows in the graph).
 This is different from most graph models, where edges can have their own properties.
 Another characteristic of the RDF model is that it is really easy to combine two RDF graphs.
@@ -958,18 +963,6 @@ You can even generate forms and other UI components in React using libraries suc
 
 &lt;p&gt;The power of the ontology goes far, but that probably deserves its own article.&lt;/p&gt;
 
-&lt;h2 id=&quot;what-can-we-do-with-linked-data&quot;&gt;What can we do with linked data&lt;/h2&gt;
-&lt;p&gt;The use of links help to provide extra information, remove ambiguity, and help with standardization.
-These are abstract advantages, but they have a real-world impact on how we can use data.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Linked data enables a decentralized architecture. Since URLs directly point to the source, even if the data is on a completely different domain,&lt;/li&gt;
-  &lt;li&gt;Because of the decentralized nature, data tends to stay at the source. This means that less data is copied, and we have&lt;/li&gt;
-  &lt;li&gt;Since linked data is highly standardized, writing interfaces becomes easy. This means that you don’t need expensive.&lt;/li&gt;
-  &lt;li&gt;We can merge two datasets, without having any collisions in identifiers. This is because URLs are unique even across multiple domains. This might seem like a minor benefit, but it makes integration of multiple systems exceptionally trivial.&lt;/li&gt;
-  &lt;li&gt;Linked data can be converted to many serialization formats. It’s easy to convert Linked Data to JSON, but the other way around is more difficult.&lt;/li&gt;
-&lt;/ul&gt;
-
 &lt;h2 id=&quot;publishing-linked-data&quot;&gt;Publishing linked data&lt;/h2&gt;
 
 &lt;p&gt;Linked data is meant to be shared.
@@ -1016,7 +1009,7 @@ For most linked data projects, I’d recommend to use a conventional database an
 &lt;p&gt;Other technologies like &lt;a href=&quot;http://linkeddatafragments.org/&quot;&gt;Linked Data Fragments&lt;/a&gt; and &lt;a href=&quot;http://www.rdfhdt.org/what-is-hdt/&quot;&gt;HDT&lt;/a&gt; allow for even more efficient sharing and storing of linked data.&lt;/p&gt;
 
 &lt;p&gt;Note that there’s a difference between linked data and linked &lt;em&gt;open&lt;/em&gt; data.
-Although linked data would be a great choice for publishing open data, you don’t have to make your linked data accessible to others.
+Although linked data would be a great choice for publishing open data (it’s also known as &lt;a href=&quot;https://5stardata.info/en/&quot;&gt;5 star open data&lt;/a&gt;), you don’t have to make your linked data accessible to others.
 It’s perfectly possible to secure linked data using &lt;a href=&quot;https://oauth.net/2/&quot;&gt;OAuth&lt;/a&gt;, [WebID], ACL or other methods.&lt;/p&gt;
 
 &lt;h2 id=&quot;advantages-of-linked-data&quot;&gt;Advantages of linked data&lt;/h2&gt;
@@ -1030,6 +1023,7 @@ It’s perfectly possible to secure linked data using &lt;a href=&quot;https://o
   &lt;li&gt;You can &lt;strong&gt;easily merge linked datasets&lt;/strong&gt; without any collissions in identifiers. This is because URLs are unique even accross multiple domains.&lt;/li&gt;
   &lt;li&gt;Linked data can be converted to &lt;strong&gt;many serialization formats&lt;/strong&gt;. &lt;a href=&quot;/blog/rdf-serialization-formats&quot;&gt;This blogpost compares them&lt;/a&gt;. Since RDF contains more information, it’s easy to convert Linked Data to JSON (for example), but the other way around is more difficult.&lt;/li&gt;
   &lt;li&gt;Linked data is a standard with &lt;strong&gt;many available tools, libraries and query options&lt;/strong&gt; (e.g. SPARQL).&lt;/li&gt;
+  &lt;li&gt;Linked data is &lt;strong&gt;highly extendible&lt;/strong&gt;, as anyone can use their own URLs for classes, predicates and datatypes.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;disadvantages-of-linked-data&quot;&gt;Disadvantages of linked data&lt;/h2&gt;
@@ -1037,15 +1031,18 @@ It’s perfectly possible to secure linked data using &lt;a href=&quot;https://o
 &lt;ul&gt;
   &lt;li&gt;Creating new linked data can be &lt;strong&gt;more time consuming&lt;/strong&gt;, since you are expected to use (working) links instead of the words that come to mind.&lt;/li&gt;
   &lt;li&gt;It can be a bit &lt;strong&gt;confusing&lt;/strong&gt; at first, especially the plurality of serization formats.&lt;/li&gt;
-  &lt;li&gt;There is &lt;a href=&quot;/blog/ordered-data-in-rdf/&quot;&gt;no native support for sequential data / arrays in RDF&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;A decent &lt;strong&gt;URL startegy&lt;/strong&gt; becomes more important, especially when people will use your linked data.&lt;/li&gt;
+  &lt;li&gt;Handling &lt;a href=&quot;/blog/ordered-data-in-rdf/&quot;&gt;sequential data / arrays in RDF&lt;/a&gt; is more difficult than it should be.&lt;/li&gt;
+  &lt;li&gt;Having a good &lt;strong&gt;URL startegy&lt;/strong&gt; becomes more important, especially when people will use your linked data.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Rendering RDF data&lt;/strong&gt; in a fancy GUI / web application can be tricky (check out our &lt;a href=&quot;https://github.com/fletcher91/link-redux&quot;&gt;link-redux&lt;/a&gt; library for rendering linked data in React).&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Re-using it often requires mapping efforts&lt;/strong&gt;. In Object Oriented environments (e.g. javascript), developers tend to use forms of dot syntax to navigate data, e.g. when accessing a key in a JSON object, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;myObject.someProperty&lt;/code&gt;. With RDF, these keys are (long) URLs, so this might require some RDF ORM.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Few people are familiar with linked data&lt;/strong&gt;, and there is a bit of a learning curve.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;further-reading&quot;&gt;Further reading&lt;/h2&gt;
 
 &lt;p&gt;If you want to learn more about the vision behind the semantic web and linked data, read the &lt;a href=&quot;https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf&quot;&gt;2006 paper&lt;/a&gt; by some of the original inventors.
 If you’re looking for inspiration and example projects, check out the &lt;a href=&quot;https://lod-cloud.net/&quot;&gt;Linked Open Data Cloud&lt;/a&gt;.
+For getting a better grasp on the RDF data model, I recommand my &lt;a href=&quot;/blog/rdf-serialization-formats&quot;&gt;article on RDF serialization formats&lt;/a&gt;.
 If you want to learn more about reasoning and ontologies, try the &lt;a href=&quot;https://www.w3.org/TR/2012/REC-owl2-primer-20121211/&quot;&gt;W3C OWL primer&lt;/a&gt;.
 For SPARQL, the &lt;a href=&quot;https://jena.apache.org/tutorials/sparql.html&quot;&gt;Apache Jena tutorial&lt;/a&gt; could help.
 Check out the &lt;a href=&quot;https://www.reddit.com/r/semanticweb/&quot;&gt;/r/semanticweb&lt;/a&gt; community on Reddit for interesting posts and discussions.
