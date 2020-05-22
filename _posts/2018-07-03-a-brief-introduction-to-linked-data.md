@@ -65,11 +65,11 @@ Developers tend to make software that produces data that only their systems can 
 They have their own assumptions, identifiers, and models.
 Linked data solves this problem by removing all ambiguity about what data represents and how it should be interpreted.
 
-## Triples & the RDF data model
+## Statements & the RDF data model
 
 In the tables above, we were making two separate statements about Tim: one about his birthdate and one about his birthplace.
 Each statement had its own cell in the table.
-In linked data, these statements are called  _triples_.
+In linked data, these statements are often called  _triples_.
 That's because every triple statement has three parts: a _subject_, a _predicate_, and an _object_.
 
 | Subject    | Predicate     | Object |
@@ -77,7 +77,7 @@ That's because every triple statement has three parts: a _subject_, a _predicate
 | [Tim](https://www.w3.org/People/Berners-Lee/)     |[birthPlace](http://schema.org/birthPlace) | [London](http://dbpedia.org/resource/London)     |
 | [Tim](https://www.w3.org/People/Berners-Lee/)     |[birthDate](http://schema.org/birthDate) | 1955-06-08     |
 
-A bunch of triples about a single subject (such as Tim) is called a _resource_.
+A bunch of statements about a single subject (such as Tim) is called a _resource_.
 That's why we call this data model the Resource Description Framework: _RDF_.
 RDF is the de facto standard for linked data.
 
@@ -89,13 +89,18 @@ The object of the first triple, for the birthPlace, contains a link (an [_IRI_](
 The object of the second triple (the birthDate) is not a link, but a so-called _literal value_.
 The literal value cannot have any properties since it's not a resource.
 
-That's a lot of new words and concepts, which can be a bit confusing at first.
-However, they will appear all the time when you're actually working with linked data, so try to get an accurate mental model of these concepts.
+Calling RDF statements Triples can be a little confusing, because the earlier mentioned literal values can consist of multiple fields as well.
+A literal consists of a _value_, a _datatype_ and a _language_, which means that these triples would take up five columns in your database.
+In most serialization formats, the datatype and language fields are optional.
+A datatypes is always a link, and default datatype for literals is [_xsd:string_]().
+
+That's a lot of new words and concepts, and they can be a bit confusing at first.
+However, these concepts will appear all the time when you're actually working with linked data, so try to get an accurate mental model of these concepts.
 
 Let's take a step back and reflect.
 What can we say about the RDF model, looking at how it works?
-First, this shows that RDF is actually a ridiculously _simple_ model.
-You can represent anything in RDF with just three columns.
+First, this shows that RDF is actually a very _simple_ model.
+You can represent anything in RDF with just three (or five) columns.
 Second, you should note that it is not possible to add extra information on _edges_ (these arrows in the graph).
 This is different from most graph models, where edges can have their own properties.
 Another characteristic of the RDF model is that it is really easy to combine two RDF graphs.
@@ -209,16 +214,6 @@ You can even generate forms and other UI components in React using libraries suc
 
 The power of the ontology goes far, but that probably deserves its own article.
 
-## What can we do with linked data
-The use of links help to provide extra information, remove ambiguity, and help with standardization.
-These are abstract advantages, but they have a real-world impact on how we can use data.
-
-- Linked data enables a decentralized architecture. Since URLs directly point to the source, even if the data is on a completely different domain,
-- Because of the decentralized nature, data tends to stay at the source. This means that less data is copied, and we have
-- Since linked data is highly standardized, writing interfaces becomes easy. This means that you don't need expensive.
-- We can merge two datasets, without having any collisions in identifiers. This is because URLs are unique even across multiple domains. This might seem like a minor benefit, but it makes integration of multiple systems exceptionally trivial.
-- Linked data can be converted to many serialization formats. It's easy to convert Linked Data to JSON, but the other way around is more difficult.
-
 ## Publishing linked data
 
 Linked data is meant to be shared.
@@ -265,7 +260,7 @@ For most linked data projects, I'd recommend to use a conventional database and 
 Other technologies like [Linked Data Fragments](http://linkeddatafragments.org/) and [HDT](http://www.rdfhdt.org/what-is-hdt/) allow for even more efficient sharing and storing of linked data.
 
 Note that there's a difference between linked data and linked _open_ data.
-Although linked data would be a great choice for publishing open data, you don't have to make your linked data accessible to others.
+Although linked data would be a great choice for publishing open data (it's also known as [5 star open data](https://5stardata.info/en/)), you don't have to make your linked data accessible to others.
 It's perfectly possible to secure linked data using [OAuth](https://oauth.net/2/), [WebID], ACL or other methods.
 
 ## Advantages of linked data
@@ -278,19 +273,23 @@ It's perfectly possible to secure linked data using [OAuth](https://oauth.net/2/
 - You can **easily merge linked datasets** without any collissions in identifiers. This is because URLs are unique even accross multiple domains.
 - Linked data can be converted to **many serialization formats**. [This blogpost compares them](/blog/rdf-serialization-formats). Since RDF contains more information, it's easy to convert Linked Data to JSON (for example), but the other way around is more difficult.
 - Linked data is a standard with **many available tools, libraries and query options** (e.g. SPARQL).
+- Linked data is **highly extendible**, as anyone can use their own URLs for classes, predicates and datatypes.
 
 ## Disadvantages of linked data
 
 - Creating new linked data can be **more time consuming**, since you are expected to use (working) links instead of the words that come to mind.
 - It can be a bit **confusing** at first, especially the plurality of serization formats.
-- There is [no native support for sequential data / arrays in RDF](/blog/ordered-data-in-rdf/).
-- A decent **URL startegy** becomes more important, especially when people will use your linked data.
+- Handling [sequential data / arrays in RDF](/blog/ordered-data-in-rdf/) is more difficult than it should be.
+- Having a good **URL startegy** becomes more important, especially when people will use your linked data.
 - **Rendering RDF data** in a fancy GUI / web application can be tricky (check out our [link-redux](https://github.com/fletcher91/link-redux) library for rendering linked data in React).
+- **Re-using it often requires mapping efforts**. In Object Oriented environments (e.g. javascript), developers tend to use forms of dot syntax to navigate data, e.g. when accessing a key in a JSON object, such as `myObject.someProperty`. With RDF, these keys are (long) URLs, so this might require some RDF ORM.
+- **Few people are familiar with linked data**, and there is a bit of a learning curve.
 
 ## Further reading
 
 If you want to learn more about the vision behind the semantic web and linked data, read the [2006 paper](https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf) by some of the original inventors.
 If you're looking for inspiration and example projects, check out the [Linked Open Data Cloud](https://lod-cloud.net/).
+For getting a better grasp on the RDF data model, I recommand my [article on RDF serialization formats](/blog/rdf-serialization-formats).
 If you want to learn more about reasoning and ontologies, try the [W3C OWL primer](https://www.w3.org/TR/2012/REC-owl2-primer-20121211/).
 For SPARQL, the [Apache Jena tutorial](https://jena.apache.org/tutorials/sparql.html) could help.
 Check out the [/r/semanticweb](https://www.reddit.com/r/semanticweb/) community on Reddit for interesting posts and discussions.
