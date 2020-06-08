@@ -37,6 +37,7 @@ Each `attribute` must be unique to the `element`.
 The `child` of an element can either be a string, or an array of `element`s.
 
 - Although XML has no support for arrays, you can use the order in which child elements appear to create ordered data. In practice, this means that an XML element supports only a single one to many relation.
+- The order in XML dodcuments might be semantic, but could also be meaningless.
 
 _Defined by [W3C/XML](https://www.w3.org/TR/xml/)
 
@@ -50,7 +51,7 @@ _Defined by [RFC 4810](https://tools.ietf.org/html/rfc4180)_
 
 - Because of the table-like structure, every record has the same set of properties.
 
-## RDF
+## RDF (linked data)
 
 Every RDF `graph` consists of a set of `statements`.
 Each statement has a `subject`, a `predicate` and an `object`.
@@ -61,7 +62,7 @@ A `literal` value consists of a required string representing the value, an optio
 
 _Defined by [RFC 4810](https://tools.ietf.org/html/rfc4180)_
 
-- Every single statement has a subject, so every thing has an explicit identifier.
+- Every single statement has a subject, so every thing has an explicit identifier. This makes RDF a bit more bothersome to create
 - It has native support for `URIs` (i.e. links), which makes sense as it's linked data.
 - Ordered data in RDF is kind of complicated. Read more about [ordered data in RDF in my previous article](/blog/ordered-data-in-rdf/).
 - Contrary to `key-value` constructs in XML and JSON, `subject-predicate` combinations do not have to be unique in RDF.
