@@ -5,19 +5,21 @@ author: joep
 permalink: /blog/comparing-rdf-json-and-xml/
 ---
 
-Whenever we share or store data, we have to serialize it in some way.
-XML, CSV and JSON are probably the most popular serialization formats.
-RDF (the data model for [Linked Data](/what-is-linked-data)) is a bit different, as RDF is _not_ a serialization format.
-It's a datamodel which can be serialized to [various formats](/blog/rdf-serialization-formats).
-XML, CSV, and JSON, on the other hand, are both serialization formats _and_ data models.
-That's why when thinking about data formats, we tend to conflate the two.
-JSON data, for example, can also be serialized using NDJSON or BSON.
-To make things even more confusing: it's possible to express RDF data in both JSON ([JSON-LD](https://json-ld.org/), [RDF/JSON](https://www.w3.org/TR/rdf-json/)) and XML (RDF/XML, RDFa).
-Seperating the serialization format from the data model can be a bit weird at first, but I think it's essential for understanding how all these formats relate to each other.
-
 In this article, I'll try to explain how the fundamental models of RDF, JSON and XML work and how they differ.
 I won't be looking at serialization or syntax.
 If you want to compare human readability or parsing / serialization performance, check out [this article](https://blog.mbedded.ninja/programming/serialization-formats/a-comparison-of-serialization-formats/).
+
+## Serialization formats vs abstract data models
+
+Whenever we share or store data, we have to serialize it in some way.
+XML, CSV and JSON are probably the most popular serialization formats.
+RDF (the data model for [Linked Data](/what-is-linked-data)) is a bit different, as RDF is _not_ a serialization format.
+It's an abstract data model _which can be serialized_ to [various formats](/blog/rdf-serialization-formats).
+XML, CSV, and JSON, on the other hand, are both serialization formats _and_ data models.
+That's why when thinking about data models and serialization formats, we tend to conflate the two.
+JSON data, for example, can also be serialized using [NDJSON](http://ndjson.org/) (JSON objects separated by newlines) or [BSON] (a more perforamnt binary format).
+To make things even more confusing: it's possible to express RDF data in both JSON ([JSON-LD](https://json-ld.org/), [RDF/JSON](https://www.w3.org/TR/rdf-json/)) and XML (RDF/XML, RDFa).
+Separating the serialization format from the abstract data model can be a bit weird at first, but I think it's essential for understanding how all these formats relate to each other.
 
 ## JSON
 
@@ -28,6 +30,7 @@ The `value` can be a `string`, `number`, `boolean`, `array` or `object`.
 An `array` is a set of `values`.
 
 - JSON has these five native datatypes, and has no native explicit extension mechanism for datatypes.
+- a JSON object is a tree-like structure, or a Directional Acyclic Graph (DAG).
 
 ## XML
 
@@ -37,7 +40,8 @@ Each `attribute` must be unique to the `element`.
 The `child` of an element can either be a string, or an array of `element`s.
 
 - Although XML has no support for arrays, you can use the order in which child elements appear to create ordered data. In practice, this means that an XML element supports only a single one to many relation.
-- The order in XML dodcuments might be semantic, but could also be meaningless.
+- The order in XML documents might be semantic, but could also be meaningless.
+- Similar to XML, JSON is a tree-like structure (a DAG)
 
 _Defined by [W3C/XML](https://www.w3.org/TR/xml/)
 
@@ -83,4 +87,4 @@ _Defined by [RFC 4810](https://tools.ietf.org/html/rfc4180)_
 ## Takeaways
 
 We tend to make sense of our world by ordering information as 'things' with 'properties'.
-The models in which we express all kinds of data tend to relfect this.
+The models in which we express all kinds of data tend to reflect this.
