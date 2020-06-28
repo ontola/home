@@ -127,10 +127,10 @@ It also makes serialization and parsing highly performant.
 ```
 
 However, the lack of prefixes and shorthands makes the format lengthy and a bit tough to read.
-The lenghty URLs also mean that you'll need some form of compression (e.g.g-zip) if you don't want to waste precious bandwith or storage capacity, so make sure to enable that in your server.
+The lengthy URLs also mean that you'll need some form of compression (e.g.g-zip) if you don't want to waste precious bandwidth or storage capacity, so make sure to enable that in your server.
 
 Since writing a parser / serializer for N-Triples is so simple, it's a good idea to support this pretty much always.
-And since N-Triples is a suset of Turtle and N3, it means that Turtle / N3 parsers know how to deal with N-Triples, too.
+And since N-Triples is a subset of Turtle and N3, it means that Turtle / N3 parsers know how to deal with N-Triples, too.
 
 [N-Quads](https://www.w3.org/TR/n-quads/) are like N-Turiples, but they have an optional fourth column, which can be used to denote a graph label.
 The graph label often refers to the source of the data, e.g. the URL of the HTML document or some external RDF resource.
@@ -164,7 +164,7 @@ JSON arrays are converted to [RDF Lists](/blog/ordered-data-in-rdf/).
 I recommend spending some time in the [JSON-LD playground](https://json-ld.org/playground/) to get familiar with how it works.
 
 Unfortunately, JSON-LD [difficult and costly to parse](http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/) if you need the RDF data instead of the JSON object.
-This complexity in parsing limits how many (bugfree) JSON-LD parsers are available, and it also means that parsing JSON-LD takes long.
+This complexity in parsing limits how many (bug-free) JSON-LD parsers are available, and it also means that parsing JSON-LD takes long.
 
 JSON-LD is a compromise.
 It supports RDF, it supports JSON, and it does both _okay_.
@@ -173,7 +173,7 @@ Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsin
 ## HexTuples
 
 HexTuples is an [NDJSON](http://ndjson.org/) (Newline Delimited JSON) based RDF serialization format.
-It is desgined to achieve the best possible performance in a JS context (i.e. the browser).
+It is designed to achieve the best possible performance in a JS context (i.e. the browser).
 It uses plain JSON arrays, in which the position of the items denote `subject`, `predicate`, `object`, `datatype`, `lang` and `graph`.
 
 ```ndjson
@@ -182,7 +182,7 @@ It uses plain JSON arrays, in which the position of the items denote `subject`, 
 ```
 
 HexTuples is designed by Thom van Kalkeren (a colleague of mine) because he noticed that parsing / serialization was unnecessarily costly in our stack, even when using the relatively performant `n-quads` format.
-Since HexTuples is serialized in NDJSON, it benefits from the [highly optimised JSON parsers in browsers](https://v8.dev/blog/cost-of-javascript-2019#json).
+Since HexTuples is serialized in NDJSON, it benefits from the [highly optimized JSON parsers in browsers](https://v8.dev/blog/cost-of-javascript-2019#json).
 It uses NDJSON instead of regular JSON because it makes it easier to parse concatenated responses (multiple root objects in one document).
 As an added plus, this enables streaming parsing as well, which gives it another performance boost.
 Our JS RDF libraries ([link-lib](https://github.com/fletcher91/link-lib/), [link-redux](https://github.com/fletcher91/link-redux/)) have an internal RDF graph model which uses these arrays as well, which means that there is minimal mapping cost when parsing Hex-Tuple statements.
@@ -216,9 +216,9 @@ Therefore, you can implement a serialization library (e.g. our [rdf-serializers]
 - Use HDT if you have big static datasets and want the best performance and compression.
 - Use Hex-Tuples if you want high performance in JS with dynamic, non-static data.
 - Use N-Triples / N-Quads if you want decent performance and high compatibility.
-- Use JSON-LD if you want to improve your exsting JSON API, and don't need performant RDF parsing.
+- Use JSON-LD if you want to improve your existing JSON API, and don't need performant RDF parsing.
 - Use Turtle if you want to manually read & edit your RDF.
 - Use Notation3 if you need RDF rules.
 - Use RDFa to extend your existing HTML pages.
 - Use RDF/XML if you need to use XML.
-- If you can, support all of them and use content negotation.
+- If you can, support all of them and use content negotiation.
