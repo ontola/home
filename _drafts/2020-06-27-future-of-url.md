@@ -18,3 +18,20 @@ That's all good, but
 
 Almost every information management system (whether its an Excel sheet, database, or global web) needs a way to separate concepts from each other, using identifiers.
 Unfortunately, most developers still opt for creating _local identifiers_, which means that they only make sense in some closed world.
+
+## HTTP
+
+- Defacto standard
+- Points to a machine, and is therefore _fast_ to resolve
+- Caching is hard
+- Not P2P friendly, central point of failure
+
+## IPFS
+
+Content-addressing.
+The hash of the content is used as the URL.
+That means that URLs can _never_ change.
+
+## Hypercore
+
+Public key addressing.
