@@ -1,4 +1,9 @@
-# Full-stack linked data: lessons from building an RDF web app
+---
+layout: post
+title: "Full-stack linked data: lessons from building an RDF web app"
+author: joep
+permalink: /blog/full-stack-linked-data/
+---
 
 How might a modern web application work if it exclusively uses Linked Data (RDF) to communicate between server and client?
 The answer to this question becomes more and more relevant, as Linked Data paves the way to return data ownership to individuals, and prevent monopolization of web services.
