@@ -1,0 +1,425 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Full-stack linked data: lessons from building an RDF web app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
+  <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="apple-mobile-web-app-title" content="Ontola.io">
+  <meta name="application-name" content="Ontola.io">
+  <meta name="msapplication-TileColor" content="#5a91af">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="/css/normalize.css"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/syntax.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <!-- Matomo -->
+  <script type="text/javascript">
+    var _paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//analytics.argu.co/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '4']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+  <meta name="description" content="How might a web application work if it exclusively uses Linked Data (RDF) to communicate between server and client?In this article, I’ll tell you about our A...">
+<meta property="og:site_name" content="Ontola.io">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@ontola.io">
+
+<title>Full-stack linked data: lessons from building an RDF web app</title>
+<meta property="og:title" content="Full-stack linked data: lessons from building an RDF web app">
+<meta name="twitter:title" content="Full-stack linked data: lessons from building an RDF web app">
+<meta property="og:description" content="How might a web application work if it exclusively uses Linked Data (RDF) to communicate between server and client?
+In this article, I’ll tell you about our API journey, why we chose linked data (RDF), the challenges that we faced, and some of the solutions that we came up with.
+
+"/>
+
+
+<meta property="article:published_time" content="2020-09-11T00:00:00+02:00">
+
+
+<meta property="og:image" content="/img/default.jpg">
+<meta name="twitter:image" content="/img/default.jpg">
+
+<meta property="og:url" content="http://ontola.io/blog/full-stack-linked-data/" />
+
+<meta itemprop="keywords" content="" />
+
+
+
+
+<meta property="article:author" content="Joep Meindertsma" />
+<meta property="og:type" content="article">
+  
+  <meta name="twitter:creator" content="@joepmeindertsma">
+  
+
+
+</head>
+<body>
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <nav  id="navbar" class="nav__wrapper">
+    <div class="nav">
+      <a href="/nl/" class="nav__logo">
+        <img src="/img/logo.svg" />
+        <span>Ontola</span><span class="nav__logo__tld">.io</span>
+      </a>
+      <button class="nav__menu-toggle" onClick="toggleMenu()">menu</button>
+      <div class="nav__links nav__links--collapsed">
+        <a href="/nl/">home</a>
+        <!-- <a href="">services</a> -->
+        <a href="/nl/about">Over ons</a>
+        <a href="/nl/blog">blog</a>
+        <a href="/nl/contact">contact</a>
+        
+          
+          
+            <a title="English" href="/blog/full-stack-linked-data/">en</a>
+          
+        
+           
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+      <div class="hero hero--smaller hero--narrow">
+  <div class="hero__wrapper">
+    <a href="/blog"class="hero__link">
+      <h3 id="hero-text">
+        <i class="fas fa-level-up-alt"></i>
+        Linked Data Blog
+      </h3>
+    </a>
+  </div>
+</div>
+<div class="post text">
+  <h1>Full-stack linked data: lessons from building an RDF web app</h1>
+  
+  
+
+<div class="details">
+  <a href="https://twitter.com/@joepmeindertsma" target="_blank" class="details__author">Joep Meindertsma, </a>11 Sep 2020
+</div>
+
+
+  <p>How might a web application work if it exclusively uses <a href="https://ontola.io/what-is-linked-data/">Linked Data</a> (RDF) to communicate between server and client?
+In this article, I’ll tell you about our API journey, why we chose linked data (RDF), the challenges that we faced, and some of the solutions that we came up with.</p>
+
+<h2 id="about-the-project">About the project</h2>
+
+<p>In 2016, we started <a href="https://argu.co">Argu.co</a>: an e-democracy platform.
+We wanted more people to become politically engaged, and make sure that their opinions and ideas were heard by decision makers.
+We needed a web app where people would discuss issues, vote, share ideas and make decisions together.
+We started with Ruby on Rails, and built a traditional server-side monolithic HTML serving app.
+This proved to be a quick and effective way to start, but as time passed, we noticed more and more limitations of this approach.</p>
+
+<ul>
+  <li>The HTML pages relied on the internal ORM, so we didn’t need an API for internal use. Having <strong>no API</strong> limits what customers can do with their data, and it also means that it’s gonna be hard (or impossible) to build a native mobile App.</li>
+  <li>Having <strong>interactivity</strong> (menu’s that pop up, rich text editors, notifications, live editing, etc.) was difficult to achieve with server-side rendering. We liked react, but using that in a server-rendered Rails app was complex and error-prone.</li>
+  <li><strong>Performance</strong> was not as good as we wanted it to be, as most clicks required some server processing and an HTTP roundtrip.</li>
+</ul>
+
+<p>It was clear that we needed a dedicated client-side single page application and an API.</p>
+
+<h2 id="designing-a-client-server-contract-api">Designing a client-server contract (API)</h2>
+
+<p>Re-inventing the wheel seems like a bad idea, so we searched for best practices and existing standards in API design.
+We initially went with <a href="https://jsonapi.org/">JSON-API</a> (not just ‘a’ JSON API, but a formal specification that describes things like pagination).
+Since we were already using React, and saw its popularity climbing, we went with that for the front-end.
+Now we had to decide how the internal state of the client should look like.
+We picked Redux, which uses a single (immutable) JS object which contains all application state (including data).</p>
+
+<p>As we worked on this, our front-end started looking more and more like our back-end.
+It now had explicit knowledge of:</p>
+
+<ul>
+  <li>Many of the models from the back-end (Comment / Question / Vote / User)</li>
+  <li>The routing logic</li>
+  <li>The accessible parameters in endpoints</li>
+  <li>Various actions (e.g. notifications / alerts)</li>
+  <li>Forms and their validations.</li>
+</ul>
+
+<p>This seemed <em>wrong</em>.
+We were taught to write DRY code: <em>don’t repeat yourself</em>, but it seemed like we were repeating ourselves all the time.
+This meant that when we wanted some feature changed, we had to adjust <em>both</em> the front and the back-end.
+Something seemed off.</p>
+
+<h2 id="why-we-opted-for-linked-data">Why we opted for Linked Data</h2>
+
+<p>Our CTO Thom van Kalkeren thoroughly studied the principles behind REST, HATEOS and Hypermedia, and concluded that we need to give <em>everything</em> URLs.
+Not just the <em>pages</em> that we present to our users, but <em>every single thing</em> that can be used by a client - including menu items, buttons, actions and form fields.
+Luckily for us, the good folks at W3C had written quite a bit of specs about how data should look when you use URLs: the RDF specification (and friends).</p>
+
+<p>Linked Data (or RDF) has some unique qualities:</p>
+
+<ul>
+  <li><strong>Browsable</strong>. Using links for everything in data, means that data can be surfed like how web pages work: just follow the URLs. That’s actually really helpful in a web application, since this means that the client no longer needs to be aware of your routing logic.</li>
+  <li><strong>Flexibility</strong>. Everything can be serialized to various formats (JSON, XML, Turtle, N-Triples, and <a href="https://ontola.io/blog/rdf-serialization-formats/">more</a>), which gives some really nice and flexible export functionality.</li>
+  <li><strong>Self-describing APIs</strong>. Simply use content-type negotiation to fetch a resource as HTML or some RDF format, and browse the data like you would browse a website: by following the links. API docs become kind of unnecessary, since navigating the website shows you all the endpoints.</li>
+  <li><strong>Re-use other linked data</strong>. Because links can point to <em>anywhere</em> (not just your server), you can use all the publicly available linked data! This, for me, has always been the number one reason to believe in Linked Data.</li>
+  <li><strong>Enables true data ownership</strong>. Because of this, it enables <em>decentralized networks</em> where people <em>own their data</em>, which can help to combat the existing web oligopoly. That’s what the <a href="https://solidproject.org/">Solid project</a> is all about.</li>
+</ul>
+
+<p>So, we went with Linked Data.</p>
+
+<h2 id="the-cost-of-being-an-early-adopter">The cost of being an early adopter</h2>
+
+<p>Although the first <a href="https://www.w3.org/TR/rdf11-concepts/">RDF spec</a> was already 10 years old, there were not many existing libraries (let alone tutorials) for us to get started.
+Practically all Linked Data projects functioned as viewers that directly show individual RDF Statements in a table.
+We wanted something else, we wanted a user-friendly web app that resembled social media platforms.
+We needed interactivity, notifications, forms…
+And doing things like that with Linked Data, turned out to be pretty hard.
+Luckily for you, we’ve shared quite a bit of tools, libraries and ideas that could make your life a bit easier if you choose to go Linked Data.</p>
+
+<h2 id="getting-used-to-rdf">Getting used to RDF</h2>
+
+<p>RDF is a weird data model.
+It was primarily designed as a language for the <em>semantic web</em>, which aims to (formally, logically) describe our world using <em>semantic triples</em>.
+The design decisions made to achieve that, however, make things harder for you as a developer:</p>
+
+<ul>
+  <li>RDF uses a lot of very long strings (URLs) instead of keys, which makes selecting values difficult.</li>
+  <li>RDF does not have key uniqueness (subject-predicate uniqueness), which means that you could get many values if you want to know a specific property.</li>
+  <li>RDF doesn’t support native arrays, but has <a href="https://ontola.io/blog/ordered-data-in-rdf/">a bunch of (confusing) ways of representing ordered data</a>.</li>
+  <li>RDF knows <a href="https://ontola.io/blog/rdf-serialization-formats/">many serialization formats</a>, which is a blessing and a curse. The most mentioned format in the docs (the earliest one, RDF/XML), is also the most confusing.</li>
+  <li>Properties are not linked to specific datatypes, so you have to check datatypes for every single statement.</li>
+</ul>
+
+<h2 id="making-ruby-on-rails-work-with-rdf">Making Ruby on Rails work with RDF</h2>
+
+<p>Ruby on Rails is an opinionated MVC framework.
+By default, it works great for generating HTML pages (or JSON objects, using Rails-API), but RDF is a whole different beast.
+We created our own serializers (<a href="https://github.com/ontola/rdf-serializers">rdf-serializers</a>), but more importantly, Thom and Arthur Dingemans created <a href="https://github.com/ontola/linked_rails/wiki">linked-rails</a>.
+This gem provides some abstractions for working with RDF, including:</p>
+
+<ul>
+  <li>Policies (what users can or can’t do)</li>
+  <li>Collections (sort / filter / pagination)</li>
+  <li>Forms (we’ll get to that later)</li>
+  <li>Menus for actions and navigation</li>
+  <li>Error serialization</li>
+  <li>Actions handler (we’ll get to that later, too)</li>
+</ul>
+
+<p>Check out the <a href="https://github.com/ontola/linked_rails/wiki">Wiki</a> if you want to learn more!</p>
+
+<h2 id="forms-and-form-validation">Forms and form validation</h2>
+
+<p>Argu was always about getting opinions from people, so it needs a lot of forms.
+And these can differ for many reasons:</p>
+
+<ul>
+  <li>The model (of course)</li>
+  <li>Specific settings for a tenant (customer)</li>
+  <li>User and tenant-specific rights</li>
+</ul>
+
+<p>So, how should the server communicate these forms to the client?</p>
+
+<p>We stumbled upon <a href="https://www.w3.org/TR/shacl/">SHACL</a>, a schema language for RDF (written in RDF), that provides a way to validate RDF graphs.
+This seemed like the way to go!
+However, it became obvious that forms cannot <em>entirely</em> depend on shapes.
+Should you render a radio select, or a dropdown?
+How do you describe a multi-page form?
+How do you describe interrelated form fields (if x is a, show form option y).
+And to make things even more challenging: how do you make these forms <em>cacheable</em>, given some fields might render differently for different users?</p>
+
+<p>Again, we had to create our own form abstraction.
+We used the SHACL spec where possible, but had to create some new Classes and Properties to solve the challenges that we faced.
+The Forms DSL in <a href="https://github.com/ontola/linked_rails/wiki#forms">linked-rails</a> provides a simple interface to create these forms.</p>
+
+<h2 id="turning-rdf-into-html">Turning RDF into HTML</h2>
+
+<p>Ultimately, the user needs to show a pretty web app, which means the RDF from the server has to be transformed into HTML.
+Step one is fetching the data from the server, and storing it in the client.</p>
+
+<p>We started using <a href="https://github.com/linkeddata/rdflib.js">RDFlib.js</a>, written partially by the inventor of Linked Data (and HTTP, HTML, the WWW…) Tim Berners-Lee himself.
+It provided a lot of useful features for dealing with RDF: parse, fetch, serialize, mutate, search…
+I was hired by Inrupt to convert it to typescript in 2019.
+However, our app had kind of a unique set of requirements (mostly related to performance when dealing with many, dynamic triples), so we started working on a different RDF store.</p>
+
+<p>My colleague Thom wrote two libraries: <a href="https://github.com/fletcher91/link-lib">link-lib</a> and <a href="https://github.com/fletcher91/link-redux">link-redux</a>.
+Link-lib does most of the heavy lifting: it provides a store, deals with parsing, serializing, fetching, sending RDF data, handling the actions, registering the views (more an that in a minute).
+Link-redux (should be called link-react, but that name was taken) adds some useful functions for using it in React.</p>
+
+<p>In practice, it works like this:</p>
+
+<ul>
+  <li>When the user requests any URL as HTML (default browser request), they receive a mostly empty HTML page with some cached RDF data (that matches the Subject of the fetched URL) that helps to build the first view as quick as possible.</li>
+  <li>The JS app (using Link-lib, link-redux and react) is loaded, and all the existing Views are registered. These Views are React components that will render for one or more RDF Classes, in specific Topologies (e.g. fullpage, in a column, in a menu item).</li>
+  <li>The RDF data is added to the store, and the corresponding view is rendered.</li>
+  <li>Note that there is no routing going on in the front-end - the rendered component is based on the Class of the resource, not the URL route.</li>
+  <li>Depending on the rendered view, new resources might be needed (e.g. a rendered Article might show some Comments). These will be fetched by the front-end, and loading indicators will be shown in the places where data is missing.</li>
+  <li>When the user interacts with the content (e.g. click on a link, open a menu item, press a button), they will dispatch an action and modify the internal state - all using RDF. These actions <em>might</em> make changes on the server, and these changes <em>might</em> have an impact on the user after that. The changes are communicated using <a href="https://github.com/ontola/linked-delta">linked-deltas</a>, which describes how single triples have been either changed, removed or added. When a delta is processed, components might re-render, because their properties have changed. This is a flux-like / redux-like pattern.</li>
+  <li>Because we a <em>lot</em> of URLs, we need some way to prevent typos. That’s where the <a href="https://github.com/ontola/ontologies">@ontologies</a> library comes in handy!</li>
+</ul>
+
+<h2 id="serialization--parsing-performance">Serialization &amp; parsing performance</h2>
+
+<p>RDF can be serialized in many ways (<a href="https://ontola.io/blog/rdf-serialization-formats/">at least 10</a>).
+Some formats look like the ones you know (JSON-LD, RDF/XML), some reflect the internal model really well (N-Triples), and some have interesting and complex semantic features (Notation3).
+We didn’t really care about any of that - we just wanted to make things fast.
+Parsing JSON-LD was <em>extremely</em> hard and slow, Parsing Turtle was better (but still slow), so for a while we opted for the with <code class="highlighter-rouge">N-Triples</code>.
+But ultimately, Thom came up with a new format: <a href="https://github.com/ontola/hextuples">HexTuples-NDJSON</a>, which was actually very simple to implement both in the Ruby back-end and in the JS front-end.
+It made our <em>entire</em> server app about 2x faster (it was working a <em>lot</em> on serialization), and in the front-end we noticed a similar speed increase.</p>
+
+<h2 id="bulk-api-caching-and-more-performance-improvements">Bulk-API, caching and more performance improvements</h2>
+
+<p>Still, our app wasn’t quick enough.
+The core problem: every single resource on screen with has a URL, and needs to be fetched independently.
+In other words, opening a single page could require over a 100 round-trips.
+Thom came up with a solution: the bulk-API, which would accept a body containing all the URLs that needed to be fetched.
+This improved many things, but our back-end was still running each resource request internally with all the existing overhead (checking the user, session, etc.).
+Even when that is fixed, we’re still performing way too much hard work for every request - we need some form of caching.</p>
+
+<p>That’s why were working on a new RDF Triple Strore, written in Rust, and it is <em>fast</em>.
+It offers three ways of querying:</p>
+
+<ul>
+  <li>Single resource (HTTP GET to the subject URL)</li>
+  <li>Bulk-API (list of subjects)</li>
+  <li>Triple Pattern Fragments</li>
+</ul>
+
+<p>It’s not rolled out yet in production, but we’ll open source it soon enough.</p>
+
+<h2 id="faq">FAQ</h2>
+
+<h3 id="which-triple-store-do-you-use">Which triple store do you use?</h3>
+
+<p>Although our back-end serializes linked data, we don’t use a triple store.
+The Rails back-end has a mostly strict schema in SQL tables, but we do have a table in our Postgres schema that stores single triples.
+Keep in mind that the RDF representation of data can be created during serialization - so your app can create linked data without using a triple store!
+This is often a preferable approach in apps that have business logic or any type constraints.
+But as I’ve mentioned earlier, we’re working on a new triple store (written in Rust) that we’re planning on open sourcing soon, which we use for caching to keep performance optimal.</p>
+
+<h3 id="why-not-use-sparql">Why not use SPARQL?</h3>
+
+<p>SPARQL is the de facto query language for RDF data, so it seems logical to use it somewhere in our stack.
+However, we don’t.
+Getting SPARQL performant is actually pretty difficult, and we don’t need the powerful query options that it provides.
+Most of the requests from the front-end just ask for all triples about one or multiple subjects, and these kind of queries don’t require SPARQL.
+SPARQL is useful for more complex graph property traversal queries, but is not necessarily the best approach for simpler queries.</p>
+
+<h3 id="just-show-me-the-repos-for-the-tools-and-protocols">Just show me the repo’s for the tools and protocols</h3>
+
+<ul>
+  <li><a href="https://github.com/fletcher91/link-lib">link-lib</a> JS lib for managing an RDF store, registering views and handling actions</li>
+  <li><a href="https://github.com/fletcher91/link-redux">link-redux</a> JS lib for React components, works with link-lib</li>
+  <li><a href="https://github.com/ontola/linked_rails">linked-rails</a> Ruby gem that does a whole lot of linked data goodness</li>
+  <li><a href="https://github.com/ontola/rdf-serializers">rdf-serializers</a> Ruby gem that for serializing RDF</li>
+  <li><a href="https://github.com/ontola/linked-delta">linked-delta</a> for communicating state changes (between server / client, or persisting as event log)</li>
+  <li><a href="https://github.com/ontola/ontologies">@ontologies</a> - make it easier to use ontologies (schema, owl, dcterms..) in JS projects</li>
+  <li><a href="https://js.rdf.dev/">js.rdf.dev</a> A whole lot of RDF tools for JS!</li>
+  <li>Check out the rest at <a href="https://github.com/ontola/">Github</a>.</li>
+</ul>
+
+<p>If you need any help, <a href="mailto:joep@ontola.io">get in touch</a>!</p>
+
+</div>
+<div class="post__navigation">
+  <div class="post__navigation__wrapper">
+    
+      <a class="post__navigation__previous" href="/blog/ordered-data-in-rdf/">&laquo; Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</a>
+    
+    
+  </div>
+</div>
+
+  </div>
+  <div class="footer--wrapper" id="footer">
+    <div class="footer">
+      <div class="footer-row">
+        <div href="/" class="footer__header">
+          Ontola
+        </div>
+        <a href="/nl/">Home</a>
+        <!-- <a href="">Services</a> -->
+        <a href="/nl/about">Over ons</a>
+        <a href="/nl/blog">Blog</a>
+        <a href="/nl/contact">Contact</a>
+        
+          
+          
+            <a href="/blog/full-stack-linked-data/">English</a>
+          
+        
+           
+      </div>
+      <div class="footer-row">
+        <div class="footer__header">Wat wij doen</div>
+        <a href="/nl/">Linked data</a>
+        <a href="/nl/webdevelopment">Webapplicaties</a>
+        <a href="/nl/continuous-integration">OTAP straat</a>
+        <a href="/nl/freelance">Freelance ontwikkeling</a>
+        <a href="/nl/django-webdevelopment">Django webdevelopment</a>
+      </div>
+      <div class="footer-row">
+        <div href="/" class="footer__header">Vind ons</div>
+        <div class="footer__social_logos">
+          <a href="https://github.com/ontola">
+            <i title="Github" aria-label="Github" class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/ontola/">
+            <i title="LinkedIn" aria-label="LinkedIn" class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.facebook.com/ontola.io/">
+            <i title="Facebook" aria-label="Facebook" class="fab fa-facebook"></i>
+          </a>
+          <a href="https://twitter.com/ontola_io">
+            <i title="Twitter" aria-label="Twitter" class="fab fa-twitter"></i>
+          </a>
+          <a href="/feed.xml">
+            <i title="Atom / RSS feed" aria-label="Atom / RSS feed" class="fa fa-rss"></i>
+          </a>
+        </div>
+        <a href="mailto:info@ontola.io">
+          <i class="fas fa-envelope"></i>
+          info@ontola.io
+        </a>
+        <a href="tel:0031636020942">
+          <i class="fas fa-phone"></i>
+          +316 360 209 42
+        </a>
+        <a href="https://goo.gl/maps/eYT2tBGnDqNfM5BC9">
+          <i class="fas fa-map-marker-alt"></i>
+          Maliebaan 100, Utrecht, NL
+        </a>
+        <div><a href="https://argu.co">
+          <i class="fas fa-briefcase"></i>
+          Argu B.V.</a> kvk 65684168<div>
+        </div>
+      </div>
+    </div>
+    <img class="footer__logo" src="/img/logo.svg" />
+  </div>
+  </div>
+  <script src="/js/main.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121994595-1">
+    gtag('config', 'AW-940871433');
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-121994595-1');
+  </script>
+</body>
+
+</html>

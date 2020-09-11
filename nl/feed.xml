@@ -1,4 +1,217 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-05-22T15:39:44+02:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title><link href="https://ontola.io/nl/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/nl/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-09-11T15:07:29+02:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Full-stack linked data: lessons from building an RDF web app</title><link href="https://ontola.io/nl/blog/full-stack-linked-data/" rel="alternate" type="text/html" title="Full-stack linked data: lessons from building an RDF web app" /><published>2020-09-11T00:00:00+02:00</published><updated>2020-09-11T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/full-stack-rdf</id><content type="html" xml:base="https://ontola.io/nl/blog/full-stack-linked-data/">&lt;p&gt;How might a web application work if it exclusively uses &lt;a href=&quot;https://ontola.io/what-is-linked-data/&quot;&gt;Linked Data&lt;/a&gt; (RDF) to communicate between server and client?
+In this article, I’ll tell you about our API journey, why we chose linked data (RDF), the challenges that we faced, and some of the solutions that we came up with.&lt;/p&gt;
+
+&lt;h2 id=&quot;about-the-project&quot;&gt;About the project&lt;/h2&gt;
+
+&lt;p&gt;In 2016, we started &lt;a href=&quot;https://argu.co&quot;&gt;Argu.co&lt;/a&gt;: an e-democracy platform.
+We wanted more people to become politically engaged, and make sure that their opinions and ideas were heard by decision makers.
+We needed a web app where people would discuss issues, vote, share ideas and make decisions together.
+We started with Ruby on Rails, and built a traditional server-side monolithic HTML serving app.
+This proved to be a quick and effective way to start, but as time passed, we noticed more and more limitations of this approach.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The HTML pages relied on the internal ORM, so we didn’t need an API for internal use. Having &lt;strong&gt;no API&lt;/strong&gt; limits what customers can do with their data, and it also means that it’s gonna be hard (or impossible) to build a native mobile App.&lt;/li&gt;
+  &lt;li&gt;Having &lt;strong&gt;interactivity&lt;/strong&gt; (menu’s that pop up, rich text editors, notifications, live editing, etc.) was difficult to achieve with server-side rendering. We liked react, but using that in a server-rendered Rails app was complex and error-prone.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Performance&lt;/strong&gt; was not as good as we wanted it to be, as most clicks required some server processing and an HTTP roundtrip.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It was clear that we needed a dedicated client-side single page application and an API.&lt;/p&gt;
+
+&lt;h2 id=&quot;designing-a-client-server-contract-api&quot;&gt;Designing a client-server contract (API)&lt;/h2&gt;
+
+&lt;p&gt;Re-inventing the wheel seems like a bad idea, so we searched for best practices and existing standards in API design.
+We initially went with &lt;a href=&quot;https://jsonapi.org/&quot;&gt;JSON-API&lt;/a&gt; (not just ‘a’ JSON API, but a formal specification that describes things like pagination).
+Since we were already using React, and saw its popularity climbing, we went with that for the front-end.
+Now we had to decide how the internal state of the client should look like.
+We picked Redux, which uses a single (immutable) JS object which contains all application state (including data).&lt;/p&gt;
+
+&lt;p&gt;As we worked on this, our front-end started looking more and more like our back-end.
+It now had explicit knowledge of:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Many of the models from the back-end (Comment / Question / Vote / User)&lt;/li&gt;
+  &lt;li&gt;The routing logic&lt;/li&gt;
+  &lt;li&gt;The accessible parameters in endpoints&lt;/li&gt;
+  &lt;li&gt;Various actions (e.g. notifications / alerts)&lt;/li&gt;
+  &lt;li&gt;Forms and their validations.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This seemed &lt;em&gt;wrong&lt;/em&gt;.
+We were taught to write DRY code: &lt;em&gt;don’t repeat yourself&lt;/em&gt;, but it seemed like we were repeating ourselves all the time.
+This meant that when we wanted some feature changed, we had to adjust &lt;em&gt;both&lt;/em&gt; the front and the back-end.
+Something seemed off.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-we-opted-for-linked-data&quot;&gt;Why we opted for Linked Data&lt;/h2&gt;
+
+&lt;p&gt;Our CTO Thom van Kalkeren thoroughly studied the principles behind REST, HATEOS and Hypermedia, and concluded that we need to give &lt;em&gt;everything&lt;/em&gt; URLs.
+Not just the &lt;em&gt;pages&lt;/em&gt; that we present to our users, but &lt;em&gt;every single thing&lt;/em&gt; that can be used by a client - including menu items, buttons, actions and form fields.
+Luckily for us, the good folks at W3C had written quite a bit of specs about how data should look when you use URLs: the RDF specification (and friends).&lt;/p&gt;
+
+&lt;p&gt;Linked Data (or RDF) has some unique qualities:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Browsable&lt;/strong&gt;. Using links for everything in data, means that data can be surfed like how web pages work: just follow the URLs. That’s actually really helpful in a web application, since this means that the client no longer needs to be aware of your routing logic.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Flexibility&lt;/strong&gt;. Everything can be serialized to various formats (JSON, XML, Turtle, N-Triples, and &lt;a href=&quot;https://ontola.io/blog/rdf-serialization-formats/&quot;&gt;more&lt;/a&gt;), which gives some really nice and flexible export functionality.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Self-describing APIs&lt;/strong&gt;. Simply use content-type negotiation to fetch a resource as HTML or some RDF format, and browse the data like you would browse a website: by following the links. API docs become kind of unnecessary, since navigating the website shows you all the endpoints.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Re-use other linked data&lt;/strong&gt;. Because links can point to &lt;em&gt;anywhere&lt;/em&gt; (not just your server), you can use all the publicly available linked data! This, for me, has always been the number one reason to believe in Linked Data.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Enables true data ownership&lt;/strong&gt;. Because of this, it enables &lt;em&gt;decentralized networks&lt;/em&gt; where people &lt;em&gt;own their data&lt;/em&gt;, which can help to combat the existing web oligopoly. That’s what the &lt;a href=&quot;https://solidproject.org/&quot;&gt;Solid project&lt;/a&gt; is all about.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So, we went with Linked Data.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-cost-of-being-an-early-adopter&quot;&gt;The cost of being an early adopter&lt;/h2&gt;
+
+&lt;p&gt;Although the first &lt;a href=&quot;https://www.w3.org/TR/rdf11-concepts/&quot;&gt;RDF spec&lt;/a&gt; was already 10 years old, there were not many existing libraries (let alone tutorials) for us to get started.
+Practically all Linked Data projects functioned as viewers that directly show individual RDF Statements in a table.
+We wanted something else, we wanted a user-friendly web app that resembled social media platforms.
+We needed interactivity, notifications, forms…
+And doing things like that with Linked Data, turned out to be pretty hard.
+Luckily for you, we’ve shared quite a bit of tools, libraries and ideas that could make your life a bit easier if you choose to go Linked Data.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-used-to-rdf&quot;&gt;Getting used to RDF&lt;/h2&gt;
+
+&lt;p&gt;RDF is a weird data model.
+It was primarily designed as a language for the &lt;em&gt;semantic web&lt;/em&gt;, which aims to (formally, logically) describe our world using &lt;em&gt;semantic triples&lt;/em&gt;.
+The design decisions made to achieve that, however, make things harder for you as a developer:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RDF uses a lot of very long strings (URLs) instead of keys, which makes selecting values difficult.&lt;/li&gt;
+  &lt;li&gt;RDF does not have key uniqueness (subject-predicate uniqueness), which means that you could get many values if you want to know a specific property.&lt;/li&gt;
+  &lt;li&gt;RDF doesn’t support native arrays, but has &lt;a href=&quot;https://ontola.io/blog/ordered-data-in-rdf/&quot;&gt;a bunch of (confusing) ways of representing ordered data&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;RDF knows &lt;a href=&quot;https://ontola.io/blog/rdf-serialization-formats/&quot;&gt;many serialization formats&lt;/a&gt;, which is a blessing and a curse. The most mentioned format in the docs (the earliest one, RDF/XML), is also the most confusing.&lt;/li&gt;
+  &lt;li&gt;Properties are not linked to specific datatypes, so you have to check datatypes for every single statement.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;making-ruby-on-rails-work-with-rdf&quot;&gt;Making Ruby on Rails work with RDF&lt;/h2&gt;
+
+&lt;p&gt;Ruby on Rails is an opinionated MVC framework.
+By default, it works great for generating HTML pages (or JSON objects, using Rails-API), but RDF is a whole different beast.
+We created our own serializers (&lt;a href=&quot;https://github.com/ontola/rdf-serializers&quot;&gt;rdf-serializers&lt;/a&gt;), but more importantly, Thom and Arthur Dingemans created &lt;a href=&quot;https://github.com/ontola/linked_rails/wiki&quot;&gt;linked-rails&lt;/a&gt;.
+This gem provides some abstractions for working with RDF, including:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Policies (what users can or can’t do)&lt;/li&gt;
+  &lt;li&gt;Collections (sort / filter / pagination)&lt;/li&gt;
+  &lt;li&gt;Forms (we’ll get to that later)&lt;/li&gt;
+  &lt;li&gt;Menus for actions and navigation&lt;/li&gt;
+  &lt;li&gt;Error serialization&lt;/li&gt;
+  &lt;li&gt;Actions handler (we’ll get to that later, too)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://github.com/ontola/linked_rails/wiki&quot;&gt;Wiki&lt;/a&gt; if you want to learn more!&lt;/p&gt;
+
+&lt;h2 id=&quot;forms-and-form-validation&quot;&gt;Forms and form validation&lt;/h2&gt;
+
+&lt;p&gt;Argu was always about getting opinions from people, so it needs a lot of forms.
+And these can differ for many reasons:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The model (of course)&lt;/li&gt;
+  &lt;li&gt;Specific settings for a tenant (customer)&lt;/li&gt;
+  &lt;li&gt;User and tenant-specific rights&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So, how should the server communicate these forms to the client?&lt;/p&gt;
+
+&lt;p&gt;We stumbled upon &lt;a href=&quot;https://www.w3.org/TR/shacl/&quot;&gt;SHACL&lt;/a&gt;, a schema language for RDF (written in RDF), that provides a way to validate RDF graphs.
+This seemed like the way to go!
+However, it became obvious that forms cannot &lt;em&gt;entirely&lt;/em&gt; depend on shapes.
+Should you render a radio select, or a dropdown?
+How do you describe a multi-page form?
+How do you describe interrelated form fields (if x is a, show form option y).
+And to make things even more challenging: how do you make these forms &lt;em&gt;cacheable&lt;/em&gt;, given some fields might render differently for different users?&lt;/p&gt;
+
+&lt;p&gt;Again, we had to create our own form abstraction.
+We used the SHACL spec where possible, but had to create some new Classes and Properties to solve the challenges that we faced.
+The Forms DSL in &lt;a href=&quot;https://github.com/ontola/linked_rails/wiki#forms&quot;&gt;linked-rails&lt;/a&gt; provides a simple interface to create these forms.&lt;/p&gt;
+
+&lt;h2 id=&quot;turning-rdf-into-html&quot;&gt;Turning RDF into HTML&lt;/h2&gt;
+
+&lt;p&gt;Ultimately, the user needs to show a pretty web app, which means the RDF from the server has to be transformed into HTML.
+Step one is fetching the data from the server, and storing it in the client.&lt;/p&gt;
+
+&lt;p&gt;We started using &lt;a href=&quot;https://github.com/linkeddata/rdflib.js&quot;&gt;RDFlib.js&lt;/a&gt;, written partially by the inventor of Linked Data (and HTTP, HTML, the WWW…) Tim Berners-Lee himself.
+It provided a lot of useful features for dealing with RDF: parse, fetch, serialize, mutate, search…
+I was hired by Inrupt to convert it to typescript in 2019.
+However, our app had kind of a unique set of requirements (mostly related to performance when dealing with many, dynamic triples), so we started working on a different RDF store.&lt;/p&gt;
+
+&lt;p&gt;My colleague Thom wrote two libraries: &lt;a href=&quot;https://github.com/fletcher91/link-lib&quot;&gt;link-lib&lt;/a&gt; and &lt;a href=&quot;https://github.com/fletcher91/link-redux&quot;&gt;link-redux&lt;/a&gt;.
+Link-lib does most of the heavy lifting: it provides a store, deals with parsing, serializing, fetching, sending RDF data, handling the actions, registering the views (more an that in a minute).
+Link-redux (should be called link-react, but that name was taken) adds some useful functions for using it in React.&lt;/p&gt;
+
+&lt;p&gt;In practice, it works like this:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When the user requests any URL as HTML (default browser request), they receive a mostly empty HTML page with some cached RDF data (that matches the Subject of the fetched URL) that helps to build the first view as quick as possible.&lt;/li&gt;
+  &lt;li&gt;The JS app (using Link-lib, link-redux and react) is loaded, and all the existing Views are registered. These Views are React components that will render for one or more RDF Classes, in specific Topologies (e.g. fullpage, in a column, in a menu item).&lt;/li&gt;
+  &lt;li&gt;The RDF data is added to the store, and the corresponding view is rendered.&lt;/li&gt;
+  &lt;li&gt;Note that there is no routing going on in the front-end - the rendered component is based on the Class of the resource, not the URL route.&lt;/li&gt;
+  &lt;li&gt;Depending on the rendered view, new resources might be needed (e.g. a rendered Article might show some Comments). These will be fetched by the front-end, and loading indicators will be shown in the places where data is missing.&lt;/li&gt;
+  &lt;li&gt;When the user interacts with the content (e.g. click on a link, open a menu item, press a button), they will dispatch an action and modify the internal state - all using RDF. These actions &lt;em&gt;might&lt;/em&gt; make changes on the server, and these changes &lt;em&gt;might&lt;/em&gt; have an impact on the user after that. The changes are communicated using &lt;a href=&quot;https://github.com/ontola/linked-delta&quot;&gt;linked-deltas&lt;/a&gt;, which describes how single triples have been either changed, removed or added. When a delta is processed, components might re-render, because their properties have changed. This is a flux-like / redux-like pattern.&lt;/li&gt;
+  &lt;li&gt;Because we a &lt;em&gt;lot&lt;/em&gt; of URLs, we need some way to prevent typos. That’s where the &lt;a href=&quot;https://github.com/ontola/ontologies&quot;&gt;@ontologies&lt;/a&gt; library comes in handy!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;serialization--parsing-performance&quot;&gt;Serialization &amp;amp; parsing performance&lt;/h2&gt;
+
+&lt;p&gt;RDF can be serialized in many ways (&lt;a href=&quot;https://ontola.io/blog/rdf-serialization-formats/&quot;&gt;at least 10&lt;/a&gt;).
+Some formats look like the ones you know (JSON-LD, RDF/XML), some reflect the internal model really well (N-Triples), and some have interesting and complex semantic features (Notation3).
+We didn’t really care about any of that - we just wanted to make things fast.
+Parsing JSON-LD was &lt;em&gt;extremely&lt;/em&gt; hard and slow, Parsing Turtle was better (but still slow), so for a while we opted for the with &lt;code class=&quot;highlighter-rouge&quot;&gt;N-Triples&lt;/code&gt;.
+But ultimately, Thom came up with a new format: &lt;a href=&quot;https://github.com/ontola/hextuples&quot;&gt;HexTuples-NDJSON&lt;/a&gt;, which was actually very simple to implement both in the Ruby back-end and in the JS front-end.
+It made our &lt;em&gt;entire&lt;/em&gt; server app about 2x faster (it was working a &lt;em&gt;lot&lt;/em&gt; on serialization), and in the front-end we noticed a similar speed increase.&lt;/p&gt;
+
+&lt;h2 id=&quot;bulk-api-caching-and-more-performance-improvements&quot;&gt;Bulk-API, caching and more performance improvements&lt;/h2&gt;
+
+&lt;p&gt;Still, our app wasn’t quick enough.
+The core problem: every single resource on screen with has a URL, and needs to be fetched independently.
+In other words, opening a single page could require over a 100 round-trips.
+Thom came up with a solution: the bulk-API, which would accept a body containing all the URLs that needed to be fetched.
+This improved many things, but our back-end was still running each resource request internally with all the existing overhead (checking the user, session, etc.).
+Even when that is fixed, we’re still performing way too much hard work for every request - we need some form of caching.&lt;/p&gt;
+
+&lt;p&gt;That’s why were working on a new RDF Triple Strore, written in Rust, and it is &lt;em&gt;fast&lt;/em&gt;.
+It offers three ways of querying:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Single resource (HTTP GET to the subject URL)&lt;/li&gt;
+  &lt;li&gt;Bulk-API (list of subjects)&lt;/li&gt;
+  &lt;li&gt;Triple Pattern Fragments&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It’s not rolled out yet in production, but we’ll open source it soon enough.&lt;/p&gt;
+
+&lt;h2 id=&quot;faq&quot;&gt;FAQ&lt;/h2&gt;
+
+&lt;h3 id=&quot;which-triple-store-do-you-use&quot;&gt;Which triple store do you use?&lt;/h3&gt;
+
+&lt;p&gt;Although our back-end serializes linked data, we don’t use a triple store.
+The Rails back-end has a mostly strict schema in SQL tables, but we do have a table in our Postgres schema that stores single triples.
+Keep in mind that the RDF representation of data can be created during serialization - so your app can create linked data without using a triple store!
+This is often a preferable approach in apps that have business logic or any type constraints.
+But as I’ve mentioned earlier, we’re working on a new triple store (written in Rust) that we’re planning on open sourcing soon, which we use for caching to keep performance optimal.&lt;/p&gt;
+
+&lt;h3 id=&quot;why-not-use-sparql&quot;&gt;Why not use SPARQL?&lt;/h3&gt;
+
+&lt;p&gt;SPARQL is the de facto query language for RDF data, so it seems logical to use it somewhere in our stack.
+However, we don’t.
+Getting SPARQL performant is actually pretty difficult, and we don’t need the powerful query options that it provides.
+Most of the requests from the front-end just ask for all triples about one or multiple subjects, and these kind of queries don’t require SPARQL.
+SPARQL is useful for more complex graph property traversal queries, but is not necessarily the best approach for simpler queries.&lt;/p&gt;
+
+&lt;h3 id=&quot;just-show-me-the-repos-for-the-tools-and-protocols&quot;&gt;Just show me the repo’s for the tools and protocols&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/fletcher91/link-lib&quot;&gt;link-lib&lt;/a&gt; JS lib for managing an RDF store, registering views and handling actions&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/fletcher91/link-redux&quot;&gt;link-redux&lt;/a&gt; JS lib for React components, works with link-lib&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ontola/linked_rails&quot;&gt;linked-rails&lt;/a&gt; Ruby gem that does a whole lot of linked data goodness&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ontola/rdf-serializers&quot;&gt;rdf-serializers&lt;/a&gt; Ruby gem that for serializing RDF&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ontola/linked-delta&quot;&gt;linked-delta&lt;/a&gt; for communicating state changes (between server / client, or persisting as event log)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ontola/ontologies&quot;&gt;@ontologies&lt;/a&gt; - make it easier to use ontologies (schema, owl, dcterms..) in JS projects&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://js.rdf.dev/&quot;&gt;js.rdf.dev&lt;/a&gt; A whole lot of RDF tools for JS!&lt;/li&gt;
+  &lt;li&gt;Check out the rest at &lt;a href=&quot;https://github.com/ontola/&quot;&gt;Github&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you need any help, &lt;a href=&quot;mailto:joep@ontola.io&quot;&gt;get in touch&lt;/a&gt;!&lt;/p&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">How might a web application work if it exclusively uses Linked Data (RDF) to communicate between server and client? In this article, I’ll tell you about our API journey, why we chose linked data (RDF), the challenges that we faced, and some of the solutions that we came up with.</summary></entry><entry><title type="html">Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination</title><link href="https://ontola.io/nl/blog/ordered-data-in-rdf/" rel="alternate" type="text/html" title="Ordered data in RDF: About Arrays, Lists, Collections, Sequences and Pagination" /><published>2020-02-07T00:00:00+01:00</published><updated>2020-02-07T00:00:00+01:00</updated><id>https://ontola.io/nl/blog/ordered-data</id><content type="html" xml:base="https://ontola.io/nl/blog/ordered-data-in-rdf/">&lt;p&gt;Sooner or later when working with RDF, you’ll need to work with ordered data / n-ary relations.
 The &lt;code class=&quot;highlighter-rouge&quot;&gt;subject predicate object&lt;/code&gt; model does not support Arrays, and no - you can’t use the order in which triples appear.&lt;/p&gt;
 
 &lt;p&gt;However, RDF &lt;em&gt;does&lt;/em&gt; support &lt;em&gt;Collections&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:List&lt;/code&gt;) and &lt;em&gt;Containers&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Bag&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Seq&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Alt&lt;/code&gt;).
@@ -410,10 +623,10 @@ It also makes serialization and parsing highly performant.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;However, the lack of prefixes and shorthands makes the format lengthy and a bit tough to read.
-The lenghty URLs also mean that you’ll need some form of compression (e.g.g-zip) if you don’t want to waste precious bandwith or storage capacity, so make sure to enable that in your server.&lt;/p&gt;
+The lengthy URLs also mean that you’ll need some form of compression (e.g.g-zip) if you don’t want to waste precious bandwidth or storage capacity, so make sure to enable that in your server.&lt;/p&gt;
 
 &lt;p&gt;Since writing a parser / serializer for N-Triples is so simple, it’s a good idea to support this pretty much always.
-And since N-Triples is a suset of Turtle and N3, it means that Turtle / N3 parsers know how to deal with N-Triples, too.&lt;/p&gt;
+And since N-Triples is a subset of Turtle and N3, it means that Turtle / N3 parsers know how to deal with N-Triples, too.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.w3.org/TR/n-quads/&quot;&gt;N-Quads&lt;/a&gt; are like N-Turiples, but they have an optional fourth column, which can be used to denote a graph label.
 The graph label often refers to the source of the data, e.g. the URL of the HTML document or some external RDF resource.&lt;/p&gt;
@@ -446,7 +659,7 @@ JSON arrays are converted to &lt;a href=&quot;/blog/ordered-data-in-rdf/&quot;&g
 I recommend spending some time in the &lt;a href=&quot;https://json-ld.org/playground/&quot;&gt;JSON-LD playground&lt;/a&gt; to get familiar with how it works.&lt;/p&gt;
 
 &lt;p&gt;Unfortunately, JSON-LD &lt;a href=&quot;http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/&quot;&gt;difficult and costly to parse&lt;/a&gt; if you need the RDF data instead of the JSON object.
-This complexity in parsing limits how many (bugfree) JSON-LD parsers are available, and it also means that parsing JSON-LD takes long.&lt;/p&gt;
+This complexity in parsing limits how many (bug-free) JSON-LD parsers are available, and it also means that parsing JSON-LD takes long.&lt;/p&gt;
 
 &lt;p&gt;JSON-LD is a compromise.
 It supports RDF, it supports JSON, and it does both &lt;em&gt;okay&lt;/em&gt;.
@@ -455,7 +668,7 @@ Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsin
 &lt;h2 id=&quot;hextuples&quot;&gt;HexTuples&lt;/h2&gt;
 
 &lt;p&gt;HexTuples is an &lt;a href=&quot;http://ndjson.org/&quot;&gt;NDJSON&lt;/a&gt; (Newline Delimited JSON) based RDF serialization format.
-It is desgined to achieve the best possible performance in a JS context (i.e. the browser).
+It is designed to achieve the best possible performance in a JS context (i.e. the browser).
 It uses plain JSON arrays, in which the position of the items denote &lt;code class=&quot;highlighter-rouge&quot;&gt;subject&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;predicate&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;object&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;datatype&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;lang&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;graph&lt;/code&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-ndjson&quot;&gt;[&quot;https://www.w3.org/People/Berners-Lee/&quot;, &quot;http://schema.org/birthDate&quot;, &quot;1955-06-08&quot;, &quot;http://www.w3.org/2001/XMLSchema#date&quot;, &quot;&quot;, &quot;&quot;]
@@ -463,7 +676,7 @@ It uses plain JSON arrays, in which the position of the items denote &lt;code cl
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;HexTuples is designed by Thom van Kalkeren (a colleague of mine) because he noticed that parsing / serialization was unnecessarily costly in our stack, even when using the relatively performant &lt;code class=&quot;highlighter-rouge&quot;&gt;n-quads&lt;/code&gt; format.
-Since HexTuples is serialized in NDJSON, it benefits from the &lt;a href=&quot;https://v8.dev/blog/cost-of-javascript-2019#json&quot;&gt;highly optimised JSON parsers in browsers&lt;/a&gt;.
+Since HexTuples is serialized in NDJSON, it benefits from the &lt;a href=&quot;https://v8.dev/blog/cost-of-javascript-2019#json&quot;&gt;highly optimized JSON parsers in browsers&lt;/a&gt;.
 It uses NDJSON instead of regular JSON because it makes it easier to parse concatenated responses (multiple root objects in one document).
 As an added plus, this enables streaming parsing as well, which gives it another performance boost.
 Our JS RDF libraries (&lt;a href=&quot;https://github.com/fletcher91/link-lib/&quot;&gt;link-lib&lt;/a&gt;, &lt;a href=&quot;https://github.com/fletcher91/link-redux/&quot;&gt;link-redux&lt;/a&gt;) have an internal RDF graph model which uses these arrays as well, which means that there is minimal mapping cost when parsing Hex-Tuple statements.
@@ -498,12 +711,12 @@ Therefore, you can implement a serialization library (e.g. our &lt;a href=&quot;
   &lt;li&gt;Use HDT if you have big static datasets and want the best performance and compression.&lt;/li&gt;
   &lt;li&gt;Use Hex-Tuples if you want high performance in JS with dynamic, non-static data.&lt;/li&gt;
   &lt;li&gt;Use N-Triples / N-Quads if you want decent performance and high compatibility.&lt;/li&gt;
-  &lt;li&gt;Use JSON-LD if you want to improve your exsting JSON API, and don’t need performant RDF parsing.&lt;/li&gt;
+  &lt;li&gt;Use JSON-LD if you want to improve your existing JSON API, and don’t need performant RDF parsing.&lt;/li&gt;
   &lt;li&gt;Use Turtle if you want to manually read &amp;amp; edit your RDF.&lt;/li&gt;
   &lt;li&gt;Use Notation3 if you need RDF rules.&lt;/li&gt;
   &lt;li&gt;Use RDFa to extend your existing HTML pages.&lt;/li&gt;
   &lt;li&gt;Use RDF/XML if you need to use XML.&lt;/li&gt;
-  &lt;li&gt;If you can, support all of them and use content negotation.&lt;/li&gt;
+  &lt;li&gt;If you can, support all of them and use content negotiation.&lt;/li&gt;
 &lt;/ul&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Contrary to some other data models, RDF is not bound by a single serialization format. Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my linked data?</summary></entry><entry><title type="html">Upgrade JSON-HAL to JSON-LD</title><link href="https://ontola.io/nl/blog/json-hal-ld/" rel="alternate" type="text/html" title="Upgrade JSON-HAL to JSON-LD" /><published>2018-08-29T00:00:00+02:00</published><updated>2018-08-29T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/json-hal-ld</id><content type="html" xml:base="https://ontola.io/nl/blog/json-hal-ld/">&lt;p&gt;&lt;a href=&quot;http://stateless.co/hal_specification.html&quot;&gt;JSON-HAL&lt;/a&gt; and &lt;a href=&quot;https://json-ld.org/&quot;&gt;JSON-LD&lt;/a&gt; are pretty popular formats for desiging APIs. They both have &lt;a href=&quot;https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/&quot;&gt;their merits&lt;/a&gt;, but they aren’t compatible with each other. However, with some additions, we can turn JSON-HAL into valid JSON-LD, without changing any of the original keys. This way, you can keep compatibility with HAL clients and benefit from the &lt;a href=&quot;/what-is-linked-data&quot;&gt;advantages of linked data&lt;/a&gt;, such as conversion to other RDF formats.&lt;/p&gt;
 
 &lt;p&gt;Let’s start with a JSON-HAL body object from the &lt;a href=&quot;https://tools.ietf.org/html/draft-kelly-json-hal-08&quot;&gt;docs&lt;/a&gt;.&lt;/p&gt;
