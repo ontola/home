@@ -4,7 +4,7 @@ This project runs on Jekyll and is hosted by Github Pages.
 
 ## Adding a post
 
-Create a `yyyy-mm-dd-title.md` file in `./_posts`.
+Create a `yyyy-mm-dd-title.md` file in `./_posts`, or in `./_drafts` if you don't want it published just yet.
 
 ## Run
 * `git clone git@github.com:ontola/ontola.github.io.git`

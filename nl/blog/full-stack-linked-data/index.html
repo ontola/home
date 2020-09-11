@@ -208,11 +208,11 @@ We created our own serializers (<a href="https://github.com/ontola/rdf-serialize
 This gem provides some abstractions for working with RDF, including:</p>
 
 <ul>
+  <li>Serialization (including errors)</li>
   <li>Policies (what users can or can’t do)</li>
   <li>Collections (sort / filter / pagination)</li>
   <li>Forms (we’ll get to that later)</li>
   <li>Menus for actions and navigation</li>
-  <li>Error serialization</li>
   <li>Actions handler (we’ll get to that later, too)</li>
 </ul>
 
@@ -250,7 +250,6 @@ Step one is fetching the data from the server, and storing it in the client.</p>
 
 <p>We started using <a href="https://github.com/linkeddata/rdflib.js">RDFlib.js</a>, written partially by the inventor of Linked Data (and HTTP, HTML, the WWW…) Tim Berners-Lee himself.
 It provided a lot of useful features for dealing with RDF: parse, fetch, serialize, mutate, search…
-I was hired by Inrupt to convert it to typescript in 2019.
 However, our app had kind of a unique set of requirements (mostly related to performance when dealing with many, dynamic triples), so we started working on a different RDF store.</p>
 
 <p>My colleague Thom wrote two libraries: <a href="https://github.com/fletcher91/link-lib">link-lib</a> and <a href="https://github.com/fletcher91/link-redux">link-redux</a>.
@@ -316,7 +315,7 @@ Getting SPARQL performant is actually pretty difficult, and we don’t need the 
 Most of the requests from the front-end just ask for all triples about one or multiple subjects, and these kind of queries don’t require SPARQL.
 SPARQL is useful for more complex graph property traversal queries, but is not necessarily the best approach for simpler queries.</p>
 
-<h3 id="just-show-me-the-repos-for-the-tools-and-protocols">Just show me the repo’s for the tools and protocols</h3>
+<h3 id="rdf-tools-that-weve-built">RDF tools that we’ve built</h3>
 
 <ul>
   <li><a href="https://github.com/fletcher91/link-lib">link-lib</a> JS lib for managing an RDF store, registering views and handling actions</li>

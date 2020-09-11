@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-09-11T15:07:29+02:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Full-stack linked data: lessons from building an RDF web app</title><link href="https://ontola.io/nl/blog/full-stack-linked-data/" rel="alternate" type="text/html" title="Full-stack linked data: lessons from building an RDF web app" /><published>2020-09-11T00:00:00+02:00</published><updated>2020-09-11T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/full-stack-rdf</id><content type="html" xml:base="https://ontola.io/nl/blog/full-stack-linked-data/">&lt;p&gt;How might a web application work if it exclusively uses &lt;a href=&quot;https://ontola.io/what-is-linked-data/&quot;&gt;Linked Data&lt;/a&gt; (RDF) to communicate between server and client?
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2020-09-11T15:38:43+02:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Full-stack linked data: lessons from building an RDF web app</title><link href="https://ontola.io/nl/blog/full-stack-linked-data/" rel="alternate" type="text/html" title="Full-stack linked data: lessons from building an RDF web app" /><published>2020-09-11T00:00:00+02:00</published><updated>2020-09-11T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/full-stack-rdf</id><content type="html" xml:base="https://ontola.io/nl/blog/full-stack-linked-data/">&lt;p&gt;How might a web application work if it exclusively uses &lt;a href=&quot;https://ontola.io/what-is-linked-data/&quot;&gt;Linked Data&lt;/a&gt; (RDF) to communicate between server and client?
 In this article, I’ll tell you about our API journey, why we chose linked data (RDF), the challenges that we faced, and some of the solutions that we came up with.&lt;/p&gt;
 
 &lt;h2 id=&quot;about-the-project&quot;&gt;About the project&lt;/h2&gt;
@@ -90,11 +90,11 @@ We created our own serializers (&lt;a href=&quot;https://github.com/ontola/rdf-s
 This gem provides some abstractions for working with RDF, including:&lt;/p&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;Serialization (including errors)&lt;/li&gt;
   &lt;li&gt;Policies (what users can or can’t do)&lt;/li&gt;
   &lt;li&gt;Collections (sort / filter / pagination)&lt;/li&gt;
   &lt;li&gt;Forms (we’ll get to that later)&lt;/li&gt;
   &lt;li&gt;Menus for actions and navigation&lt;/li&gt;
-  &lt;li&gt;Error serialization&lt;/li&gt;
   &lt;li&gt;Actions handler (we’ll get to that later, too)&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -132,7 +132,6 @@ Step one is fetching the data from the server, and storing it in the client.&lt;
 
 &lt;p&gt;We started using &lt;a href=&quot;https://github.com/linkeddata/rdflib.js&quot;&gt;RDFlib.js&lt;/a&gt;, written partially by the inventor of Linked Data (and HTTP, HTML, the WWW…) Tim Berners-Lee himself.
 It provided a lot of useful features for dealing with RDF: parse, fetch, serialize, mutate, search…
-I was hired by Inrupt to convert it to typescript in 2019.
 However, our app had kind of a unique set of requirements (mostly related to performance when dealing with many, dynamic triples), so we started working on a different RDF store.&lt;/p&gt;
 
 &lt;p&gt;My colleague Thom wrote two libraries: &lt;a href=&quot;https://github.com/fletcher91/link-lib&quot;&gt;link-lib&lt;/a&gt; and &lt;a href=&quot;https://github.com/fletcher91/link-redux&quot;&gt;link-redux&lt;/a&gt;.
@@ -198,7 +197,7 @@ Getting SPARQL performant is actually pretty difficult, and we don’t need the 
 Most of the requests from the front-end just ask for all triples about one or multiple subjects, and these kind of queries don’t require SPARQL.
 SPARQL is useful for more complex graph property traversal queries, but is not necessarily the best approach for simpler queries.&lt;/p&gt;
 
-&lt;h3 id=&quot;just-show-me-the-repos-for-the-tools-and-protocols&quot;&gt;Just show me the repo’s for the tools and protocols&lt;/h3&gt;
+&lt;h3 id=&quot;rdf-tools-that-weve-built&quot;&gt;RDF tools that we’ve built&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/fletcher91/link-lib&quot;&gt;link-lib&lt;/a&gt; JS lib for managing an RDF store, registering views and handling actions&lt;/li&gt;
