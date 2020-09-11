@@ -88,11 +88,11 @@ By default, it works great for generating HTML pages (or JSON objects, using Rai
 We created our own serializers ([rdf-serializers](https://github.com/ontola/rdf-serializers)), but more importantly, Thom and Arthur Dingemans created [linked-rails](https://github.com/ontola/linked_rails/wiki).
 This gem provides some abstractions for working with RDF, including:
 
+- Serialization (including errors)
 - Policies (what users can or can't do)
 - Collections (sort / filter / pagination)
 - Forms (we'll get to that later)
 - Menus for actions and navigation
-- Error serialization
 - Actions handler (we'll get to that later, too)
 
 Check out the [Wiki](https://github.com/ontola/linked_rails/wiki) if you want to learn more!
@@ -127,7 +127,6 @@ Step one is fetching the data from the server, and storing it in the client.
 
 We started using [RDFlib.js](https://github.com/linkeddata/rdflib.js), written partially by the inventor of Linked Data (and HTTP, HTML, the WWW...) Tim Berners-Lee himself.
 It provided a lot of useful features for dealing with RDF: parse, fetch, serialize, mutate, search...
-I was hired by Inrupt to convert it to typescript in 2019.
 However, our app had kind of a unique set of requirements (mostly related to performance when dealing with many, dynamic triples), so we started working on a different RDF store.
 
 My colleague Thom wrote two libraries: [link-lib](https://github.com/fletcher91/link-lib) and [link-redux](https://github.com/fletcher91/link-redux).
@@ -189,7 +188,7 @@ Getting SPARQL performant is actually pretty difficult, and we don't need the po
 Most of the requests from the front-end just ask for all triples about one or multiple subjects, and these kind of queries don't require SPARQL.
 SPARQL is useful for more complex graph property traversal queries, but is not necessarily the best approach for simpler queries.
 
-### Just show me the repo's for the tools and protocols
+### RDF tools that we've built
 
 - [link-lib](https://github.com/fletcher91/link-lib) JS lib for managing an RDF store, registering views and handling actions
 - [link-redux](https://github.com/fletcher91/link-redux) JS lib for React components, works with link-lib
