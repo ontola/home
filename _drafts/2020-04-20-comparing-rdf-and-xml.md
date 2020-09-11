@@ -1,12 +1,20 @@
 ---
 layout: post
-title: "Comparing RDF, CSV, JSON and XML"
+title: "Graphs, Tables and Trees: Comparing RDF, CSV, JSON and XML"
 author: joep
 permalink: /blog/comparing-rdf-json-and-xml/
 ---
 
+## Tables, trees and graphs
+
+Although data is stored in computers as sequences of ones and zeros, we generally think of data in various _structures_.
+
+
+
+An HTML (XML) file is a big nested tree (that grows sideways), a CSV file a column with a fixed amount of rows, and RDF graphs are networks of circles and arrows.
+
 In this article, I'll try to explain how the fundamental models of RDF, JSON and XML work and how they differ.
-I won't be looking at serialization or syntax.
+I won't be looking at serialization or syntax - just the models behind the data models.
 If you want to compare human readability or parsing / serialization performance, check out [this article](https://blog.mbedded.ninja/programming/serialization-formats/a-comparison-of-serialization-formats/).
 
 ## Serialization formats vs abstract data models
@@ -54,6 +62,7 @@ Each `field` is a string - CSV does not support any other datatype.
 _Defined by [RFC 4810](https://tools.ietf.org/html/rfc4180)_
 
 - Because of the table-like structure, every record has the same set of properties.
+- It does not allow for nested structures.
 
 ## RDF (linked data)
 
@@ -67,6 +76,7 @@ A `literal` value consists of a required string representing the value, an optio
 _Defined by [RFC 4810](https://tools.ietf.org/html/rfc4180)_
 
 - Every single statement has a subject, so every thing has an explicit identifier. This makes RDF a bit more bothersome to create
+- RDF's structure is a graph. Contrary
 - It has native support for `URIs` (i.e. links), which makes sense as it's linked data.
 - Ordered data in RDF is kind of complicated. Read more about [ordered data in RDF in my previous article](/blog/ordered-data-in-rdf/).
 - Contrary to `key-value` constructs in XML and JSON, `subject-predicate` combinations do not have to be unique in RDF.
@@ -77,12 +87,12 @@ _Defined by [RFC 4810](https://tools.ietf.org/html/rfc4180)_
 
 ## Feature comparison
 
-| Format | Ordered data support                                   | Native URIs | keys are | extendible datatypes              | Validation schema                                                                   |
-|--------|--------------------------------------------------------|-------------|----------|-----------------------------------|-------------------------------------------------------------------------------------|
-| JSON   | native arrays                                          | no          | strings  | no                                | [JSON-schema](https://github.com/json-schema-org/json-schema-spec)                  |
-| XML    | multiple children                                      | no          | strings  | yes, element children with `type` | XSD                                                                                 |
-| CSV    | no                                                     | no          | strings  | no                                | [CSV-SCHEMA](https://digital-preservation.github.io/csv-schema/csv-schema-1.2.html) |
-| RDF    | no, but [it's complicated](/blog/ordered-data-in-rdf/) | yes         | URIs     | yes, all objects using `datatype` | SHACL, SHEX                                                                         |
+| Format | Ordered data support                                   | Shape | keys are | extendible datatypes              | Validation schema                                                                   | Data shape |
+|--------|--------------------------------------------------------|-------|----------|-----------------------------------|-------------------------------------------------------------------------------------|------------|
+| JSON   | native arrays                                          | Tree  | strings  | no                                | [JSON-schema](https://github.com/json-schema-org/json-schema-spec)                  | Yes       |
+| XML    | multiple children                                      | Tree  | strings  | yes, element children with `type` | XSD                                                                                 | Yes       |
+| CSV    | no                                                     | Table | strings  | no                                | [CSV-SCHEMA](https://digital-preservation.github.io/csv-schema/csv-schema-1.2.html) | Yes      |
+| RDF    | no, but [it's complicated](/blog/ordered-data-in-rdf/) | Graph | URIs     | yes, all objects using `datatype` | SHACL, SHEX                                                                         | Graph      |
 
 ## Takeaways
 

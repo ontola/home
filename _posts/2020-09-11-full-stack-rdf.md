@@ -5,30 +5,28 @@ author: joep
 permalink: /blog/full-stack-linked-data/
 ---
 
-How might a modern web application work if it exclusively uses Linked Data (RDF) to communicate between server and client?
-The answer to this question becomes more and more relevant, as Linked Data paves the way to return data ownership to individuals, and prevent monopolization of web services.
-Three years ago, we went all-in on linked data.
-In this article, we'll talk about the unique challenges and advantages that we encountered.
+How might a web application work if it exclusively uses [Linked Data](https://ontola.io/what-is-linked-data/) (RDF) to communicate between server and client?
+In this article, I'll tell you about our API journey, why we chose linked data (RDF), the challenges that we faced, and some of the solutions that we came up with.
 
 ## About the project
 
-In 2016, we started [Argu.co](https://argu.co) - an e-democracy platform.
+In 2016, we started [Argu.co](https://argu.co): an e-democracy platform.
 We wanted more people to become politically engaged, and make sure that their opinions and ideas were heard by decision makers.
 We needed a web app where people would discuss issues, vote, share ideas and make decisions together.
-We started with Ruby on Rails, and built a traditional server-side monolithic app.
-This proved to be a quick and effective way to start, but as time progressed, we noticed more and more limitations of this approach.
+We started with Ruby on Rails, and built a traditional server-side monolithic HTML serving app.
+This proved to be a quick and effective way to start, but as time passed, we noticed more and more limitations of this approach.
 
-- The HTML pages relied on the internal ORM, so we didn't need an API for internal use. No API = no App, and we wanted to be ready if we wanted to build an application.
-- Having interactivity (menu's that pop up, rich text editors, notifications, live editing, etc.) was difficult to achieve with server-side rendering. We liked react, but using that in a server-rendered Rails app was complex.
-- Performance was limited, as most clicks required some server processing and an HTTP roundtrip.
+- The HTML pages relied on the internal ORM, so we didn't need an API for internal use. Having **no API** limits what customers can do with their data, and it also means that it's gonna be hard (or impossible) to build a native mobile App.
+- Having **interactivity** (menu's that pop up, rich text editors, notifications, live editing, etc.) was difficult to achieve with server-side rendering. We liked react, but using that in a server-rendered Rails app was complex and error-prone.
+- **Performance** was not as good as we wanted it to be, as most clicks required some server processing and an HTTP roundtrip.
 
 It was clear that we needed a dedicated client-side single page application and an API.
 
 ## Designing a client-server contract (API)
 
-We like adhering to standards, so we searched for best practices and existing standards.
-We initially went with JSON-API (not just 'a' JSON API, but a formal specification that describes things like pagination).
-Since we were already using React, and saw its popularity climbing, we went with that.
+Re-inventing the wheel seems like a bad idea, so we searched for best practices and existing standards in API design.
+We initially went with [JSON-API](https://jsonapi.org/) (not just 'a' JSON API, but a formal specification that describes things like pagination).
+Since we were already using React, and saw its popularity climbing, we went with that for the front-end.
 Now we had to decide how the internal state of the client should look like.
 We picked Redux, which uses a single (immutable) JS object which contains all application state (including data).
 
@@ -42,33 +40,34 @@ It now had explicit knowledge of:
 - Forms and their validations.
 
 This seemed _wrong_.
-We we're taught to write DRY code: _don't repeat yourself_, but we were doing exactly that.
-This means that when we want some feature changed, we have to adjust _both_ the front and the back-end.
-
+We were taught to write DRY code: _don't repeat yourself_, but it seemed like we were repeating ourselves all the time.
+This meant that when we wanted some feature changed, we had to adjust _both_ the front and the back-end.
 Something seemed off.
 
 ## Why we opted for Linked Data
 
-Our CTO Thom van Kalkeren thoroughly studied the principles behind REST, HATEOS and Hypermedia, and basically concluded that we need to give everything URLs.
-Not just the _pages_ that we present to our users, but to _every single thing_ that can be used by a client - including menu items, buttons, actions and form fields.
+Our CTO Thom van Kalkeren thoroughly studied the principles behind REST, HATEOS and Hypermedia, and concluded that we need to give _everything_ URLs.
+Not just the _pages_ that we present to our users, but _every single thing_ that can be used by a client - including menu items, buttons, actions and form fields.
 Luckily for us, the good folks at W3C had written quite a bit of specs about how data should look when you use URLs: the RDF specification (and friends).
 
 Linked Data (or RDF) has some unique qualities:
 
-- Using links for everything in data, means that data becomes _browsable_. That's actually really helpful in a web application, since this means that the client no longer needs to be aware of your routing logic.
-- Everything can be serialized to various formats (JSON, XML, Turtle, N-Triples, and [more](https://ontola.io/blog/rdf-serialization-formats/)), which gives some really nice and flexible export functionality.
-- Logical, self-describing APIs! Simply use content-type negotiation to fetch a resource as HTML or some RDF format, and browse the data like you would browse a website: by following the links.
-- Because links can point to _anywhere_ (not just your server), you can use all the publicly available linked data! This, for me, has always been the number one reason to believe in Linked Data.
-- Because of this, it enables _decentralized networks_ where people _own their data_, which can help to combat the existing web oligopoly. That's what the Solid project is all about.
+- **Browsable**. Using links for everything in data, means that data can be surfed like how web pages work: just follow the URLs. That's actually really helpful in a web application, since this means that the client no longer needs to be aware of your routing logic.
+- **Flexibility**. Everything can be serialized to various formats (JSON, XML, Turtle, N-Triples, and [more](https://ontola.io/blog/rdf-serialization-formats/)), which gives some really nice and flexible export functionality.
+- **Self-describing APIs**. Simply use content-type negotiation to fetch a resource as HTML or some RDF format, and browse the data like you would browse a website: by following the links. API docs become kind of unnecessary, since navigating the website shows you all the endpoints.
+- **Re-use other linked data**. Because links can point to _anywhere_ (not just your server), you can use all the publicly available linked data! This, for me, has always been the number one reason to believe in Linked Data.
+- **Enables true data ownership**. Because of this, it enables _decentralized networks_ where people _own their data_, which can help to combat the existing web oligopoly. That's what the [Solid project](https://solidproject.org/) is all about.
+
+So, we went with Linked Data.
 
 ## The cost of being an early adopter
 
-Although the RDF spec was already 10 years old, there were few existing libraries (let alone tutorials) for us to get started.
+Although the first [RDF spec](https://www.w3.org/TR/rdf11-concepts/) was already 10 years old, there were not many existing libraries (let alone tutorials) for us to get started.
 Practically all Linked Data projects functioned as viewers that directly show individual RDF Statements in a table.
 We wanted something else, we wanted a user-friendly web app that resembled social media platforms.
 We needed interactivity, notifications, forms...
 And doing things like that with Linked Data, turned out to be pretty hard.
-Luckily for you, we've shared quite a bit of tools, libraries and ideas that could make it a bit easier.
+Luckily for you, we've shared quite a bit of tools, libraries and ideas that could make your life a bit easier if you choose to go Linked Data.
 
 ## Getting used to RDF
 
@@ -177,17 +176,18 @@ It's not rolled out yet in production, but we'll open source it soon enough.
 ### Which triple store do you use?
 
 Although our back-end serializes linked data, we don't use a triple store.
-The Rails back-end has a mostly strict schema in SQL tables.
-However, we do have a table in our Postgres schema that stores single triples.
-As I've mentioned earlier, we're working on a new triple store (written in Rust) that we're planning on open sourcing soon.
+The Rails back-end has a mostly strict schema in SQL tables, but we do have a table in our Postgres schema that stores single triples.
+Keep in mind that the RDF representation of data can be created during serialization - so your app can create linked data without using a triple store!
+This is often a preferable approach in apps that have business logic or any type constraints.
+But as I've mentioned earlier, we're working on a new triple store (written in Rust) that we're planning on open sourcing soon, which we use for caching to keep performance optimal.
 
 ### Why not use SPARQL?
 
 SPARQL is the de facto query language for RDF data, so it seems logical to use it somewhere in our stack.
 However, we don't.
-Getting SPARQL performant is actually pretty difficult, and we don't use the powerful query options that it provides.
+Getting SPARQL performant is actually pretty difficult, and we don't need the powerful query options that it provides.
 Most of the requests from the front-end just ask for all triples about one or multiple subjects, and these kind of queries don't require SPARQL.
-We also offer full-text search in the app, which uses Elastic.
+SPARQL is useful for more complex graph property traversal queries, but is not necessarily the best approach for simpler queries.
 
 ### Just show me the repo's for the tools and protocols
 

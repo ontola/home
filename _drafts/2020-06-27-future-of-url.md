@@ -6,8 +6,8 @@ permalink: /blog/future-of-url/
 ---
 
 The URL is arguably one of the most important innovations of the last decades.
-It's a simple concept: combine the _identifier_ of some thing (such as an article) with a _locator_.
-The URL allows anyone that possesses it, to retrieve the content that it represents.
+It's a simple concept: combine the _identifier_ (the identity of the thing) of some thing with its _locator_ (how you can retrieve the thing).
+The URL allows anyone that possesses it to retrieve the content that it represents.
 It was invented by the same man who also invented the Web Browser, HTTP and the Web Server: Tim Berners-Lee.
 
 Although some things have changes (we now use the more secure HTTPS, and the more performant HTTP/2), most of our web activities still rely on the same fundamental idea.
@@ -21,7 +21,7 @@ Unfortunately, most developers still opt for creating _local identifiers_, which
 
 ## HTTP
 
-- Defacto standard
+- De-facto standard
 - Points to a machine, and is therefore _fast_ to resolve
 - Caching is hard
 - Not P2P friendly, central point of failure
