@@ -30,3 +30,8 @@ Als team werken wij onder andere aan het e-democracy platform [Argu](https://arg
 Verder zijn we de huidige ontwikkelkracht achter het project [OpenBesluitvorming.nl](https://openbesluitvorming.nl), waar we van meer dan honderd overheden data importeren, converteren en beschikbaar stellen als linked open data.
 We wonnen onder meer de [NL Open Government Partnership Award](https://www.open-overheid.nl/open-overheid/argu-winnaar-nederlandse-inzending-ogp-awards/) en diverse hackathons.
 Momenteel werken we samen met [Inrupt](http://inrupt.com/) aan het [Solid](https://solid.mit.edu) project, waarmee we mensen meer controle over hun data willen geven.
+
+## Bij ons komen werken?
+
+Als je van webtechnologie houdt, en een nieuwe baan zoekt, heb je misschien wel geluk.
+Bekijk onze [vacatures](/nl/jobs) pagina.

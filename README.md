@@ -22,3 +22,15 @@ Since Github does [not yet support i18n plugins](https://github.com/github/pages
 * Install node gh-pages for publishing: `npm i -g gh-pages`
 * Make sure you have the correct write rights on this repo.
 * Run `./deploy.sh`
+
+## Structure
+
+- `_data`: Structured data to be used in views
+- `_drafts`: Blogs that are not yet finished
+- `_i18n`: Translations as `yml` and `md` files
+- `_includes`: Re-usable html templates for use _inside_ other components
+- `_layouts`: Re-usable html templates that set a _context_ around content
+- `_posts`: Published blog posts
+- `_site`: Build folder - acts as root for `https://ontola.io`
+- `config`:
+- `pages`: HTML or MR pages which should extend `layouts`. You can refer to translation files.
