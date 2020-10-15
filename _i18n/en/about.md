@@ -31,3 +31,7 @@ We're also responsible for the technology of the [OpenBesluitvorming.nl](https:/
 We're currently working with [Inrupt](http://inrupt.com/) on the [Solid](https://solidproject.org/) project.
 
 We love Open Source, so make sure to check out our projects on [Github](http://github.com/ontola/)!
+
+## Join our team
+
+If you love web technology, and you're looking for a nice place to work, you might be in luck. Check out our [jobs](/jobs) page.
