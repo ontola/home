@@ -322,6 +322,7 @@ th,td {
 
 #hero-text {
     z-index: 1;
+    text-align: center;
 }
 
 .hero.hero--narrow h3,
