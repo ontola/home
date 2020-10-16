@@ -8,15 +8,16 @@ layout: page
 ## Over Ontola
 
 Bij Ontola doen we aan _tech for good_.
-We bouwen e-democracy software voor overheden ([Argu.co](https://argu.co)), maken overheidsdata beter beschikbaar ([OpenBesluitvorming.nl](openbesluitvorming.nl/)) en werken aan [Solid](https://solidproject.org/): webstandaarden om data eigenaarschap terug te brengen naar de mensen.
+We bouwen e-democracy software voor overheden ([Argu.co](https://argu.co)), maken overheidsdata beter beschikbaar ([OpenBesluitvorming.nl](https://openbesluitvorming.nl/)) en werken aan [Solid](https://solidproject.org/): webstandaarden om data eigenaarschap terug te brengen naar de mensen.
+Veel van wat we doen is open source.
 
-Als front-ender zorg jij dat ons platform snel, mooi, toegankelijk en helemaal van deze tijd is. Je werkt nauw samen met collega’s die in de afgelopen vijf jaar onze software hebben gebouwd. Naast geconcentreerd werken is er alle ruimte voor dagelijkse gezelligheid, persoonlijke ontwikkeling, borrels en uitjes (hoewel we moeten toegeven dat dit sinds maart wat minder is).
+Als front-ender zorg jij dat ons platform snel, mooi, toegankelijk en helemaal van deze tijd is. Je werkt nauw samen met collega’s die in de afgelopen vijf jaar onze software hebben gebouwd. Naast geconcentreerd werken is er alle ruimte voor dagelijkse gezelligheid, persoonlijke ontwikkeling, borrels en uitjes.
 
 ## Heb jij...
 
-- **Front-end skills**: React, JS, Typescript, CSS, Webpack, node.
+- **Front-end skills**: React, JS, Typescript, CSS, WebPack, node.
 - **Algemene (web) dev skills**: Git, docker, http, unix.
-- **Affiniteit met UI / UX**: je hoeft geen designs te maken, maar je vindt het wel belangrijk dat dingen er mooi uitzien en intuïtief  werken
+- **Affiniteit met UI / UX**: Je hoeft geen designs te maken, maar je vindt het wel belangrijk dat dingen er mooi uitzien en intuïtief  werken.
 - **Leergierigheid**: We bewegen snel, en verwachten dat jij dat ook doet. Doordat we zo veel met [linked data](https://ontola.io/what-is-linked-data/) doen, zal je bij ons waarschijnlijk meteen al een aantal nieuwe dingen moeten leren.
 
 ## Wij bieden
