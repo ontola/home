@@ -68,6 +68,8 @@ Practically all Linked Data projects functioned as viewers that directly show in
 We wanted something else, we wanted a user-friendly web app that resembled social media platforms.
 We needed interactivity, notifications, forms...
 And doing things like that with Linked Data, turned out to be pretty hard.
+We wanted to ship our linked-data powered front-end in 2018, but we did it in 2020.
+Using RDF in a modern web stack required writing new libraries, which had to consider some of the unique characteristics of RDF (more on that later).
 Luckily for you, we've shared quite a bit of tools, libraries and ideas that could make it a bit easier.
 
 ## Getting used to RDF
