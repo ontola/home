@@ -119,11 +119,9 @@ Triple statements (the data atoms of RDF) can be serialized in many ways, which 
   <p>Contrary to some other data models, RDF is not bound by a single serialization format.
 Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my <a href="/what-is-linked-data">linked data</a>?</p>
 
-<p><strong>To answer the title’s question: <em>it depends</em>, but probably N-Triples / N-Quads.</strong></p>
-
-<p>So, let’s discuss the various formats and when you should use which one.
-The order in which they appear is chronological and does not reflect preference.
-Skip to the <a href="#tldr">TL;DR</a> if you’re feeling hasty.</p>
+<p>To answer the title’s question: <em>it depends</em>.
+Skip to the <a href="#tldr">TL;DR</a> if you’re feeling hasty.
+The order in which they appear is chronological / historical and does not reflect preference.</p>
 
 <h2 id="rdfxml">RDF/XML</h2>
 
@@ -185,7 +183,7 @@ This makes it less useful if your application relies on a lot of RDF data.</p>
 <p>Tim-Berners Lee wanted something better than RDF/XML, and came up with <a href="https://www.w3.org/TeamSubmission/n3/">N3</a>.
 Contrary to RDF/XML, N3 closely resembles the RDF Subject / Predicate / Object model.
 This makes N3 very easy on the eyes and helps to understand how RDF works.
-By using @prefixes, N3 can be quite compact.</p>
+By using <code class="highlighter-rouge"><span class="kd">@prefix</span></code>es, N3 can be quite compact.</p>
 
 <p>However, N3 is relatively costly to serialize, which could hinder performance.
 It’s also quite feature-heavy since it supports <a href="http://www.ninebynine.org/RDFNotes/RDFFactsAndRules.html">RDF rules</a>, which makes it harder to parse.</p>
@@ -238,12 +236,12 @@ The lengthy URLs also mean that you’ll need some form of compression (e.g.g-zi
 <p>Since writing a parser / serializer for N-Triples is so simple, it’s a good idea to support this pretty much always.
 And since N-Triples is a subset of Turtle and N3, it means that Turtle / N3 parsers know how to deal with N-Triples, too.</p>
 
-<p><a href="https://www.w3.org/TR/n-quads/">N-Quads</a> are like N-Turiples, but they have an optional fourth column, which can be used to denote a graph label.
+<p><a href="https://www.w3.org/TR/n-quads/">N-Quads</a> are like N-Triples, but they have an optional fourth column, which can be used to denote a graph label.
 The graph label often refers to the source of the data, e.g. the URL of the HTML document or some external RDF resource.</p>
 
 <h2 id="json-ld-jsonld">JSON-LD (.jsonld)</h2>
 
-<p>JSON is, without a doubt, the most popular way to handle data in web applications.
+<p>JSON is, without a doubt, the most popular way to serialize data in web applications.
 <a href="https://json-ld.org/spec/latest/json-ld/">JSON-LD</a> is an extension of JSON and is valid JSON as well.
 You can turn your regular plain old JSON into RDF by adding <a href="https://json-ld.org/spec/latest/json-ld/#the-context"><code class="highlighter-rouge">@context</code></a>.
 This object mainly serves as a mapping, so your plain keys get turned into fancy links to RDF Classes and Properties.
@@ -265,33 +263,16 @@ This means that if you want to upgrade your JSON API to JSON-LD, you get to keep
 
 <p>JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
 Because it’s still valid JSON, it’s usable to those who don’t want to deal with URLs.
-JSON arrays are converted to <a href="/blog/ordered-data-in-rdf/">RDF Lists</a>.
+JSON arrays are converted to <a href="/blog/ordered-data-in-rdf/">RDF Lists</a> (but can also be converted to <a href="">other sequence types</a>).
 I recommend spending some time in the <a href="https://json-ld.org/playground/">JSON-LD playground</a> to get familiar with how it works.</p>
 
 <p>Unfortunately, JSON-LD <a href="http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/">difficult and costly to parse</a> if you need the RDF data instead of the JSON object.
-This complexity in parsing limits how many (bug-free) JSON-LD parsers are available, and it also means that parsing JSON-LD takes long.</p>
+Parsing JSON-LD often involves requesting data from the internet, and needs clever caching to be performant.
+This complexity in parsing limits how many (bug-free) JSON-LD parsers are available, and it also means that parsing JSON-LD takes relatively long.</p>
 
 <p>JSON-LD is a compromise.
 It supports RDF, it supports JSON, and it does both <em>okay</em>.
 Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.</p>
-
-<h2 id="hextuples">HexTuples</h2>
-
-<p>HexTuples is an <a href="http://ndjson.org/">NDJSON</a> (Newline Delimited JSON) based RDF serialization format.
-It is designed to achieve the best possible performance in a JS context (i.e. the browser).
-It uses plain JSON arrays, in which the position of the items denote <code class="highlighter-rouge">subject</code>, <code class="highlighter-rouge">predicate</code>, <code class="highlighter-rouge">object</code>, <code class="highlighter-rouge">datatype</code>, <code class="highlighter-rouge">lang</code> and <code class="highlighter-rouge">graph</code>.</p>
-
-<pre><code class="language-ndjson">["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthDate", "1955-06-08", "http://www.w3.org/2001/XMLSchema#date", "", ""]
-["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthPlace", "http://dbpedia.org/resource/London", "http://www.w3.org/1999/02/22-rdf-syntax-ns#namedNode", "", ""]
-</code></pre>
-
-<p>HexTuples is designed by Thom van Kalkeren (a colleague of mine) because he noticed that parsing / serialization was unnecessarily costly in our stack, even when using the relatively performant <code class="highlighter-rouge">n-quads</code> format.
-Since HexTuples is serialized in NDJSON, it benefits from the <a href="https://v8.dev/blog/cost-of-javascript-2019#json">highly optimized JSON parsers in browsers</a>.
-It uses NDJSON instead of regular JSON because it makes it easier to parse concatenated responses (multiple root objects in one document).
-As an added plus, this enables streaming parsing as well, which gives it another performance boost.
-Our JS RDF libraries (<a href="https://github.com/fletcher91/link-lib/">link-lib</a>, <a href="https://github.com/fletcher91/link-redux/">link-redux</a>) have an internal RDF graph model which uses these arrays as well, which means that there is minimal mapping cost when parsing Hex-Tuple statements.
-This format is especially suitable for real front-end applications that use dynamic RDF data.
-It is not yet properly documented.</p>
 
 <h2 id="hdt">HDT</h2>
 
@@ -309,11 +290,28 @@ It is used in the Apache Jena RDF store.
 It’s a binary format, and therefore it’s cheap to parse and serialize.
 I’ve never used it, but it sounds interesting, although you’ll need Thrift tooling for decoding it.</p>
 
+<h2 id="hextuples">HexTuples</h2>
+
+<p><a href="https://github.com/ontola/hextuples">HexTuples</a> is an <a href="http://ndjson.org/">NDJSON</a> (Newline Delimited JSON) based RDF serialization format.
+It is designed to achieve the best possible performance in a JS context (i.e. the browser).
+It uses plain JSON arrays, in which the position of the items denote <code class="highlighter-rouge">subject</code>, <code class="highlighter-rouge">predicate</code>, <code class="highlighter-rouge">object</code>, <code class="highlighter-rouge">datatype</code>, <code class="highlighter-rouge">lang</code> and <code class="highlighter-rouge">graph</code>.</p>
+
+<pre><code class="language-ndjson">["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthDate", "1955-06-08", "http://www.w3.org/2001/XMLSchema#date", "", ""]
+["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthPlace", "http://dbpedia.org/resource/London", "http://www.w3.org/1999/02/22-rdf-syntax-ns#namedNode", "", ""]
+</code></pre>
+
+<p>HexTuples is designed by Thom van Kalkeren (a colleague of mine) because he noticed that parsing / serialization was unnecessarily costly in our stack, even when using the relatively performant <code class="highlighter-rouge">n-quads</code> format.
+Since HexTuples is serialized in NDJSON, it benefits from the <a href="https://v8.dev/blog/cost-of-javascript-2019#json">highly optimized JSON parsers in browsers</a>.
+It uses NDJSON instead of regular JSON because it makes it easier to parse concatenated responses (multiple root objects in one document).
+As an added plus, this enables streaming parsing as well, which gives it another performance boost.
+Our JS RDF libraries (<a href="https://github.com/fletcher91/link-lib/">link-lib</a>, <a href="https://github.com/fletcher91/link-redux/">link-redux</a>) have an internal RDF graph model which uses these arrays as well, which means that there is minimal mapping cost when parsing Hex-Tuple statements.
+This format is especially suitable for real front-end applications that use dynamic RDF data.</p>
+
 <h2 id="let-your-users-choose-a-format">Let your users choose a format</h2>
 
 <p>Choosing an RDF serialization format for your application or service might be a false dilemma.
 Since you control your application and probably have an internal model, you can offer multiple serialization options.
-Therefore, you can implement a serialization library (e.g. our <a href="https://github.com/ontola/rdf-serializers">rdf-serializers</a> gem for Rails) and use <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation">HTTP Content negotation</a>, so your project can handle all kinds of formats.</p>
+Therefore, you can implement a serialization library (e.g. our <a href="https://github.com/ontola/rdf-serializers">rdf-serializers</a> gem for Rails) and use <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation">HTTP Content negotiation</a>, so your project can handle all kinds of formats.</p>
 
 <h2 id="tldr">TL;DR</h2>
 
