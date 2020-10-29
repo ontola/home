@@ -8,11 +8,9 @@ permalink: /blog/rdf-serialization-formats/
 Contrary to some other data models, RDF is not bound by a single serialization format.
 Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my [linked data](/what-is-linked-data)?
 
-**To answer the title's question: _it depends_, but probably N-Triples / N-Quads.**
-
-So, let's discuss the various formats and when you should use which one.
-The order in which they appear is chronological and does not reflect preference.
+To answer the title's question: _it depends_.
 Skip to the [TL;DR](#tldr) if you're feeling hasty.
+The order in which they appear is chronological / historical and does not reflect preference.
 
 ## RDF/XML
 
@@ -76,7 +74,7 @@ Use RDFa if you want to make your existing website/ blog / HTML based applicatio
 Tim-Berners Lee wanted something better than RDF/XML, and came up with [N3](https://www.w3.org/TeamSubmission/n3/).
 Contrary to RDF/XML, N3 closely resembles the RDF Subject / Predicate / Object model.
 This makes N3 very easy on the eyes and helps to understand how RDF works.
-By using @prefixes, N3 can be quite compact.
+By using `@prefix`es, N3 can be quite compact.
 
 However, N3 is relatively costly to serialize, which could hinder performance.
 It's also quite feature-heavy since it supports [RDF rules](http://www.ninebynine.org/RDFNotes/RDFFactsAndRules.html), which makes it harder to parse.
@@ -132,12 +130,12 @@ The lengthy URLs also mean that you'll need some form of compression (e.g.g-zip)
 Since writing a parser / serializer for N-Triples is so simple, it's a good idea to support this pretty much always.
 And since N-Triples is a subset of Turtle and N3, it means that Turtle / N3 parsers know how to deal with N-Triples, too.
 
-[N-Quads](https://www.w3.org/TR/n-quads/) are like N-Turiples, but they have an optional fourth column, which can be used to denote a graph label.
+[N-Quads](https://www.w3.org/TR/n-quads/) are like N-Triples, but they have an optional fourth column, which can be used to denote a graph label.
 The graph label often refers to the source of the data, e.g. the URL of the HTML document or some external RDF resource.
 
 ## JSON-LD (.jsonld)
 
-JSON is, without a doubt, the most popular way to handle data in web applications.
+JSON is, without a doubt, the most popular way to serialize data in web applications.
 [JSON-LD](https://json-ld.org/spec/latest/json-ld/) is an extension of JSON and is valid JSON as well.
 You can turn your regular plain old JSON into RDF by adding [`@context`](https://json-ld.org/spec/latest/json-ld/#the-context).
 This object mainly serves as a mapping, so your plain keys get turned into fancy links to RDF Classes and Properties.
@@ -160,34 +158,16 @@ This means that if you want to upgrade your JSON API to JSON-LD, you get to keep
 
 JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
 Because it's still valid JSON, it's usable to those who don't want to deal with URLs.
-JSON arrays are converted to [RDF Lists](/blog/ordered-data-in-rdf/).
+JSON arrays are converted to [RDF Lists](/blog/ordered-data-in-rdf/) (but can also be converted to [other sequence types]()).
 I recommend spending some time in the [JSON-LD playground](https://json-ld.org/playground/) to get familiar with how it works.
 
 Unfortunately, JSON-LD [difficult and costly to parse](http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/) if you need the RDF data instead of the JSON object.
-This complexity in parsing limits how many (bug-free) JSON-LD parsers are available, and it also means that parsing JSON-LD takes long.
+Parsing JSON-LD often involves requesting data from the internet, and needs clever caching to be performant.
+This complexity in parsing limits how many (bug-free) JSON-LD parsers are available, and it also means that parsing JSON-LD takes relatively long.
 
 JSON-LD is a compromise.
 It supports RDF, it supports JSON, and it does both _okay_.
 Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.
-
-## HexTuples
-
-HexTuples is an [NDJSON](http://ndjson.org/) (Newline Delimited JSON) based RDF serialization format.
-It is designed to achieve the best possible performance in a JS context (i.e. the browser).
-It uses plain JSON arrays, in which the position of the items denote `subject`, `predicate`, `object`, `datatype`, `lang` and `graph`.
-
-```ndjson
-["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthDate", "1955-06-08", "http://www.w3.org/2001/XMLSchema#date", "", ""]
-["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthPlace", "http://dbpedia.org/resource/London", "http://www.w3.org/1999/02/22-rdf-syntax-ns#namedNode", "", ""]
-```
-
-HexTuples is designed by Thom van Kalkeren (a colleague of mine) because he noticed that parsing / serialization was unnecessarily costly in our stack, even when using the relatively performant `n-quads` format.
-Since HexTuples is serialized in NDJSON, it benefits from the [highly optimized JSON parsers in browsers](https://v8.dev/blog/cost-of-javascript-2019#json).
-It uses NDJSON instead of regular JSON because it makes it easier to parse concatenated responses (multiple root objects in one document).
-As an added plus, this enables streaming parsing as well, which gives it another performance boost.
-Our JS RDF libraries ([link-lib](https://github.com/fletcher91/link-lib/), [link-redux](https://github.com/fletcher91/link-redux/)) have an internal RDF graph model which uses these arrays as well, which means that there is minimal mapping cost when parsing Hex-Tuple statements.
-This format is especially suitable for real front-end applications that use dynamic RDF data.
-It is not yet properly documented.
 
 ## HDT
 
@@ -205,11 +185,29 @@ It is used in the Apache Jena RDF store.
 It's a binary format, and therefore it's cheap to parse and serialize.
 I've never used it, but it sounds interesting, although you'll need Thrift tooling for decoding it.
 
+## HexTuples
+
+[HexTuples](https://github.com/ontola/hextuples) is an [NDJSON](http://ndjson.org/) (Newline Delimited JSON) based RDF serialization format.
+It is designed to achieve the best possible performance in a JS context (i.e. the browser).
+It uses plain JSON arrays, in which the position of the items denote `subject`, `predicate`, `object`, `datatype`, `lang` and `graph`.
+
+```ndjson
+["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthDate", "1955-06-08", "http://www.w3.org/2001/XMLSchema#date", "", ""]
+["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthPlace", "http://dbpedia.org/resource/London", "http://www.w3.org/1999/02/22-rdf-syntax-ns#namedNode", "", ""]
+```
+
+HexTuples is designed by Thom van Kalkeren (a colleague of mine) because he noticed that parsing / serialization was unnecessarily costly in our stack, even when using the relatively performant `n-quads` format.
+Since HexTuples is serialized in NDJSON, it benefits from the [highly optimized JSON parsers in browsers](https://v8.dev/blog/cost-of-javascript-2019#json).
+It uses NDJSON instead of regular JSON because it makes it easier to parse concatenated responses (multiple root objects in one document).
+As an added plus, this enables streaming parsing as well, which gives it another performance boost.
+Our JS RDF libraries ([link-lib](https://github.com/fletcher91/link-lib/), [link-redux](https://github.com/fletcher91/link-redux/)) have an internal RDF graph model which uses these arrays as well, which means that there is minimal mapping cost when parsing Hex-Tuple statements.
+This format is especially suitable for real front-end applications that use dynamic RDF data.
+
 ## Let your users choose a format
 
 Choosing an RDF serialization format for your application or service might be a false dilemma.
 Since you control your application and probably have an internal model, you can offer multiple serialization options.
-Therefore, you can implement a serialization library (e.g. our [rdf-serializers](https://github.com/ontola/rdf-serializers) gem for Rails) and use [HTTP Content negotation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation), so your project can handle all kinds of formats.
+Therefore, you can implement a serialization library (e.g. our [rdf-serializers](https://github.com/ontola/rdf-serializers) gem for Rails) and use [HTTP Content negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation), so your project can handle all kinds of formats.
 
 ## TL;DR
 
