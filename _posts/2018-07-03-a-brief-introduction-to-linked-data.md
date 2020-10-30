@@ -248,16 +248,25 @@ For example, you can get these [cool boxes in google](https://developers.google.
 However, annotated pages are more for adding a bit of spice to your existing webpage than to make huge datasets available.
 Parsing (reading) RDFa from a large HTML document will always be more expensive than reading Turtle or any other simple triple RDF format.
 
-A radically different way to share your linked data is through a **SPARQL** endpoint.
+A radically different way to share your linked data is through a **SPARQL endpoint**.
 SPARQL is a _query language_, like SQL, designed to perform complex search queries in large RDF graphs.
 With SPARQL, you can run queries such as 'which pianists live in the Netherlands', or 'what proteins are involved in signal transductions and related to pyramidal neurons?'.
-SPARQL is without any doubt extremely powerful, but using it as the primary measure to share your RDF data might be difficult for your project.
-If you want one, you will probably need to store your RDF data in a specialized triple store that features a SPARQL endpoint.
-Not many databases do, unfortunately, so you'll be limited to either proprietary solutions or projects with relatively little adoption and support.
+SPARQL is without any doubt extremely powerful, but using it as the only way of sharing RDF might not be the best idea.
+The subjects that you define are URLs, and there should _resolve_.
+Having a SPARQL endpoint is a nice bonus, but making the subjects themselves available at their URLs should have priority.
+If you want a SPARQL endpoint, you will need to store your RDF data in a triple store with SPARQL support.
+Various proprietary and open source ones (e.g. Apache Jena) exist.
 Ask yourself if your users will need to run complex queries on your data.
-For most linked data projects, I'd recommend to use a conventional database and serialize the data to some RDF format when a user sends a request, i.e. use the aforementioned subject pages pattern instead of a SPARQL endpoint.
+Keep in mind that having an open SPARQL endpoint might have very inconsistent performance.
 
 Other technologies like [Linked Data Fragments](http://linkeddatafragments.org/) and [HDT](http://www.rdfhdt.org/what-is-hdt/) allow for even more efficient sharing and storing of linked data.
+
+Remember that you **don't necessarily need a Triple Store** or SPARQL if you want to _share_ linked data.
+If you're importing linked data from other sources, you're probably going to need a triple store, because you can't know in advance what kind of data models you're going to get.
+However, if you have a constrained and clear schema (which most applications have!), and you want to make your apps data available as linked data, you can simply keep using your existing database.
+The thing that you need to do, is _serialize your data as some RDF format_.
+This might mean adding an `@context` object to your JSON bodies, which maps JSON keys to RDF properties.
+Or it might mean using some RDF serializer and create the mappings for internal concepts to external URLs inside your app.
 
 Note that there's a difference between linked data and linked _open_ data.
 Although linked data would be a great choice for publishing open data (it's also known as [5 star open data](https://5stardata.info/en/)), you don't have to make your linked data accessible to others.
@@ -267,10 +276,10 @@ It's perfectly possible to secure linked data using [OAuth](https://oauth.net/2/
 
 - Links provide a path to **extra information** on something, since you can follow them. If you link to other linked data resources, it means that machines can traverse these graphs as well.
 - Links **remove ambiguity**, so it becomes very clear what is being stated.
-- Linked data enables a **decentralized architecture**. Since URLs point directly to the source of the data, even if the data is on a completely different domain and server, it can connect datasets to eachother.
+- Linked data enables a **decentralized architecture**. Since URLs point directly to the source of the data, even if the data is on a completely different domain and server, it can connect datasets to each other.
 - Linked data **stays at the source**, so it does not have to be copied as much. A user can simply request one specific part of the data, without having to download the entire dataset. This prevents a lot of expensive issues related with data duplication.
-- You **don't need new APIs and API descriptions**, since you can just use HTTP + Content Negotiation to fetch specific items. The data itself is browseable, like webpages are.
-- You can **easily merge linked datasets** without any collissions in identifiers. This is because URLs are unique even accross multiple domains.
+- You **don't need new APIs and API descriptions**, since you can just use HTTP + Content Negotiation to fetch specific items. The data itself is browsable, like webpages are.
+- You can **easily merge linked datasets** without any collisions in identifiers. This is because URLs are unique even across multiple domains.
 - Linked data can be converted to **many serialization formats**. [This blogpost compares them](/blog/rdf-serialization-formats). Since RDF contains more information, it's easy to convert Linked Data to JSON (for example), but the other way around is more difficult.
 - Linked data is a standard with **many available tools, libraries and query options** (e.g. SPARQL).
 - Linked data is **highly extendible**, as anyone can use their own URLs for classes, predicates and datatypes.
@@ -278,9 +287,9 @@ It's perfectly possible to secure linked data using [OAuth](https://oauth.net/2/
 ## Disadvantages of linked data
 
 - Creating new linked data can be **more time consuming**, since you are expected to use (working) links instead of the words that come to mind.
-- It can be a bit **confusing** at first, especially the plurality of serization formats.
+- It can be a bit **confusing** at first, especially the plurality of serialization formats.
 - Handling [sequential data / arrays in RDF](/blog/ordered-data-in-rdf/) is more difficult than it should be.
-- Having a good **URL startegy** becomes more important, especially when people will use your linked data.
+- Having a good **URL strategy** becomes more important, especially when people will use your linked data.
 - **Rendering RDF data** in a fancy GUI / web application can be tricky (check out our [link-redux](https://github.com/fletcher91/link-redux) library for rendering linked data in React).
 - **Re-using it often requires mapping efforts**. In Object Oriented environments (e.g. javascript), developers tend to use forms of dot syntax to navigate data, e.g. when accessing a key in a JSON object, such as `myObject.someProperty`. With RDF, these keys are (long) URLs, so this might require some RDF ORM.
 - **Few people are familiar with linked data**, and there is a bit of a learning curve.
@@ -289,10 +298,11 @@ It's perfectly possible to secure linked data using [OAuth](https://oauth.net/2/
 
 If you want to learn more about the vision behind the semantic web and linked data, read the [2006 paper](https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf) by some of the original inventors.
 If you're looking for inspiration and example projects, check out the [Linked Open Data Cloud](https://lod-cloud.net/).
-For getting a better grasp on the RDF data model, I recommand my [article on RDF serialization formats](/blog/rdf-serialization-formats).
+For getting a better grasp on the RDF data model, I recommend my [article on RDF serialization formats](/blog/rdf-serialization-formats).
 If you want to learn more about reasoning and ontologies, try the [W3C OWL primer](https://www.w3.org/TR/2012/REC-owl2-primer-20121211/).
 For SPARQL, the [Apache Jena tutorial](https://jena.apache.org/tutorials/sparql.html) could help.
 Check out the [/r/semanticweb](https://www.reddit.com/r/semanticweb/) community on Reddit for interesting posts and discussions.
+There's a fairly active [Gitter](https://gitter.im/linkeddata/chat) channel where people are eager to help you out.
 Here's a list of some [interesting Twitter accounts](https://twitter.com/joepmeindertsma/lists/linked-data) you might want to follow.
 Check out the other articles of the [Ontola Linked Data Blog](/blog).
 
