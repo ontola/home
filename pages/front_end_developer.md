@@ -1,5 +1,5 @@
 ---
-title: Vacature front-end developer 32 - 40 uur p/w
+title: Vacature React / Typescript front-end webdeveloper 32 - 40 uur p/w Utrecht
 namespace: jobs
 permalink: /jobs/webdev2020
 layout: page
@@ -11,14 +11,18 @@ Bij Ontola doen we aan _tech for good_.
 We bouwen e-democracy software voor overheden ([Argu.co](https://argu.co)), maken overheidsdata beter beschikbaar ([OpenBesluitvorming.nl](https://openbesluitvorming.nl/)) en werken aan [Solid](https://solidproject.org/): webstandaarden om data eigenaarschap terug te brengen naar de mensen.
 Veel van wat we doen is open source.
 
-Als front-ender zorg jij dat ons platform snel, mooi, toegankelijk en helemaal van deze tijd is. Je werkt nauw samen met collega’s die in de afgelopen vijf jaar onze software hebben gebouwd. Naast geconcentreerd werken is er alle ruimte voor dagelijkse gezelligheid, persoonlijke ontwikkeling, borrels en uitjes.
+Als front-ender zorg jij dat ons platform snel, mooi, toegankelijk en helemaal van deze tijd is.
+Je werkt nauw samen met een team van collega’s die in de afgelopen vijf jaar onze software hebben gebouwd.
+De functie is technisch uitdagend, en is is alle ruimte
+Naast geconcentreerd werken is er alle ruimte voor dagelijkse gezelligheid, persoonlijke ontwikkeling, borrels en uitjes.
 
 ## Heb jij...
 
-- **Front-end skills**: React, JS, Typescript, CSS, WebPack, node.
-- **Algemene (web) dev skills**: Git, docker, http, unix.
+- **Front-end skills**: React, JS, Typescript, CSS, WebPack, node. Je hebt enkele frameworks gebruikt, maar kent ook vanilla JS, HTML en de browser DOM.
+- **Algemene (web) dev skills**: Je hebt ervaring met git, docker, http, unix. Je kunt autonoom gepaste libraries vinden en bugs oplossen. Je leest documentatie door, en duikt in broncode van dependencies als documentatie schaars is.
 - **Affiniteit met UI / UX**: Je hoeft geen designs te maken, maar je vindt het wel belangrijk dat dingen er mooi uitzien en intuïtief  werken.
-- **Leergierigheid**: We bewegen snel, en verwachten dat jij dat ook doet. Doordat we zo veel met [linked data](https://ontola.io/what-is-linked-data/) doen, zal je bij ons waarschijnlijk meteen al een aantal nieuwe dingen moeten leren.
+- **Leergierigheid**: We bewegen snel, en verwachten dat jij dat ook doet. Doordat we zo veel met [linked data](https://ontola.io/what-is-linked-data/) doen, zal je bij ons waarschijnlijk meteen al een aantal nieuwe dingen moeten leren, zoals de [link-lib]() en link-redux libraries.
+- **Ervaring met open source** (geen must): Je hebt bijgedragen aan open source projecten, en begrijpt hoe communicatie op Github met issues en milestones werkt.
 
 ## Wij bieden
 
