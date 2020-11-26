@@ -56,7 +56,7 @@ Linked Data (or RDF) has some unique qualities:
 - **Flexibility**. Everything can be serialized to various formats (JSON, XML, Turtle, N-Triples, and [more](https://ontola.io/blog/rdf-serialization-formats/)), which gives some really nice and flexible export functionality.
 - **Self-describing APIs**. Simply use content-type negotiation to fetch a resource as HTML or some RDF format, and browse the data like you would browse a website: by following the links. API docs become kind of unnecessary, since navigating the website shows you all the endpoints.
 - **Re-use other linked data**. Because links can point to _anywhere_ (not just your server), you can use all the publicly available linked data! This, for me, has always been the number one reason to believe in Linked Data.
-- **Enables true data ownership**. Because of this, it enables _decentralized networks_ where people _own their data_, which can help to combat the existing web oligopoly. That's what the [Solid project](https://solidproject.org/) is all about.
+- **Enables true data ownership**. Because of this, it enables _decentralized networks_ where people _own their data_, which can help to combat the existing web oligopoly. That's what the [Solid project](/solid) is all about.
 
 So, we went with Linked Data.
 

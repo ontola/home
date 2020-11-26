@@ -8,7 +8,7 @@ layout: page
 ## Over Ontola
 
 Bij Ontola doen we aan _tech for good_.
-We bouwen e-democracy software voor overheden ([Argu.co](https://argu.co)), maken overheidsdata beter beschikbaar ([OpenBesluitvorming.nl](https://openbesluitvorming.nl/)) en werken aan [Solid](https://solidproject.org/): webstandaarden om data eigenaarschap terug te brengen naar de mensen.
+We bouwen e-democracy software voor overheden ([Argu.co](https://argu.co)), maken overheidsdata beter beschikbaar ([OpenBesluitvorming.nl](https://openbesluitvorming.nl/)) en werken aan [Solid](/solid): webstandaarden om data eigenaarschap terug te brengen naar de mensen.
 Veel van wat we doen is open source.
 
 Als front-ender zorg jij dat ons platform snel, mooi, toegankelijk en helemaal van deze tijd is.
