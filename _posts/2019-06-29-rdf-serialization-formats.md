@@ -8,9 +8,10 @@ permalink: /blog/rdf-serialization-formats/
 Contrary to some other data models, RDF is not bound by a single serialization format.
 Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my [linked data](/what-is-linked-data)?
 
-To answer the title's question: _it depends_.
+## To answer the title's question: _it depends_
+
 Skip to the [TL;DR](#tldr) if you're feeling hasty.
-The order in which they appear is chronological / historical and does not reflect preference.
+The order in which they appear is **chronological / historical and does not reflect preference**.
 
 ## RDF/XML
 
@@ -156,34 +157,59 @@ This means that if you want to upgrade your JSON API to JSON-LD, you get to keep
 }
 ```
 
-JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
-Because it's still valid JSON, it's usable to those who don't want to deal with URLs.
+JSON-LD is **easy to read**, and will feel familiar even to those new to RDF and linked data.
+Because it's still valid JSON, it's easily usable for those who don't want to deal with URLs.
 JSON arrays are converted to [RDF Lists](/blog/ordered-data-in-rdf/) (but can also be converted to [other sequence types]()).
 I recommend spending some time in the [JSON-LD playground](https://json-ld.org/playground/) to get familiar with how it works.
 
 Unfortunately, JSON-LD [difficult and costly to parse](http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/) if you need the RDF data instead of the JSON object.
 Parsing JSON-LD often involves requesting data from the internet, and needs clever caching to be performant.
-This complexity in parsing limits how many (bug-free) JSON-LD parsers are available, and it also means that parsing JSON-LD takes relatively long.
+This complexity in parsing limits how many (bug-free) JSON-LD parsers are available, makes libraries heavy, and it also means that parsing JSON-LD takes relatively long.
 
 JSON-LD is a compromise.
 It supports RDF, it supports JSON, and it does both _okay_.
 Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.
 
-## HDT
+## JSON-AD (Atomic Data)
 
-[HDT](http://www.rdfhdt.org/what-is-hdt/) (Header, Dictionary, Triples) is a compact data structure and binary serialization format for RDF, so it's more than just a way to serialize RDF.
-Its data structure saves space and bandwidth (it's half the size of gzipped N-Triples).
-Its design has indexing built-in, which means it can be searched or browsed efficiently.
-Check out the impressive [technical specification](http://www.rdfhdt.org/technical-specification/) if you want to learn more about how it works.
-HDT compression is a costly process, so it's not that attractive for highly dynamic data / data that changes over time.
-Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.
+_Disclaimer: I'm the creator of JSON-AD_.
 
-## RDF Binary Thrift
+[JSON-AD](https://docs.atomicdata.dev/core/json-ad.html) (JSON Atomic Data) only supports a strict subset of RDF, so it is an odd one in this list.
+In other words: it cannot be used to serialize all existing RDF data.
+However, because it allows only a strict subset, it also has a couple of advantages over other formats:
 
-[RDF Binary thrift](https://afs.github.io/rdf-thrift/rdf-binary-thrift.html) is an encoding of RDF data that uses Apache Thrift.
-It is used in the Apache Jena RDF store.
-It's a binary format, and therefore it's cheap to parse and serialize.
-I've never used it, but it sounds interesting, although you'll need Thrift tooling for decoding it.
+- Very **low parsing cost / high performance**. It can be parsed as plain JSON, which means that many efficient and performant parsers are available.
+- **Easy to understand**. Since it supports only a subset of RDF, it doesn't suffer from some of the [quirks of RDF](https://docs.atomicdata.dev/interoperability/rdf.html) such as predicate-non-uniqueness
+- It supports **native JSON arrays** as collections, which prevents the complexities of dealing with [ordered data in RDF](https://ontola.io/blog/ordered-data-in-rdf/).
+- **Type safety**. Each key in a JSON-AD object should resolve to a [Property](https://atomicdata.dev/classes/Property), which describes [datatype](https://atomicdata.dev/properties/datatype) and [description](https://atomicdata.dev/properties/description).
+
+Here's the `description` Property from above, serialized as JSON-AD:
+
+```json
+{
+  "@id": "https://atomicdata.dev/properties/description",
+  "https://atomicdata.dev/properties/datatype": "https://atomicdata.dev/datatypes/markdown",
+  "https://atomicdata.dev/properties/description": "A textual description of something. When making a description, make sure that the first few words tell the most important part. Give examples. Since the text supports markdown, you're free to use links and more.",
+  "https://atomicdata.dev/properties/isA": [
+    "https://atomicdata.dev/classes/Property"
+  ],
+  "https://atomicdata.dev/properties/shortname": "description"
+}
+```
+
+Because these properties also have [`shortnames`](https://atomicdata.dev/properties/shortname), we can easily [serialize Atomic Data to plain JSON](https://docs.atomicdata.dev/interoperability/json.html), without the long URLS:
+
+```json
+{
+  "@id": "https://atomicdata.dev/properties/description",
+  "datatype": "https://atomicdata.dev/datatypes/markdown",
+  "description": "A textual description of something. When making a description, make sure that the first few words tell the most important part. Give examples. Since the text supports markdown, you're free to use links and more.",
+  "is-a": [
+    "https://atomicdata.dev/classes/Property"
+  ],
+  "shortname": "description"
+}
+```
 
 ## HexTuples
 
@@ -203,6 +229,22 @@ As an added plus, this enables streaming parsing as well, which gives it another
 Our JS RDF libraries ([link-lib](https://github.com/fletcher91/link-lib/), [link-redux](https://github.com/fletcher91/link-redux/)) have an internal RDF graph model which uses these arrays as well, which means that there is minimal mapping cost when parsing Hex-Tuple statements.
 This format is especially suitable for real front-end applications that use dynamic RDF data.
 
+## HDT
+
+[HDT](http://www.rdfhdt.org/what-is-hdt/) (Header, Dictionary, Triples) is a compact data structure and binary serialization format for RDF, so it's more than just a way to serialize RDF.
+Its data structure saves space and bandwidth (it's half the size of gzipped N-Triples).
+Its design has indexing built-in, which means it can be searched or browsed efficiently.
+Check out the impressive [technical specification](http://www.rdfhdt.org/technical-specification/) if you want to learn more about how it works.
+HDT compression is a costly process, so it's not that attractive for highly dynamic data / data that changes over time.
+Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.
+
+## RDF Binary Thrift
+
+[RDF Binary thrift](https://afs.github.io/rdf-thrift/rdf-binary-thrift.html) is an encoding of RDF data that uses Apache Thrift.
+It is used in the Apache Jena RDF store.
+It's a binary format, and therefore it's cheap to parse and serialize.
+I've never used it, but it sounds interesting, although you'll need Thrift tooling for decoding it.
+
 ## Let your users choose a format
 
 Choosing an RDF serialization format for your application or service might be a false dilemma.
@@ -211,8 +253,9 @@ Therefore, you can implement a serialization library (e.g. our [rdf-serializers]
 
 ## TL;DR
 
-- Use HDT if you have big static datasets and want the best performance and compression.
-- Use Hex-Tuples if you want high performance in JS with dynamic, non-static data.
+- Use Hex-Tuples if you want high performance in JS with dynamic data.
+- Use JSON-AD if you don't have to support existing RDF data, but do value JSON compatibility and type safety.
+- Use HDT if you have big, static datasets and want the best performance and compression.
 - Use N-Triples / N-Quads if you want decent performance and high compatibility.
 - Use JSON-LD if you want to improve your existing JSON API, and don't need performant RDF parsing.
 - Use Turtle if you want to manually read & edit your RDF.
