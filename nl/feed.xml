@@ -1,4 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2021-03-19T16:25:30+01:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Full-stack linked data: lessons from building an RDF web app</title><link href="https://ontola.io/nl/blog/full-stack-linked-data/" rel="alternate" type="text/html" title="Full-stack linked data: lessons from building an RDF web app" /><published>2020-09-11T00:00:00+02:00</published><updated>2020-09-11T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/full-stack-rdf</id><content type="html" xml:base="https://ontola.io/nl/blog/full-stack-linked-data/">&lt;p&gt;How might a web application work if it exclusively uses &lt;a href=&quot;https://ontola.io/what-is-linked-data/&quot;&gt;Linked Data&lt;/a&gt; (RDF) to communicate between server and client?
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2021-06-14T11:12:34+02:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Tutorial: Building a React front-end app with RDF Data, powered by Link-Redux and Solid</title><link href="https://ontola.io/nl/blog/rdf-react-tutorial-link-redux/" rel="alternate" type="text/html" title="Tutorial: Building a React front-end app with RDF Data, powered by Link-Redux and Solid" /><published>2021-04-01T00:00:00+02:00</published><updated>2021-04-01T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/link-tutorial</id><content type="html" xml:base="https://ontola.io/nl/blog/rdf-react-tutorial-link-redux/">&lt;p&gt;Working with RDF (linked data) can be a bit different from using more conventional JSON REST APIs.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Many strings are URLs, which can be a bother to type and might cause typo-related-bugs. To deal with this, we &lt;a href=&quot;https://ontola.io/blog/ontologies-in-js/&quot;&gt;set URLs programmatically using @ontologies/core&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;h2 id=&quot;the-client-the-browser-app-does-not-know-in-advance-what-kind-of-data-it-will-get-back-from-a-server-it-will-simply-fetch-a-url-using-content-negotiation-and-get-some-rdf-serialized-response&quot;&gt;The client (the browser app) does not know in advance what kind of data it will get back from a server. It will simply fetch a URL using content negotiation, and get some &lt;a href=&quot;https://ontola.io/blog/rdf-serialization-formats/&quot;&gt;RDF serialized&lt;/a&gt; response.&lt;/h2&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;using-the-link-solid-boilerplate-easy&quot;&gt;Using the link-solid-boilerplate (easy)&lt;/h2&gt;
+
+&lt;h2 id=&quot;without-using-the-boilerplate-less-easy&quot;&gt;Without using the boilerplate (less easy)&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Make sure &lt;code class=&quot;highlighter-rouge&quot;&gt;node&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;npm&lt;/code&gt; are installed.&lt;/li&gt;
+  &lt;li&gt;Start a new react project: &lt;code class=&quot;highlighter-rouge&quot;&gt;npx create-react-app my-app --template typescript&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Add the type definitions: &lt;code class=&quot;highlighter-rouge&quot;&gt;yarn add @types/node @types/react @types/react-dom @types/jest &lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Add &lt;code class=&quot;highlighter-rouge&quot;&gt;link-lib&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;link-redux&lt;/code&gt; as dependencies: &lt;code class=&quot;highlighter-rouge&quot;&gt;yarn add link-lib link-redux&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Add their &lt;code class=&quot;highlighter-rouge&quot;&gt;peerDepdencies&lt;/code&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;yarn add @ontologies/as @ontologies/core @ontologies/schema @ontologies/shacl @ontologies/xsd http-status-codes n-quads-parser&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/fletcher91/link-redux#1-set-up-the-store&quot;&gt;Set-up the Linked Render Store&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Working with RDF (linked data) can be a bit different from using more conventional JSON REST APIs.</summary></entry><entry><title type="html">Full-stack linked data: lessons from building an RDF web app</title><link href="https://ontola.io/nl/blog/full-stack-linked-data/" rel="alternate" type="text/html" title="Full-stack linked data: lessons from building an RDF web app" /><published>2020-09-11T00:00:00+02:00</published><updated>2020-09-11T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/full-stack-rdf</id><content type="html" xml:base="https://ontola.io/nl/blog/full-stack-linked-data/">&lt;p&gt;How might a web application work if it exclusively uses &lt;a href=&quot;https://ontola.io/what-is-linked-data/&quot;&gt;Linked Data&lt;/a&gt; (RDF) to communicate between server and client?
 In this article, I’ll tell you about our API journey, why we chose linked data (RDF), the challenges that we faced, and some of the solutions that we came up with.&lt;/p&gt;
 
 &lt;h2 id=&quot;about-the-project&quot;&gt;About the project&lt;/h2&gt;
@@ -508,9 +528,10 @@ yarn add @ontologies/core @ontologies/schema
 &lt;p&gt;PRs for new ontologies are welcome!&lt;/p&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">Ontologies are resources that describe concepts and how several classes and properties in a certain domain relate to each other. For example, if you’re creating a social network app, you might want to use the Friend of a Friend (FOAF) ontology, which describes things like “Person” and “knows”. When creating linked data applications, you’re likely to work a lot with ontologies. Since ontologies, their classes and their properties all use URLs as identifiers, that means that you might write a lot of long strings. This is not only bothersome, but also a source of unnecessary typos and a possible performance bottleneck.</summary></entry><entry><title type="html">What’s the best RDF serialization format?</title><link href="https://ontola.io/nl/blog/rdf-serialization-formats/" rel="alternate" type="text/html" title="What's the best RDF serialization format?" /><published>2019-06-29T00:00:00+02:00</published><updated>2019-06-29T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/rdf-serialization-formats</id><content type="html" xml:base="https://ontola.io/nl/blog/rdf-serialization-formats/">&lt;p&gt;Contrary to some other data models, RDF is not bound by a single serialization format.
 Triple statements (the data atoms of RDF) can be serialized in many ways, which leaves developers with a possibly tough decision: how should I serialize my &lt;a href=&quot;/what-is-linked-data&quot;&gt;linked data&lt;/a&gt;?&lt;/p&gt;
 
-&lt;p&gt;To answer the title’s question: &lt;em&gt;it depends&lt;/em&gt;.
-Skip to the &lt;a href=&quot;#tldr&quot;&gt;TL;DR&lt;/a&gt; if you’re feeling hasty.
-The order in which they appear is chronological / historical and does not reflect preference.&lt;/p&gt;
+&lt;h2 id=&quot;to-answer-the-titles-question-it-depends&quot;&gt;To answer the title’s question: &lt;em&gt;it depends&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;Skip to the &lt;a href=&quot;#tldr&quot;&gt;TL;DR&lt;/a&gt; if you’re feeling hasty.
+The order in which they appear is &lt;strong&gt;chronological / historical and does not reflect preference&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;rdfxml&quot;&gt;RDF/XML&lt;/h2&gt;
 
@@ -650,34 +671,59 @@ This means that if you want to upgrade your JSON API to JSON-LD, you get to keep
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;JSON-LD is easy to read, and will feel familiar even to those new to RDF and linked data.
-Because it’s still valid JSON, it’s usable to those who don’t want to deal with URLs.
+&lt;p&gt;JSON-LD is &lt;strong&gt;easy to read&lt;/strong&gt;, and will feel familiar even to those new to RDF and linked data.
+Because it’s still valid JSON, it’s easily usable for those who don’t want to deal with URLs.
 JSON arrays are converted to &lt;a href=&quot;/blog/ordered-data-in-rdf/&quot;&gt;RDF Lists&lt;/a&gt; (but can also be converted to &lt;a href=&quot;&quot;&gt;other sequence types&lt;/a&gt;).
 I recommend spending some time in the &lt;a href=&quot;https://json-ld.org/playground/&quot;&gt;JSON-LD playground&lt;/a&gt; to get familiar with how it works.&lt;/p&gt;
 
 &lt;p&gt;Unfortunately, JSON-LD &lt;a href=&quot;http://www.dr-chuck.com/csev-blog/2016/04/json-ld-performance-sucks-for-api-specs/&quot;&gt;difficult and costly to parse&lt;/a&gt; if you need the RDF data instead of the JSON object.
 Parsing JSON-LD often involves requesting data from the internet, and needs clever caching to be performant.
-This complexity in parsing limits how many (bug-free) JSON-LD parsers are available, and it also means that parsing JSON-LD takes relatively long.&lt;/p&gt;
+This complexity in parsing limits how many (bug-free) JSON-LD parsers are available, makes libraries heavy, and it also means that parsing JSON-LD takes relatively long.&lt;/p&gt;
 
 &lt;p&gt;JSON-LD is a compromise.
 It supports RDF, it supports JSON, and it does both &lt;em&gt;okay&lt;/em&gt;.
 Use JSON-LD if you already have a RESTful JSON API, and if performant RDF parsing is not crucial.&lt;/p&gt;
 
-&lt;h2 id=&quot;hdt&quot;&gt;HDT&lt;/h2&gt;
+&lt;h2 id=&quot;json-ad-atomic-data&quot;&gt;JSON-AD (Atomic Data)&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.rdfhdt.org/what-is-hdt/&quot;&gt;HDT&lt;/a&gt; (Header, Dictionary, Triples) is a compact data structure and binary serialization format for RDF, so it’s more than just a way to serialize RDF.
-Its data structure saves space and bandwidth (it’s half the size of gzipped N-Triples).
-Its design has indexing built-in, which means it can be searched or browsed efficiently.
-Check out the impressive &lt;a href=&quot;http://www.rdfhdt.org/technical-specification/&quot;&gt;technical specification&lt;/a&gt; if you want to learn more about how it works.
-HDT compression is a costly process, so it’s not that attractive for highly dynamic data / data that changes over time.
-Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Disclaimer: I’m the creator of JSON-AD&lt;/em&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;rdf-binary-thrift&quot;&gt;RDF Binary Thrift&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.atomicdata.dev/core/json-ad.html&quot;&gt;JSON-AD&lt;/a&gt; (JSON Atomic Data) only supports a strict subset of RDF, so it is an odd one in this list.
+In other words: it cannot be used to serialize all existing RDF data.
+However, because it allows only a strict subset, it also has a couple of advantages over other formats:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://afs.github.io/rdf-thrift/rdf-binary-thrift.html&quot;&gt;RDF Binary thrift&lt;/a&gt; is an encoding of RDF data that uses Apache Thrift.
-It is used in the Apache Jena RDF store.
-It’s a binary format, and therefore it’s cheap to parse and serialize.
-I’ve never used it, but it sounds interesting, although you’ll need Thrift tooling for decoding it.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Very &lt;strong&gt;low parsing cost / high performance&lt;/strong&gt;. It can be parsed as plain JSON, which means that many efficient and performant parsers are available.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Easy to understand&lt;/strong&gt;. Since it supports only a subset of RDF, it doesn’t suffer from some of the &lt;a href=&quot;https://docs.atomicdata.dev/interoperability/rdf.html&quot;&gt;quirks of RDF&lt;/a&gt; such as predicate-non-uniqueness&lt;/li&gt;
+  &lt;li&gt;It supports &lt;strong&gt;native JSON arrays&lt;/strong&gt; as collections, which prevents the complexities of dealing with &lt;a href=&quot;https://ontola.io/blog/ordered-data-in-rdf/&quot;&gt;ordered data in RDF&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Type safety&lt;/strong&gt;. Each key in a JSON-AD object should resolve to a &lt;a href=&quot;https://atomicdata.dev/classes/Property&quot;&gt;Property&lt;/a&gt;, which describes &lt;a href=&quot;https://atomicdata.dev/properties/datatype&quot;&gt;datatype&lt;/a&gt; and &lt;a href=&quot;https://atomicdata.dev/properties/description&quot;&gt;description&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here’s the &lt;code class=&quot;highlighter-rouge&quot;&gt;description&lt;/code&gt; Property from above, serialized as JSON-AD:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://atomicdata.dev/properties/description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://atomicdata.dev/properties/datatype&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://atomicdata.dev/datatypes/markdown&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://atomicdata.dev/properties/description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;A textual description of something. When making a description, make sure that the first few words tell the most important part. Give examples. Since the text supports markdown, you're free to use links and more.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://atomicdata.dev/properties/isA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://atomicdata.dev/classes/Property&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://atomicdata.dev/properties/shortname&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Because these properties also have &lt;a href=&quot;https://atomicdata.dev/properties/shortname&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;shortnames&lt;/code&gt;&lt;/a&gt;, we can easily &lt;a href=&quot;https://docs.atomicdata.dev/interoperability/json.html&quot;&gt;serialize Atomic Data to plain JSON&lt;/a&gt;, without the long URLS:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://atomicdata.dev/properties/description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;datatype&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://atomicdata.dev/datatypes/markdown&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;A textual description of something. When making a description, make sure that the first few words tell the most important part. Give examples. Since the text supports markdown, you're free to use links and more.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;is-a&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://atomicdata.dev/classes/Property&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;shortname&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;hextuples&quot;&gt;HexTuples&lt;/h2&gt;
 
@@ -696,6 +742,22 @@ As an added plus, this enables streaming parsing as well, which gives it another
 Our JS RDF libraries (&lt;a href=&quot;https://github.com/fletcher91/link-lib/&quot;&gt;link-lib&lt;/a&gt;, &lt;a href=&quot;https://github.com/fletcher91/link-redux/&quot;&gt;link-redux&lt;/a&gt;) have an internal RDF graph model which uses these arrays as well, which means that there is minimal mapping cost when parsing Hex-Tuple statements.
 This format is especially suitable for real front-end applications that use dynamic RDF data.&lt;/p&gt;
 
+&lt;h2 id=&quot;hdt&quot;&gt;HDT&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.rdfhdt.org/what-is-hdt/&quot;&gt;HDT&lt;/a&gt; (Header, Dictionary, Triples) is a compact data structure and binary serialization format for RDF, so it’s more than just a way to serialize RDF.
+Its data structure saves space and bandwidth (it’s half the size of gzipped N-Triples).
+Its design has indexing built-in, which means it can be searched or browsed efficiently.
+Check out the impressive &lt;a href=&quot;http://www.rdfhdt.org/technical-specification/&quot;&gt;technical specification&lt;/a&gt; if you want to learn more about how it works.
+HDT compression is a costly process, so it’s not that attractive for highly dynamic data / data that changes over time.
+Although some really useful libraries for HDT exist, be sure to check if there exists libraries that work with your stack.&lt;/p&gt;
+
+&lt;h2 id=&quot;rdf-binary-thrift&quot;&gt;RDF Binary Thrift&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://afs.github.io/rdf-thrift/rdf-binary-thrift.html&quot;&gt;RDF Binary thrift&lt;/a&gt; is an encoding of RDF data that uses Apache Thrift.
+It is used in the Apache Jena RDF store.
+It’s a binary format, and therefore it’s cheap to parse and serialize.
+I’ve never used it, but it sounds interesting, although you’ll need Thrift tooling for decoding it.&lt;/p&gt;
+
 &lt;h2 id=&quot;let-your-users-choose-a-format&quot;&gt;Let your users choose a format&lt;/h2&gt;
 
 &lt;p&gt;Choosing an RDF serialization format for your application or service might be a false dilemma.
@@ -705,8 +767,9 @@ Therefore, you can implement a serialization library (e.g. our &lt;a href=&quot;
 &lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Use HDT if you have big static datasets and want the best performance and compression.&lt;/li&gt;
-  &lt;li&gt;Use Hex-Tuples if you want high performance in JS with dynamic, non-static data.&lt;/li&gt;
+  &lt;li&gt;Use Hex-Tuples if you want high performance in JS with dynamic data.&lt;/li&gt;
+  &lt;li&gt;Use JSON-AD if you don’t have to support existing RDF data, but do value JSON compatibility and type safety.&lt;/li&gt;
+  &lt;li&gt;Use HDT if you have big, static datasets and want the best performance and compression.&lt;/li&gt;
   &lt;li&gt;Use N-Triples / N-Quads if you want decent performance and high compatibility.&lt;/li&gt;
   &lt;li&gt;Use JSON-LD if you want to improve your existing JSON API, and don’t need performant RDF parsing.&lt;/li&gt;
   &lt;li&gt;Use Turtle if you want to manually read &amp;amp; edit your RDF.&lt;/li&gt;
