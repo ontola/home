@@ -1,0 +1,477 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Tutorial: Building a React front-end app with RDF Data, powered by Link and Solid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
+  <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="apple-mobile-web-app-title" content="Ontola.io">
+  <meta name="application-name" content="Ontola.io">
+  <meta name="msapplication-TileColor" content="#5a91af">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="alternate" type="application/rss+xml" title="Ontola.io Blog" href="/feed.xml" />
+  <link rel="stylesheet" href="/css/normalize.css"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/syntax.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <!-- Matomo -->
+  <script type="text/javascript">
+    var _paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//analytics.argu.co/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '4']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+  <meta name="description" content="This tutorial will help you build a linked data front-end application, compatible with Tim Berners-Lee’s Solid initiative.Knowledge of React and Typescript /...">
+<meta property="og:site_name" content="Ontola.io">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@ontola.io">
+
+<title>Tutorial: Building a React front-end app with RDF Data, powered by Link and Solid</title>
+<meta property="og:title" content="Tutorial: Building a React front-end app with RDF Data, powered by Link and Solid">
+<meta name="twitter:title" content="Tutorial: Building a React front-end app with RDF Data, powered by Link and Solid">
+<meta property="og:description" content="This tutorial will help you build a linked data front-end application, compatible with Tim Berners-Lee’s Solid initiative.
+Knowledge of React and Typescript / Javascript is assumed, as is a little knowledge of RDF.
+For an introduction to RDF, read this.
+
+"/>
+
+
+<meta property="article:published_time" content="2021-06-17T00:00:00+02:00">
+
+
+<meta property="og:image" content="/img/default.jpg">
+<meta name="twitter:image" content="/img/default.jpg">
+
+<meta property="og:url" content="http://ontola.io/blog/rdf-solid-react-tutorial-link/" />
+
+<meta itemprop="keywords" content="" />
+
+
+
+
+<meta property="article:author" content="Joep Meindertsma" />
+<meta property="og:type" content="article">
+  
+  <meta name="twitter:creator" content="@joepmeindertsma">
+  
+
+
+</head>
+<body>
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <nav  id="navbar" class="nav__wrapper">
+    <div class="nav">
+      <a href="/" class="nav__logo">
+        <img src="/img/logo.svg" />
+        <span>Ontola</span><span class="nav__logo__tld">.io</span>
+      </a>
+      <button class="nav__menu-toggle" onClick="toggleMenu()">menu</button>
+      <div class="nav__links nav__links--collapsed">
+        <a href="/">home</a>
+        <!-- <a href="">services</a> -->
+        <a href="/about">About us</a>
+        <a href="/blog">blog</a>
+        <a href="/contact">contact</a>
+        
+           
+          
+          
+            <a title="Nederlands" href="/nl/blog/rdf-solid-react-tutorial-link/">nl</a>
+          
+        
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+      <div class="hero hero--smaller hero--narrow">
+  <div class="hero__wrapper">
+    <a href="/blog"class="hero__link">
+      <h3 id="hero-text">
+        <i class="fas fa-level-up-alt"></i>
+        Linked Data Blog
+      </h3>
+    </a>
+  </div>
+</div>
+<div class="post text">
+  <h1>Tutorial: Building a React front-end app with RDF Data, powered by Link and Solid</h1>
+  
+  
+
+<div class="details">
+  <a href="https://twitter.com/@joepmeindertsma" target="_blank" class="details__author">Joep Meindertsma, </a>17 Jun 2021
+</div>
+
+
+  <p>This tutorial will help you build a linked data front-end application, compatible with Tim Berners-Lee’s Solid initiative.
+Knowledge of React and Typescript / Javascript is assumed, as is a little knowledge of RDF.
+For an introduction to RDF, read <a href="https://ontola.io/what-is-linked-data/">this</a>.</p>
+
+<p>Working with RDF (linked data) can be a bit different from using more conventional JSON REST APIs.
+We need tooling to deal with some of the complexities that arise when working with linked data:</p>
+
+<ul>
+  <li>The client (the browser app) does not know in advance what kind of data it will get back from a server. Link will simply fetch a URL using content negotiation, and get some <a href="https://ontola.io/blog/rdf-serialization-formats/">RDF serialized</a> response.</li>
+  <li>Deciding which view to render is often done by checking routes, but this is not possible in a linked data app. Instead, we can fetch the URL and check which <code class="highlighter-rouge">rdf:type</code> is being set (e.g. <code class="highlighter-rouge">Person</code> or <code class="highlighter-rouge">Blogpost</code>).</li>
+  <li>Many strings are URLs, which can be a bother to type and might cause typo-related-bugs. To deal with this, we <a href="https://ontola.io/blog/ontologies-in-js/">set URLs programmatically using @ontologies/core</a>.</li>
+  <li><a href="https://ontola.io/blog/ordered-data-in-rdf/">Ordered data in RDF</a> is a bit more complicated than JSON Arrays, so we’ll use tooling to abstract these to arrays.</li>
+</ul>
+
+<p>In this tutorial we’re going to use <code class="highlighter-rouge">react</code> and the <a href="https://github.com/fletcher91/link-lib/"><code class="highlighter-rouge">link-lib</code></a> + <a href="https://github.com/fletcher91/link-redux"><code class="highlighter-rouge">link-redux</code></a> (in short: Link) libraries to create a simple front-end app to render data from a Solid Pod.</p>
+
+<h1 id="understanding-link-store-views-and-topologies">Understanding Link: Store, Views and Topologies</h1>
+
+<p>The Link libraries have an interesting, but unconventional way of rendering data.
+The first concept to understand, is the LinkedRenderStore (the Store).
+The <strong>Store</strong> is responsible for most of the heavy lifting: it contains the stored data, keeps rendered data in sync, parses changes, and stores registered Views.
+<strong>Views</strong> are (in this case react) components that render one or more <code class="highlighter-rouge">rdf:Class</code>es in one or more Topologies.
+<strong>Topologies</strong> are contexts in the DOM, such as <code class="highlighter-rouge">Page</code> or <code class="highlighter-rouge">Card</code> or <code class="highlighter-rouge">Detail</code>.</p>
+
+<p>Let’s say you want to view your public Solid Pod folder, such as <code class="highlighter-rouge">https://joep.inrupt.net/public/</code>, as a full page.
+First, you pass the subject (the URL of the resource) to a Link <code class="highlighter-rouge">Resource</code> component.
+This will let the LRS check if that resource is already present in the Store.
+If not, it will be fetched.
+Once it has been fetched and parsed, the resource will be added to the Store.
+Then, the Resource component will be notified of new data, and then the Store will try to find the <em>most suitable View</em>.
+This is done by checking the <code class="highlighter-rouge">rdf:type</code> of the Resource and the current Topology.
+In this case, that type is an <code class="highlighter-rouge">ldp:Container</code>, and the topology is <code class="highlighter-rouge">fullPage</code>.
+If there is a <code class="highlighter-rouge">fullPage</code> View registered in the Store for <code class="highlighter-rouge">ldp:Container</code>, it will render that View.
+If there is not such a View, it might try a more generic view.</p>
+
+<h1 id="setting-up-the-basics">Setting up the basics</h1>
+
+<p>First, we’ll need to set up a react project.
+You can use our boilerplate, or you can set it up manually.</p>
+
+<h2 id="easy-mode-using-the-link-solid-boilerplate">Easy mode: Using the link-solid-boilerplate</h2>
+
+<p>You can get started right away using the <a href="https://codesandbox.io/s/github/ontola/link-solid-boilerplate/tree/master/?file=/src/app.tsx"><code class="highlighter-rouge">link-solid-boilerplate</code> on CodeSandbox</a>.
+Alternatively, you can use the <a href="https://github.com/ontola/link-solid-boilerplate/generate">Template feature on Github to fork it</a>, and follow the readme to get it running locally.
+Got it running?
+Skip the next section and go to <a href="#loading-data">Loading Data</a>.</p>
+
+<h2 id="hard-mode-without-using-the-boilerplate">Hard mode: Without using the boilerplate</h2>
+
+<p><em>(skip this if you’re using the boilerplate)</em></p>
+
+<ol>
+  <li>Make sure <code class="highlighter-rouge">node</code> and <code class="highlighter-rouge">npm</code> are installed.</li>
+  <li>Start a new react project: <code class="highlighter-rouge">npx create-react-app my-app --template typescript</code>.</li>
+  <li>Add the type definitions: <code class="highlighter-rouge">yarn add @types/node @types/react @types/react-dom @types/jest </code>.</li>
+  <li>Add <code class="highlighter-rouge">link-lib</code> and <code class="highlighter-rouge">link-redux</code> as dependencies: <code class="highlighter-rouge">yarn add link-lib link-redux @rdfdev/delta @rdfdev/actions @rdfdev/iri @rdfdev/collections</code></li>
+  <li>Add their <code class="highlighter-rouge">peerDepdencies</code>: <code class="highlighter-rouge">yarn add @ontologies/as @ontologies/core @ontologies/schema @ontologies/shacl @ontologies/xsd http-status-codes n-quads-parser</code></li>
+  <li><a href="https://github.com/fletcher91/link-redux#1-set-up-the-store">Set-up the Linked Render Store</a>.</li>
+  <li>Got stuck? Check the <a href="https://github.com/ontola/link-solid-boilerplate">boilerplate</a> for inspiration and use the <a href="https://github.com/fletcher91/link-redux/wiki">link-redux wiki</a>.</li>
+  <li>Continue with the rest of this tutorial.</li>
+</ol>
+
+<h1 id="loading-data">Loading data</h1>
+
+<p>As a data source, we could use multiple back-ends. Here’s a list of tested and open source options:</p>
+
+<ul>
+  <li>A Solid pod hosted on <a href="https://inrupt.net/">Inrupt.net</a></li>
+  <li>A <a href="https://gitlab.com/ontola/dexpod/">DexPod</a>, hosted on <a href="https://dexpods.eu">dexpods.eu</a>.</li>
+  <li><a href="https://github.com/joepio/atomic">Atomic-Server</a>, which also serializes data to RDF formats.</li>
+  <li>Any other public RDF server that supports <code class="highlighter-rouge">n-triples</code> and has permissive <code class="highlighter-rouge">cors</code> headers.</li>
+</ul>
+
+<p>But for this tutorial, we’ll stick with the Inrupt.net pod.
+We’ll try to render <code class="highlighter-rouge">https://joep.inrupt.net/public/</code>, which is an <code class="highlighter-rouge">ldp:Container</code>.
+That Container, as its name suggests, contains a bunch of resources, similar to a folder.</p>
+
+<h1 id="registering-a-view">Registering a View</h1>
+
+<p>Create the following file <code class="highlighter-rouge">views/Container.tsx</code> with a functional React component.
+All we need is a single property</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Resource</span><span class="p">,</span> <span class="nx">useProperty</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"link-redux"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ldp</span> <span class="k">from</span> <span class="s1">'../../ontology/ldp'</span>
+
+<span class="kd">const</span> <span class="nx">Container</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// This hook allows you to get any property / value combination from the resource.</span>
+  <span class="c1">// The ldp.contains essentially contains a URL for the predicate.</span>
+  <span class="kd">const</span> <span class="nx">contains</span> <span class="o">=</span> <span class="nx">useProperty</span><span class="p">(</span><span class="nx">ldp</span><span class="p">.</span><span class="nx">contains</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;&gt;</span>
+      <span class="si">{</span><span class="nx">contains</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">member</span> <span class="o">=&gt;</span> <span class="p">(</span>
+        <span class="c1">// This renders a nested Resource.</span>
+        <span class="c1">// Each subject will be fetcher by Link</span>
+        <span class="p">&lt;</span><span class="nc">Resource</span>
+          <span class="na">key=</span><span class="si">{</span><span class="nx">member</span><span class="p">.</span><span class="nx">value</span><span class="si">}</span>
+          <span class="na">subject=</span><span class="si">{</span><span class="nx">member</span><span class="si">}</span>
+        <span class="p">/&gt;</span>
+      <span class="p">))</span><span class="si">}</span>
+    <span class="p">&lt;/&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// The Type attribute dictates for which RDF Classes</span>
+<span class="nx">Container</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">ldp</span><span class="p">.</span><span class="nx">Container</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Container</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Next, go to <code class="highlighter-rouge">views/index.ts</code> and add the newly created Container component to the <code class="highlighter-rouge">getViews</code> list:</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">getViews</span> <span class="o">=</span> <span class="p">():</span> <span class="nx">RegistrableComponent</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">[]</span> <span class="o">=&gt;</span> <span class="p">[</span>
+  <span class="c1">// here!</span>
+  <span class="nx">Container</span><span class="p">,</span>
+  <span class="nx">ErrorResource</span><span class="p">,</span>
+  <span class="nx">LoadingResource</span><span class="p">,</span>
+  <span class="c1">// ....</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>This will make sure that when the app initializes, the <code class="highlighter-rouge">Container</code> component will be registered to the store.
+That’s it! The component should now render.
+However, you won’t see much.
+We also want to render the <code class="highlighter-rouge">members</code> from above.
+But these should not be rendered on a full page.
+They need a different <em>topology</em>.</p>
+
+<p>So let’s create one for the current context.
+We’ll call this one <code class="highlighter-rouge">topologies/BrowserList.ts</code>, as it’s a list in the file browser.</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">TopologyProvider</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'link-redux'</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">appNS</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'../helpers/app'</span>
+
+<span class="c1">// This is the same as `new NamedNode("myappurl/browserlist")`.</span>
+<span class="c1">// Export this, you'll use it later!</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">browserListTopology</span> <span class="o">=</span> <span class="nx">appNS</span><span class="p">(</span><span class="s1">'browserList'</span><span class="p">);</span>
+
+<span class="c1">// The link-redux TopologyProvider deals with most of the complexity</span>
+<span class="kd">class</span> <span class="nx">BrowserList</span> <span class="kd">extends</span> <span class="nx">TopologyProvider</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+
+    <span class="c1">// Create a NamedNode for your Topology, and bind it to this.topology</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">topology</span> <span class="o">=</span> <span class="nx">browserListTopology</span><span class="p">;</span>
+    <span class="c1">// This determines the HTML element type (optional)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">elementType</span> <span class="o">=</span> <span class="s1">'ul'</span><span class="p">;</span>
+    <span class="c1">// The CSS Classname (optional)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">'BrowserList'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">BrowserList</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Great! Now we can use this BrowserList topology in our Container component.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Resource</span><span class="p">,</span> <span class="nx">useProperty</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"link-redux"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">ldp</span> <span class="k">from</span> <span class="s1">'../../ontology/ldp'</span>
+<span class="k">import</span> <span class="nx">BrowserList</span> <span class="k">from</span> <span class="s1">'../../topologies/BrowserList'</span>
+
+<span class="kd">const</span> <span class="nx">Container</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">contains</span> <span class="o">=</span> <span class="nx">useProperty</span><span class="p">(</span><span class="nx">ldp</span><span class="p">.</span><span class="nx">contains</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="c1">// We've wrapped our new Resources in our BrowserList topology</span>
+    <span class="p">&lt;</span><span class="nc">BrowserList</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">contains</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">member</span> <span class="o">=&gt;</span> <span class="p">(</span>
+        <span class="p">&lt;</span><span class="nc">Resource</span>
+          <span class="na">key=</span><span class="si">{</span><span class="nx">member</span><span class="p">.</span><span class="nx">value</span><span class="si">}</span>
+          <span class="na">subject=</span><span class="si">{</span><span class="nx">member</span><span class="si">}</span>
+        <span class="p">/&gt;</span>
+      <span class="p">))</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nc">BrowserList</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// The Type attribute dictates for which RDF Classes</span>
+<span class="nx">Container</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">ldp</span><span class="p">.</span><span class="nx">Container</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Container</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Now we need to register a new View for our <code class="highlighter-rouge">members</code> and our <code class="highlighter-rouge">BrowserList</code> toplogy.
+We’ll create a highly <em>generic</em> view, for all sorts of things.
+Let’s call it <code class="highlighter-rouge">ThingBrowserList</code>.
+It’s good practice to use the <code class="highlighter-rouge">ConceptTopology</code> naming convention.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">dcterms</span> <span class="k">from</span> <span class="s1">'@ontologies/dcterms'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Literal</span><span class="p">,</span> <span class="nx">NamedNode</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"@ontologies/core"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">foaf</span> <span class="k">from</span> <span class="s1">'@ontologies/foaf'</span>
+<span class="k">import</span> <span class="nx">rdfs</span> <span class="k">from</span> <span class="s1">'@ontologies/rdfs'</span>
+<span class="k">import</span> <span class="nx">schema</span> <span class="k">from</span> <span class="s1">'@ontologies/schema'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">FC</span><span class="p">,</span> <span class="nx">Property</span><span class="p">,</span> <span class="nx">useProperty</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"link-redux"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">BrowserListItem</span> <span class="k">from</span> <span class="s1">'../../components/BrowserListItem'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">browserListTopology</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'../../topologies/BrowserList'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">filename</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@rdfdev/iri'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">Props</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">Literal</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// We can use multiple predicates.</span>
+<span class="c1">// Link will select the first one that matches.</span>
+<span class="c1">// This is especially useful in generic kinds of views, such as this one.</span>
+<span class="kd">const</span> <span class="nx">namePredicates</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="nx">schema</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+  <span class="nx">rdfs</span><span class="p">.</span><span class="nx">label</span><span class="p">,</span>
+  <span class="nx">dcterms</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span>
+  <span class="nx">foaf</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="kd">const</span> <span class="nx">ThingBrowserList</span><span class="p">:</span> <span class="nx">FC</span><span class="o">&lt;</span><span class="nx">Props</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">({</span>
+  <span class="nx">subject</span><span class="p">,</span>
+<span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useProperty</span><span class="p">(</span><span class="nx">namePredicates</span><span class="p">)</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">modified</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useProperty</span><span class="p">(</span><span class="nx">dcterms</span><span class="p">.</span><span class="nx">modified</span><span class="p">);</span>
+  <span class="c1">// When using a value from usePropety, you'll often want to use the internal raw string value using `.value`</span>
+  <span class="kd">const</span> <span class="nx">displayName</span> <span class="o">=</span> <span class="nx">name</span><span class="p">?.</span><span class="nx">value</span> <span class="o">||</span> <span class="nx">filename</span><span class="p">(</span><span class="nx">subject</span> <span class="k">as</span> <span class="nx">NamedNode</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">BrowserListItem</span>
+      <span class="na">name=</span><span class="si">{</span><span class="nx">displayName</span><span class="si">}</span>
+      <span class="na">title=</span><span class="si">{</span><span class="nx">subject</span><span class="p">.</span><span class="nx">value</span><span class="si">}</span>
+      <span class="na">to=</span><span class="si">{</span><span class="nx">subject</span><span class="si">}</span>
+    <span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">modified</span><span class="p">.</span><span class="nx">value</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nc">BrowserListItem</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">ThingBrowserList</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">rdfs</span><span class="p">.</span><span class="nx">Resource</span><span class="p">;</span>
+<span class="c1">// This is where we let this View know that it should be rendered in the BrowserList topology!</span>
+<span class="nx">ThingBrowserList</span><span class="p">.</span><span class="nx">topology</span> <span class="o">=</span> <span class="nx">browserListTopology</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">ThingBrowserList</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>And for the final step, we’ll register this View in <code class="highlighter-rouge">views/index.ts</code> like before:</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">getViews</span> <span class="o">=</span> <span class="p">():</span> <span class="nx">RegistrableComponent</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">[]</span> <span class="o">=&gt;</span> <span class="p">[</span>
+  <span class="nx">Container</span><span class="p">,</span>
+  <span class="nx">ThingBrowserList</span><span class="p">,</span>
+  <span class="c1">// ....</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>Now, open the app and enter your public Solid Pod URL (e.g. <code class="highlighter-rouge">https://joep.inrupt.net/public/</code>).</p>
+
+<h1 id="got-stuck">Got stuck?</h1>
+
+<ul>
+  <li>If you need dev tools In your browser console, use the <a href="https://github.com/ontola/link-devtools">link dev tools</a>: <code class="highlighter-rouge">dev.help</code>.</li>
+  <li>If you encounter a problem, please <a href="https://github.com/ontola/link-solid-boilerplate/issues">create an issue in the Issue tracker on github</a>.</li>
+  <li>Check out the <a href="https://github.com/fletcher91/link-redux/wiki">link-redux wiki</a> for many useful hooks and other features for rendering RDF!</li>
+</ul>
+
+</div>
+<div class="post__navigation">
+  <div class="post__navigation__wrapper">
+    
+      <a class="post__navigation__previous" href="/blog/full-stack-linked-data/">&laquo; Full-stack linked data: lessons from building an RDF web app</a>
+    
+    
+  </div>
+</div>
+
+  </div>
+  <div class="footer--wrapper" id="footer">
+    <div class="footer">
+      <div class="footer-row">
+        <div href="/" class="footer__header">
+          Ontola
+        </div>
+        <a href="/">Home</a>
+        <!-- <a href="">Services</a> -->
+        <a href="/about">About us</a>
+        <a href="/blog">Blog</a>
+        <a href="/jobs">Jobs</a>
+        <a href="/contact">Contact</a>
+        
+           
+          
+          
+            <a href="/nl/blog/rdf-solid-react-tutorial-link/">Nederlands</a>
+          
+        
+      </div>
+      <div class="footer-row">
+        <div class="footer__header">What we do</div>
+        <a href="/">Linked data</a>
+        <a href="/webdevelopment">Software development</a>
+        <a href="/continuous-integration">Continuous integration</a>
+        <a href="/freelance">Freelance development</a>
+        <a href="/solid">Solid</a>
+        
+      </div>
+      <div class="footer-row">
+        <div href="/" class="footer__header">Find us</div>
+        <div class="footer__social_logos">
+          <a href="https://github.com/ontola">
+            <i title="Github" aria-label="Github" class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/ontola/">
+            <i title="LinkedIn" aria-label="LinkedIn" class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.facebook.com/ontola.io/">
+            <i title="Facebook" aria-label="Facebook" class="fab fa-facebook"></i>
+          </a>
+          <a href="https://twitter.com/ontola_io">
+            <i title="Twitter" aria-label="Twitter" class="fab fa-twitter"></i>
+          </a>
+          <a href="/feed.xml">
+            <i title="Atom / RSS feed" aria-label="Atom / RSS feed" class="fa fa-rss"></i>
+          </a>
+        </div>
+        <a href="mailto:info@ontola.io">
+          <i class="fas fa-envelope"></i>
+          info@ontola.io
+        </a>
+        <a href="tel:0031636020942">
+          <i class="fas fa-phone"></i>
+          +316 360 209 42
+        </a>
+        <a href="https://goo.gl/maps/eYT2tBGnDqNfM5BC9">
+          <i class="fas fa-map-marker-alt"></i>
+          Maliebaan 100, Utrecht, NL
+        </a>
+        <div><a href="https://argu.co">
+          <i class="fas fa-briefcase"></i>
+          Argu B.V.</a> kvk 65684168<div>
+        </div>
+      </div>
+    </div>
+    <img class="footer__logo" src="/img/logo.svg" />
+  </div>
+  </div>
+  <script src="/js/main.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121994595-1">
+    gtag('config', 'AW-940871433');
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-121994595-1');
+  </script>
+</body>
+
+</html>

@@ -1,4 +1,265 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2021-06-16T12:07:52+02:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Full-stack linked data: lessons from building an RDF web app</title><link href="https://ontola.io/nl/blog/full-stack-linked-data/" rel="alternate" type="text/html" title="Full-stack linked data: lessons from building an RDF web app" /><published>2020-09-11T00:00:00+02:00</published><updated>2020-09-11T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/full-stack-rdf</id><content type="html" xml:base="https://ontola.io/nl/blog/full-stack-linked-data/">&lt;p&gt;How might a web application work if it exclusively uses &lt;a href=&quot;https://ontola.io/what-is-linked-data/&quot;&gt;Linked Data&lt;/a&gt; (RDF) to communicate between server and client?
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="nl"><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ontola.io/nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ontola.io/nl/" rel="alternate" type="text/html" hreflang="nl" /><updated>2021-06-17T21:30:00+02:00</updated><id>https://ontola.io/nl/feed.xml</id><title type="html">Ontola.io</title><subtitle>Linked Data software developemnt</subtitle><entry><title type="html">Tutorial: Building a React front-end app with RDF Data, powered by Link and Solid</title><link href="https://ontola.io/nl/blog/rdf-solid-react-tutorial-link/" rel="alternate" type="text/html" title="Tutorial: Building a React front-end app with RDF Data, powered by Link and Solid" /><published>2021-06-17T00:00:00+02:00</published><updated>2021-06-17T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/link-tutorial</id><content type="html" xml:base="https://ontola.io/nl/blog/rdf-solid-react-tutorial-link/">&lt;p&gt;This tutorial will help you build a linked data front-end application, compatible with Tim Berners-Lee’s Solid initiative.
+Knowledge of React and Typescript / Javascript is assumed, as is a little knowledge of RDF.
+For an introduction to RDF, read &lt;a href=&quot;https://ontola.io/what-is-linked-data/&quot;&gt;this&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Working with RDF (linked data) can be a bit different from using more conventional JSON REST APIs.
+We need tooling to deal with some of the complexities that arise when working with linked data:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The client (the browser app) does not know in advance what kind of data it will get back from a server. Link will simply fetch a URL using content negotiation, and get some &lt;a href=&quot;https://ontola.io/blog/rdf-serialization-formats/&quot;&gt;RDF serialized&lt;/a&gt; response.&lt;/li&gt;
+  &lt;li&gt;Deciding which view to render is often done by checking routes, but this is not possible in a linked data app. Instead, we can fetch the URL and check which &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:type&lt;/code&gt; is being set (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;Person&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;Blogpost&lt;/code&gt;).&lt;/li&gt;
+  &lt;li&gt;Many strings are URLs, which can be a bother to type and might cause typo-related-bugs. To deal with this, we &lt;a href=&quot;https://ontola.io/blog/ontologies-in-js/&quot;&gt;set URLs programmatically using @ontologies/core&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ontola.io/blog/ordered-data-in-rdf/&quot;&gt;Ordered data in RDF&lt;/a&gt; is a bit more complicated than JSON Arrays, so we’ll use tooling to abstract these to arrays.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this tutorial we’re going to use &lt;code class=&quot;highlighter-rouge&quot;&gt;react&lt;/code&gt; and the &lt;a href=&quot;https://github.com/fletcher91/link-lib/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;link-lib&lt;/code&gt;&lt;/a&gt; + &lt;a href=&quot;https://github.com/fletcher91/link-redux&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;link-redux&lt;/code&gt;&lt;/a&gt; (in short: Link) libraries to create a simple front-end app to render data from a Solid Pod.&lt;/p&gt;
+
+&lt;h1 id=&quot;understanding-link-store-views-and-topologies&quot;&gt;Understanding Link: Store, Views and Topologies&lt;/h1&gt;
+
+&lt;p&gt;The Link libraries have an interesting, but unconventional way of rendering data.
+The first concept to understand, is the LinkedRenderStore (the Store).
+The &lt;strong&gt;Store&lt;/strong&gt; is responsible for most of the heavy lifting: it contains the stored data, keeps rendered data in sync, parses changes, and stores registered Views.
+&lt;strong&gt;Views&lt;/strong&gt; are (in this case react) components that render one or more &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:Class&lt;/code&gt;es in one or more Topologies.
+&lt;strong&gt;Topologies&lt;/strong&gt; are contexts in the DOM, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;Page&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;Card&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;Detail&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s say you want to view your public Solid Pod folder, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;https://joep.inrupt.net/public/&lt;/code&gt;, as a full page.
+First, you pass the subject (the URL of the resource) to a Link &lt;code class=&quot;highlighter-rouge&quot;&gt;Resource&lt;/code&gt; component.
+This will let the LRS check if that resource is already present in the Store.
+If not, it will be fetched.
+Once it has been fetched and parsed, the resource will be added to the Store.
+Then, the Resource component will be notified of new data, and then the Store will try to find the &lt;em&gt;most suitable View&lt;/em&gt;.
+This is done by checking the &lt;code class=&quot;highlighter-rouge&quot;&gt;rdf:type&lt;/code&gt; of the Resource and the current Topology.
+In this case, that type is an &lt;code class=&quot;highlighter-rouge&quot;&gt;ldp:Container&lt;/code&gt;, and the topology is &lt;code class=&quot;highlighter-rouge&quot;&gt;fullPage&lt;/code&gt;.
+If there is a &lt;code class=&quot;highlighter-rouge&quot;&gt;fullPage&lt;/code&gt; View registered in the Store for &lt;code class=&quot;highlighter-rouge&quot;&gt;ldp:Container&lt;/code&gt;, it will render that View.
+If there is not such a View, it might try a more generic view.&lt;/p&gt;
+
+&lt;h1 id=&quot;setting-up-the-basics&quot;&gt;Setting up the basics&lt;/h1&gt;
+
+&lt;p&gt;First, we’ll need to set up a react project.
+You can use our boilerplate, or you can set it up manually.&lt;/p&gt;
+
+&lt;h2 id=&quot;easy-mode-using-the-link-solid-boilerplate&quot;&gt;Easy mode: Using the link-solid-boilerplate&lt;/h2&gt;
+
+&lt;p&gt;You can get started right away using the &lt;a href=&quot;https://codesandbox.io/s/github/ontola/link-solid-boilerplate/tree/master/?file=/src/app.tsx&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;link-solid-boilerplate&lt;/code&gt; on CodeSandbox&lt;/a&gt;.
+Alternatively, you can use the &lt;a href=&quot;https://github.com/ontola/link-solid-boilerplate/generate&quot;&gt;Template feature on Github to fork it&lt;/a&gt;, and follow the readme to get it running locally.
+Got it running?
+Skip the next section and go to &lt;a href=&quot;#loading-data&quot;&gt;Loading Data&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;hard-mode-without-using-the-boilerplate&quot;&gt;Hard mode: Without using the boilerplate&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;(skip this if you’re using the boilerplate)&lt;/em&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Make sure &lt;code class=&quot;highlighter-rouge&quot;&gt;node&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;npm&lt;/code&gt; are installed.&lt;/li&gt;
+  &lt;li&gt;Start a new react project: &lt;code class=&quot;highlighter-rouge&quot;&gt;npx create-react-app my-app --template typescript&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Add the type definitions: &lt;code class=&quot;highlighter-rouge&quot;&gt;yarn add @types/node @types/react @types/react-dom @types/jest &lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Add &lt;code class=&quot;highlighter-rouge&quot;&gt;link-lib&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;link-redux&lt;/code&gt; as dependencies: &lt;code class=&quot;highlighter-rouge&quot;&gt;yarn add link-lib link-redux @rdfdev/delta @rdfdev/actions @rdfdev/iri @rdfdev/collections&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Add their &lt;code class=&quot;highlighter-rouge&quot;&gt;peerDepdencies&lt;/code&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;yarn add @ontologies/as @ontologies/core @ontologies/schema @ontologies/shacl @ontologies/xsd http-status-codes n-quads-parser&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/fletcher91/link-redux#1-set-up-the-store&quot;&gt;Set-up the Linked Render Store&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Got stuck? Check the &lt;a href=&quot;https://github.com/ontola/link-solid-boilerplate&quot;&gt;boilerplate&lt;/a&gt; for inspiration and use the &lt;a href=&quot;https://github.com/fletcher91/link-redux/wiki&quot;&gt;link-redux wiki&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Continue with the rest of this tutorial.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;loading-data&quot;&gt;Loading data&lt;/h1&gt;
+
+&lt;p&gt;As a data source, we could use multiple back-ends. Here’s a list of tested and open source options:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A Solid pod hosted on &lt;a href=&quot;https://inrupt.net/&quot;&gt;Inrupt.net&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;A &lt;a href=&quot;https://gitlab.com/ontola/dexpod/&quot;&gt;DexPod&lt;/a&gt;, hosted on &lt;a href=&quot;https://dexpods.eu&quot;&gt;dexpods.eu&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/joepio/atomic&quot;&gt;Atomic-Server&lt;/a&gt;, which also serializes data to RDF formats.&lt;/li&gt;
+  &lt;li&gt;Any other public RDF server that supports &lt;code class=&quot;highlighter-rouge&quot;&gt;n-triples&lt;/code&gt; and has permissive &lt;code class=&quot;highlighter-rouge&quot;&gt;cors&lt;/code&gt; headers.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;But for this tutorial, we’ll stick with the Inrupt.net pod.
+We’ll try to render &lt;code class=&quot;highlighter-rouge&quot;&gt;https://joep.inrupt.net/public/&lt;/code&gt;, which is an &lt;code class=&quot;highlighter-rouge&quot;&gt;ldp:Container&lt;/code&gt;.
+That Container, as its name suggests, contains a bunch of resources, similar to a folder.&lt;/p&gt;
+
+&lt;h1 id=&quot;registering-a-view&quot;&gt;Registering a View&lt;/h1&gt;
+
+&lt;p&gt;Create the following file &lt;code class=&quot;highlighter-rouge&quot;&gt;views/Container.tsx&lt;/code&gt; with a functional React component.
+All we need is a single property&lt;/p&gt;
+
+&lt;div class=&quot;language-tsx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Resource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useProperty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;link-redux&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ldp&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../../ontology/ldp'&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// This hook allows you to get any property / value combination from the resource.&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// The ldp.contains essentially contains a URL for the predicate.&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ldp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;&amp;lt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// This renders a nested Resource.&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// Each subject will be fetcher by Link&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Resource&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;key=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;subject=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;&amp;lt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// The Type attribute dictates for which RDF Classes&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ldp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, go to &lt;code class=&quot;highlighter-rouge&quot;&gt;views/index.ts&lt;/code&gt; and add the newly created Container component to the &lt;code class=&quot;highlighter-rouge&quot;&gt;getViews&lt;/code&gt; list:&lt;/p&gt;
+
+&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getViews&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RegistrableComponent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// here!&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;ErrorResource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;LoadingResource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// ....&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will make sure that when the app initializes, the &lt;code class=&quot;highlighter-rouge&quot;&gt;Container&lt;/code&gt; component will be registered to the store.
+That’s it! The component should now render.
+However, you won’t see much.
+We also want to render the &lt;code class=&quot;highlighter-rouge&quot;&gt;members&lt;/code&gt; from above.
+But these should not be rendered on a full page.
+They need a different &lt;em&gt;topology&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;So let’s create one for the current context.
+We’ll call this one &lt;code class=&quot;highlighter-rouge&quot;&gt;topologies/BrowserList.ts&lt;/code&gt;, as it’s a list in the file browser.&lt;/p&gt;
+
+&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TopologyProvider&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'link-redux'&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;appNS&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../helpers/app'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// This is the same as `new NamedNode(&quot;myappurl/browserlist&quot;)`.&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Export this, you'll use it later!&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;browserListTopology&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;appNS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'browserList'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// The link-redux TopologyProvider deals with most of the complexity&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BrowserList&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TopologyProvider&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Create a NamedNode for your Topology, and bind it to this.topology&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;topology&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;browserListTopology&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// This determines the HTML element type (optional)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;elementType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ul'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// The CSS Classname (optional)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;className&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'BrowserList'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BrowserList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Great! Now we can use this BrowserList topology in our Container component.&lt;/p&gt;
+
+&lt;div class=&quot;language-tsx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Resource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useProperty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;link-redux&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ldp&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../../ontology/ldp'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BrowserList&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../../topologies/BrowserList'&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ldp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// We've wrapped our new Resources in our BrowserList topology&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;BrowserList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Resource&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;key=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;subject=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;BrowserList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// The Type attribute dictates for which RDF Classes&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ldp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we need to register a new View for our &lt;code class=&quot;highlighter-rouge&quot;&gt;members&lt;/code&gt; and our &lt;code class=&quot;highlighter-rouge&quot;&gt;BrowserList&lt;/code&gt; toplogy.
+We’ll create a highly &lt;em&gt;generic&lt;/em&gt; view, for all sorts of things.
+Let’s call it &lt;code class=&quot;highlighter-rouge&quot;&gt;ThingBrowserList&lt;/code&gt;.
+It’s good practice to use the &lt;code class=&quot;highlighter-rouge&quot;&gt;ConceptTopology&lt;/code&gt; naming convention.&lt;/p&gt;
+
+&lt;div class=&quot;language-tsx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dcterms&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@ontologies/dcterms'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Literal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NamedNode&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;@ontologies/core&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foaf&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@ontologies/foaf'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rdfs&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@ontologies/rdfs'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;schema&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@ontologies/schema'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Property&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useProperty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;link-redux&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BrowserListItem&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../../components/BrowserListItem'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;browserListTopology&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../../topologies/BrowserList'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;filename&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@rdfdev/iri'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Props&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Literal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// We can use multiple predicates.&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Link will select the first one that matches.&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// This is especially useful in generic kinds of views, such as this one.&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;namePredicates&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;schema&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;rdfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;dcterms&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;foaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ThingBrowserList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Props&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;namePredicates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;modified&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dcterms&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;modified&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// When using a value from usePropety, you'll often want to use the internal raw string value using `.value`&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;displayName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subject&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NamedNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;BrowserListItem&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;title=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;to=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;modified&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;BrowserListItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;ThingBrowserList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rdfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Resource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// This is where we let this View know that it should be rendered in the BrowserList topology!&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ThingBrowserList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;topology&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;browserListTopology&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ThingBrowserList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And for the final step, we’ll register this View in &lt;code class=&quot;highlighter-rouge&quot;&gt;views/index.ts&lt;/code&gt; like before:&lt;/p&gt;
+
+&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getViews&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RegistrableComponent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;ThingBrowserList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// ....&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, open the app and enter your public Solid Pod URL (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;https://joep.inrupt.net/public/&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h1 id=&quot;got-stuck&quot;&gt;Got stuck?&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If you need dev tools In your browser console, use the &lt;a href=&quot;https://github.com/ontola/link-devtools&quot;&gt;link dev tools&lt;/a&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;dev.help&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;If you encounter a problem, please &lt;a href=&quot;https://github.com/ontola/link-solid-boilerplate/issues&quot;&gt;create an issue in the Issue tracker on github&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Check out the &lt;a href=&quot;https://github.com/fletcher91/link-redux/wiki&quot;&gt;link-redux wiki&lt;/a&gt; for many useful hooks and other features for rendering RDF!&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Joep Meindertsma</name><email>joep@ontola.io</email></author><summary type="html">This tutorial will help you build a linked data front-end application, compatible with Tim Berners-Lee’s Solid initiative. Knowledge of React and Typescript / Javascript is assumed, as is a little knowledge of RDF. For an introduction to RDF, read this.</summary></entry><entry><title type="html">Full-stack linked data: lessons from building an RDF web app</title><link href="https://ontola.io/nl/blog/full-stack-linked-data/" rel="alternate" type="text/html" title="Full-stack linked data: lessons from building an RDF web app" /><published>2020-09-11T00:00:00+02:00</published><updated>2020-09-11T00:00:00+02:00</updated><id>https://ontola.io/nl/blog/full-stack-rdf</id><content type="html" xml:base="https://ontola.io/nl/blog/full-stack-linked-data/">&lt;p&gt;How might a web application work if it exclusively uses &lt;a href=&quot;https://ontola.io/what-is-linked-data/&quot;&gt;Linked Data&lt;/a&gt; (RDF) to communicate between server and client?
 In this article, I’ll tell you about our API journey, why we chose linked data (RDF), the challenges that we faced, and some of the solutions that we came up with.&lt;/p&gt;
 
 &lt;h2 id=&quot;about-the-project&quot;&gt;About the project&lt;/h2&gt;
