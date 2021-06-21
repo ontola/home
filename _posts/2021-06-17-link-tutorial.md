@@ -18,6 +18,7 @@ We need tooling to deal with some of the complexities that arise when working wi
 - [Ordered data in RDF](https://ontola.io/blog/ordered-data-in-rdf/) is a bit more complicated than JSON Arrays, so we'll use tooling to abstract these to arrays.
 
 In this tutorial we're going to use `react` and the [`link-lib`](https://github.com/fletcher91/link-lib/) + [`link-redux`](https://github.com/fletcher91/link-redux) (in short: Link) libraries to create a simple front-end app to render data from a Solid Pod.
+You can see the [final result on CodeSandbox](https://codesandbox.io/s/github/ontola/link-solid-boilerplate/tree/master/?file=/src/app.tsx)
 
 # Understanding Link: Store, Views and Topologies
 
@@ -262,6 +263,7 @@ Now, open the app and enter your public Solid Pod URL (e.g. `https://joep.inrupt
 
 # Got stuck?
 
+- Check the [**result on codesandbox**](https://codesandbox.io/s/github/ontola/link-solid-boilerplate/tree/master/?file=/src/app.tsx)
 - If you need dev tools In your browser console, use the [link dev tools](https://github.com/ontola/link-devtools): `dev.help`.
 - If you encounter a problem, please [create an issue in the Issue tracker on github](https://github.com/ontola/link-solid-boilerplate/issues).
 - Check out the [link-redux wiki](https://github.com/fletcher91/link-redux/wiki) for many useful hooks and other features for rendering RDF!
