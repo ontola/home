@@ -1,12 +1,15 @@
 ---
 layout: post
-title: "User Interface designs for Personal Online Data Stores (PODS)"
+title: "Designing a UI for a Personal Online Datastore"
 author: joep
 permalink: /blog/ui-for-pods/
 ---
 
-If we could re-design
 In this article, we'll discuss an open source, creative commons set of UI designs for a web-based personal data store.
+
+- Click through [the demo](https://www.figma.com/proto/wkc2XEA6Lddai8n4PUU83C/Solidstarter-Prototype?page-id=327%3A0&node-id=335%3A32985&viewport=289%2C241%2C0.04754795879125595&scaling=scale-down) on figma
+- View the [style book](https://zeroheight.com/756e7c07f/p/919ed8-solid-ui-kit) on ZeroHeight
+- Check out the [Github Repository](https://github.com/ontola/solid-ui-designs), containing the source files
 
 ## Why we need Personal Online Datastores
 
