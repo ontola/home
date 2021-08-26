@@ -1,0 +1,297 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Designing a UI for a Personal Online Datastore</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
+  <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="apple-mobile-web-app-title" content="Ontola.io">
+  <meta name="application-name" content="Ontola.io">
+  <meta name="msapplication-TileColor" content="#5a91af">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="alternate" type="application/rss+xml" title="Ontola.io Blog" href="/feed.xml" />
+  <link rel="stylesheet" href="/css/normalize.css"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/syntax.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,800" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <!-- Matomo -->
+  <script type="text/javascript">
+    var _paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//analytics.argu.co/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '4']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+  <meta name="description" content="In this article, we’ll discuss an open source, creative commons set of UI designs for a web-based personal data store.">
+<meta property="og:site_name" content="Ontola.io">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@ontola.io">
+
+<title>Designing a UI for a Personal Online Datastore</title>
+<meta property="og:title" content="Designing a UI for a Personal Online Datastore">
+<meta name="twitter:title" content="Designing a UI for a Personal Online Datastore">
+<meta property="og:description" content="In this article, we’ll discuss an open source, creative commons set of UI designs for a web-based personal data store.
+
+"/>
+
+
+<meta property="article:published_time" content="2021-08-26T00:00:00+02:00">
+
+
+<meta property="og:image" content="/img/default.jpg">
+<meta name="twitter:image" content="/img/default.jpg">
+
+<meta property="og:url" content="http://ontola.io/blog/ui-for-pods/" />
+
+<meta itemprop="keywords" content="" />
+
+
+
+
+<meta property="article:author" content="Joep Meindertsma" />
+<meta property="og:type" content="article">
+  
+  <meta name="twitter:creator" content="@joepmeindertsma">
+  
+
+
+</head>
+<body>
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <nav  id="navbar" class="nav__wrapper">
+    <div class="nav">
+      <a href="/nl/" class="nav__logo">
+        <img src="/img/logo.svg" />
+        <span>Ontola</span><span class="nav__logo__tld">.io</span>
+      </a>
+      <button class="nav__menu-toggle" onClick="toggleMenu()">menu</button>
+      <div class="nav__links nav__links--collapsed">
+        <a href="/nl/">home</a>
+        <!-- <a href="">services</a> -->
+        <a href="/nl/about">Over ons</a>
+        <a href="/nl/blog">blog</a>
+        <a href="/nl/contact">contact</a>
+        
+          
+          
+            <a title="English" href="/blog/ui-for-pods/">en</a>
+          
+        
+           
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+      <div class="hero hero--smaller hero--narrow">
+  <div class="hero__wrapper">
+    <a href="/blog"class="hero__link">
+      <h3 id="hero-text">
+        <i class="fas fa-level-up-alt"></i>
+        Linked Data Blog
+      </h3>
+    </a>
+  </div>
+</div>
+<div class="post text">
+  <h1>Designing a UI for a Personal Online Datastore</h1>
+  
+  
+
+<div class="details">
+  <a href="https://twitter.com/@joepmeindertsma" target="_blank" class="details__author">Joep Meindertsma, </a>26 Aug 2021
+</div>
+
+
+  <p>In this article, we’ll discuss an open source, creative commons set of UI designs for a web-based personal data store.</p>
+
+<ul>
+  <li>Click through <a href="https://www.figma.com/proto/wkc2XEA6Lddai8n4PUU83C/Solidstarter-Prototype?page-id=327%3A0&amp;node-id=335%3A32985&amp;viewport=289%2C241%2C0.04754795879125595&amp;scaling=scale-down">the demo</a> on figma</li>
+  <li>View the <a href="https://zeroheight.com/756e7c07f/p/919ed8-solid-ui-kit">style book</a> on ZeroHeight</li>
+  <li>Check out the <a href="https://github.com/ontola/solid-ui-designs">Github Repository</a>, containing the source files</li>
+</ul>
+
+<p><img src="/img/solid-ui/solid-1.jpg" alt="solid-1" /></p>
+
+<h2 id="why-we-need-personal-online-datastores">Why we need Personal Online Datastores</h2>
+
+<p>30 Years ago, the first website was created by Tim Berners-Lee.
+The web was designed to be decentralized, where people would have their own servers to share their thoughts on an open internet.
+But today, our web has become more centralized than every before.
+A few large tech companies control most of our personal data.
+Using cloud applications enabled us to access our data from every machine, but it took away a great deal of control.
+Moving data from one app to the other is often difficult (or impossible), as many cloud apps have a tight integration between client and server.
+For example, we can only view our facebook posts using official Facebook apps.
+On the other hand, standards like e-mail, RSS, and HTML allow users to choose how they view and edit their data - we can pick our own e-mail apps, RSS readers and our own web browsers.
+Wouldn’t it be awesome if we could do the same thing with our social media posts, our chat messages, our todo apps and more?</p>
+
+<p>One approach to solve this problem, is having a <em>personal online data store</em>, a Pod.
+This is a computer that is always online, and contains your personal data.
+It is similar to a service such as Dropbox or Google Drive, but it does a bit more.
+Instead of only dealing with files, it deals with <em>structured standardized data</em>.
+This enables a higher degree of interoperability, which means it becomes easier for app developers to re-use data.
+It also hosts your online identity, stores notifications and more.</p>
+
+<p>One notable project that aims to provide such a standard, is Solid.
+This project was started by Tim Berners-Lee himself.
+At this time, the specification is being formalized and various implementations are being worked on (such as our own <a href="https://gitlab.com/ontola/dexpod">DexPod Server</a>, or the <a href="https://github.com/solid/community-server">Solid-Community-Server</a>).
+The majority of the Solid community is focused on making all of this work, which mostly means getting the technology and the specification in good shape.
+Another Pod project is <a href="https://atomicdata.dev">Atomic Data</a>, which is what I’ve been working on for the past year.
+Both of these projects share the same goal: giving people more control over their data.
+Because</p>
+
+<h2 id="designing-a-user-interface-for-pods">Designing a user interface for Pods</h2>
+
+<p>How would a Pod look like? How would you interact with it? What kind of UI challenges and opportunities does a Pod present?
+We’ve partnered up with studio <a href="https://jagerenprooi.nl/">Jager &amp; Prooi</a> to answer these questions and design a user interface for Pods.
+Thanks to the <a href="https://www.sidnfonds.nl/nieuws/techneuten-en-ontwerpers-bundelen-krachten-8-projecten-van-start">SIDN Fonds</a> for funding this project.</p>
+
+<p>We started our project off by interviewing two groups: Solid developers, and potential early adapters.
+That way, we’d have a good grasp on technical opportunities and limitations, and what aspects of the UI would be most important for making the first group of users happy.</p>
+
+<p>We realized that designing a Pod would pose an interesting challenge, even for experienced designers.
+A Pod is not just one of many apps - it is a place where many apps could run.
+It is similar to an Operating System, such as Windows or iOS: where you launch and manage apps, manage your data and manage your system.
+This means it needs:</p>
+
+<ul>
+  <li><strong>a homescreen</strong> from which you can open apps and view activities</li>
+  <li>a way to <strong>browse through your files</strong>, like a file manager where you can edit, organize and delete things</li>
+  <li>a tool to <strong>search</strong> through your data</li>
+  <li>a <strong>settings app</strong> to manage the hardware and UI</li>
+  <li>a <strong>notification tray</strong> or a different way to view incoming changes and alerts</li>
+  <li><strong>persistent UI elements</strong> to quickly open search / notifications / settings</li>
+  <li>a <strong>way to open files with various different apps</strong> (e.g. open a PDF in Adobe or a Browser).</li>
+</ul>
+
+<p>These are the things that we’ve learned to expect from operating systems - these are also present in Windows, iOS and others.
+But Pods are different for two reasons:</p>
+
+<ol>
+  <li>Pods are <em>always</em> connected to the internet, which means that they can be places that others can find information</li>
+  <li>Pods use <em>structured data</em> instead of <em>binary data</em> (regular files on your computer), which means that you get new features to manage information</li>
+</ol>
+
+<p>These differences result in new things that you might want a Pod operating system to achieve:</p>
+
+<ul>
+  <li><strong>Manage external access to data</strong>. In a Pod, you can allow other to access files without actually sending it to them. Your Pod is a server, so it’s connected to the internet, which means that (if you want) others can collaborate on or view your data, too. This needs to be managed, which is something that is not actually common in other operating systems.</li>
+  <li><strong>Version control / history control</strong>. Storing structured data makes it easier to actually save various version, which means that user can undo their mistakes and see who changed what over time.</li>
+  <li><strong>Structured Search</strong>. In a regular operating system, we could search for filenames, but in a Pod, we can search through the data itself. This means that we can use the global search feature to find Todo’s, appointments, playlists and more.</li>
+  <li><strong>Manage personal information</strong>. Since Pods are inherently <em>personal</em>, they are great for storing data about yourself. This includes data that you’d share publicly on your linkedin profile, or medical data that you’d want to keep private, but do want to have managed somewhere.</li>
+</ul>
+
+<p>To keep the scope of this project manageable, we decided to focus on Home, Personal Information Management, Sharing, File Exploring and Search.</p>
+
+<p><img src="/img/solid-ui/solid-2.jpg" alt="personal data management" /></p>
+
+<p><strong><a href="https://www.figma.com/proto/wkc2XEA6Lddai8n4PUU83C/Solidstarter-Prototype?page-id=327%3A0&amp;node-id=335%3A32985&amp;viewport=289%2C241%2C0.04754795879125595&amp;scaling=scale-down">Click through the demo</a></strong> to see how it turned out!
+And feel free to use these designs in your own apps - we’re sharing the <a href="https://github.com/ontola/solid-ui-designs">source files on Github</a> under a CC-BY license for specifically that reason.</p>
+
+</div>
+<div class="post__navigation">
+  <div class="post__navigation__wrapper">
+    
+      <a class="post__navigation__previous" href="/blog/linked-data-surveys/">&laquo; On linked data surveys, rewards and data ownership</a>
+    
+    
+  </div>
+</div>
+
+  </div>
+  <div class="footer--wrapper" id="footer">
+    <div class="footer">
+      <div class="footer-row">
+        <div href="/" class="footer__header">
+          Ontola
+        </div>
+        <a href="/nl/">Home</a>
+        <!-- <a href="">Services</a> -->
+        <a href="/nl/about">Over ons</a>
+        <a href="/nl/blog">Blog</a>
+        <a href="/nl/jobs">Vacatures</a>
+        <a href="/nl/contact">Contact</a>
+        
+          
+          
+            <a href="/blog/ui-for-pods/">English</a>
+          
+        
+           
+      </div>
+      <div class="footer-row">
+        <div class="footer__header">Wat wij doen</div>
+        <a href="/nl/">Linked data</a>
+        <a href="/nl/webdevelopment">Webapplicaties</a>
+        <a href="/nl/continuous-integration">OTAP straat</a>
+        <a href="/nl/freelance">Freelance ontwikkeling</a>
+        <a href="/nl/solid">Solid</a>
+        <a href="/nl/django-webdevelopment">Django webdevelopment</a>
+      </div>
+      <div class="footer-row">
+        <div href="/" class="footer__header">Vind ons</div>
+        <div class="footer__social_logos">
+          <a href="https://github.com/ontola">
+            <i title="Github" aria-label="Github" class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/ontola/">
+            <i title="LinkedIn" aria-label="LinkedIn" class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.facebook.com/ontola.io/">
+            <i title="Facebook" aria-label="Facebook" class="fab fa-facebook"></i>
+          </a>
+          <a href="https://twitter.com/ontola_io">
+            <i title="Twitter" aria-label="Twitter" class="fab fa-twitter"></i>
+          </a>
+          <a href="/feed.xml">
+            <i title="Atom / RSS feed" aria-label="Atom / RSS feed" class="fa fa-rss"></i>
+          </a>
+        </div>
+        <a href="mailto:info@ontola.io">
+          <i class="fas fa-envelope"></i>
+          info@ontola.io
+        </a>
+        <a href="tel:0031636020942">
+          <i class="fas fa-phone"></i>
+          +316 360 209 42
+        </a>
+        <a href="https://goo.gl/maps/eYT2tBGnDqNfM5BC9">
+          <i class="fas fa-map-marker-alt"></i>
+          Maliebaan 100, Utrecht, NL
+        </a>
+        <div><a href="https://argu.co">
+          <i class="fas fa-briefcase"></i>
+          Argu B.V.</a> kvk 65684168<div>
+        </div>
+      </div>
+    </div>
+    <img class="footer__logo" src="/img/logo.svg" />
+  </div>
+  </div>
+  <script src="/js/main.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121994595-1">
+    gtag('config', 'AW-940871433');
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-121994595-1');
+  </script>
+</body>
+
+</html>
