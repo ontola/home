@@ -1,1 +1,1 @@
-We zoeken een [Front-end Developer](/jobs/webdev2020) en een [full-stack Developer](/jobs/full-stack)!
+Op dit moment zoeken we geen nieuwe medewerkers, sorry!

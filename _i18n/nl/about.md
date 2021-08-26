@@ -29,7 +29,10 @@ We verwachten niet dat je ons op ons woord zal geloven, maar je mag ons hier alt
 Als team werken wij onder andere aan het e-democracy platform [Argu](https://argu.co), wat ingezet door diverse organisaties om mensen te betrekken bij besluitvorming.
 Verder zijn we de huidige ontwikkelkracht achter het project [OpenBesluitvorming.nl](https://openbesluitvorming.nl), waar we van meer dan honderd overheden data importeren, converteren en beschikbaar stellen als linked open data.
 We wonnen onder meer de [NL Open Government Partnership Award](https://www.open-overheid.nl/open-overheid/argu-winnaar-nederlandse-inzending-ogp-awards/) en diverse hackathons.
-Momenteel werken we samen met [Inrupt](http://inrupt.com/) aan het [Solid](/solid) project, waarmee we mensen meer controle over hun data willen geven.
+We werkten samen met [Inrupt](http://inrupt.com/) aan het [Solid](/solid) project, waarmee we mensen meer controle over hun data willen geven.
+Ook bouwen we aan [Atomic Data](https://atomicdata.dev), een open standaard en tools om apps beter te laten samenwerken.
+
+We houden van Open Source, dus bekijk onze projecten op [Github](https://github.com/ontola/) en [GitLab](https://gitlab.com/ontola/)!
 
 ## Bij ons komen werken?
 

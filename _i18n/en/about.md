@@ -12,7 +12,7 @@ a little trust in necessary a digital world, but you can minimize how much you n
 
 We have three goals that will minimize how much trust you need to have in us as a company:
 
-- **Full data ownership**. You (as either a customer or as a user of the software that we build) should have total control over your data. That's why we work on [Solid](/solid).
+- **Full data ownership**. You (as either a customer or as a user of the software that we build) should have total control over your data. That's why we work on [Atomic Data](https://atomicdata.dev) and [Solid](/solid).
 - **No vendor lock-in**. We build software using open standards. That way, other developers can use and edit the same software and data. We strive to do as much [open source](http://github.com/ontola/) as possible.
 - **Independent**. We strive to make our software work without dependencies on third parties.
 
@@ -24,13 +24,15 @@ We don't want to earn money using your data or your depencence on us, but becaus
 For now, these are only words.
 We're not expecting you to believe everything we write, but you can always use these words to hold us accountable.
 
-## What we're working on
+## Things that we do
 
-As a team we're working on the e-democracy platform [Argu](https://argu.co), which is used by many organizations to get people engaged in decision-making processes.
-We're also responsible for the technology of the [OpenBesluitvorming.nl](https://openbesluitvorming.nl) project, which aims to turn all Dutch governmental meeting minutes and decisions into linked open data.
-We're currently working with [Inrupt](http://inrupt.com/) on the [Solid](/solid) project.
+- As a team we spend most of our time working on the e-democracy platform [Argu](https://argu.co), which is used by many organizations to get people engaged in decision-making processes.
+- We're also responsible for the technology of the [OpenBesluitvorming.nl](https://openbesluitvorming.nl) project, which aims to turn all Dutch governmental meeting minutes and decisions into linked open data.
+- We've worked with [Inrupt](http://inrupt.com/) on the [Solid](/solid) project.
+- We're building [Atomic Data](https://atomicdata.dev), an open specification + graph server that makes it easier to share data on the web.
+- We're working on [Dexes](https://dexes.eu), an online marketplace for sharing data.
 
-We love Open Source, so make sure to check out our projects on [Github](http://github.com/ontola/)!
+We love Open Source, so make sure to check out our projects on [Github](https://github.com/ontola/) and [GitLab](https://gitlab.com/ontola/)!
 
 ## Join our team
 
