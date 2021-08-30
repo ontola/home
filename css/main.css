@@ -235,6 +235,7 @@ th,td {
     color: rgba(255,255,255,.6);
     max-width: 50rem;
     display: flex;
+    justify-content: space-around;
 }
 
 .footer p, .footer a {
@@ -268,7 +269,6 @@ th,td {
 }
 
 .footer-row {
-    flex: 1;
     display: flex;
     flex-direction: column;
     margin-bottom: 1em;
