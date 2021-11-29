@@ -4,18 +4,22 @@ import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 
 export default function LocaleSwitcher() {
-  const { locales, asPath } = useRouter();
+  const { locale, locales, asPath } = useRouter();
   return (
-    <div>
-      {locales.map((localeName) => {
-        return (
-          <div key={localeName}>
-            <Link href={asPath} passHref locale={localeName}>
-              <a>{localeName}</a>
-            </Link>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      {locales &&
+        locales.map((localeName) => {
+          if (localeName === locale) {
+            return null;
+          }
+          return (
+            <span key={localeName}>
+              <Link href={asPath} passHref locale={localeName}>
+                <a>{localeName}</a>
+              </Link>
+            </span>
+          );
+        })}
+    </>
   );
 }

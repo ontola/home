@@ -1,3 +1,4 @@
+import { Button } from '../components/Button';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 
@@ -6,12 +7,13 @@ const Index = () => {
     <Main
       meta={
         <Meta
-          title="Next.js Boilerplate Presentation"
-          description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
+          title="Ontola Software Development"
+          description="Wij schrijven software die ontworpen is om te veranderen. Zo blijven de kosten voor onderhoud en doorontwikkeling zo laag mogelijk."
         />
       }
     >
-      <h1>Next.js Boilerplate Presentation</h1>
+      <h1>Software Development</h1>
+      <Button>Contact</Button>
     </Main>
   );
 };
