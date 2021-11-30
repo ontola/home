@@ -23,7 +23,8 @@ export async function getPostBySlug(
   return out;
 }
 
-interface MetaData {
+/** Markdown metadata fields */
+export interface MetaData {
   /** Author string e.g. `joep` */
   author: string;
   title: string;

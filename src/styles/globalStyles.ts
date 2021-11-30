@@ -3,14 +3,14 @@ import { globalCss } from '@stitches/react';
 export const globalStyles = globalCss({
   '*': {
     boxSizing: 'border-box',
+    fontFamily: '$body',
   },
   body: { margin: 0, fontFamily: 'intra', color: '$text', height: '100%' },
   'h1, h2, h3, h4': {
     fontFamily: '$heading',
     margin: 0,
   },
-  'p, ul, li, table, a': {
-    fontFamily: '$body',
+  'p, ul, li, table, a, span': {
     lineHeight: '1.5rem',
     color: '$text',
   },

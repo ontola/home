@@ -39,6 +39,13 @@ export const NavLink = ({ children, href }: NavLinkProps) => (
   </Link>
 );
 
+const Links = styled('span', {
+  display: 'none',
+  '@media (min-width: 600px)': {
+    display: 'flex',
+  },
+});
+
 export const NavigationBar = () => (
   <NavigationBarStyled>
     <NavContainer>
@@ -52,12 +59,14 @@ export const NavigationBar = () => (
           />
         </a>
       </Link>
-      <NavLink href="/cases/">Cases</NavLink>
-      <NavLink href="/services/">Diensten</NavLink>
-      <NavLink href="/process/">Werkwijze</NavLink>
-      <NavLink href="/about/">Over</NavLink>
-      <NavLink href="/blog/">Blog</NavLink>
-      <LocaleSwitcher />
+      <Links>
+        <NavLink href="/cases/">Cases</NavLink>
+        <NavLink href="/services/">Diensten</NavLink>
+        <NavLink href="/process/">Werkwijze</NavLink>
+        <NavLink href="/about/">Over</NavLink>
+        <NavLink href="/blog/">Blog</NavLink>
+        <LocaleSwitcher />
+      </Links>
     </NavContainer>
   </NavigationBarStyled>
 );

@@ -12,8 +12,8 @@ const CirclesWrapper = styled('div', {
   width: '100%',
   height: '30rem',
   position: 'absolute',
-  marginTop: '-3rem',
   zIndex: -1,
+  overflow: 'visible',
 });
 
 const ImageWrapper = styled('div', {
@@ -37,21 +37,21 @@ const ImageWrapper = styled('div', {
 
 const HeaderWrapper = styled('div', {
   margin: '0 auto',
-  minHeight: '10rem',
+  marginTop: '-3rem',
   display: 'flex',
   justifyContent: 'center',
   alignContent: 'start',
   flexDirection: 'column',
   paddingTop: '7rem',
   paddingBottom: '7rem',
-  position: 'relative',
   overflow: 'hidden',
+  position: 'relative',
+  zIndex: -1,
   width: '100%',
 });
 
 const HeaderChildren = styled('div', {
   maxWidth: '20rem',
-  display: 'flex',
 });
 
 const HeaderContainer = styled('div', {
@@ -74,10 +74,15 @@ const Circles = styled('img', {
   left: '9rem',
   '@media (min-width: 600px)': {
     right: '-5rem',
-    height: '24rem',
+    height: '28rem',
     left: 'auto',
   },
-  '@media (min-width: 1000px)': {
+  '@media (min-width: 1100px)': {
+    left: 'auto',
+    right: '0%',
+    height: '28rem',
+  },
+  '@media (min-width: 1300px)': {
     left: 'auto',
     right: '10%',
     height: '30rem',
@@ -88,6 +93,9 @@ const Circles = styled('img', {
 export function Header({ children, title, image }: HeaderProps): JSX.Element {
   return (
     <HeaderWrapper>
+      <CirclesWrapper>
+        <Circles src="/assets/images/circles.svg" />
+      </CirclesWrapper>
       <HeaderContainer>
         <HeaderHeading>{title}</HeaderHeading>
         {children && <HeaderChildren>{children}</HeaderChildren>}
@@ -103,9 +111,6 @@ export function Header({ children, title, image }: HeaderProps): JSX.Element {
           </ImageWrapper>
         )}
       </HeaderContainer>
-      <CirclesWrapper>
-        <Circles src="/assets/images/circles.svg" />
-      </CirclesWrapper>
     </HeaderWrapper>
   );
 }

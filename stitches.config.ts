@@ -10,7 +10,8 @@ export const { styled, getCssText } = createStitches({
     colors: {
       text: 'black',
       text1: '#999999',
-      bg: 'white',
+      bg0: 'white',
+      bg: 'F6F8FB',
       bg1: '#f4f4f4',
       bg2: '#d7d7d7',
       nav: 'rgba(255,255,255,0.7)',

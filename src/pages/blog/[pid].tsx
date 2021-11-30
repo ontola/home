@@ -5,7 +5,9 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import Image, { ImageProps } from 'next/image';
 
+import { GradientLine } from '.';
 import { Container } from '../../components/Container';
+import { Details } from '../../components/Details';
 import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
@@ -16,11 +18,6 @@ import {
 } from '../../utils/getPosts';
 
 const ImageWrapper = styled('div', {
-  // display: 'block',
-  // width: '100%',
-  // height: '100%',
-  // height: '10rem',
-  // overflow: 'hidden',
   position: 'relative',
 });
 
@@ -28,12 +25,11 @@ export default function BlogPost({ mdxSource, data }: BlogItemProp) {
   const components = {
     img: (props: ImageProps) => {
       return (
-        // height and width are part of the props, so they get automatically passed here with {...props}
         <ImageWrapper>
           <Image
             {...props}
             objectFit="contain"
-            // objectPosition="center"
+            // This is not a great solution, but I see not other option.
             height={'100'}
             width={'200'}
             layout="responsive"
@@ -46,8 +42,11 @@ export default function BlogPost({ mdxSource, data }: BlogItemProp) {
   };
 
   return (
-    <Main meta={<Meta title={data?.title} description={data?.description} />}>
-      <Header title={data?.title}></Header>
+    <Main meta={<Meta title={data.title} description={data.description} />}>
+      <Header title={data.title}>
+        <GradientLine />
+        <Details {...data} />
+      </Header>
       <Container>
         <MDXRemote components={components} {...mdxSource} />
       </Container>
@@ -82,7 +81,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
   const nl = await getAllPostsLocale('nl');
   nl.forEach((a) => {
-    console.log('a', a);
     paths.push({
       params: {
         pid: a.slug,

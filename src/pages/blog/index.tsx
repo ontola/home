@@ -3,6 +3,7 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 
 import { Container } from '../../components/Container';
+import { Details } from '../../components/Details';
 import { Header } from '../../components/Header';
 import { Text } from '../../components/Text';
 import { Meta } from '../../layout/Meta';
@@ -19,20 +20,19 @@ const BlogPostPreviewStyling = styled('a', {
   textDecoration: 'none',
   padding: '2rem',
   borderRadius: '2rem',
-  transition: '.2s box-shadow',
+  transition: '.2s box-shadow, .2s background',
   marginLeft: '-2rem',
   '&:hover': {
+    background: '$bg0',
     boxShadow: ' 0px 3px 15px rgba(0,0,0,0.2)',
   },
 });
 
-const Detail = styled('span', {
-  color: '$text1',
-});
-
-const Line = styled('div', {
+export const GradientLine = styled('div', {
+  display: 'block',
   background: '$gradient',
   height: '2px',
+  width: '100%',
 });
 
 function BlogPostPreview({ data, slug }: BlogItemProp) {
@@ -41,12 +41,8 @@ function BlogPostPreview({ data, slug }: BlogItemProp) {
       <BlogPostPreviewStyling>
         <Text as="h3">{data?.title}</Text>
         {data.description && <p>{data.description}</p>}
-        <Line />
-        <Detail>
-          {new Date(data.date).toLocaleDateString()}
-          {' - '}
-          {data.author}
-        </Detail>
+        <GradientLine />
+        <Details {...data} />
       </BlogPostPreviewStyling>
     </Link>
   );
