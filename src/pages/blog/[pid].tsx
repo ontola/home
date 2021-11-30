@@ -5,6 +5,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import Image, { ImageProps } from 'next/image';
 
+import { Container } from '../../components/Container';
 import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
@@ -47,7 +48,9 @@ export default function BlogPost({ mdxSource, data }: BlogItemProp) {
   return (
     <Main meta={<Meta title={data?.title} description={data?.description} />}>
       <Header title={data?.title}></Header>
-      <MDXRemote components={components} {...mdxSource} />
+      <Container>
+        <MDXRemote components={components} {...mdxSource} />
+      </Container>
     </Main>
   );
 }

@@ -2,6 +2,7 @@ import { styled } from '@stitches/react';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 
+import { Container } from '../../components/Container';
 import { Header } from '../../components/Header';
 import { Text } from '../../components/Text';
 import { Meta } from '../../layout/Meta';
@@ -62,9 +63,11 @@ const BlogsIndex = ({ posts }: BlogProps) => {
       }
     >
       <Header title="linked data blog" />
-      {posts.map((post, i) => (
-        <BlogPostPreview key={i} {...post} />
-      ))}
+      <Container>
+        {posts.map((post, i) => (
+          <BlogPostPreview key={i} {...post} />
+        ))}
+      </Container>
     </Main>
   );
 };

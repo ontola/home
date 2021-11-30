@@ -68,23 +68,29 @@ In de tabellen hierboven deden we twee afzonderlijke uitspraken over Tim: één 
 
 Een verzameling uitspraken over één onderwerp (zoals Tim) wordt een _resource_ genoemd. Daarom noemen we dit datamodel het Resource Description Framework: _RDF_.RDF is de de facto standaard voor linked data.
 
-In plaats van een tabel met triples te gebruiken, kunnen we de RDF data visualiseren als een [_grafiek_](https://en.wikipedia.org/wiki/Graph_\(discrete_mathematics\)).
+In plaats van een tabel met triples te gebruiken, kunnen we de RDF data visualiseren als een [_graaf_](https://en.wikipedia.org/wiki/Graph_\(discrete_mathematics\)).
 
-![A visualization of the above triples in a graph](/assets/images/posts/tim_graph.svg)
+![De Triples in een graaf weergegeven](/assets/images/posts/tim_graph.svg)
 
-Het object van de eerste triple, voor de geboorteplaats, bevat een link (een [_IRI_](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier)) naar een andere resource (Londen).Het object van de tweede triple (de geboortedatum) is geen link, maar een zogenaamde _letterlijke waarde_.De letterlijke waarde kan geen eigenschappen hebben omdat het geen resource is.
+Het object van de eerste triple, voor de geboorteplaats, bevat een link (een [_IRI_](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier)) naar een andere resource (Londen).
+Het object van de tweede triple (de geboortedatum) is geen link, maar een zogenaamde _literal value_.
+De literal value kan geen eigenschappen hebben omdat het geen resource is.
 
-Het noemen van RDF statements Triples kan een beetje verwarrend zijn, omdat de eerder genoemde literal values ook uit meerdere velden kunnen bestaan.Een literal bestaat uit een _value_, een _datatype_ en een _language_, wat betekent dat deze triples vijf kolommen in je database in beslag zouden nemen.In de meeste serialisatie formaten zijn de datatype en language velden optioneel.Een datatype is altijd een link, en standaard datatype voor literals is [_xsd:string_]().
+Om RDF statements Triples te noemen kan een beetje verwarrend zijn, omdat de eerder genoemde literal values ook uit meerdere velden kunnen bestaan.
+Een literal bestaat uit een _value_, een _datatype_ en een _language_, wat betekent dat deze triples vijf kolommen in je database in beslag zouden nemen.
+In de meeste serialisatie formaten zijn de datatype en language velden optioneel.
+Een datatype is altijd een link, en standaard datatype voor literals is [_xsd:string_]().
+
 
 Dat zijn een hoop nieuwe woorden en concepten, en ze kunnen in het begin een beetje verwarrend zijn. Deze concepten zullen echter de hele tijd verschijnen als je echt met linked data werkt, dus probeer een accuraat mentaal model van deze concepten te krijgen.
 
-Wat kunnen we zeggen over het RDF model, kijkend naar hoe het werkt? Ten eerste laat dit zien dat RDF eigenlijk een heel _simpel_ model is.Je kunt alles in RDF weergeven met slechts drie (of vijf) kolommen.Ten tweede moet je opmerken dat het niet mogelijk is om extra informatie toe te voegen aan _edges_ (deze pijlen in de grafiek).Dit is anders dan de meeste grafiekmodellen, waar edges hun eigen eigenschappen kunnen hebben.Een andere eigenschap van het RDF model is dat het heel eenvoudig is om twee RDF grafieken te combineren.Het integreren van twee datasets is een luxe die de meeste datamodellen niet hebben.Tot slot, het hebben van een database model dat is losgekoppeld van je applicatie modellen, betekent een hoge _uitbreidbaarheid_ en _flexibiliteit_.Het veranderen van je model of het toevoegen van eigenschappen vereisen geen schema veranderingen.Dit maakt RDF zo geweldig voor systemen die in de loop van de tijd veranderen.
+Wat kunnen we zeggen over het RDF model, kijkend naar hoe het werkt? Ten eerste laat dit zien dat RDF eigenlijk een heel _simpel_ model is.Je kunt alles in RDF weergeven met slechts drie (of vijf) kolommen.Ten tweede moet je opmerken dat het niet mogelijk is om extra informatie toe te voegen aan _edges_ (deze pijlen in de graaf).Dit is anders dan de meeste graafmodellen, waar edges hun eigen eigenschappen kunnen hebben.Een andere eigenschap van het RDF model is dat het heel eenvoudig is om twee RDF graafen te combineren.Het integreren van twee datasets is een luxe die de meeste datamodellen niet hebben.Tot slot, het hebben van een database model dat is losgekoppeld van je applicatie modellen, betekent een hoge _uitbreidbaarheid_ en _flexibiliteit_.Het veranderen van je model of het toevoegen van eigenschappen vereisen geen schema veranderingen.Dit maakt RDF zo geweldig voor systemen die in de loop van de tijd veranderen.
 
 ## RDF serialisatie
 
 Laten we wat technischer worden (voel je vrij om naar [Ontologies](#ontologies) te gaan als je niet van al deze code houdt).RDF is slechts een _datamodel_, geen _serialiseringsformaat_.Dit is anders dan JSON of XML, bijvoorbeeld, die zowel een datamodel _als_ een serialiseringsformaat zijn.
 
-Met andere woorden: Het subject, predicate, object model kan op verschillende manieren worden weergegeven.Bijvoorbeeld, hier zijn dezelfde triples uit de tabel en de grafiek hierboven, geserialiseerd in het _Turtle_ formaat:
+Met andere woorden: Het subject, predicate, object model kan op verschillende manieren worden weergegeven.Bijvoorbeeld, hier zijn dezelfde triples uit de tabel en de graaf hierboven, geserialiseerd in het _Turtle_ formaat:
 
 ```turtle
 <https://www.w3.org/People/Berners-Lee/> <http://schema.org/birthDate> "1955-06-08".
@@ -93,7 +99,7 @@ Met andere woorden: Het subject, predicate, object model kan op verschillende ma
 
 De `<>` symbolen geven IRI's aan en de `""` symbolen geven letterlijke waarden aan.
 
-Dit voorbeeld ziet er niet zo goed uit als de grafiek hierboven, toch? Lange URLs hebben de neiging om veel ruimte in te nemen en maken de data een beetje moeilijk leesbaar. We kunnen _namespaces_ gebruiken (aangeduid met `@prefix`) om RDF data te comprimeren en het meer leesbaar te maken.
+Dit voorbeeld ziet er niet zo goed uit als de graaf hierboven, toch? Lange URLs hebben de neiging om veel ruimte in te nemen en maken de data een beetje moeilijk leesbaar. We kunnen _namespaces_ gebruiken (aangeduid met `@prefix`) om RDF data te comprimeren en het meer leesbaar te maken.
 
 ```turtle
 @prefix tim: <https://www.w3.org/People/Berners-Lee/>.
@@ -162,31 +168,78 @@ Laten we eens wat meer vertellen over Tim. Allereerst is het misschien handig om
   schema:birthPlace <dbpedia:London>.
 ```
 
-We hebben verwezen naar [`foaf:Person`](http://xmlns.com/foaf/spec/) om aan te geven dat Tim een _instantie_ is van de klasse _Person_.Foaf (Friend Of A Friend) is een _ontologie_ die is ontworpen om gegevens te beschrijven die betrekking hebben op mensen in sociale netwerken.Het definieert het concept Person en enkele attributen, zoals een profielafbeelding.We hebben de `schema.org` ontologie gebruikt voor de concepten `birthDate` en `birthPlace`.
+We hebben verwezen naar [`foaf:Person`](http://xmlns.com/foaf/spec/) om aan te geven dat Tim een _instantie_ is van de klasse _Person_.
+Foaf (Friend Of A Friend) is een _ontologie_ die is ontworpen om gegevens te beschrijven die betrekking hebben op mensen in sociale netwerken.
+Het definieert het concept Person en enkele attributen, zoals een profielafbeelding.
+We hebben de `schema.org` ontologie gebruikt voor de concepten `birthDate` en `birthPlace`.
 
-Er bestaan veel ontologieën, variërend van [organisaties](https://www.w3.org/TR/vocab-org/) (die concepten als _lidmaatschappen_ beschrijven) tot [pizza's](https://protege.stanford.edu/ontologies/pizza/pizza.owl) (die concepten als _ingrediënten_ beschrijven).Deze ontologieën moeten ook in RDF beschreven worden.Een krachtige en populaire manier om ontologieën te beschrijven, is met het [OWL](https://www.w3.org/2001/sw/wiki/OWL) formaat (de Web Ontology Language).De nieuwe [SHACL](https://shacl.org/playground/) ontologie helpt om _vormen_ van RDF te definiëren, en kan gebruikt worden om te _beperken_.
+Er bestaan veel ontologieën, variërend van [organisaties](https://www.w3.org/TR/vocab-org/) (die concepten als _lidmaatschappen_ beschrijven) tot [pizza's](https://protege.stanford.edu/ontologies/pizza/pizza.owl) (die concepten als _ingrediënten_ beschrijven).
+Deze ontologieën moeten ook in RDF beschreven worden.
+Een krachtige en populaire manier om ontologieën te beschrijven, is met het [OWL](https://www.w3.org/2001/sw/wiki/OWL) formaat (de _Web Ontology Language_).
+De nieuwe [SHACL](https://shacl.org/playground/) ontologie helpt om _vormen_ van RDF data te definiëren.
 
-Een ontologie beschreven in RDF is een machine-leesbaar datamodel.Dit opent een aantal echt coole mogelijkheden.Je kunt [documentatie genereren](https://github.com/dgarijo/Widoco).Je kunt [reasoners](https://en.wikipedia.org/wiki/Semantic_reasoner) gebruiken om nieuwe kennis over je data _af te leiden_.Je kunt zelfs formulieren en andere UI-componenten in React genereren met behulp van bibliotheken zoals [Link-Redux](https://github.com/fletcher91/link-redux).
+Een ontologie beschreven in RDF is een machine-leesbaar datamodel.
+Dit opent een aantal echt coole mogelijkheden.
+Je kunt [documentatie genereren](https://github.com/dgarijo/Widoco).
+Je kunt [reasoners](https://en.wikipedia.org/wiki/Semantic_reasoner) gebruiken om nieuwe kennis over je data _af te leiden_.
+Je kunt zelfs formulieren en andere UI-componenten in React genereren met behulp van bibliotheken zoals [Link-Redux](https://github.com/fletcher91/link-redux).
 
 De kracht van de ontologie gaat ver, maar dat verdient waarschijnlijk een eigen artikel.
 
 ## Gelinkte data publiceren
 
-Linked data is bedoeld om te delen.We kunnen dit op verschillende manieren doen:
+Linked data is bedoeld om te delen.
+We kunnen dit op verschillende manieren doen:
 
-Ten eerste is er de **datadump**.Serialiseer je RDF op de manier die jij wilt en maak het toegankelijk als een enkel bestand.Het is de makkelijkste en vaak ook de goedkoopste manier om je data te publiceren.Als iemand echter alleen iets wil weten over een enkel onderwerp (of resource) in je datadump, dan zou hij de hele datadump moeten downloaden.Dat is omslachtig en maakt je data niet zo herbruikbaar als het zou kunnen zijn.Alle bewerkingen en query's worden overgelaten aan de downloader.Bovendien zijn datadumps moeilijk te beheren en daardoor waarschijnlijk verouderd.
+Ten eerste is er de **datadump**.
+Serialiseer je RDF op de manier die jij wilt en maak het toegankelijk als een enkel bestand.
+Het is de makkelijkste en vaak ook de goedkoopste manier om je data te publiceren.
+Als iemand echter alleen iets wil weten over een enkel onderwerp (of resource) in je datadump, dan zou hij de hele datadump moeten downloaden.
+Dat is omslachtig en maakt je data niet zo herbruikbaar als het zou kunnen zijn.
+Het haalt effectief het grootste voordeel weg van linked dat: dat de interne linkjes kunnen worden gezocht.
+Alle bewerkingen en query's worden overgelaten aan de downloader.
+Bovendien zijn datadumps moeilijk te beheren en daardoor vaak verouderd.
 
-**Onderwerp pagina's** redden ons! Maak de RDF data beschikbaar via HTTP op de plaats waar je het zou verwachten: op _dezelfde link als de bron IRI_.Door dit te doen wordt je data echt gelinkt aangezien elke bron nu apart en automatisch kan worden gedownload.Onderwerp pagina's kunnen zowel _statisch_ als _dynamisch_ zijn.Statische onderwerp pagina's zijn gewoon RDF bestanden gehost op een URL.Het delen van statische onderwerp pagina's is heel eenvoudig, maar statische data is moeilijk te onderhouden of te bewerken.Dynamische pagina's worden gegenereerd door een server, dus de onderliggende data kan worden bewerkt door elk framework.Een ander voordeel van het gebruik van dynamische onderwerp pagina's is dat je kunt serialiseren naar veel verschillende formaten.Je kunt HTML laten zien aan mensen en RDF aan computers.Bijvoorbeeld, ons project [Argu](https://argu.co) (een online democratie en discussie tool) werkt als volgt.Bezoek een webpagina (of onderwerp pagina) (bijv.Als je dezelfde inhoud als linked data wilt, voeg dan een serialisatie extensie toe (bijv. [.ttl](https://argu.co/nederland/m/46.ttl)) of gebruik [HTTP Accept Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept).Merk op dat hoewel dit project alle soorten RDF formaten serialiseert, het project zelf geen RDF database / triple store gebruikt.
+**Onderwerp pagina's** redden ons! Maak de RDF data beschikbaar via HTTP op de plaats waar je het zou verwachten: op _dezelfde link als de bron IRI_.
+Door dit te doen wordt je data echt gelinkt aangezien elke bron nu apart en automatisch kan worden gedownload.
+Onderwerp pagina's kunnen zowel _statisch_ als _dynamisch_ zijn.
+Statische onderwerp pagina's zijn gewoon RDF bestanden gehost op een URL.
+Het delen van statische onderwerp pagina's is heel eenvoudig, maar statische data is moeilijk te onderhouden of te bewerken.
+Dynamische pagina's worden gegenereerd door een server, dus de onderliggende data kan worden bewerkt door elk framework.
+Een ander voordeel van het gebruik van dynamische onderwerp pagina's is dat je kunt serialiseren naar veel verschillende formaten.
+Je kunt HTML laten zien aan mensen en RDF aan computers.
+Bijvoorbeeld, ons project [Argu](https://argu.co) (een online democratie en discussie tool) werkt als volgt
+Bezoek een webpagina (of onderwerp pagina) (bijv. [deze](https://argu.co/nederland/m/46)).
+Als je dezelfde inhoud als linked data wilt, voeg dan een serialisatie extensie toe (bijv. [.ttl](https://argu.co/nederland/m/46.ttl)) of gebruik [HTTP Accept Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept).
+Merk op dat hoewel dit project alle soorten RDF formaten serialiseert, het project zelf geen RDF database / triple store gebruikt.
 
-Misschien wel de meest populaire en makkelijkste manier om gelinkte data te publiceren is met **geannoteerde pagina's**. Herinner je het RDFa serialisatie formaat, hierboven besproken? Het gebruik van RDFa of Microdata in je bestaande webpagina's biedt een aantal voordelen, vooral voor SEO.Je kunt bijvoorbeeld van die [coole boxen in google](https://developers.google.com/search/docs/guides/intro-structured-data?visit_id=1-636649250129274125-3755783713\&hl=en\&rd=1) krijgen, die dingen als sterbeoordelingen laten zien in previews van zoekopdrachten.Echter, geannoteerde pagina's zijn meer bedoeld om je bestaande webpagina wat meer pit te geven dan om enorme datasets beschikbaar te maken.Het parsen (lezen) van RDFa uit een groot HTML document zal altijd duurder zijn dan het lezen van Turtle of een ander eenvoudig triple RDF formaat.
+Misschien wel de meest populaire en makkelijkste manier om gelinkte data te publiceren is met **geannoteerde pagina's**. Herinner je het RDFa serialisatie formaat, hierboven besproken? Het gebruik van RDFa of Microdata in je bestaande webpagina's biedt een aantal voordelen, vooral voor SEO.
+Je kunt bijvoorbeeld van die [coole boxen in google](https://developers.google.com/search/docs/guides/intro-structured-data?visit_id=1-636649250129274125-3755783713\&hl=en\&rd=1) krijgen, die dingen als sterbeoordelingen laten zien in previews van zoekopdrachten.
+Echter, geannoteerde pagina's zijn meer bedoeld om je bestaande webpagina wat meer pit te geven dan om enorme datasets beschikbaar te maken.
+Het parsen (lezen) van RDFa uit een groot HTML document zal altijd duurder zijn dan het lezen van Turtle of een ander eenvoudig triple RDF formaat.
 
-Een radicaal andere manier om je linked data te delen is via een **SPARQL endpoint**.SPARQL is een _query taal_, zoals SQL, ontworpen om complexe zoekopdrachten uit te voeren in grote RDF grafieken.Met SPARQL kun je queries uitvoeren zoals 'welke pianisten wonen in Nederland', of 'welke eiwitten zijn betrokken bij signaaltransducties en gerelateerd aan piramidale neuronen?'.SPARQL is zonder enige twijfel extreem krachtig, maar het gebruiken als de enige manier om RDF te delen is misschien niet het beste idee.De onderwerpen die je definieert zijn URLs, en die moeten er ook _zijn_.Het hebben van een SPARQL endpoint is een leuke bonus, maar het beschikbaar maken van de onderwerpen zelf op hun URLs zou prioriteit moeten hebben.Als je een SPARQL endpoint wilt, zul je je RDF data moeten opslaan in een triple store met SPARQL ondersteuning.Er bestaan verschillende proprietary en open source (b.v. Apache Jena).Vraag jezelf af of je gebruikers complexe queries op je data zullen moeten uitvoeren.Houd in gedachten dat het hebben van een open SPARQL endpoint zeer inconsistente prestaties kan hebben.
+Een radicaal andere manier om je linked data te delen is via een **SPARQL endpoint**.
+SPARQL is een _query taal_, zoals SQL, ontworpen om complexe zoekopdrachten uit te voeren in grote RDF grafieken.
+Met SPARQL kun je queries uitvoeren zoals 'welke pianisten wonen in Nederland', of 'welke eiwitten zijn betrokken bij signaaltransducties en gerelateerd aan piramidale neuronen?'.
+SPARQL is zonder enige twijfel extreem krachtig, maar het gebruiken als de enige manier om RDF te delen is misschien niet het beste idee.
+De onderwerpen die je definieert zijn URLs, en die moeten er ook _zijn_.
+Het hebben van een SPARQL endpoint is een leuke bonus, maar het beschikbaar maken van de onderwerpen zelf op hun URLs zou prioriteit moeten hebben.
+Als je een SPARQL endpoint wilt, zul je je RDF data moeten opslaan in een triple store met SPARQL ondersteuning.
+Er bestaan verschillende proprietary en open source (b.v. Apache Jena).Vraag jezelf af of je gebruikers complexe queries op je data zullen moeten uitvoeren.
+Houd in gedachten dat het hebben van een open SPARQL endpoint zeer inconsistente prestaties kan hebben.
 
 Andere technologieën zoals [Linked Data Fragments](http://linkeddatafragments.org/) en [HDT](http://www.rdfhdt.org/what-is-hdt/) maken het mogelijk om gelinkte data nog efficiënter te delen en op te slaan.
 
-Onthoud dat je niet per **se een Triple Store** of SPARQL **nodig hebt** als je gelinkte data wilt _delen_.Als je gelinkte data uit andere bronnen importeert, heb je waarschijnlijk wel een triple store nodig, omdat je van tevoren niet kunt weten wat voor datamodellen je krijgt.Als je echter een beperkt en duidelijk schema hebt (wat de meeste applicaties hebben!), en je wilt je apps data beschikbaar maken als linked data, dan kun je gewoon je bestaande database blijven gebruiken.Wat je moet doen, is _je data serialiseren als een RDF formaat_.Dit kan betekenen dat je een `@context` object toevoegt aan je JSON bodies, die JSON keys mapt naar RDF properties.Of het kan betekenen dat je een RDF serializer gebruikt en de mappings maakt voor interne concepten naar externe URLs binnen je app.
+Onthoud dat je niet per **se een Triple Store** of SPARQL **nodig hebt** als je gelinkte data wilt _delen_.
+Als je gelinkte data uit andere bronnen importeert, heb je waarschijnlijk wel een triple store nodig, omdat je van tevoren niet kunt weten wat voor datamodellen je krijgt.
+Als je echter een beperkt en duidelijk schema hebt (wat de meeste applicaties hebben!), en je wilt je apps data beschikbaar maken als linked data, dan kun je gewoon je bestaande database blijven gebruiken.
+Wat je moet doen, is _je data serialiseren als een RDF formaat_.
+Dit kan betekenen dat je een `@context` object toevoegt aan je JSON bodies, die JSON keys mapt naar RDF properties.
+Of het kan betekenen dat je een RDF serializer gebruikt en de mappings maakt voor interne concepten naar externe URLs binnen je app.
 
-Merk op dat er een verschil is tussen linked data en linked _open_ data.Hoewel linked data een goede keuze zou zijn voor het publiceren van open data (het is ook bekend als [5 sterren open data](https://5stardata.info/en/)), hoef je je linked data niet toegankelijk te maken voor anderen.Het is perfect mogelijk om linked data te beveiligen met behulp van [OAuth](https://oauth.net/2/), \[WebID], ACL of andere methoden.
+Merk op dat er een verschil is tussen linked data en linked _open_ data.
+Hoewel linked data een goede keuze zou zijn voor het publiceren van open data (het is ook bekend als [5 sterren open data](https://5stardata.info/en/)), hoef je je linked data niet toegankelijk te maken voor anderen.
+Het is perfect mogelijk om linked data te beveiligen met behulp van [OAuth](https://oauth.net/2/), \[WebID], ACL of andere methoden.
 
 ## Voordelen van linked data
 
@@ -210,8 +263,16 @@ Merk op dat er een verschil is tussen linked data en linked _open_ data.Hoewel l
 - **Hergebruik ervan vereist vaak mapping inspanningen**. In Object georiënteerde omgevingen (bijv. javascript), hebben ontwikkelaars de neiging om vormen van dot syntax te gebruiken om door data te navigeren, bijv. bij het benaderen van een sleutel in een JSON object, zoals `myObject.someProperty`. Bij RDF zijn deze sleutels (lange) URLs, dus dit vereist wellicht een RDF ORM.
 - **Weinig mensen zijn bekend met linked data**, en er is een beetje een leercurve.
 
-## Verdere lectuur
+## Verder lezen
 
-Als je meer wilt leren over de visie achter het semantische web en linked data, lees dan de [paper uit 2006](https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf) van enkele van de oorspronkelijke bedenkers.Als je op zoek bent naar inspiratie en voorbeeldprojecten, kijk dan eens op de [Linked Open Data Cloud](https://lod-cloud.net/).Om het RDF datamodel beter te begrijpen, raad ik mijn [artikel over RDF serialisatie formaten](/blog/rdf-serialization-formats) aan.Als je meer wilt leren over redeneren en ontologieën, probeer dan de [W3C OWL primer](https://www.w3.org/TR/2012/REC-owl2-primer-20121211/).Voor SPARQL kan de [Apache Jena tutorial](https://jena.apache.org/tutorials/sparql.html) helpen.Check de [/r/semanticweb](https://www.reddit.com/r/semanticweb/) community op Reddit voor interessante posts en discussies.Er is een vrij actief [Gitter](https://gitter.im/linkeddata/chat) kanaal waar mensen staan te popelen om je te helpen.Hier is een lijst van enkele [interessante Twitter accounts](https://twitter.com/joepmeindertsma/lists/linked-data) die je misschien wil volgen.Check de andere artikels van het [Ontola Linked Data Blog](/blog).
+Als je meer wilt leren over de visie achter het semantische web en linked data, lees dan de [paper uit 2006](https://eprints.soton.ac.uk/262614/1/Semantic_Web_Revisted.pdf) van enkele van de oorspronkelijke bedenkers.
+Als je op zoek bent naar inspiratie en voorbeeldprojecten, kijk dan eens op de [Linked Open Data Cloud](https://lod-cloud.net/).
+Om het RDF datamodel beter te begrijpen, raad ik mijn [artikel over RDF serialisatie formaten](/blog/rdf-serialization-formats) aan.
+Als je meer wilt leren over redeneren en ontologieën, probeer dan de [W3C OWL primer](https://www.w3.org/TR/2012/REC-owl2-primer-20121211/).
+Voor SPARQL kan de [Apache Jena tutorial](https://jena.apache.org/tutorials/sparql.html) helpen.
+Check de [/r/semanticweb](https://www.reddit.com/r/semanticweb/) community op Reddit voor interessante posts en discussies.
+Er is een vrij actief [Gitter](https://gitter.im/linkeddata/chat) kanaal waar mensen staan te popelen om je te helpen.
+Hier is een lijst van enkele [interessante Twitter accounts](https://twitter.com/joepmeindertsma/lists/linked-data) die je misschien wil volgen.
+Check de andere artikels van het [Ontola Linked Data Blog](/blog).
 
 Als je hulp wil met je linked data project, stuur me dan gerust een [mailtje](mailto:joep@ontola.io)!

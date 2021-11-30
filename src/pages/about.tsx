@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import Image from 'next/image';
 
+import { Container } from '../components/Container';
 import { Header } from '../components/Header';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
@@ -17,7 +18,9 @@ export default function About({ mdxSource, data }: BlogItemProp) {
       <Header title={data.title} image="whiteboard.jpg">
         <p>{data.description}</p>
       </Header>
-      <MDXRemote components={components} {...mdxSource} />
+      <Container>
+        <MDXRemote components={components} {...mdxSource} />
+      </Container>
     </Main>
   );
 }

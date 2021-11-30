@@ -1,6 +1,9 @@
 import { globalCss } from '@stitches/react';
 
 export const globalStyles = globalCss({
+  '*': {
+    boxSizing: 'border-box',
+  },
   body: { margin: 0, fontFamily: 'intra', color: '$text', height: '100%' },
   'h1, h2, h3, h4': {
     fontFamily: '$heading',
