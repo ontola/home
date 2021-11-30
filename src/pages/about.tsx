@@ -14,7 +14,7 @@ export default function About({ mdxSource, data }: BlogItemProp) {
 
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
-      <Header title={data.title}>
+      <Header title={data.title} image="whiteboard.jpg">
         <p>{data.description}</p>
       </Header>
       <MDXRemote components={components} {...mdxSource} />

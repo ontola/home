@@ -3,10 +3,12 @@ import Image from 'next/image';
 
 interface HeaderProps {
   title: string;
+  /** Path of the image. Must be in `public/assets/images/${name}` */
+  image?: string;
   children?: React.ReactNode;
 }
 
-const ImageWrapper = styled('div', {
+const CirclesWrapper = styled('div', {
   width: '40vw',
   height: '40vw',
   position: 'absolute',
@@ -15,13 +17,27 @@ const ImageWrapper = styled('div', {
   zIndex: -1,
 });
 
+const ImageWrapper = styled('div', {
+  width: '30vw',
+  height: '20vw',
+  position: 'absolute',
+  borderRadius: '10px',
+  background: '$bg2',
+  boxShadow: '0 20px 30px rgba(0, 0, 0, 0.2)',
+  overflow: 'hidden',
+  top: '10rem',
+  right: '7rem',
+  zIndex: -1,
+  transform: 'perspective(50em) rotateX(10deg) rotateY(15deg) rotateZ(-5deg)',
+});
+
 const HeaderWrapper = styled('div', {
   minHeight: '10rem',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  marginTop: '5rem',
-  marginBottom: '5rem',
+  marginTop: '7rem',
+  marginBottom: '7rem',
 });
 
 const HeaderChildren = styled('div', {
@@ -34,11 +50,11 @@ const HeaderHeading = styled('h1', {
   maxWidth: '20rem',
 });
 
-export function Header({ children, title }: HeaderProps): JSX.Element {
+export function Header({ children, title, image }: HeaderProps): JSX.Element {
   return (
     <HeaderWrapper>
       <HeaderHeading>{title}</HeaderHeading>
-      <ImageWrapper>
+      <CirclesWrapper>
         <Image
           src="/assets/images/circles.svg"
           alt="circles"
@@ -46,8 +62,19 @@ export function Header({ children, title }: HeaderProps): JSX.Element {
           objectFit="cover"
           objectPosition="center"
         />
-      </ImageWrapper>
+      </CirclesWrapper>
       {children && <HeaderChildren>{children}</HeaderChildren>}
+      {image && (
+        <ImageWrapper>
+          <Image
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center"
+            src={`/assets/images/${image}`}
+            alt=""
+          />
+        </ImageWrapper>
+      )}
     </HeaderWrapper>
   );
 }

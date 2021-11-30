@@ -18,7 +18,8 @@ export async function getPostBySlug(
   const post = matter(fileContents);
   const out: any = post;
   out.slug = realSlug;
-  out.mdxSource = await serialize(post.content);
+  out.orig = '';
+  out.mdxSource = await serialize(out.content);
   return out;
 }
 
@@ -40,7 +41,10 @@ export interface BlogItemProp extends matter.GrayMatterFile<string> {
   data: MetaData;
 }
 
-export async function getAllPosts(locale = 'en'): Promise<BlogItemProp[]> {
+/** Generates a list of all blog posts. Does not construct markdown content */
+export async function getAllPostsLocale(
+  locale = 'en'
+): Promise<BlogItemProp[]> {
   const filenames = fs.readdirSync(blogDirectory);
   const files: BlogItemProp[] = [];
   await Promise.all(
@@ -50,14 +54,19 @@ export async function getAllPosts(locale = 'en'): Promise<BlogItemProp[]> {
         const post = matter(fs.readFileSync(fullPath, 'utf8')) as BlogItemProp;
         // The `orig` byte array causes JSON serialization errors
         post.orig = '';
-        const truncated = post.content.slice(0, 300);
-        post.mdxSource = await serialize(truncated);
+
+        // We don't need a markdown representation
+        // const truncated = post.content.slice(0, 300);
+        // post.mdxSource = await serialize(truncated);
 
         post.slug = name.slice(0, -7);
         files.push(post);
       }
     })
   );
+  files.sort((a, b) => {
+    return a.data.date > b.data.date ? -1 : 1;
+  });
   return files;
 }
 
@@ -67,7 +76,7 @@ export async function getPage(slug: string, locale = 'en') {
   const post = matter(fileContents);
   const out: any = post;
   // The `orig` byte array causes JSON serialization errors
-  post.orig = '';
+  out.orig = '';
   out.slug = slug;
   out.mdxSource = await serialize(post.content);
   return out;

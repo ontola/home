@@ -1,20 +1,52 @@
+import { ParsedUrlQuery } from 'querystring';
+
+import { styled } from '@stitches/react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
-import Image from 'next/image';
+import Image, { ImageProps } from 'next/image';
 
-import { Text } from '../../components/Text';
+import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
-import { BlogItemProp, getPostBySlug } from '../../utils/getPosts';
+import {
+  BlogItemProp,
+  getAllPostsLocale,
+  getPostBySlug,
+} from '../../utils/getPosts';
+
+const ImageWrapper = styled('div', {
+  // display: 'block',
+  // width: '100%',
+  // height: '100%',
+  // height: '10rem',
+  // overflow: 'hidden',
+  position: 'relative',
+});
 
 export default function BlogPost({ mdxSource, data }: BlogItemProp) {
   const components = {
-    Image,
+    img: (props: ImageProps) => {
+      return (
+        // height and width are part of the props, so they get automatically passed here with {...props}
+        <ImageWrapper>
+          <Image
+            {...props}
+            objectFit="contain"
+            // objectPosition="center"
+            height={'100'}
+            width={'200'}
+            layout="responsive"
+            loading="lazy"
+            alt={props.alt}
+          />
+        </ImageWrapper>
+      );
+    },
   };
 
   return (
-    <Main meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}>
-      <Text as="h1">{data?.title}</Text>
+    <Main meta={<Meta title={data?.title} description={data?.description} />}>
+      <Header title={data?.title}></Header>
       <MDXRemote components={components} {...mdxSource} />
     </Main>
   );
@@ -29,13 +61,35 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const paths: (
+    | string
+    | {
+        params: ParsedUrlQuery;
+        locale?: string | undefined;
+      }
+  )[] = [];
+  const en = await getAllPostsLocale('en');
+  en.forEach((a) => {
+    paths.push({
+      params: {
+        pid: a.slug,
+      },
+      locale: 'en',
+    });
+  });
+  const nl = await getAllPostsLocale('nl');
+  nl.forEach((a) => {
+    console.log('a', a);
+    paths.push({
+      params: {
+        pid: a.slug,
+      },
+      locale: 'nl',
+    });
+  });
+
   return {
-    paths: [
-      // TODO: generate these by reading files
-      { params: { pid: 'what-is-linked-data' }, locale: 'en' },
-      { params: { pid: 'what-is-linked-data' }, locale: 'nl' },
-      { params: { pid: 'linked-data-surveys' }, locale: 'en' },
-    ],
+    paths,
     fallback: false,
   };
 };

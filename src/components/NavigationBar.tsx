@@ -7,7 +7,8 @@ import Link from 'next/link';
 import LocaleSwitcher from './LocaleSwitcher';
 
 const NavigationBarStyled = styled('nav', {
-  background: '$bg',
+  background: '$nav',
+  backdropFilter: 'blur(2px)',
 });
 
 const NavContainer = styled('div', {
@@ -18,12 +19,12 @@ const NavContainer = styled('div', {
   alignItems: 'center',
 });
 
-interface NavLinkInnerProps {
+interface NavLinkProps {
   children: React.ReactNode;
   href: string;
 }
 
-const NavLinkInner = styled('a', {
+const NavLinkStyled = styled('a', {
   color: '$text',
   marginRight: '1rem',
   display: 'block',
@@ -31,9 +32,10 @@ const NavLinkInner = styled('a', {
   fontSize: '.9rem',
 });
 
-export const NavLink = ({ children, href }: NavLinkInnerProps) => (
+/** Individual navbar item */
+export const NavLink = ({ children, href }: NavLinkProps) => (
   <Link href={href} passHref>
-    <NavLinkInner>{children}</NavLinkInner>
+    <NavLinkStyled>{children}</NavLinkStyled>
   </Link>
 );
 

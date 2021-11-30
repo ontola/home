@@ -9,9 +9,14 @@ export const { styled, getCssText } = createStitches({
     },
     colors: {
       text: 'black',
+      text1: '#999999',
       bg: 'white',
       bg1: '#f4f4f4',
       bg2: '#d7d7d7',
+      nav: 'rgba(255,255,255,0.7)',
+      primary: '#134C69',
+      gradient:
+        'linear-gradient(90deg, rgba(80,165,202,1) 0%, rgba(152,99,219,1) 100%)',
     },
     fontSizes: {
       body: '1rem',
