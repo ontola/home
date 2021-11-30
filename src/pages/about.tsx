@@ -1,21 +1,30 @@
+import { GetStaticProps } from 'next';
+import { MDXRemote } from 'next-mdx-remote';
+import Image from 'next/image';
+
+import { Header } from '../components/Header';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
+import { BlogItemProp, getPage } from '../utils/getPosts';
 
-const About = () => (
-  <Main meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}>
-    <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione fuga
-      recusandae quidem. Quaerat molestiae blanditiis doloremque possimus labore
-      voluptatibus distinctio recusandae autem esse explicabo molestias officia
-      placeat, accusamus aut saepe.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione fuga
-      recusandae quidem. Quaerat molestiae blanditiis doloremque possimus labore
-      voluptatibus distinctio recusandae autem esse explicabo molestias officia
-      placeat, accusamus aut saepe.
-    </p>
-  </Main>
-);
+export default function About({ mdxSource, data }: BlogItemProp) {
+  const components = {
+    Image,
+  };
 
-export default About;
+  return (
+    <Main meta={<Meta title={data.title} description={data.description} />}>
+      <Header title={data.title}>
+        <p>{data.description}</p>
+      </Header>
+      <MDXRemote components={components} {...mdxSource} />
+    </Main>
+  );
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const props = await getPage('about', locale);
+  return {
+    props,
+  };
+};

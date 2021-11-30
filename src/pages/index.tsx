@@ -1,4 +1,5 @@
 import { Button } from '../components/Button';
+import { Header } from '../components/Header';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 
@@ -12,7 +13,12 @@ const Index = () => {
         />
       }
     >
-      <h1>Software Development</h1>
+      <Header title={'Software Development'}>
+        <p>
+          Wij schrijven software die ontworpen is om te veranderen. Zo blijven
+          de kosten voor onderhoud en doorontwikkeling zo laag mogelijk.
+        </p>
+      </Header>
       <Button>Contact</Button>
     </Main>
   );

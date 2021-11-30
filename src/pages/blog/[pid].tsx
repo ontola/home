@@ -1,47 +1,40 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
-import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
 import Image from 'next/image';
 
+import { Text } from '../../components/Text';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
-import { getPostBySlug } from '../../utils/getPosts';
+import { BlogItemProp, getPostBySlug } from '../../utils/getPosts';
 
-interface BlogPostProps {
-  content: MDXRemoteSerializeResult<Record<string, unknown>>;
-}
-
-export default function BlogPost({ content }: BlogPostProps) {
+export default function BlogPost({ mdxSource, data }: BlogItemProp) {
   const components = {
     Image,
   };
 
   return (
     <Main meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}>
-      <h1>blog title</h1>
-      <MDXRemote components={components} {...content} />
+      <Text as="h1">{data?.title}</Text>
+      <MDXRemote components={components} {...mdxSource} />
     </Main>
   );
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const pid = params && params.pid;
-  const { content, meta } = getPostBySlug(pid as string, locale);
-  const mdxSource = await serialize(content);
+  const props = await getPostBySlug(pid as string, locale);
   return {
-    props: {
-      content: mdxSource,
-      meta,
-    },
+    props,
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [
+      // TODO: generate these by reading files
       { params: { pid: 'what-is-linked-data' }, locale: 'en' },
       { params: { pid: 'what-is-linked-data' }, locale: 'nl' },
-      { params: { pid: 'demo' }, locale: 'en' },
+      { params: { pid: 'linked-data-surveys' }, locale: 'en' },
     ],
     fallback: false,
   };

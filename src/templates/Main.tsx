@@ -1,28 +1,29 @@
 import { ReactNode } from 'react';
 
-import Link from 'next/link';
+import { styled } from '@stitches/react';
 
-import LocaleSwitcher from '../components/LocaleSwitcher';
-import { AppConfig } from '../utils/AppConfig';
+import { NavigationBar } from '../components/NavigationBar';
+import { globalStyles } from '../styles/globalStyles';
 
 type IMainProps = {
-  meta: ReactNode;
+  meta?: ReactNode;
   children: ReactNode;
 };
 
-const Main = (props: IMainProps) => (
-  <>
-    <nav>
+const Container = styled('div', {
+  maxWidth: '$container',
+  margin: '0 auto',
+});
+
+const Main = (props: IMainProps) => {
+  globalStyles();
+  return (
+    <>
       {props.meta}
-      {AppConfig.title}
-      {AppConfig.description}
-      <Link href="/">Home</Link>
-      <Link href="/about/">About</Link>
-      <Link href="/blog/">Blog</Link>
-      <LocaleSwitcher />
-    </nav>
-    {props.children}
-  </>
-);
+      <NavigationBar />
+      <Container>{props.children}</Container>
+    </>
+  );
+};
 
 export { Main };

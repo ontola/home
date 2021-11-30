@@ -1,6 +1,10 @@
+import { styled } from '@stitches/react';
 import { GetStaticProps } from 'next';
+import { MDXRemote } from 'next-mdx-remote';
 import Link from 'next/link';
 
+import { Header } from '../../components/Header';
+import { Text } from '../../components/Text';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
 import { BlogItemProp, getAllPosts } from '../../utils/getPosts';
@@ -9,14 +13,30 @@ interface BlogProps {
   posts: BlogItemProp[];
 }
 
-function BlogPostPreview({ content, data }: BlogItemProp) {
+const BlogPostPreviewStyling = styled('a', {
+  maxWidth: '20rem',
+  display: 'block',
+  textDecoration: 'none',
+  padding: '2rem',
+  borderRadius: '2rem',
+  transition: '.2s box-shadow',
+  marginLeft: '-2rem',
+  marginTop: '-2rem',
+  '&:hover': {
+    boxShadow: ' 0px 3px 15px rgba(0,0,0,0.2)',
+  },
+});
+
+function BlogPostPreview({ data, mdxSource, slug }: BlogItemProp) {
   return (
-    <div>
-      <Link href={`/blog/${data.slug}`} passHref>
-        <h2>{data?.title}</h2>
-      </Link>
-      <p>{content}</p>
-    </div>
+    <Link href={`/blog/${slug}`} passHref>
+      <BlogPostPreviewStyling>
+        <Text as="h3">{data?.title}</Text>
+        <MDXRemote {...mdxSource} />
+        <Text>{new Date(data.date).toLocaleDateString()}</Text>
+        <Text>{data.author}</Text>
+      </BlogPostPreviewStyling>
+    </Link>
   );
 }
 
@@ -30,8 +50,7 @@ const BlogsIndex = ({ posts }: BlogProps) => {
         />
       }
     >
-      <h1>Blogs!</h1>
-      <Link href="/blog/what-is-linked-data">What is linked data, yo</Link>
+      <Header title="linked data blog" />
       {posts.map((post, i) => (
         <BlogPostPreview key={i} {...post} />
       ))}
@@ -42,7 +61,7 @@ const BlogsIndex = ({ posts }: BlogProps) => {
 export default BlogsIndex;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const posts = getAllPosts(locale);
+  const posts = await getAllPosts(locale);
   return {
     props: {
       posts,

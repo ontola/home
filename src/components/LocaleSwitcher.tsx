@@ -3,6 +3,17 @@ import React from 'react';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 
+function renderLocaleHuman(locale: string): string {
+  switch (locale) {
+    case 'en':
+      return 'English';
+    case 'nl':
+      return 'Nederlands';
+    default:
+      return 'unknown language';
+  }
+}
+
 export default function LocaleSwitcher() {
   const { locale, locales, asPath } = useRouter();
   return (
@@ -15,7 +26,7 @@ export default function LocaleSwitcher() {
           return (
             <span key={localeName}>
               <Link href={asPath} passHref locale={localeName}>
-                <a>{localeName}</a>
+                <a>{renderLocaleHuman(localeName)}</a>
               </Link>
             </span>
           );
