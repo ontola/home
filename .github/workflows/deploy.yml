@@ -2,7 +2,9 @@ name: Continuous deploy
 
 on:
   push:
-    branches: [master]
+    branches: [master, "next-website"]
+  workflow_dispatch:
+
 
 jobs:
   serverless-deploy:
