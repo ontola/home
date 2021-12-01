@@ -29,10 +29,10 @@ jobs:
       #   run: yarn test
 
       - name: Download `.serverless` state from S3
-        run: aws s3 sync s3://ontola/home/env-name/.serverless .serverless --delete
+        run: aws s3 sync s3://ontola-home/home/env-name/.serverless .serverless --delete
 
       - name: Deploy to AWS
         run: yarn run deploy
 
       - name: Upload `.serverless` state to S3
-        run: aws s3 sync .serverless s3://ontola/home/env-name/.serverless --delete
+        run: aws s3 sync .serverless s3://ontola-home/home/env-name/.serverless --delete
