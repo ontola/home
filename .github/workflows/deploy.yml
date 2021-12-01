@@ -25,8 +25,8 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Run tests
-        run: yarn test
+      # - name: Run tests
+      #   run: yarn test
 
       - name: Download `.serverless` state from S3
         run: aws s3 sync s3://ontola/home/env-name/.serverless .serverless --delete
