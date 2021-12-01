@@ -23,16 +23,16 @@ jobs:
           node-version: 12
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn ci
 
       - name: Run tests
-        run: npm test
+        run: yarn test
 
       - name: Download `.serverless` state from S3
         run: aws s3 sync s3://my-bucket/my-repo-name/env-name/.serverless .serverless --delete
 
       - name: Deploy to AWS
-        run: npm run deploy
+        run: yarn run deploy
 
       - name: Upload `.serverless` state to S3
         run: aws s3 sync .serverless s3://my-bucket/my-repo-name/env-name/.serverless --delete
