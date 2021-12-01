@@ -15,4 +15,4 @@ yarn run build-prod
 
 ## Deployment
 
-We deploy to AWS Lambda, which should be automated in a Github action.
+We deploy to AWS Amplify, which is run automatically on pushing.
