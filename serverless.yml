@@ -1,0 +1,11 @@
+org: joepio
+app:
+service:
+
+ontolaHome:
+  component: "@sls-next/serverless-component@3.6.0"
+  inputs:
+    domain:
+      - ${env.SUB_DOMAIN}
+      - ${env.DOMAIN}
+    memory: 1024

@@ -18,8 +18,8 @@ const Index = () => {
           Wij schrijven software die ontworpen is om te veranderen. Zo blijven
           de kosten voor onderhoud en doorontwikkeling zo laag mogelijk.
         </p>
+        <Button>Contact</Button>
       </Header>
-      <Button>Contact</Button>
     </Main>
   );
 };

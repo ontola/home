@@ -71,6 +71,7 @@ export async function getAllPostsLocale(
   return files;
 }
 
+/** Gets a localized .mdx file from the `src/content` folder */
 export async function getPage(slug: string, locale = 'en') {
   const fullPath = path.join(pageDirectory, `${slug}.${locale}.mdx`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');

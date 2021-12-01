@@ -13,6 +13,7 @@ const CirclesWrapper = styled('div', {
   height: '30rem',
   position: 'absolute',
   zIndex: -1,
+  top: 0,
   overflow: 'visible',
 });
 
@@ -33,6 +34,11 @@ const ImageWrapper = styled('div', {
     right: '-4rem',
     position: 'absolute',
   },
+  '@media (min-width: 900px)': {
+    right: '-10rem',
+    height: '16rem',
+    width: '25rem',
+  },
 });
 
 const HeaderWrapper = styled('div', {
@@ -46,8 +52,11 @@ const HeaderWrapper = styled('div', {
   paddingBottom: '7rem',
   overflow: 'hidden',
   position: 'relative',
-  zIndex: -1,
   width: '100%',
+  '@media (min-width: 1100px)': {
+    paddingTop: '14rem',
+    paddingBottom: '14rem',
+  },
 });
 
 const HeaderChildren = styled('div', {
@@ -70,7 +79,7 @@ const HeaderHeading = styled('h1', {
 const Circles = styled('img', {
   height: '20rem',
   position: 'absolute',
-  top: '-5rem',
+  top: '-3rem',
   left: '9rem',
   '@media (min-width: 600px)': {
     right: '-5rem',
@@ -84,7 +93,7 @@ const Circles = styled('img', {
   },
   '@media (min-width: 1300px)': {
     left: 'auto',
-    right: '10%',
+    right: 'calc(40% - 25rem)',
     height: '30rem',
   },
   '-webkit-transform': 'translate3d(0, 0, 0)',

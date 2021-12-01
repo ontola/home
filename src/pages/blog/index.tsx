@@ -24,7 +24,7 @@ const BlogPostPreviewStyling = styled('a', {
   marginLeft: '-2rem',
   '&:hover': {
     background: '$bg0',
-    boxShadow: ' 0px 3px 15px rgba(0,0,0,0.2)',
+    boxShadow: '$button',
   },
 });
 

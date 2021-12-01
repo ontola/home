@@ -1,6 +1,6 @@
-import { createStitches } from '@stitches/react';
+import { createStitches, createTheme } from '@stitches/react';
 
-export const { styled, getCssText } = createStitches({
+export const { styled, getCssText, theme, css } = createStitches({
   theme: {
     fonts: {
       heading: 'inter',
@@ -16,6 +16,7 @@ export const { styled, getCssText } = createStitches({
       bg2: '#d7d7d7',
       nav: 'rgba(255,255,255,0.7)',
       primary: '#134C69',
+      c2a: 'rgba(152,99,219,1)',
       gradient:
         'linear-gradient(90deg, rgba(80,165,202,1) 0%, rgba(152,99,219,1) 100%)',
     },
@@ -28,10 +29,27 @@ export const { styled, getCssText } = createStitches({
     sizes: {
       container: '40rem',
     },
+    shadows: {
+      button: '0px 3px 15px rgba(0,0,0,0.2)',
+      buttonInset: 'inset 0px 3px 15px rgba(0,0,0,0.2)',
+    },
   },
   media: {
     bp1: '(min-width: 640px)',
     bp2: '(min-width: 768px)',
     bp3: '(min-width: 1024px)',
+  },
+});
+
+export const darkTheme = createTheme({
+  colors: {
+    text: 'white',
+    text1: '#555555',
+    bg0: 'black',
+    bg: '#111111',
+    bg1: '#222222',
+    bg2: '#333333',
+    nav: 'rgba(0,0,0,0.7)',
+    primary: 'black',
   },
 });

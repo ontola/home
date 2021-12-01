@@ -1,14 +1,15 @@
 import React from 'react';
 
 import { styled } from '@stitches/react';
-import Image from 'next/image';
 import Link from 'next/link';
 
-import LocaleSwitcher from './LocaleSwitcher';
+import { Button } from './Button';
+import { Logo } from './Logo';
 
 const NavigationBarStyled = styled('nav', {
   background: '$nav',
   backdropFilter: 'blur(2px)',
+  zIndex: 1,
 });
 
 const NavContainer = styled('div', {
@@ -30,6 +31,9 @@ const NavLinkStyled = styled('a', {
   display: 'block',
   textDecoration: 'none',
   fontSize: '.9rem',
+  '&:hover': {
+    textDecoration: 'underline',
+  },
 });
 
 /** Individual navbar item */
@@ -39,10 +43,11 @@ export const NavLink = ({ children, href }: NavLinkProps) => (
   </Link>
 );
 
-const Links = styled('span', {
+const LinksList = styled('span', {
   display: 'none',
   '@media (min-width: 600px)': {
     display: 'flex',
+    alignItems: 'center',
   },
 });
 
@@ -51,22 +56,23 @@ export const NavigationBar = () => (
     <NavContainer>
       <Link href="/" passHref>
         <a>
-          <Image
+          <Logo />
+          {/* <Image
             src={'/assets/images/logo.svg'}
             alt="Ontola.io"
             height={30}
             width={180}
-          />
+          /> */}
         </a>
       </Link>
-      <Links>
+      <LinksList>
         <NavLink href="/cases/">Cases</NavLink>
         <NavLink href="/services/">Diensten</NavLink>
         <NavLink href="/process/">Werkwijze</NavLink>
         <NavLink href="/about/">Over</NavLink>
         <NavLink href="/blog/">Blog</NavLink>
-        <LocaleSwitcher />
-      </Links>
+        <Button>Contact</Button>
+      </LinksList>
     </NavContainer>
   </NavigationBarStyled>
 );
