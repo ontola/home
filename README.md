@@ -5,7 +5,7 @@ Loosely based on [this boilerplate](https://github.com/ixartz/Next-js-Boilerplat
 ### Getting started
 
 ```sh
-# install dependencies
+# Install dependencies
 yarn
 # run dev server
 yarn dev
