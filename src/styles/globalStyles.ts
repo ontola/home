@@ -11,7 +11,6 @@ export const globalStyles = globalCss({
     color: '$text',
     height: '100%',
     background: '$bg',
-    zoom: 3,
   },
   'h1, h2, h3, h4': {
     fontFamily: '$heading',
