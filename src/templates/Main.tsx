@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 
-import { globalCss, styled } from '@stitches/react';
+import { styled } from '@stitches/react';
 import { reset } from 'stitches-reset';
 
-import { darkTheme } from '../../stitches.config';
+import { darkTheme, globalCss } from '../../stitches.config';
 import { Footer } from '../components/Footer';
 import { NavigationBar } from '../components/NavigationBar';
 import { globalStyles } from '../styles/globalStyles';

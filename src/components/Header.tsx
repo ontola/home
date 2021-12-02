@@ -111,7 +111,9 @@ export function Header({ children, title, image }: HeaderProps): JSX.Element {
         {image && (
           <ImageWrapper>
             <Image
-              layout="fill"
+              width={400}
+              height={300}
+              // layout="responsive"
               objectFit="cover"
               objectPosition="center"
               src={`/assets/images/${image}`}

@@ -1,6 +1,6 @@
 import { createStitches, createTheme } from '@stitches/react';
 
-export const { styled, getCssText, theme, css } = createStitches({
+export const { styled, getCssText, theme, css, globalCss } = createStitches({
   theme: {
     fonts: {
       heading: 'inter',
