@@ -2,6 +2,7 @@ import { styled } from '@stitches/react';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 
+import { theme } from '../../../stitches.config';
 import { Container } from '../../components/Container';
 import { Details } from '../../components/Details';
 import { Header } from '../../components/Header';
@@ -19,7 +20,7 @@ const BlogPostPreviewStyling = styled('a', {
   display: 'block',
   textDecoration: 'none',
   padding: '2rem',
-  borderRadius: '2rem',
+  borderRadius: theme.sizes.radius,
   transition: '.2s box-shadow, .2s background',
   marginLeft: '-2rem',
   '&:hover': {

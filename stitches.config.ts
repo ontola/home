@@ -19,8 +19,11 @@ export const { styled, getCssText, theme, css, globalCss } = createStitches({
       c2a: 'rgba(152,99,219,1)',
       gradient:
         'linear-gradient(90deg, rgba(80,165,202,1) 0%, rgba(152,99,219,1) 100%)',
+      gradientDark:
+        'linear-gradient(90deg, rgba(70,155,192,1) 0%, rgba(142,89,209,1) 100%)',
     },
     fontSizes: {
+      small: '.8rem',
       body: '1rem',
       h3: '1.5rem',
       h2: '2rem',
@@ -28,6 +31,7 @@ export const { styled, getCssText, theme, css, globalCss } = createStitches({
     },
     sizes: {
       container: '40rem',
+      radius: '1rem',
     },
     shadows: {
       button: '0px 3px 15px rgba(0,0,0,0.2)',

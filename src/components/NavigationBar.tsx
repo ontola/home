@@ -51,19 +51,22 @@ const LinksList = styled('span', {
   },
 });
 
+const LogoStyled = styled('a', {
+  height: '2rem',
+  svg: {
+    width: 'auto',
+    height: 'auto',
+  },
+  display: 'flex',
+});
+
 export const NavigationBar = () => (
   <NavigationBarStyled>
     <NavContainer>
       <Link href="/" passHref>
-        <a>
+        <LogoStyled>
           <Logo />
-          {/* <Image
-            src={'/assets/images/logo.svg'}
-            alt="Ontola.io"
-            height={30}
-            width={180}
-          /> */}
-        </a>
+        </LogoStyled>
       </Link>
       <LinksList>
         <NavLink href="/cases/">Cases</NavLink>
