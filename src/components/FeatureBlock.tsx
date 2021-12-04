@@ -27,27 +27,55 @@ export function Tool({ technology }: ToolProps) {
   return <ToolStyled>{technology}</ToolStyled>;
 }
 
-const FeatureBlockWrapper = styled('div', {
-  color: '$text1',
-  display: 'flex',
-  marginTop: '5rem',
-  flexDirection: 'row',
-  flex: 1,
-  '@media (min-width: 1100px)': {
-    marginLeft: '-5rem',
-    marginRight: '-5rem',
-  },
-});
-
 const TextContent = styled('div', {
+  gridArea: 'text',
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
   marginBottom: '5rem',
 });
 
+const FeatureBlockWrapper = styled('div', {
+  color: '$text1',
+  display: 'grid',
+  flexDirection: 'column',
+  flex: 1,
+  marginBottom: '8rem',
+  gridTemplateAreas: "'text' 'image'",
+
+  '@media (min-width: 500px)': {
+    [`& ${TextContent}`]: {
+      marginRight: '2rem',
+    },
+    gridTemplateAreas: "'text image'",
+    marginTop: '5rem',
+    flexDirection: 'row',
+  },
+
+  '@media (min-width: 900px)': {
+    marginLeft: '-5rem',
+    marginRight: '-5rem',
+  },
+
+  variants: {
+    inverted: {
+      true: {
+        '@media (min-width: 500px)': {
+          gridTemplateAreas: "'image text'",
+          [`& ${TextContent}`]: {
+            marginRight: '0rem',
+            marginLeft: '2rem',
+          },
+        },
+      },
+    },
+  },
+});
+
 const ImageWrapper = styled('div', {
-  margin: '0 2rem',
+  gridArea: 'image',
+  // margin: '0 2rem',
+  width: '20em',
   position: 'relative',
   top: '2rem',
   transform: 'rotate(5deg)',
@@ -60,6 +88,10 @@ const ImageWrapper = styled('div', {
   },
 });
 
+const FeatureHeader = styled('h2', {
+  fontSize: '2rem',
+});
+
 export function FeatureBlock({
   title,
   description,
@@ -67,43 +99,26 @@ export function FeatureBlock({
   tools,
   inverted,
 }: FeatureBlockProps) {
-  const TextBlock = (
-    <TextContent>
-      <h3>{title}</h3>
-      <p>{description}</p>
-      <>
-        {tools.map((t) => (
-          <Tool key={t} technology={t} />
-        ))}
-      </>
-    </TextContent>
-  );
-
-  const ImgBlock = (
-    <ImageWrapper inverted={inverted}>
-      <Image
-        width={300}
-        height={200}
-        src={`/assets/images/${image}`}
-        alt={image}
-        objectFit="contain"
-      />
-    </ImageWrapper>
-  );
-
   return (
-    <FeatureBlockWrapper>
-      {inverted ? (
+    <FeatureBlockWrapper inverted={inverted}>
+      <TextContent>
+        <FeatureHeader>{title}</FeatureHeader>
+        <p>{description}</p>
         <>
-          {ImgBlock}
-          {TextBlock}
+          {tools.map((t) => (
+            <Tool key={t} technology={t} />
+          ))}
         </>
-      ) : (
-        <>
-          {TextBlock}
-          {ImgBlock}
-        </>
-      )}
+      </TextContent>
+      <ImageWrapper inverted={inverted}>
+        <Image
+          width={400}
+          height={300}
+          src={`/assets/images/${image}`}
+          alt={image}
+          objectFit="contain"
+        />
+      </ImageWrapper>
     </FeatureBlockWrapper>
   );
 }

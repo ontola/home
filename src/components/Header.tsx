@@ -1,6 +1,8 @@
 import { styled } from '@stitches/react';
 import Image from 'next/image';
 
+import { theme } from '../../stitches.config';
+
 interface HeaderProps {
   title: string;
   /** Path of the image. Must be in `public/assets/images/${name}` */
@@ -31,6 +33,7 @@ const ImageWrapper = styled('div', {
   maxWidth: '90vw',
   marginTop: '1rem',
   '@media (min-width: 600px)': {
+    width: '20rem',
     right: '-4rem',
     position: 'absolute',
   },
@@ -48,8 +51,8 @@ const HeaderWrapper = styled('div', {
   justifyContent: 'center',
   alignContent: 'start',
   flexDirection: 'column',
-  paddingTop: '7rem',
-  paddingBottom: '7rem',
+  paddingTop: '10rem',
+  paddingBottom: '10rem',
   overflow: 'hidden',
   position: 'relative',
   width: '100%',
@@ -61,6 +64,7 @@ const HeaderWrapper = styled('div', {
 
 const HeaderChildren = styled('div', {
   maxWidth: '20rem',
+  textShadow: `0 0 20px ${theme.colors.bg0}`,
 });
 
 const HeaderContainer = styled('div', {
@@ -74,6 +78,7 @@ const HeaderContainer = styled('div', {
 const HeaderHeading = styled('h1', {
   fontSize: '2.5rem',
   maxWidth: '20rem',
+  textShadow: `0 0 20px ${theme.colors.bg0}`,
 });
 
 const Circles = styled('img', {
