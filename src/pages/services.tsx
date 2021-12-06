@@ -7,8 +7,6 @@ import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 import { BlogItemProp, getPage } from '../utils/getPosts';
 
-// const SubHeader = styled('h2', { fontSize: '2rem' });
-
 export default function Services({ data }: BlogItemProp) {
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
@@ -16,9 +14,6 @@ export default function Services({ data }: BlogItemProp) {
         <p>{data.description}</p>
       </Header>
       <Container>
-        {/* <SubHeader>
-          Digitale producten die klaar zijn voor de toekomst
-        </SubHeader> */}
         <FeatureBlock
           title={data['1_title']}
           description={data['1_description']}

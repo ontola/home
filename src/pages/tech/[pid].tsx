@@ -1,22 +1,17 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { GradientLine } from '.';
 import { Container } from '../../components/Container';
-import { Details } from '../../components/Details';
 import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
 import { buildComponents } from '../../utils/buildComponents';
 import { BlogItemProp, getAllPaths, getPostBySlug } from '../../utils/getPosts';
 
-export default function BlogPost({ mdxSource, data }: BlogItemProp) {
+export default function TechPosts({ mdxSource, data }: BlogItemProp) {
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
-      <Header title={data.title}>
-        <GradientLine />
-        <Details {...data} />
-      </Header>
+      <Header title={data.title}></Header>
       <Container>
         <MDXRemote components={buildComponents()} {...mdxSource} />
       </Container>
@@ -26,7 +21,7 @@ export default function BlogPost({ mdxSource, data }: BlogItemProp) {
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const pid = params && params.pid;
-  const props = await getPostBySlug(pid as string, locale, 'blog');
+  const props = await getPostBySlug(pid as string, locale, 'tech');
   return {
     props,
   };
@@ -34,7 +29,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: await getAllPaths('blog'),
+    paths: await getAllPaths('tech'),
     fallback: false,
   };
 };

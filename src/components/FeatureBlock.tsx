@@ -1,7 +1,7 @@
 import { styled } from '@stitches/react';
 import Image from 'next/image';
 
-import { theme } from '../../stitches.config';
+import { Tool } from './Tool';
 
 interface FeatureBlockProps {
   title: string;
@@ -12,19 +12,6 @@ interface FeatureBlockProps {
   tools: string[];
   /** Renders the image on the left side */
   inverted?: boolean;
-}
-
-interface ToolProps {
-  technology: string;
-}
-
-const ToolStyled = styled('span', {
-  color: theme.colors.text1,
-  fontSize: theme.fontSizes.small,
-});
-
-export function Tool({ technology }: ToolProps) {
-  return <ToolStyled>{technology}</ToolStyled>;
 }
 
 const TextContent = styled('div', {
@@ -92,6 +79,10 @@ const FeatureHeader = styled('h2', {
   fontSize: '2rem',
 });
 
+const ToolsWrapper = styled('div', {
+  display: 'flex',
+});
+
 export function FeatureBlock({
   title,
   description,
@@ -104,11 +95,11 @@ export function FeatureBlock({
       <TextContent>
         <FeatureHeader>{title}</FeatureHeader>
         <p>{description}</p>
-        <>
+        <ToolsWrapper>
           {tools.map((t) => (
             <Tool key={t} technology={t} />
           ))}
-        </>
+        </ToolsWrapper>
       </TextContent>
       <ImageWrapper inverted={inverted}>
         <Image

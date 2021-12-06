@@ -1,19 +1,26 @@
+/** This project finds documents from the `/src/content` directory. Page Types are stored in subfolders. */
+
 import fs from 'fs';
 import path from 'path';
+import { ParsedUrlQuery } from 'querystring';
 
 import matter from 'gray-matter';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 
 const pageDirectory = path.join(process.cwd(), '/src/content');
-const blogDirectory = path.join(process.cwd(), '/src/content/blog');
+const getDirectory = (sub: string) =>
+  path.join(process.cwd(), `/src/content/${sub}`);
 
+/** Reads the filesystem, finds the folder for the type, returns MDX serialized resource */
 export async function getPostBySlug(
   slug: string,
-  locale = 'en'
+  locale = 'en',
+  /** e.g. `blog` */
+  type: string
 ): Promise<BlogItemProp> {
   const realSlug = slug.replace(/\.mdx$/, '');
-  const fullPath = path.join(blogDirectory, `${realSlug}.${locale}.mdx`);
+  const fullPath = path.join(getDirectory(type), `${realSlug}.${locale}.mdx`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const post = matter(fileContents);
   const out: any = post;
@@ -42,15 +49,17 @@ export interface BlogItemProp extends matter.GrayMatterFile<string> {
   data: MetaData;
 }
 
-/** Generates a list of all blog posts. Does not construct markdown content */
+/** Generates a list of all posts. Does not construct markdown content */
 export async function getAllPostsLocale(
-  locale = 'en'
+  locale = 'en',
+  type = 'blog'
 ): Promise<BlogItemProp[]> {
-  const filenames = fs.readdirSync(blogDirectory);
+  const dir = getDirectory(type);
+  const filenames = fs.readdirSync(dir);
   const files: BlogItemProp[] = [];
   await Promise.all(
     filenames.map(async (name) => {
-      const fullPath = path.join(blogDirectory, name);
+      const fullPath = path.join(dir, name);
       if (name.includes(`${locale}.mdx`)) {
         const post = matter(fs.readFileSync(fullPath, 'utf8')) as BlogItemProp;
         // The `orig` byte array causes JSON serialization errors
@@ -82,4 +91,38 @@ export async function getPage(slug: string, locale = 'en') {
   out.slug = slug;
   out.mdxSource = await serialize(post.content);
   return out;
+}
+
+/** Returns an array of Paths for `getStaticPaths`, includes all languages */
+export async function getAllPaths(
+  /** E.g. `blog` */
+  type: string
+) {
+  const paths: (
+    | string
+    | {
+        params: ParsedUrlQuery;
+        locale?: string | undefined;
+      }
+  )[] = [];
+
+  const en = await getAllPostsLocale('en', type);
+  en.forEach((a) => {
+    paths.push({
+      params: {
+        pid: a.slug,
+      },
+      locale: 'en',
+    });
+  });
+  const nl = await getAllPostsLocale('nl', type);
+  nl.forEach((a) => {
+    paths.push({
+      params: {
+        pid: a.slug,
+      },
+      locale: 'nl',
+    });
+  });
+  return paths;
 }
