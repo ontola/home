@@ -13,6 +13,7 @@ const NavigationBarStyled = styled('nav', {
 });
 
 const NavContainer = styled('div', {
+  padding: '0 1rem',
   margin: '0 auto',
   maxWidth: '$container',
   display: 'flex',

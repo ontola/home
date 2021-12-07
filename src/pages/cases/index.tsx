@@ -15,6 +15,7 @@ interface CaseProps {
 
 const CaseStyling = styled('a', {
   maxWidth: '30rem',
+  marginBottom: '2rem',
   display: 'block',
   textDecoration: 'none',
   '*': {

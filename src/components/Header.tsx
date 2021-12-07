@@ -32,15 +32,14 @@ const ImageWrapper = styled('div', {
   position: 'relative',
   maxWidth: '90vw',
   marginTop: '1rem',
-  marginBottom: '4rem',
+  marginBottom: '6rem',
   '@media (min-width: 600px)': {
-    width: '20rem',
-    right: '-4rem',
-    position: 'absolute',
+    width: '22rem',
+    height: '14rem',
+    marginLeft: '3rem',
   },
   '@media (min-width: 900px)': {
-    right: '-10rem',
-    height: '16rem',
+    height: '14rem',
     width: '25rem',
   },
 });
@@ -67,7 +66,9 @@ const HeaderWrapper = styled('div', {
 });
 
 const HeaderChildren = styled('div', {
-  maxWidth: '20rem',
+  '@media (min-width: 600px)': {
+    maxWidth: '20rem',
+  },
   // textShadow: `0 0 20px ${theme.colors.bg0}`,
   '*': {
     color: theme.colors.headerText,
@@ -80,6 +81,17 @@ const HeaderContainer = styled('div', {
   position: 'relative',
   margin: '0 auto',
   paddingLeft: '1rem',
+  display: 'flex',
+  alignItems: 'flex-start',
+  flexDirection: 'column',
+  '@media (min-width: 600px)': {
+    flexDirection: 'row',
+  },
+});
+
+const HeaderText = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 const HeaderHeading = styled('h1', {
@@ -96,8 +108,10 @@ export function Header({ children, title, image }: HeaderProps): JSX.Element {
         <Circles />
       </CirclesWrapper>
       <HeaderContainer>
-        <HeaderHeading>{title}</HeaderHeading>
-        {children && <HeaderChildren>{children}</HeaderChildren>}
+        <HeaderText>
+          <HeaderHeading>{title}</HeaderHeading>
+          {children && <HeaderChildren>{children}</HeaderChildren>}
+        </HeaderText>
         {image && (
           <ImageWrapper>
             <Image

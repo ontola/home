@@ -51,4 +51,7 @@ export const globalStyles = globalCss({
     padding: '.4em',
     border: 'solid 1px $bg2',
   },
+  video: {
+    maxWidth: '100%',
+  },
 });
