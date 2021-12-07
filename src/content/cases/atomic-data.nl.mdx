@@ -1,0 +1,65 @@
+---
+title: "Atomic Data"
+description: "Een ambitieus, volledig open source initiatief om data eigenaarschap te vergroten en apps beter samen te laten werken."
+color: "#000"
+---
+
+## Het internet opnieuw decentraliseren
+
+In 1989 publiceerde Tim Berners-Lee de eerste website.
+Hij had daarbij een visie van een decentraal internet, een web, waarbij mensen hun eigen websites zouden hosten op hun eigen servers.
+Nu zijn we meer dan 30 jaar verder, en het web is meer gecentraliseerd dan ooit.
+Een handjevol techreuzen beheert onze data, bepaalt hoe onze digitale interacties er uit zien, en in welke volgorde we ons nieuws lezen.
+Dat moet anders kunnen.
+
+Techreuzen houden ons aan boord door onze eigen gegevens te koppelen.
+Zo werkt je Google Calendar werkt perfect samen met je GMail, en kan je je Google Drive bestanden snel als bijlage gebruiken.
+Dit soort koppelingen kan je doen als techgigant, maar kunnen we oop op een andere manier oplossen: **standariseren**.
+Met goede standaarden kunnen we onze data verplaatsen van App naar App, waardoor je niet vast komt te zitten in de ecosystemen van de techreuzen.
+Daarnaast kan je door veel meer te standaardiseren dingen doen die je nu niet kan, zoals zoeken door al je data, zien wie wat wanneer heeft gewijzigd, dezelfde data openen in verschillende apps, en meer...
+Maar hoe komen we daar?
+
+## Van Linked Data naar Atomic Data
+
+Tim Berners-Lee kreeg 10 jaar na de eerste website een belangrijk inzicht: dezelfde linkjes die we gebruiken voor websites, kunnen we ook gebruiken in _data_.
+Zo ontstond _Linked Data_.
+Linked Data maakt het mogelijk om het hele web te gebruiken als een grote, verbonden database.
+Daarmee zou je apps kunnen maken die volledig decentraal zijn, die veel beter samenwerken, waarbij mensen zelf volledige controle hebben over hun data.
+
+Althans, dat is de theorie.
+In de praktijk is het nog erg lastig om apps te bouwen met Linked Data.
+Wij kunnen dat weten, want als Ontola zijn we enkele jaren geleden [all-in](/blog/full-stack-linked-data) gegaan op deze technologie.
+We herschreven ons e-democracy platform [Argu](https://argu.co) en gebruikten Linked Data voor letterlijk ieder knopje en menu.
+Dat was een flinke klus, en we hebben talloze tools moeten maken om dit doel te bereiken.
+Uit dit jarenlange ontwikkeltraject hebben we geleerd hoe we Linked Data nog beter - en vooral ook veel _makkelijker_ kunnen maken.
+
+Onze CEO Joep Meindertsma begon in 2020 in zijn vrije tijd met het uitwerken van een nieuwe vorm van Linked Data.
+Het doel: een makkelijkere, krachtigere abstractie vinden waarmee ontwikkelaars sneller apps kunnen maken die goed met elkaar kunnen samenwerken.
+De beste dingen pakken uit Linked Data, maar verbeteren waar het mogelijk is.
+Na een paar maanden stond er een [uitgebreide documentatie](https://docs.atomicdata.dev/) van Atomic Data online, en niet veel later de eerste server, libraries en browser.
+Hierdoor is Atomic Data snel een behoorlijk volwassen systeem geworden, met degelijke implementaties en diverse tools.
+
+## Waarom Atomic Data
+
+- **Sneller standaardiseren**. Het afstemmen van hoe je een bepaald model vormgeeft is te vaak een tijdrovende klus. Daardoor wordt er _te weinig gestandaardiseerd_, en dat beperkt hoe goed applicaties samen kunnen werken. Atomic Data is ontworpen om snel en eenvoudig datamodellen te delen.
+- **Sneller ontwikkelen**. Door de bestaande tools (zoals Atomic-Server) kan je snel aan de slag, en hoef je het wiel niet opnieuw uit te vinden. Opslag, zoeken, versiebeheer, rechtenbeheer... Dat is allemaal al geregeld.
+- **Converteerbaar naar vrijwel alles**. Je kunt Atomic Data naar vrijwel ieder ander formaat exporteren: JSON, XML, JSON-LD, RDF, Turtle, N-Triples...
+- **Makkelijk deelbaar**. Alle objecten hebben linkjes, en deze linkjes kan je opzoeken - net als websites. De data beschrijft aan de hand van die linkjes zelf waar je meer informatie kan vinden. Hierdoor is Atomic Data zeer goed deelbaar.
+- **Verifieerbaar en corrigeerbaar**. Atomic Data introduceert [Commits](https://docs.atomicdata.dev/commits/intro.html), waarmee iedere wijziging wordt opgeslagen. Hierdoor ontstaat een geschiedenis van ieder object, zodat je altijd kan bepalen wie wat wanneer gedaan heeft.
+- **Authenticatie en authorizatie**. Behee wie er toegang heeft tot welk stukje data.
+
+## Atomic-Server
+
+Atomic Data is een modulaire specificatie, wat betekent dat je er stukjes uit kan pakken die je handig vind, maar dat je niet alles hoeft te gebruiken.
+Als je snel aan de slag wilt, raden we je aan om onze Atomic-Server te gebruiken, welke alle specficiaties heeft geimplementeerd.
+
+Atomic-Server is een krachtige, extreem snelle database + server, voorzien van ongelofelijk veel features.
+Helemaal gratis en open source.
+Geschreven in de programmeertaal Rust.
+De front-end is geschreven in [Typescript](/nl/tech/typescript) met [React](/nl/tech/react).
+
+Atomic-Server is ontworpen om de persoonlijke server van de toekomst te worden: een lichtgewicht applicatie die je thuis eenvoudig kan draaien op een goedkope computer, zoals een Raspberri Pi of een oude smartphone.
+
+[Lees hier hoe je Atomic-Server kan installeren](https://github.com/joepio/atomic-data-rust/).
+
+<video controls src="https://user-images.githubusercontent.com/2183313/139728539-d69b899f-6f9b-44cb-a1b7-bbab68beac0c.mp4"/>

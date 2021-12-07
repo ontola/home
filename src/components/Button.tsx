@@ -10,12 +10,14 @@ export const HeaderButton = styled('button', {
   color: '$headerText',
   background: '$navBg',
   border: 'solid 1px $headerText',
-  transition: 'all .2s',
+  // transition: 'all .2s',
 
   '&:hover': {
     boxShadow: '$button',
     cursor: 'pointer',
     background: '$gradientDark',
+    color: 'white',
+    border: 'solid 1px transparent',
   },
   '&:active': {
     boxShadow: '$buttonInset',
