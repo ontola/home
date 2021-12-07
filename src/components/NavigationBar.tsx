@@ -3,7 +3,7 @@ import React from 'react';
 import { styled } from '@stitches/react';
 import Link from 'next/link';
 
-import { Button } from './Button';
+import { HeaderButton } from './Button';
 import { Logo } from './Logo';
 
 const NavigationBarStyled = styled('nav', {
@@ -26,7 +26,7 @@ interface NavLinkProps {
 }
 
 const NavLinkStyled = styled('a', {
-  color: '$text',
+  color: '$headerText',
   marginRight: '1rem',
   display: 'block',
   textDecoration: 'none',
@@ -74,7 +74,7 @@ export const NavigationBar = () => (
         <NavLink href="/process/">Werkwijze</NavLink>
         <NavLink href="/about/">Over</NavLink>
         <NavLink href="/blog/">Blog</NavLink>
-        <Button>Contact</Button>
+        <HeaderButton>Contact</HeaderButton>
       </LinksList>
     </NavContainer>
   </NavigationBarStyled>

@@ -4,21 +4,22 @@ import Link from 'next/link';
 
 import { theme } from '../../../stitches.config';
 import { Container } from '../../components/Container';
-import { Details } from '../../components/Details';
 import { Header } from '../../components/Header';
-import { Text } from '../../components/Text';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
 import { BlogItemProp, getAllPostsLocale } from '../../utils/getPosts';
 
-interface BlogProps {
+interface CaseProps {
   posts: BlogItemProp[];
 }
 
-const BlogPostPreviewStyling = styled('a', {
+const CaseStyling = styled('a', {
   maxWidth: '30rem',
   display: 'block',
   textDecoration: 'none',
+  '*': {
+    color: 'white',
+  },
   padding: '2rem',
   borderRadius: theme.sizes.radius,
   transition: '.2s box-shadow, .2s background',
@@ -36,43 +37,34 @@ export const GradientLine = styled('div', {
   width: '100%',
 });
 
-function BlogPostPreview({ data, slug }: BlogItemProp) {
+function Case({ data, slug }: BlogItemProp) {
   return (
-    <Link href={`/blog/${slug}`} passHref>
-      <BlogPostPreviewStyling>
-        <Text as="h3">{data?.title}</Text>
+    <Link href={`/cases/${slug}`} passHref>
+      <CaseStyling style={{ background: data.color }}>
+        <h3>{data?.title}</h3>
         {data.description && <p>{data.description}</p>}
-        <GradientLine />
-        <Details {...data} />
-      </BlogPostPreviewStyling>
+      </CaseStyling>
     </Link>
   );
 }
 
-const BlogsIndex = ({ posts }: BlogProps) => {
+const CasesIndex = ({ posts }: CaseProps) => {
   return (
-    <Main
-      meta={
-        <Meta
-          title="Ontola Linked Data Blog"
-          description="Wij schrijven software die ontworpen is om te veranderen. Zo blijven de kosten voor onderhoud en doorontwikkeling zo laag mogelijk."
-        />
-      }
-    >
-      <Header title="linked data blog" />
-      <Container style={{ marginBottom: '3rem' }}>
+    <Main meta={<Meta title="Ontola Cases" description="Look at our cases" />}>
+      <Header title="Cases" />
+      <Container>
         {posts.map((post, i) => (
-          <BlogPostPreview key={i} {...post} />
+          <Case key={i} {...post} />
         ))}
       </Container>
     </Main>
   );
 };
 
-export default BlogsIndex;
+export default CasesIndex;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const posts = await getAllPostsLocale(locale);
+  const posts = await getAllPostsLocale(locale, 'cases');
   return {
     props: {
       posts,

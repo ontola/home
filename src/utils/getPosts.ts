@@ -40,6 +40,7 @@ export interface MetaData {
   [key: string]: any;
 }
 
+/** MDX Item from the Content folder */
 export interface BlogItemProp extends matter.GrayMatterFile<string> {
   /** Should be passed to an MDX component like this: {...mdxSource} */
   mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>;
