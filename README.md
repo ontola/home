@@ -9,13 +9,12 @@ Future home page for [Ontola](https://ontola.io/).
 yarn
 # run dev server
 yarn dev
-# optimized production build
-yarn run build-prod
 ```
 
 ## Deployment
 
 We deploy to AWS Amplify, which is built automatically on pushing commits to github.
+Since we use I18n, we can't `export` the site.
 
 ## Adding content
 

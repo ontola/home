@@ -11,7 +11,9 @@ import { BlogItemProp, getAllPaths, getPostBySlug } from '../../utils/getPosts';
 export default function TechPosts({ mdxSource, data }: BlogItemProp) {
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
-      <Header title={data.title}></Header>
+      <Header title={data.title} image={data.image}>
+        {data.description}
+      </Header>
       <Container>
         <MDXRemote components={buildComponents()} {...mdxSource} />
       </Container>

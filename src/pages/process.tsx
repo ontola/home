@@ -7,31 +7,33 @@ import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 import { BlogItemProp, getPage } from '../utils/getPosts';
 
-const servicesCount = [1, 2, 3];
+const processSteps = [1, 2, 3, 4, 5];
 
-export default function Services({ data }: BlogItemProp) {
+export default function Process({ data }: BlogItemProp) {
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
       <Header title={data.title} image="photos/whiteboard.jpg">
         <p>{data.description}</p>
       </Header>
       <Container>
-        {servicesCount.map((i) => (
-          <FeatureBlock
-            key={i}
-            title={data[`${i}_title`]}
-            description={data[`${i}_description`]}
-            tools={data[`${i}_technologies`]}
-            image={data[`${i}_image`]}
-          />
-        ))}
+        {processSteps.map((i) => {
+          return (
+            <FeatureBlock
+              key={i}
+              number={i}
+              title={data[`${i}_title`]}
+              description={data[`${i}_description`]}
+              image={data[`${i}_image`]}
+            />
+          );
+        })}
       </Container>
     </Main>
   );
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const props = await getPage('services', locale);
+  const props = await getPage('process', locale);
   return {
     props,
   };
