@@ -1,4 +1,4 @@
-import { Button } from '../components/Button';
+import { HeaderButton } from '../components/Button';
 import { Header } from '../components/Header';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
@@ -18,7 +18,7 @@ const Index = () => {
           Wij schrijven software die ontworpen is om te veranderen. Zo blijven
           de kosten voor onderhoud en doorontwikkeling zo laag mogelijk.
         </p>
-        <Button>Contact</Button>
+        <HeaderButton>Contact</HeaderButton>
       </Header>
     </Main>
   );

@@ -37,7 +37,6 @@ const ImageWrapper = styled('div', {
 });
 
 const FeatureBlockWrapper = styled('div', {
-  color: '$text1',
   display: 'grid',
   flexDirection: 'column',
   flex: 1,

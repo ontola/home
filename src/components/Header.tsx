@@ -2,6 +2,7 @@ import { styled } from '@stitches/react';
 import Image from 'next/image';
 
 import { theme } from '../../stitches.config';
+import { Circles } from './Circles';
 
 interface HeaderProps {
   title: string;
@@ -14,7 +15,6 @@ const CirclesWrapper = styled('div', {
   width: '100%',
   height: '30rem',
   position: 'absolute',
-  zIndex: -1,
   top: 0,
   overflow: 'visible',
 });
@@ -32,6 +32,7 @@ const ImageWrapper = styled('div', {
   position: 'relative',
   maxWidth: '90vw',
   marginTop: '1rem',
+  marginBottom: '4rem',
   '@media (min-width: 600px)': {
     width: '20rem',
     right: '-4rem',
@@ -45,6 +46,7 @@ const ImageWrapper = styled('div', {
 });
 
 const HeaderWrapper = styled('div', {
+  background: theme.colors.headerBg,
   margin: '0 auto',
   marginTop: '-3rem',
   display: 'flex',
@@ -52,19 +54,24 @@ const HeaderWrapper = styled('div', {
   alignContent: 'start',
   flexDirection: 'column',
   paddingTop: '10rem',
-  paddingBottom: '10rem',
+  paddingBottom: '5rem',
+  marginBottom: '5rem',
   overflow: 'hidden',
   position: 'relative',
+  color: theme.colors.headerText,
   width: '100%',
   '@media (min-width: 1100px)': {
     paddingTop: '14rem',
-    paddingBottom: '14rem',
+    paddingBottom: '7rem',
   },
 });
 
 const HeaderChildren = styled('div', {
   maxWidth: '20rem',
-  textShadow: `0 0 20px ${theme.colors.bg0}`,
+  // textShadow: `0 0 20px ${theme.colors.bg0}`,
+  '*': {
+    color: theme.colors.headerText,
+  },
 });
 
 const HeaderContainer = styled('div', {
@@ -78,37 +85,15 @@ const HeaderContainer = styled('div', {
 const HeaderHeading = styled('h1', {
   fontSize: '2.5rem',
   maxWidth: '20rem',
-  textShadow: `0 0 20px ${theme.colors.bg0}`,
-});
-
-const Circles = styled('img', {
-  height: '20rem',
-  position: 'absolute',
-  top: '-3rem',
-  left: '9rem',
-  '@media (min-width: 600px)': {
-    right: '-5rem',
-    height: '28rem',
-    left: 'auto',
-  },
-  '@media (min-width: 1100px)': {
-    left: 'auto',
-    right: '0%',
-    height: '28rem',
-  },
-  '@media (min-width: 1300px)': {
-    left: 'auto',
-    right: 'calc(40% - 25rem)',
-    height: '30rem',
-  },
-  '-webkit-transform': 'translate3d(0, 0, 0)',
+  color: theme.colors.headerText,
 });
 
 export function Header({ children, title, image }: HeaderProps): JSX.Element {
   return (
     <HeaderWrapper>
       <CirclesWrapper>
-        <Circles src="/assets/images/circles.svg" />
+        {/* <Circles src="/assets/images/circles.svg" /> */}
+        <Circles />
       </CirclesWrapper>
       <HeaderContainer>
         <HeaderHeading>{title}</HeaderHeading>

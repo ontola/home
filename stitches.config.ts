@@ -8,6 +8,8 @@ export const { styled, getCssText, theme, css, globalCss } = createStitches({
       code: 'monospace',
     },
     colors: {
+      headerText: 'black',
+      headerBg: 'white',
       text: 'black',
       text1: '#999999',
       bg0: 'white',
@@ -17,6 +19,8 @@ export const { styled, getCssText, theme, css, globalCss } = createStitches({
       nav: 'rgba(255,255,255,0.7)',
       primary: '#134C69',
       c2a: 'rgba(152,99,219,1)',
+      // SVGs unfortunately do not support linear-gradient values.
+      circlesBg: 'url(#circles-gradient)',
       gradient:
         'linear-gradient(90deg, rgba(80,165,202,1) 0%, rgba(152,99,219,1) 100%)',
       gradientDark:
@@ -47,6 +51,8 @@ export const { styled, getCssText, theme, css, globalCss } = createStitches({
 
 export const darkTheme = createTheme({
   colors: {
+    headerText: 'white',
+    headerBg: 'black',
     text: 'white',
     text1: '#555555',
     bg0: 'black',
@@ -57,3 +63,13 @@ export const darkTheme = createTheme({
     primary: 'black',
   },
 });
+
+export const caseTheme = (color: string) =>
+  createTheme({
+    colors: {
+      headerText: 'white',
+      headerBg: color,
+      nav: 'transparent',
+      circlesBg: 'white',
+    },
+  });

@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { styled } from '@stitches/react';
 import { reset } from 'stitches-reset';
 
-import { darkTheme, globalCss } from '../../stitches.config';
+import { caseTheme, darkTheme, globalCss } from '../../stitches.config';
 import { Footer } from '../components/Footer';
 import { NavigationBar } from '../components/NavigationBar';
 import { globalStyles } from '../styles/globalStyles';
@@ -12,6 +12,8 @@ import { useDarkMode } from '../utils/useDarkMode';
 type IMainProps = {
   meta?: ReactNode;
   children: ReactNode;
+  /** The header becomes this color and the text is white */
+  caseColor?: string;
 };
 
 const Content = styled('div', {
@@ -28,16 +30,25 @@ const MainStyled = styled('div', {
   zIndex: 0,
 });
 
-const Main = (props: IMainProps) => {
+const Main = ({ caseColor, meta, children }: IMainProps) => {
   const [darkMode, setDarkMode] = useDarkMode();
 
   globalCss(reset);
   globalStyles();
+
+  let classes = '';
+  if (caseColor && !darkMode) {
+    classes = classes.concat(caseTheme(caseColor));
+  }
+  if (darkMode) {
+    classes = classes.concat(` ${darkTheme}`);
+  }
+
   return (
-    <MainStyled className={darkMode ? darkTheme : ''}>
-      {props.meta}
+    <MainStyled className={classes}>
+      {meta}
       <NavigationBar />
-      <Content>{props.children}</Content>
+      <Content>{children}</Content>
       <Footer toggleDarkMode={() => setDarkMode(!darkMode)} />
     </MainStyled>
   );
