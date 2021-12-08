@@ -31,7 +31,7 @@ export const { keyframes, styled, getCssText, theme, css, globalCss } =
         small: '.8rem',
         body: '1rem',
         h3: '1.5rem',
-        h2: '2rem',
+        h2: '1.7rem',
         h1: '3rem',
       },
       sizes: {

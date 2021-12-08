@@ -42,6 +42,7 @@ export interface MetaData {
 
 /** MDX Item from the Content folder */
 export interface BlogItemProp extends matter.GrayMatterFile<string> {
+  cases?: BlogItemProp[];
   /** Should be passed to an MDX component like this: {...mdxSource} */
   mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>;
   /** last characters of the path of the URL, e.g. `linked-data-is-cool` */

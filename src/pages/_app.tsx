@@ -5,7 +5,7 @@ import { reset } from 'stitches-reset';
 import { globalStyles } from '../styles/globalStyles';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  globalCss(reset);
+  globalCss(reset)();
   globalCss(globalStyles)();
 
   return <Component {...pageProps} />;
