@@ -56,9 +56,11 @@ const LogoStyled = styled('a', {
   height: '2rem',
   svg: {
     width: 'auto',
-    height: 'auto',
+    height: '2rem',
   },
+  alignItems: 'center',
   display: 'flex',
+  flex: 1,
 });
 
 export const NavigationBar = () => (
