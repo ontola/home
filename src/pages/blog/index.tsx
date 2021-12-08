@@ -1,8 +1,7 @@
-import { styled } from '@stitches/react';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 
-import { theme } from '../../../stitches.config';
+import { styled, theme } from '../../../stitches.config';
 import { Container } from '../../components/Container';
 import { Details } from '../../components/Details';
 import { Header } from '../../components/Header';

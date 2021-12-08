@@ -1,5 +1,4 @@
-import { styled } from '@stitches/react';
-
+import { styled } from '../../stitches.config';
 import LocaleSwitcher from './LocaleSwitcher';
 
 const FooterStyled = styled('div', {

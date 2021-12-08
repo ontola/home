@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { styled } from '@stitches/react';
 import Link from 'next/link';
 
+import { styled } from '../../stitches.config';
 import { HeaderButton } from './Button';
 import { Logo } from './Logo';
 

@@ -1,5 +1,4 @@
-import { styled } from '@stitches/react';
-
+import { styled } from '../../stitches.config';
 import { MetaData } from '../utils/getPosts';
 
 const Detail = styled('div', {
