@@ -1,7 +1,6 @@
-import { styled } from '@stitches/react';
 import Image from 'next/image';
 
-import { theme } from '../../stitches.config';
+import { styled, theme } from '../../stitches.config';
 import { Circles } from './Circles';
 
 interface HeaderProps {

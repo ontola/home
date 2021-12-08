@@ -1,6 +1,4 @@
-import { globalCss } from '../../stitches.config';
-
-export const globalStyles = globalCss({
+export const globalStyles = {
   '*': {
     boxSizing: 'border-box',
     fontFamily: '$body',
@@ -54,4 +52,4 @@ export const globalStyles = globalCss({
   video: {
     maxWidth: '100%',
   },
-});
+};

@@ -1,5 +1,6 @@
-import { styled } from '@stitches/react';
 import Image, { ImageProps } from 'next/image';
+
+import { styled } from '../../stitches.config';
 
 const ImageWrapper = styled('div', {
   position: 'relative',

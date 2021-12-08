@@ -1,6 +1,4 @@
-import { styled } from '@stitches/react';
-
-import { theme } from '../../stitches.config';
+import { styled, theme } from '../../stitches.config';
 
 /** Button with header-dependent styling */
 export const HeaderButton = styled('button', {

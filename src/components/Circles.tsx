@@ -1,4 +1,4 @@
-import { keyframes, styled } from '@stitches/react';
+import { keyframes, styled } from '../../stitches.config';
 
 const CirclesWrapper = styled('div', {
   display: 'flex',

@@ -1,7 +1,6 @@
-import { styled } from '@stitches/react';
 import Link from 'next/link';
 
-import { theme } from '../../stitches.config';
+import { styled, theme } from '../../stitches.config';
 
 interface ToolProps {
   technology: string;
