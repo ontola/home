@@ -37,7 +37,7 @@ These serialization formats (turtle and JSON-LD) have syntactic sugar for Collec
 Under the hood, however, they have a very different data model.
 Collections are [linked lists](https://en.wikipedia.org/wiki/Linked_list) and its chains consist of `rdf:List` nodes, connected by `rdf:rest` relations:
 
-![RDF:List](/assets/images/posts/ordered/rdflist_basic.png)
+![RDF:List](/images/posts/ordered/rdflist_basic.png)
 
 Every `rdf:List` has a `rdf:first` object, which refers to the actual content of the list item.
 Intuitively, it might be a bit weird to refer to Bob as a `first` in a List.
@@ -56,11 +56,11 @@ _:b2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/0
 
 This explicitly linked nature means that it's possible to start a list in location A, and have it continue in a completely different domain:
 
-![RDF:List](/assets/images/posts/ordered/rdflist_external.png)
+![RDF:List](/images/posts/ordered/rdflist_external.png)
 
 It also means that inserting items is quite easy, as only the node before it has to be adjusted:
 
-![RDF:List](/assets/images/posts/ordered/rdflist_insert.png)
+![RDF:List](/images/posts/ordered/rdflist_insert.png)
 
 However... This structure can be kind of hard to deal with.
 Parsing is non-trivial, and might require a lot of lookups, which is very costly.
@@ -76,7 +76,7 @@ There are three types of RDF Containers `rdf:Seq`, `rdf:Bag`, `rdf:Alt`
 
 RDF Containers use a numbered predicate (e.g. `rdf:_1`) to indicate that something is a child / member of the Container:
 
-![RDF:Seq](/assets/images/posts/ordered/rdfseq.png)
+![RDF:Seq](/images/posts/ordered/rdfseq.png)
 
 This model is often easier to parse and serialize than an `rdf:List`.
 

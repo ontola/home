@@ -8,14 +8,13 @@ import { Logo } from './Logo';
 
 const NavigationBarStyled = styled('nav', {
   background: '$nav',
-  backdropFilter: 'blur(2px)',
   zIndex: 1,
 });
 
 const NavContainer = styled('div', {
   padding: '0 1rem',
   margin: '0 auto',
-  maxWidth: '$container',
+  maxWidth: '$containerBig',
   display: 'flex',
   height: '3rem',
   alignItems: 'center',

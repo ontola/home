@@ -1,11 +1,8 @@
 import { ReactNode } from 'react';
 
-import { reset } from 'stitches-reset';
-
-import { caseTheme, darkTheme, globalCss, styled } from '../../stitches.config';
+import { caseTheme, darkTheme, styled } from '../../stitches.config';
 import { Footer } from '../components/Footer';
 import { NavigationBar } from '../components/NavigationBar';
-import { globalStyles } from '../styles/globalStyles';
 import { useDarkMode } from '../utils/useDarkMode';
 
 type IMainProps = {
@@ -31,9 +28,6 @@ const MainStyled = styled('div', {
 
 const Main = ({ caseColor, meta, children }: IMainProps) => {
   const [darkMode, setDarkMode] = useDarkMode();
-
-  globalCss(reset);
-  globalCss(globalStyles);
 
   let classes = '';
   if (caseColor && !darkMode) {

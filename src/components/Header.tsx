@@ -5,7 +5,7 @@ import { Circles } from './Circles';
 
 interface HeaderProps {
   title: string;
-  /** Path of the image. Must be in `public/assets/images/${name}` */
+  /** Path of the image. Must be in `public/images/${name}` */
   image?: string;
   children?: React.ReactNode;
 }
@@ -76,7 +76,7 @@ const HeaderChildren = styled('div', {
 
 const HeaderContainer = styled('div', {
   width: '100%',
-  maxWidth: '$container',
+  maxWidth: '$containerBig',
   position: 'relative',
   margin: '0 auto',
   paddingLeft: '1rem',
@@ -103,7 +103,7 @@ export function Header({ children, title, image }: HeaderProps): JSX.Element {
   return (
     <HeaderWrapper>
       <CirclesWrapper>
-        {/* <Circles src="/assets/images/circles.svg" /> */}
+        {/* <Circles src="/images/circles.svg" /> */}
         <Circles />
       </CirclesWrapper>
       <HeaderContainer>
@@ -119,7 +119,7 @@ export function Header({ children, title, image }: HeaderProps): JSX.Element {
               // layout="responsive"
               objectFit="cover"
               objectPosition="center"
-              src={`/assets/images/${image}`}
+              src={`/images/${image}`}
               alt=""
             />
           </ImageWrapper>

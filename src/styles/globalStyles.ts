@@ -16,6 +16,7 @@ export const globalStyles = {
     color: '$text',
     margin: 0,
     marginTop: '1.5em',
+    lineHeight: '1.1em',
     marginBottom: '.5rem',
   },
   h1: {

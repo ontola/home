@@ -52,14 +52,14 @@ export function Footer(props: FooterProps) {
     <FooterStyled>
       <FooterContainer>
         <FooterLeft>
-          <LogoWhite src="/assets/images/logo_white.svg" alt="Ontola logo" />
+          <LogoWhite src="/images/logo_white.svg" alt="Ontola logo" />
           <LocaleSwitcher />
           <FooterButton onClick={props.toggleDarkMode}>dark mode</FooterButton>
         </FooterLeft>
-        <SocialIcon src="/assets/images/facebook.svg" alt="Facebook" />
-        <SocialIcon src="/assets/images/github.svg" alt="Facebook" />
-        <SocialIcon src="/assets/images/linkedin.svg" alt="Facebook" />
-        <SocialIcon src="/assets/images/twitter.svg" alt="Facebook" />
+        <SocialIcon src="/images/facebook.svg" alt="Facebook" />
+        <SocialIcon src="/images/github.svg" alt="Facebook" />
+        <SocialIcon src="/images/linkedin.svg" alt="Facebook" />
+        <SocialIcon src="/images/twitter.svg" alt="Facebook" />
       </FooterContainer>
     </FooterStyled>
   );
