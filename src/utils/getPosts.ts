@@ -8,9 +8,9 @@ import matter from 'gray-matter';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 
-const pageDirectory = path.join(process.cwd(), '/src/content');
+const pageDirectory = path.join(process.cwd(), '/content');
 const getDirectory = (sub: string) =>
-  path.join(process.cwd(), `/src/content/${sub}`);
+  path.join(process.cwd(), `/content/${sub}`);
 
 /** Reads the filesystem, finds the folder for the type, returns MDX serialized resource */
 export async function getPostBySlug(
@@ -82,7 +82,7 @@ export async function getAllPostsLocale(
   return files;
 }
 
-/** Gets a localized .mdx file from the `src/content` folder */
+/** Gets a localized .mdx file from the `content` folder */
 export async function getPage(slug: string, locale = 'en') {
   const fullPath = path.join(pageDirectory, `${slug}.${locale}.mdx`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');

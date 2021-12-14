@@ -21,7 +21,7 @@ export default function TechPosts({ mdxSource, data, cases }: BlogItemProp) {
           <>
             <h2>Voorbeelden:</h2>
             {cases.map((c: BlogItemProp) => (
-              <CasePreview key={c.slug} caseResource={c} />
+              <CasePreview key={c.slug} {...c} />
             ))}
           </>
         )}

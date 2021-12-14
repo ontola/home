@@ -30,13 +30,16 @@ export const { keyframes, styled, getCssText, theme, css, globalCss } =
       fontSizes: {
         small: '.8rem',
         body: '1rem',
-        h3: '1.5rem',
+        h3: '1.2rem',
         h2: '1.7rem',
         h1: '3rem',
       },
       sizes: {
         container: '40rem',
-        radius: '1rem',
+        containerBig: '50rem',
+        // containerBig / 2 - 3rem
+        gridItem: '22rem',
+        radius: '.6rem',
       },
       shadows: {
         button: '0px 3px 15px rgba(0,0,0,0.2)',

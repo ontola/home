@@ -20,7 +20,7 @@ Since we use I18n, we can't `export` the site.
 
 - All written content resides in the `src/ontent` directory.
 - **Blog post**: Create a `article-title.en.mdx` file in `blog`. Make sure to add a `title` and a `description`. Create a Dutch translation with the same name (`article-title.nl.mdx`), too.
-- **Tech item**: Similar to above, but also make sure to add a `techname.svg` image to `assets/images/tech`.
+- **Tech item**: Similar to above, but also make sure to add a `techname.svg` image to `images/tech`.
 - **Custom page**: Create a `.tsx` file in `src/pages` with the name of the path. Probably easiest to clone `about.tsx` and copy that logic.
 
 ## Tech

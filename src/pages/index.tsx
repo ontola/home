@@ -1,9 +1,20 @@
+import { GetStaticProps } from 'next';
+
 import { HeaderButton } from '../components/Button';
+import { CasePreview } from '../components/CasePreview';
+import { CasesWrapper } from '../components/CasesWrapper';
+import { Container } from '../components/Container';
 import { Header } from '../components/Header';
+import { SectionHeading } from '../components/SectionHeading';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
+import { BlogItemProp, getAllPostsLocale } from '../utils/getPosts';
 
-const Index = () => {
+interface HomeProps {
+  cases: BlogItemProp[];
+}
+
+const Home = ({ cases }: HomeProps) => {
   return (
     <Main
       meta={
@@ -20,8 +31,29 @@ const Index = () => {
         </p>
         <HeaderButton>Contact</HeaderButton>
       </Header>
+      <Container big>
+        <SectionHeading
+          small="Onze diensten"
+          title="Digitale oplossingen die klaar zijn voor de toekomst"
+        />
+        <SectionHeading small="Ons werk" title="Cases" />
+        <CasesWrapper>
+          {cases.map((caseData) => (
+            <CasePreview key={caseData.slug} {...caseData} />
+          ))}
+        </CasesWrapper>
+        <SectionHeading small="We delen graag onze kennis" title="Blogs" />
+      </Container>
     </Main>
   );
 };
 
-export default Index;
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      cases: await getAllPostsLocale(locale, 'cases'),
+    },
+  };
+};
+
+export default Home;

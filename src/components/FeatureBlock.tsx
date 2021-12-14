@@ -6,7 +6,7 @@ import { Tool } from './Tool';
 interface FeatureBlockProps {
   title: string;
   description: string;
-  /** Path to image, starting from /assets/images/ */
+  /** Path to image, starting from /images/ */
   image: string;
   /** List of ids of technologies used (e.g. typescript) */
   tools?: string[];
@@ -117,7 +117,7 @@ export function FeatureBlock({
         <Image
           width={400}
           height={300}
-          src={`/assets/images/${image}`}
+          src={`/images/${image}`}
           alt={image}
           objectFit="cover"
         />

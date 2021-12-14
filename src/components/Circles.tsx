@@ -5,10 +5,13 @@ const CirclesWrapper = styled('div', {
   maxWidth: '20rem',
   height: '20rem',
   position: 'absolute',
-  top: '-3rem',
+  top: '-10rem',
   right: '40%',
+  // safari fix - scaling up is blurry with animated svgs
+  transform: 'scale(.5)',
+
   '@media (min-width: 600px)': {
-    transform: 'scale(2)',
+    transform: 'scale(1)',
   },
 });
 
@@ -76,7 +79,7 @@ const scaleUp = keyframes({
 const CircleStyled = styled('div', {
   position: 'absolute',
   left: '1rem',
-  height: '20rem',
+  height: '40rem',
   animation: `${scaleUp} 10000ms`,
   animationIterationCount: 'infinite',
   svg: {
@@ -87,21 +90,21 @@ const CircleStyled = styled('div', {
 
 export const Circles = () => (
   <CirclesWrapper>
-    <Circle style={{ left: '5rem', width: '14rem', animationDelay: '0' }} />
-    <Circle style={{ left: '0', width: '4rem', animationDelay: '-2000ms' }} />
+    <Circle style={{ left: '10rem', width: '28rem', animationDelay: '0' }} />
+    <Circle style={{ left: '0', width: '8rem', animationDelay: '-2000ms' }} />
     <Circle
       style={{
-        left: '1.5rem',
-        width: '2rem',
-        top: '5rem',
+        left: '3rem',
+        width: '4rem',
+        top: '10rem',
         animationDelay: '-5000ms',
       }}
     />
     <Circle
       style={{
-        left: '5rem',
-        width: '1.7rem',
-        top: '7rem',
+        left: '10rem',
+        width: '2.4rem',
+        top: '14rem',
         animationDelay: '-7000ms',
       }}
     />

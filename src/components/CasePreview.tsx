@@ -1,16 +1,46 @@
+import { styled } from '@stitches/react';
+import Link from 'next/link';
+
+import { theme } from '../../stitches.config';
 import { BlogItemProp } from '../utils/getPosts';
 
-interface CasePreviewProps {
-  /** E.g. 'glapp' or 'argu' */
-  caseResource: BlogItemProp;
-}
+const CaseWrapper = styled('a', {
+  backgroundPosition: 'center',
+  backgroundSize: 'cover',
+  width: theme.sizes.gridItem,
+  height: theme.sizes.gridItem,
+  borderRadius: '2.5rem',
+  alignItems: 'flex-end',
+  display: 'flex',
+  textDecoration: 'none',
+  transition: '.2s box-shadow, .2s transform',
+  '&:hover': {
+    boxShadow: '$button',
+    transform: 'scale(1.03)',
+  },
+});
 
-export function CasePreview({ caseResource }: CasePreviewProps): JSX.Element {
-  const { title } = caseResource.data;
+const Title = styled('h2', {
+  color: '#fff',
+  marginLeft: '1.5rem',
+  marginBottom: '1.5rem',
+  fontSize: '1.2rem',
+  fontWeight: 'normal',
+  // textShadow: '0px 2px 1px rgba(0,0,0,0.2)',
+});
+
+export function CasePreview({ slug, data }: BlogItemProp): JSX.Element {
+  const { title } = data;
 
   return (
-    <>
-      <h1>{title}</h1>
-    </>
+    <Link href={`/cases/${slug}`} passHref>
+      <CaseWrapper
+        style={{
+          backgroundImage: `url(/images/cases/preview_${slug}.png)`,
+        }}
+      >
+        <Title>{title}</Title>
+      </CaseWrapper>
+    </Link>
   );
 }

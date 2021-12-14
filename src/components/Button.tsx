@@ -8,7 +8,8 @@ export const HeaderButton = styled('button', {
   color: '$headerText',
   background: '$navBg',
   border: 'solid 1px $headerText',
-  // transition: 'all .2s',
+  transition: 'all .2s',
+  boxSizing: 'border-box',
 
   '&:hover': {
     boxShadow: '$button',
