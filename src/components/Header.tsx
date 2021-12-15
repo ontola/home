@@ -38,8 +38,13 @@ const ImageWrapper = styled('div', {
     marginLeft: '3rem',
   },
   '@media (min-width: 900px)': {
-    height: '14rem',
+    height: '17rem',
     width: '25rem',
+  },
+  '@media (min-width: 1200px)': {
+    left: '4rem',
+    transform:
+      'perspective(70rem) rotateX(10deg) rotateY(15deg) rotateZ(-5deg) scale(1.3)',
   },
 });
 
