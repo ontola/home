@@ -2,7 +2,7 @@ import { styled } from '../../stitches.config';
 import LocaleSwitcher from './LocaleSwitcher';
 
 const FooterStyled = styled('div', {
-  background: '$primary',
+  background: '$footerBg',
   flexShrink: 0,
   paddingBottom: '3rem',
   paddingTop: '3rem',

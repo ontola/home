@@ -19,6 +19,7 @@ export const { keyframes, styled, getCssText, theme, css, globalCss } =
         bg2: '#d7d7d7',
         nav: 'rgba(255,255,255,0.7)',
         primary: '#134C69',
+        footerBg: '#134C69',
         c2a: 'rgba(152,99,219,1)',
         // SVGs unfortunately do not support linear-gradient values.
         circlesBg: 'url(#circles-gradient)',
@@ -65,7 +66,7 @@ export const darkTheme = createTheme({
     bg1: '#222222',
     bg2: '#333333',
     nav: 'rgba(0,0,0,0.7)',
-    primary: 'black',
+    footerBg: 'black',
   },
 });
 
