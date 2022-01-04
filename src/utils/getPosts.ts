@@ -18,7 +18,7 @@ export async function getPostBySlug(
   locale = 'en',
   /** e.g. `blog` */
   type: string
-): Promise<BlogItemProp> {
+): Promise<MDXItem> {
   const realSlug = slug.replace(/\.mdx$/, '');
   const fullPath = path.join(getDirectory(type), `${realSlug}.${locale}.mdx`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -41,8 +41,9 @@ export interface MetaData {
 }
 
 /** MDX Item from the Content folder */
-export interface BlogItemProp extends matter.GrayMatterFile<string> {
-  cases?: BlogItemProp[];
+export interface MDXItem extends matter.GrayMatterFile<string> {
+  /** Cases relevant to this item */
+  cases?: MDXItem[];
   /** Should be passed to an MDX component like this: {...mdxSource} */
   mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>;
   /** last characters of the path of the URL, e.g. `linked-data-is-cool` */
@@ -55,15 +56,15 @@ export interface BlogItemProp extends matter.GrayMatterFile<string> {
 export async function getAllPostsLocale(
   locale = 'en',
   type = 'blog'
-): Promise<BlogItemProp[]> {
+): Promise<MDXItem[]> {
   const dir = getDirectory(type);
   const filenames = fs.readdirSync(dir);
-  const files: BlogItemProp[] = [];
+  const files: MDXItem[] = [];
   await Promise.all(
     filenames.map(async (name) => {
       const fullPath = path.join(dir, name);
       if (name.includes(`${locale}.mdx`)) {
-        const post = matter(fs.readFileSync(fullPath, 'utf8')) as BlogItemProp;
+        const post = matter(fs.readFileSync(fullPath, 'utf8')) as MDXItem;
         // The `orig` byte array causes JSON serialization errors
         post.orig = '';
 

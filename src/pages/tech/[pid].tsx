@@ -7,9 +7,9 @@ import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
 import { buildComponents } from '../../utils/buildComponents';
-import { BlogItemProp, getAllPaths, getPostBySlug } from '../../utils/getPosts';
+import { MDXItem, getAllPaths, getPostBySlug } from '../../utils/getPosts';
 
-export default function TechPosts({ mdxSource, data, cases }: BlogItemProp) {
+export default function TechPosts({ mdxSource, data, cases }: MDXItem) {
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
       <Header title={data.title} image={data.image}>
@@ -20,7 +20,7 @@ export default function TechPosts({ mdxSource, data, cases }: BlogItemProp) {
         {cases && (
           <>
             <h2>Voorbeelden:</h2>
-            {cases.map((c: BlogItemProp) => (
+            {cases.map((c: MDXItem) => (
               <CasePreview key={c.slug} {...c} />
             ))}
           </>
@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const pid = params && params.pid;
   const props = await getPostBySlug(pid as string, locale, 'tech');
   if (props.data.cases) {
-    const cases: BlogItemProp[] = [];
+    const cases: MDXItem[] = [];
     await Promise.all(
       props.data.cases.map(async (id: string) =>
         cases.push(await getPostBySlug(id, locale, 'cases'))

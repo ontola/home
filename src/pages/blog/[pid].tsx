@@ -8,9 +8,9 @@ import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
 import { buildComponents } from '../../utils/buildComponents';
-import { BlogItemProp, getAllPaths, getPostBySlug } from '../../utils/getPosts';
+import { MDXItem, getAllPaths, getPostBySlug } from '../../utils/getPosts';
 
-export default function BlogPost({ mdxSource, data }: BlogItemProp) {
+export default function BlogPost({ mdxSource, data }: MDXItem) {
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
       <Header title={data.title}>

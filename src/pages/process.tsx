@@ -5,11 +5,11 @@ import { FeatureBlock } from '../components/FeatureBlock';
 import { Header } from '../components/Header';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
-import { BlogItemProp, getPage } from '../utils/getPosts';
+import { MDXItem, getPage } from '../utils/getPosts';
 
 const processSteps = [1, 2, 3, 4, 5];
 
-export default function Process({ data }: BlogItemProp) {
+export default function Process({ data }: MDXItem) {
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
       <Header title={data.title} image="photos/whiteboard.jpg">

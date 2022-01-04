@@ -6,15 +6,29 @@ import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
 import { buildComponents } from '../../utils/buildComponents';
-import { BlogItemProp, getAllPaths, getPostBySlug } from '../../utils/getPosts';
+import { MDXItem, getAllPaths, getPostBySlug } from '../../utils/getPosts';
 
-export default function Case({ mdxSource, data }: BlogItemProp) {
+export default function Case({ mdxSource, data, slug }: MDXItem) {
   return (
     <Main
       caseColor={data.color}
       meta={<Meta title={data.title} description={data.description} />}
     >
-      <Header title={data.title} image={data.image}>
+      <Header
+        title={data.title}
+        customImage={
+          <img
+            style={{
+              height: '24rem',
+              marginBottom: '-21rem',
+              position: 'absolute',
+              right: 0,
+            }}
+            src={`/images/cases/header_${slug}.png`}
+            alt="Cases"
+          />
+        }
+      >
         <p>{data.description}</p>
       </Header>
       <Container>

@@ -40,6 +40,9 @@ export const globalStyles = {
     marginBottom: '0.1em',
     marginLeft: '1rem',
   },
+  'ul, ol': {
+    marginBottom: '1rem',
+  },
   'ul li': {
     listStyle: 'disc',
   },
