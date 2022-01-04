@@ -8,13 +8,15 @@ import { Header } from '../components/Header';
 import { SectionHeading } from '../components/SectionHeading';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
-import { BlogItemProp, getAllPostsLocale } from '../utils/getPosts';
+import { MDXItem, getAllPostsLocale } from '../utils/getPosts';
+import { BlogPostPreview } from './blog';
 
 interface HomeProps {
-  cases: BlogItemProp[];
+  cases: MDXItem[];
+  blogs: MDXItem[];
 }
 
-const Home = ({ cases }: HomeProps) => {
+const Home = ({ cases, blogs }: HomeProps) => {
   return (
     <Main
       meta={
@@ -43,6 +45,9 @@ const Home = ({ cases }: HomeProps) => {
           ))}
         </CasesWrapper>
         <SectionHeading small="We delen graag onze kennis" title="Blogs" />
+        {blogs.map((blog) => (
+          <BlogPostPreview key={blog.slug} {...blog} />
+        ))}
       </Container>
     </Main>
   );
@@ -52,6 +57,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       cases: await getAllPostsLocale(locale, 'cases'),
+      blogs: await getAllPostsLocale(locale, 'blog'),
     },
   };
 };

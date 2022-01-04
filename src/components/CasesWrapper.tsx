@@ -8,4 +8,5 @@ export const CasesWrapper = styled('div', {
   gridAutoRows: theme.sizes.gridItem,
   gridGap: '3rem',
   paddingTop: '3rem',
+  marginBottom: '7rem',
 });

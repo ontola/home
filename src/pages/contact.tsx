@@ -6,9 +6,9 @@ import { Container } from '../components/Container';
 import { Header } from '../components/Header';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
-import { BlogItemProp, getPage } from '../utils/getPosts';
+import { MDXItem, getPage } from '../utils/getPosts';
 
-export default function Contact({ mdxSource, data }: BlogItemProp) {
+export default function Contact({ mdxSource, data }: MDXItem) {
   const components = {
     Image,
   };

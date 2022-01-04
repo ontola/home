@@ -14,7 +14,7 @@ export const { keyframes, styled, getCssText, theme, css, globalCss } =
         text: 'black',
         text1: '#999999',
         bg0: 'white',
-        bg: 'F6F8FB',
+        bg: '#F6F8FB',
         bg1: '#f4f4f4',
         bg2: '#d7d7d7',
         nav: 'rgba(255,255,255,0.7)',
@@ -45,6 +45,11 @@ export const { keyframes, styled, getCssText, theme, css, globalCss } =
       shadows: {
         button: '0px 3px 15px rgba(0,0,0,0.2)',
         buttonInset: 'inset 0px 3px 15px rgba(0,0,0,0.2)',
+      },
+      zIndices: {
+        contentFloating: 1,
+        navigationBar: 10,
+        menu: 100,
       },
     },
     media: {

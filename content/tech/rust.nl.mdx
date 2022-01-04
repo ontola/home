@@ -1,0 +1,73 @@
+---
+title: "Software ontwikkelen met Rust"
+description: "Wat is Rust, en wanneer zou je het moeten gebruiken?"
+cases: ["atomic-data",]
+---
+
+Rust is een moderne programmeertaal die snel aan populariteit aan het winnen is.
+Het is _low-level_ taal met _high-level_ features, welke direct compileert naar machine-code (assembly).
+
+## Waarom Rust gebruiken
+
+- **Veilig**. Rust introduceert een unieke oplossing om geheugen te beheren genaamd _ownership_. Dit zorgt er voor dat Rust applicaties doorgaans zeer veilig zijn.
+- **Snel**. Met Rust kan je het laatste beetje performance uit je machine halen. Het is dan ook geen verassing dat in de meeste benchmarks Rust applicaties naar voren komen als de aller snelste.
+- **Compact**. Een Rust applicatie kan worden gecompileerd naar kleine binaries (uitvoerbare bestanden).
+- **Draait overal**. Rust kan je compileren naar praktisch ieder platform.
+- **Geen runtime nodig**. Een Rust applicatie kan je draaien _zonder externe runtime_, in tegenstelling tot talen als Python, Javascript en Java.
+- **Blije programmeurs**. Rust is al sinds 2016 ieder jaar [verkozen](https://insights.stackoverflow.com/survey/2021#technology-most-loved-dreaded-and-wanted) tot meest geliefde programmeertaal, en we begrijpen waarom.
+
+## Ownership en de Borrow Checker
+
+De meest kenmerkende nieuwe vinding van Rust, is het concept _Ownership_ (eigenaarschap).
+Het is een oplossing voor een fundamenteel aspect van hoe computers vandaag de dag werken: bijhouden welke data in je werkgeheugen kan worden losgelaten.
+Als een applicatie draait, wordt er doorgaans steeds meer data in het werkgeheugen geladen.
+Iedere berekening heeft werkgeheugen nodig.
+Het is de verantwoordelijkheid van de software om dit werkgeheugen weer vrij te maken wanneer het kan.
+Traditioneel waren twee oplossingen voor dit probleem:
+
+1. **Handmatig memory management**. De programmeur moet in zijn code aangeven wanneer een stukje geheugen kan worden vrijgemaakt. Dit is een lastig en bovenal foutgevoelig proces, wat voor nare (onveilige) bugs kan zorgen. Zo [gaf Microsoft aan dat 70% van de beveiligings issues komen door memory management](https://www.zdnet.com/article/microsoft-70-percent-of-all-security-bugs-are-memory-safety-issues/).
+1. **Garbage Collection**. De _runtime_ van de programmeertaal verwijderd af en toe stukjes data uit het werkgeheugen die niet meer nodig zijn. Dit is lekker makkelijk voor de programmeur, maar het zorgt er voor dat je code _trager_ wordt, omdat je applicatie nu ook tijd moet besteden aan het controleren van wat er weg kan worden gegooid.
+
+Rust introduceert een derde oplossing voor memory management: _Ownership_.
+In Rust, is iedere variabele (ieder stukje data in je werkgeheugen) eigendom van een bepaalde _scope_.
+Wanneer een variabele deze scope verlaat, kan het stukje data uit het werkgeheugen worden gehaald.
+Een elegante oplossing, want dit kost de applicatie geen extra tijd, waardoor je de volledige 100% van de theoretisch haalbare snelheid kan halen.
+
+## WebAssembly en Rust
+
+WebAssembly is een standaard om applicaties mee te beschrijven.
+Het is niet zozeer een programmeertaal, maar een _compilation target_ (net als de eerder genoemde Assembly).
+Het wordt dus (bijna) niet geschreven door mensen, maar programmeertalen kunnen er naar compileren.
+Met bijna alle gecompileerde applicaties, moet er worden gecompileerd naar een specifiek _target_ (een specifieke architectuur).
+Een applicatie voor Windows heeft bijvoorbeeld een andere binary dan een voor MacOS, or voor Linux.
+Dit betekent dat jij als ontwikkelaar daar rekening mee met houden, en dus (behoorlijk veel) verschillende versies moet aanbieden.
+Dat kost tijd, en maakt het distribueren van je applicatie een stuk ingewikkelder.
+
+Wat WebAssembly interessant maakt, is dat het praktisch overal draait.
+Dezelfde WebAssembly code draait op x86, Arm, 32bit, 64bit...
+Het is ontworpen om te draaien in Browsers, als alternatief voor Javascript.
+Hiermee kunnen sommige taken een stuk sneller draaien.
+Daarnaast kan je zo code hergebruiken uit een programmeertaal die naar WebAssembly compileert, zonder het te hoeven herschrijven in Javascript.
+
+Maar WebAssembly is niet _alleen_ maar interessant voor browsers.
+WebAssembly _runtimes_ zijn omgevingen die WebAssembly kunnen draaien, zoals in je browser zit.
+We kunnen deze runtimes ook in een server context gebruiken.
+De eigenschappen die het geschikt maakt voor browsers, maakt ook een heel nieuw soort van server architectuur mogelijk.
+Het start snel op, het is veilig, het is lichtgewicht.
+De opkomende FaaS (Functions as a Service) architectuur bijvoorbeeld, werkt erg goed met WebAssembly.
+Zo bieden Amazon met Lambda en Cloudflare met hun Workers nu al manieren om server logica te schrijven met WebAssembly.
+Daarnaast is WebAssembly ook een interessante taal om een plug-in architectuur te ontwikkelen.
+Al met al zijn er heel veel toepassingen voor WebAssembly die nu komende jaren aan populariteit zullen groeien.
+
+Een van de unieke voordelen aan Rust, is hoe goed het compileert naar WebAssembly.
+De gegenereerde binaries zijn snel uit te voeren, starten snel op en zijn ook compact.
+De community die werkt aan WebAssembly werkt ook grotendeels in Rust, en je ziet dan ook dat er veel goede tooling is voor Rust + WebAssembly.
+
+## Combineren met...
+
+Rust kan werken in vrijwel alle contexten, maar het is vooral handig in server-side of embedded applicaties.
+Als je een webapplicatie wil maken, en de server schrijft in Rust, heb je alsnog front-end technologie nodig
+Een paar geschikte opties (waar wij ook veel mee werken) zijn:
+
+- [NextJS](/nl/tech/nextjs)
+- [React](/nl/tech/reactjs)

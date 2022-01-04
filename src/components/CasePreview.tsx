@@ -2,7 +2,7 @@ import { styled } from '@stitches/react';
 import Link from 'next/link';
 
 import { theme } from '../../stitches.config';
-import { BlogItemProp } from '../utils/getPosts';
+import { MDXItem } from '../utils/getPosts';
 
 const CaseWrapper = styled('a', {
   backgroundPosition: 'center',
@@ -29,7 +29,7 @@ const Title = styled('h2', {
   // textShadow: '0px 2px 1px rgba(0,0,0,0.2)',
 });
 
-export function CasePreview({ slug, data }: BlogItemProp): JSX.Element {
+export function CasePreview({ slug, data }: MDXItem): JSX.Element {
   const { title } = data;
 
   return (

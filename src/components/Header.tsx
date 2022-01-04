@@ -8,6 +8,8 @@ interface HeaderProps {
   /** Path of the image. Must be in `public/images/${name}` */
   image?: string;
   children?: React.ReactNode;
+  /** React element that appears after the text. */
+  customImage?: React.ReactNode;
 }
 
 const CirclesWrapper = styled('div', {
@@ -96,6 +98,7 @@ const HeaderContainer = styled('div', {
 const HeaderText = styled('div', {
   display: 'flex',
   flexDirection: 'column',
+  minWidth: '20rem',
 });
 
 const HeaderHeading = styled('h1', {
@@ -104,7 +107,12 @@ const HeaderHeading = styled('h1', {
   color: theme.colors.headerText,
 });
 
-export function Header({ children, title, image }: HeaderProps): JSX.Element {
+export function Header({
+  customImage,
+  children,
+  title,
+  image,
+}: HeaderProps): JSX.Element {
   return (
     <HeaderWrapper>
       <CirclesWrapper>
@@ -129,6 +137,7 @@ export function Header({ children, title, image }: HeaderProps): JSX.Element {
             />
           </ImageWrapper>
         )}
+        {customImage}
       </HeaderContainer>
     </HeaderWrapper>
   );

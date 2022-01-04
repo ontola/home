@@ -6,10 +6,10 @@ import { Container } from '../../components/Container';
 import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
-import { BlogItemProp, getAllPostsLocale } from '../../utils/getPosts';
+import { MDXItem, getAllPostsLocale } from '../../utils/getPosts';
 
 interface CaseProps {
-  posts: BlogItemProp[];
+  posts: MDXItem[];
 }
 
 const CasesIndex = ({ posts }: CaseProps) => {

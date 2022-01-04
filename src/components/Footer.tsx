@@ -15,7 +15,7 @@ const LogoWhite = styled('img', {
 });
 
 const FooterContainer = styled('div', {
-  width: '$container',
+  maxWidth: '$container',
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'row',

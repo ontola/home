@@ -5,13 +5,12 @@ import { styled, theme } from '../../../stitches.config';
 import { Container } from '../../components/Container';
 import { Details } from '../../components/Details';
 import { Header } from '../../components/Header';
-import { Text } from '../../components/Text';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
-import { BlogItemProp, getAllPostsLocale } from '../../utils/getPosts';
+import { MDXItem, getAllPostsLocale } from '../../utils/getPosts';
 
 interface BlogProps {
-  posts: BlogItemProp[];
+  posts: MDXItem[];
 }
 
 const BlogPostPreviewStyling = styled('a', {
@@ -26,6 +25,9 @@ const BlogPostPreviewStyling = styled('a', {
     background: '$bg0',
     boxShadow: '$button',
   },
+  h3: {
+    marginTop: 0,
+  },
 });
 
 export const GradientLine = styled('div', {
@@ -35,11 +37,11 @@ export const GradientLine = styled('div', {
   width: '100%',
 });
 
-function BlogPostPreview({ data, slug }: BlogItemProp) {
+export function BlogPostPreview({ data, slug }: MDXItem) {
   return (
     <Link href={`/blog/${slug}`} passHref>
       <BlogPostPreviewStyling>
-        <Text as="h3">{data?.title}</Text>
+        <h3>{data?.title}</h3>
         {data.description && <p>{data.description}</p>}
         <GradientLine />
         <Details {...data} />
