@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
+import Link from 'next/link';
 
-import { HeaderButton } from '../components/Button';
+import { ButtonLink } from '../components/Button';
 import { CasePreview } from '../components/CasePreview';
 import { CasesWrapper } from '../components/CasesWrapper';
 import { Container } from '../components/Container';
@@ -9,6 +10,7 @@ import { SectionHeading } from '../components/SectionHeading';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 import { MDXItem, getAllPostsLocale } from '../utils/getPosts';
+import { paths } from '../utils/paths';
 import { BlogPostPreview } from './blog';
 
 interface HomeProps {
@@ -31,7 +33,9 @@ const Home = ({ cases, blogs }: HomeProps) => {
           Wij schrijven software die ontworpen is om te veranderen. Zo blijven
           de kosten voor onderhoud en doorontwikkeling zo laag mogelijk.
         </p>
-        <HeaderButton>Contact</HeaderButton>
+        <Link href={paths.contact} passHref>
+          <ButtonLink>Contact</ButtonLink>
+        </Link>
       </Header>
       <Container big>
         <SectionHeading
