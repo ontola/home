@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 import { globalCss, styled, theme } from '../../stitches.config';
-import { HeaderButton } from './Button';
+import { paths } from '../utils/paths';
+import { Button } from './Button';
 import { Logo } from './Logo';
 
 const NavigationBarStyled = styled('nav', {
@@ -120,17 +121,17 @@ export const NavigationBar = () => {
             <Logo />
           </LogoStyled>
         </Link>
-        <HeaderButton css={MenuButtonStyles} onClick={() => setShow(!show)}>
+        <Button css={MenuButtonStyles} onClick={() => setShow(!show)}>
           Menu
-        </HeaderButton>
+        </Button>
         {/* <MenuButton onClick={() => setShow(!show)}>Menu</MenuButton> */}
         <LinksList show={show}>
-          <NavLink href="/cases/">Cases</NavLink>
-          <NavLink href="/services/">Diensten</NavLink>
-          <NavLink href="/process/">Werkwijze</NavLink>
-          <NavLink href="/about/">Over</NavLink>
-          <NavLink href="/blog/">Blog</NavLink>
-          <HeaderButton>Contact</HeaderButton>
+          <NavLink href={paths.cases}>Cases</NavLink>
+          <NavLink href={paths.services}>Diensten</NavLink>
+          <NavLink href={paths.process}>Werkwijze</NavLink>
+          <NavLink href={paths.about}>Over</NavLink>
+          <NavLink href={paths.blog}>Blog</NavLink>
+          <NavLink href={paths.contact}>Contact</NavLink>
         </LinksList>
       </NavContainer>
     </NavigationBarStyled>

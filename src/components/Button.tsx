@@ -1,7 +1,6 @@
 import { styled, theme } from '../../stitches.config';
 
-/** Button with header-dependent styling */
-export const HeaderButton = styled('button', {
+export const buttonStyle = {
   borderRadius: theme.sizes.radius,
   fontSize: '.8rem',
   padding: '.5rem 1rem',
@@ -10,6 +9,7 @@ export const HeaderButton = styled('button', {
   border: 'solid 1px $headerText',
   transition: 'all .2s',
   boxSizing: 'border-box',
+  textDecoration: 'none',
 
   '&:hover': {
     boxShadow: '$button',
@@ -21,4 +21,8 @@ export const HeaderButton = styled('button', {
   '&:active': {
     boxShadow: '$buttonInset',
   },
-});
+};
+
+/** Button with header-dependent styling */
+export const Button = styled('button', buttonStyle);
+export const ButtonLink = styled('a', buttonStyle);
