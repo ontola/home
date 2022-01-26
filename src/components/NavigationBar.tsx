@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 import { globalCss, styled, theme } from '../../stitches.config';
-import { paths } from '../utils/paths';
+import { menuPaths } from '../utils/paths';
 import { Button } from './Button';
 import { Logo } from './Logo';
 
@@ -126,12 +126,11 @@ export const NavigationBar = () => {
         </Button>
         {/* <MenuButton onClick={() => setShow(!show)}>Menu</MenuButton> */}
         <LinksList show={show}>
-          <NavLink href={paths.cases}>Cases</NavLink>
-          <NavLink href={paths.services}>Diensten</NavLink>
-          <NavLink href={paths.process}>Werkwijze</NavLink>
-          <NavLink href={paths.about}>Over</NavLink>
-          <NavLink href={paths.blog}>Blog</NavLink>
-          <NavLink href={paths.contact}>Contact</NavLink>
+          {menuPaths.map((p) => (
+            <NavLink key={p.title} href={p.href}>
+              {p.title}
+            </NavLink>
+          ))}
         </LinksList>
       </NavContainer>
     </NavigationBarStyled>

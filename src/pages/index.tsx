@@ -5,6 +5,7 @@ import { ButtonLink } from '../components/Button';
 import { CasePreview } from '../components/CasePreview';
 import { CasesWrapper } from '../components/CasesWrapper';
 import { Container } from '../components/Container';
+import { FeatureBlock } from '../components/FeatureBlock';
 import { Header } from '../components/Header';
 import { SectionHeading } from '../components/SectionHeading';
 import { Meta } from '../layout/Meta';
@@ -48,8 +49,25 @@ const Home = ({ cases, blogs }: HomeProps) => {
             <CasePreview key={caseData.slug} {...caseData} />
           ))}
         </CasesWrapper>
-        <SectionHeading small="We delen graag onze kennis" title="Blogs" />
-        {blogs.map((blog) => (
+        <FeatureBlock
+          title={'Full-service software development'}
+          image={'photos/joep-arthur.jpg'}
+        >
+          <p>
+            Als jouw full-service digitale partner begeleiden we het
+            softwareontwikkelingsproces van begin tot levering en doorlopende
+            ondersteuning. Met een team van gedreven software developers zorgen
+            we ervoor dat het project op tijd en binnen het gestelde budget
+            wordt opgeleverd.
+          </p>
+          <ButtonLink href={paths.services}>Onze diensten</ButtonLink>
+        </FeatureBlock>
+        <SectionHeading
+          href={paths.blog}
+          small="We delen graag onze kennis"
+          title="Blogs"
+        />
+        {blogs.slice(0, 3).map((blog) => (
           <BlogPostPreview key={blog.slug} {...blog} />
         ))}
       </Container>

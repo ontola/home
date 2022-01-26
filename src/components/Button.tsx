@@ -10,7 +10,7 @@ export const buttonStyle = {
   transition: 'all .2s',
   boxSizing: 'border-box',
   textDecoration: 'none',
-
+  alignSelf: 'flex-start',
   '&:hover': {
     boxShadow: '$button',
     cursor: 'pointer',

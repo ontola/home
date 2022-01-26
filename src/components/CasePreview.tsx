@@ -24,9 +24,9 @@ const Title = styled('h2', {
   color: '#fff',
   marginLeft: '1.5rem',
   marginBottom: '1.5rem',
-  fontSize: '1.2rem',
-  fontWeight: 'normal',
-  // textShadow: '0px 2px 1px rgba(0,0,0,0.2)',
+  fontSize: '1.8rem',
+  fontWeight: 'bold',
+  textShadow: '0 0 0.3rem rgb(0 0 0 / 50%)',
 });
 
 export function CasePreview({ slug, data }: MDXItem): JSX.Element {

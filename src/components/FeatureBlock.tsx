@@ -1,17 +1,13 @@
 import Image from 'next/image';
 
 import { styled, theme } from '../../stitches.config';
-import { TechPill } from './TechPill';
 
 interface FeatureBlockProps {
+  children: React.ReactNode;
   title: string;
-  description: string;
   /** Path to image, starting from /images/ */
   image: string;
-  /** List of ids of technologies used (e.g. typescript) */
-  tools?: string[];
   /** A big colored number on the side */
-  number?: number;
 }
 
 const TextContent = styled('div', {
@@ -87,43 +83,12 @@ const FeatureHeader = styled('h2', {
   position: 'relative',
 });
 
-const ToolsWrapper = styled('div', {
-  display: 'flex',
-});
-
-const BigNumber = styled('span', {
-  fontSize: '6rem',
-  position: 'absolute',
-  // left: '-5rem',
-  // top: '-4.5rem',
-  background: theme.colors.gradient,
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  zIndex: 1,
-});
-
-export function FeatureBlock({
-  title,
-  description,
-  image,
-  tools,
-  number,
-}: FeatureBlockProps) {
+export function FeatureBlock({ title, children, image }: FeatureBlockProps) {
   return (
     <FeatureBlockWrapper>
       <TextContent>
-        <FeatureHeader>
-          {number && <BigNumber>{number}</BigNumber>}
-          {title}
-        </FeatureHeader>
-        <p>{description}</p>
-        {tools && (
-          <ToolsWrapper>
-            {tools.map((t) => (
-              <TechPill key={t} technology={t} />
-            ))}
-          </ToolsWrapper>
-        )}
+        <FeatureHeader>{title}</FeatureHeader>
+        {children}
       </TextContent>
       <ImageWrapper>
         <Image

@@ -60,7 +60,7 @@ const BlogsIndex = ({ posts }: BlogProps) => {
         />
       }
     >
-      <Header title="linked data blog" />
+      <Header title="Linked Data Blog" />
       <Container style={{ marginBottom: '3rem' }}>
         {posts.map((post, i) => (
           <BlogPostPreview key={i} {...post} />
