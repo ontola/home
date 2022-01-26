@@ -48,6 +48,7 @@ export const { keyframes, styled, getCssText, theme, css, globalCss } =
       },
       zIndices: {
         contentFloating: 1,
+        featureTextBlock: 2,
         navigationBar: 10,
         menu: 100,
       },
