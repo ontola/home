@@ -1,13 +1,19 @@
 import { GetStaticProps } from 'next';
 
+import { styled } from '../../stitches.config';
 import { Container } from '../components/Container';
 import { FeatureBlock } from '../components/FeatureBlock';
 import { Header } from '../components/Header';
+import { TechPill } from '../components/TechPill';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 import { MDXItem, getPage } from '../utils/getPosts';
 
 const servicesCount = [1, 2, 3];
+
+const ToolsWrapper = styled('div', {
+  display: 'flex',
+});
 
 export default function Services({ data }: MDXItem) {
   return (
@@ -20,10 +26,17 @@ export default function Services({ data }: MDXItem) {
           <FeatureBlock
             key={i}
             title={data[`${i}_title`]}
-            description={data[`${i}_description`]}
-            tools={data[`${i}_technologies`]}
             image={data[`${i}_image`]}
-          />
+          >
+            {data[`${i}_technologies`] && (
+              <ToolsWrapper>
+                <p>{data[`${i}_description`]}</p>
+                {data[`${i}_technologies`].map((t: string) => (
+                  <TechPill key={t} technology={t} />
+                ))}
+              </ToolsWrapper>
+            )}
+          </FeatureBlock>
         ))}
       </Container>
     </Main>

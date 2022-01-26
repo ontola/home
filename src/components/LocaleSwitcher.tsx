@@ -8,9 +8,9 @@ import { styled } from '../../stitches.config';
 function renderLocaleHuman(locale: string): string {
   switch (locale) {
     case 'en':
-      return 'switch to English';
+      return 'English';
     case 'nl':
-      return 'ga naar Nederlands';
+      return 'Nederlands';
     default:
       return 'unknown language';
   }

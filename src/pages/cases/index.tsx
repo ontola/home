@@ -15,7 +15,12 @@ interface CaseProps {
 const CasesIndex = ({ posts }: CaseProps) => {
   return (
     <Main meta={<Meta title="Ontola Cases" description="Look at our cases" />}>
-      <Header title="Cases" />
+      <Header title="Cases">
+        <p>
+          Lees meer over de uiteenlopende opdrachten waar wij aan hebben
+          gewerkt. Je zal je verbazen van wat er allemaal mogelijk is!
+        </p>
+      </Header>
       <Container big>
         <CasesWrapper>
           {posts.map((post, i) => (

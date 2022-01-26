@@ -31,5 +31,27 @@ We hebben talloze [functionaliteiten](https://argu.co/info/functionaliteiten) in
 
 ## Technologie
 
-De back-end van Argu is gebouwd op basis van Ruby on Rails.
-Dit framework
+Argu is met afstand ons grootste project, en een belangrijke bron van onze inkomsten.
+Het is een SAAS oplossing die we al jaren doorontwikkelen en live houden voor diverse klanten.
+Het ontwikkelen van Argu heeft ons geleerd om webapplicaties te maken die onderhoudbaar, flexibel en schaalbaar zijn.
+
+De stack van Argu bestaat uit diverse diensten, waarvan er twee in het bijzonder relevant zijn:
+
+### Back-end: Apex
+
+De basis van onze back-end van Argu is gebouwd op basis van [Ruby on Rails](/nl/tech/ruby-on-rails).
+Gezien we de wens hadden om de data als [Linked Data](/nl/blog/what-is-linked-data) beschikbaar te stellen, hebben we hier een Open Source library voor geschreven: [Linked_Rails](https://github.com/ontola/linked_rails).
+Dit geeft Apex een aantal unieke kwaliteiten:
+
+- **Alles is linked data**. Zelfs de knopjes, formulieren, en acties zijn beschreven als data. Dit geeft ons een grote flexibiliteit, zodat we dezelfde broncode kunnen gebruiken voor zeer uiteenlopende usecases.
+- **De API is gelijk aan de website**. Als je een pagina kan bekijken, kan je de data van die pagina opvragen met dezelfde URL. Eigenlijk ontzettend logsich (zie ons [artikel over API design](/blog/api-design)), maar gek genoeg vrij zeldzaam.
+
+### Front-end: Libro
+
+Libro is een webapplicatie geschreven in [React](/nl/tech/react) + [Typescript](/nl/tech/typescript).
+Libro staat voor _linked data browser_.
+Dit is wat Libro uniek maakt: het is in de kern niet een gewone app, maar een _data browser_.
+Onder de motorkap werkt libro met de [Link libraries](https://github.com/rescribet/link-redux), ontwikkeld door onze CTO Thom van Kalkeren.
+Libro communiceert exclusief met Apex door linked data (RDF) uit te wisselen.
+We zijn een van de eerste SAAS ondernemingen die linked data zo ver in haar stack heeft gestopt.
+Dat heeft ons [enkele unieke uitdagingen opgeleverd](/blog/full-stack-linked-data/), zoals een performance bottleneck waarvoor we een [nieuw RDF serialisatieformaat hebben ontwikkeld](https://github.com/ontola/hextuples).
