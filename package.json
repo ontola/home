@@ -14,6 +14,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@formspree/react": "^2.2.4",
     "@stitches/react": "^1.2.5",
     "gray-matter": "^4.0.3",
     "next": "^12.0.2",

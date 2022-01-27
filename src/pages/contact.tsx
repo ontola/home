@@ -1,3 +1,4 @@
+import { useForm, ValidationError } from '@formspree/react';
 import { GetStaticProps } from 'next';
 
 import { styled, theme } from '../../stitches.config';
@@ -28,23 +29,40 @@ const Form = styled('form', {
 });
 
 function ContactForm() {
+  const [state, handleSubmit] = useForm('xvolzevw');
+  if (state.succeeded) {
+    return <p>{"Thanks for contacting us! We'll be in touch soon."}</p>;
+  }
   return (
-    <Form action="https://formspree.io/info@ontola.io" method="POST">
+    <Form
+      action="https://formspree.io/f/xvolzevw"
+      method="POST"
+      onSubmit={handleSubmit}
+    >
       <label htmlFor="email">Your email address</label>
       <input
+        required={true}
         id="email"
         type="email"
         name="_replyto"
         placeholder="email@example.com"
       />
+      <ValidationError prefix="Email" field="email" errors={state.errors} />
       <label htmlFor="message">Message</label>
       <textarea
         rows={5}
         id="message"
         name="message"
+        required={true}
         placeholder="Tell us about your project or ask a question."
       ></textarea>
-      <Button style={{ flex: '0' }} type="submit" value="Send">
+      <ValidationError prefix="Message" field="message" errors={state.errors} />
+      <Button
+        style={{ flex: '0' }}
+        type="submit"
+        value="Send"
+        disabled={state.submitting}
+      >
         Send
       </Button>
       <input type="hidden" name="_next" value="/wellbeintouch" />

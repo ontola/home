@@ -10,10 +10,20 @@ const CaseWrapper = styled('a', {
   width: theme.sizes.gridItem,
   height: theme.sizes.gridItem,
   borderRadius: '2.5rem',
-  alignItems: 'flex-end',
+  alignItems: 'flex-start',
   display: 'flex',
+  flexDirection: 'column',
   textDecoration: 'none',
   transition: '.2s box-shadow, .2s transform',
+  padding: '1rem',
+  justifyContent: 'flex-end',
+  overflow: 'hidden',
+  '*': {
+    color: 'white',
+  },
+  p: {
+    marginBottom: '0',
+  },
   '&:hover': {
     boxShadow: '$button',
     transform: 'scale(1.03)',
@@ -21,9 +31,8 @@ const CaseWrapper = styled('a', {
 });
 
 const Title = styled('h2', {
+  justifySelf: 'flex-end',
   color: '#fff',
-  marginLeft: '1.5rem',
-  marginBottom: '1.5rem',
   fontSize: '1.8rem',
   fontWeight: 'bold',
   textShadow: '0 0 0.3rem rgb(0 0 0 / 50%)',
@@ -40,6 +49,7 @@ export function CasePreview({ slug, data }: MDXItem): JSX.Element {
         }}
       >
         <Title>{title}</Title>
+        <p>WOAT</p>
       </CaseWrapper>
     </Link>
   );

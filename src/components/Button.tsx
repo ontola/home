@@ -4,9 +4,10 @@ export const buttonStyle = {
   borderRadius: theme.sizes.radius,
   fontSize: '.8rem',
   padding: '.5rem 1rem',
-  color: '$headerText',
-  background: '$navBg',
-  border: 'solid 1px $headerText',
+  color: 'white',
+  background: theme.colors.gradient,
+  // background: '$navBg',
+  // border: 'solid 1px $headerText',
   transition: 'all .2s',
   boxSizing: 'border-box',
   textDecoration: 'none',
@@ -14,13 +15,13 @@ export const buttonStyle = {
   '&:hover': {
     boxShadow: '$button',
     cursor: 'pointer',
-    background: '$gradientDark',
-    color: 'white',
-    border: 'solid 1px transparent',
+    background: theme.colors.gradientDark,
+    // border: 'solid 1px transparent',
   },
   '&:active': {
     boxShadow: '$buttonInset',
   },
+  border: 'none',
 };
 
 /** Button with header-dependent styling */
