@@ -33,6 +33,8 @@ const FooterContainer = styled('div', {
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'row',
+  padding: '1rem',
+  flexWrap: 'wrap',
 });
 
 const SocialIcon = styled('img', {
@@ -47,6 +49,13 @@ const SocialIcon = styled('img', {
 const FooterLeft = styled('div', {
   flex: 1,
   alignItems: 'center',
+  display: 'flex',
+  marginBottom: '1rem',
+});
+
+const FooterRight = styled('div', {
+  flex: 1,
+  justifyContent: 'flex-end',
   display: 'flex',
 });
 
@@ -88,6 +97,7 @@ export const Columns = styled('div', {
   flex: 1,
   flexDirection: 'row',
   justifyContent: 'space-between',
+  flexWrap: 'wrap',
 });
 
 export function Footer(props: FooterProps) {
@@ -126,18 +136,20 @@ export function Footer(props: FooterProps) {
           <LocaleSwitcher />
           <FooterButton onClick={props.toggleDarkMode}>dark mode</FooterButton>
         </FooterLeft>
-        <a href="https://github.com/ontola/">
-          <SocialIcon src="/images/github.svg" alt="Github" />
-        </a>
-        <a href="https://www.facebook.com/ontola.io/">
-          <SocialIcon src="/images/facebook.svg" alt="Facebook" />
-        </a>
-        <a href="https://www.linkedin.com/company/18715231/">
-          <SocialIcon src="/images/linkedin.svg" alt="LinkedIn" />
-        </a>
-        <a href="https://twitter.com/ontola_io">
-          <SocialIcon src="/images/twitter.svg" alt="Twitter" />
-        </a>
+        <FooterRight>
+          <a href="https://github.com/ontola/">
+            <SocialIcon src="/images/github.svg" alt="Github" />
+          </a>
+          <a href="https://www.facebook.com/ontola.io/">
+            <SocialIcon src="/images/facebook.svg" alt="Facebook" />
+          </a>
+          <a href="https://www.linkedin.com/company/18715231/">
+            <SocialIcon src="/images/linkedin.svg" alt="LinkedIn" />
+          </a>
+          <a href="https://twitter.com/ontola_io">
+            <SocialIcon src="/images/twitter.svg" alt="Twitter" />
+          </a>
+        </FooterRight>
       </FooterContainer>
     </FooterStyled>
   );

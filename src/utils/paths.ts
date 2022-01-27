@@ -12,19 +12,19 @@ export const menuPaths = [
     title: 'Diensten',
   },
   {
-    href: paths.about,
-    title: 'Over ons',
-  },
-  {
-    href: paths.contact,
-    title: 'Contact',
-  },
-  {
     href: paths.cases,
     title: 'Cases',
   },
   {
     href: paths.blog,
     title: 'Blog',
+  },
+  {
+    href: paths.about,
+    title: 'Over ons',
+  },
+  {
+    href: paths.contact,
+    title: 'Contact',
   },
 ];

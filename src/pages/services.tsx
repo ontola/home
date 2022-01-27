@@ -13,6 +13,7 @@ const servicesCount = [1, 2, 3];
 
 const ToolsWrapper = styled('div', {
   display: 'flex',
+  flexDirection: 'row',
 });
 
 export default function Services({ data }: MDXItem) {
@@ -29,12 +30,14 @@ export default function Services({ data }: MDXItem) {
             image={data[`${i}_image`]}
           >
             {data[`${i}_technologies`] && (
-              <ToolsWrapper>
+              <>
                 <p>{data[`${i}_description`]}</p>
-                {data[`${i}_technologies`].map((t: string) => (
-                  <TechPill key={t} technology={t} />
-                ))}
-              </ToolsWrapper>
+                <ToolsWrapper>
+                  {data[`${i}_technologies`].map((t: string) => (
+                    <TechPill key={t} technology={t} />
+                  ))}
+                </ToolsWrapper>
+              </>
             )}
           </FeatureBlock>
         ))}
