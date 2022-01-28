@@ -4,8 +4,8 @@ export const { keyframes, styled, getCssText, theme, css, globalCss } =
   createStitches({
     theme: {
       fonts: {
-        heading: 'inter',
-        body: 'inter',
+        heading: '"inter", "Helvetica Neue", Helvetica, Arial, sans-serif',
+        body: '"inter", "Helvetica Neue", Helvetica, Arial, sans-serif',
         code: 'monospace',
       },
       colors: {
