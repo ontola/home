@@ -1,3 +1,13 @@
 {
-  "headerDescription": "We write software, yo."
+  "headTitle": "Ontola Software Development",
+  "headDescription": "Ontola Software Development",
+  "heroTitle": "Software Development",
+  "heroDescription": "We write software that is designed to change. That way we keep costs low!",
+  "servicesTitle": "Full-service software development",
+  "servicesDescription": "Als jouw full-service digitale partner begeleiden we het softwareontwikkelingsproces van begin tot levering en doorlopende ondersteuning. Met een team van gedreven software developers zorgen we ervoor dat het project op tijd en binnen het gestelde budget wordt opgeleverd.  ",
+  "servicesButton": "Show services",
+  "casesPre": "Our work",
+  "casesTitle": "Cases",
+  "blogsPre": "We like sharing our knowledge",
+  "blogsTitle": "Blogs"
 }
