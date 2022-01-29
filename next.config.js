@@ -9,5 +9,4 @@ module.exports = withBundleAnalyzer({
   poweredByHeader: false,
   trailingSlash: true,
   reactStrictMode: true,
-  target: 'serverless',
 });
