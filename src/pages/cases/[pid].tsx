@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { MDXRemote } from 'next-mdx-remote';
 
 import { Container } from '../../components/Container';
@@ -42,7 +43,10 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const pid = params && params.pid;
   const props = await getPostBySlug(pid as string, locale, 'cases');
   return {
-    props,
+    props: {
+      ...props,
+      ...(await serverSideTranslations(locale as string, ['common', 'home'])),
+    },
   };
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 
 import { globalCss, styled, theme } from '../../stitches.config';
@@ -104,6 +105,7 @@ const LogoStyled = styled('a', {
 
 export const NavigationBar = () => {
   const [show, setShow] = useState(false);
+  const { t } = useTranslation('common');
 
   globalCss({
     variants: {
@@ -132,8 +134,8 @@ export const NavigationBar = () => {
         {/* <MenuButton onClick={() => setShow(!show)}>Menu</MenuButton> */}
         <LinksList show={show}>
           {menuPaths.map((p) => (
-            <NavLink key={p.title} href={p.href}>
-              {p.title}
+            <NavLink key={p.key} href={p.href}>
+              {t(p.key)}
             </NavLink>
           ))}
         </LinksList>

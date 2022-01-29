@@ -1,4 +1,5 @@
 import { globalCss } from '@stitches/react';
+import { appWithTranslation } from 'next-i18next';
 import { AppProps } from 'next/app';
 import { reset } from 'stitches-reset';
 
@@ -11,4 +12,4 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />;
 };
 
-export default MyApp;
+export default appWithTranslation(MyApp);

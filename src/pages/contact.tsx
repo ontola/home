@@ -1,5 +1,6 @@
 import { useForm, ValidationError } from '@formspree/react';
 import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { styled, theme } from '../../stitches.config';
 import { Button } from '../components/Button';
@@ -92,8 +93,14 @@ export default function Contact({ data }: MDXItem) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const props = await getPage('contact', locale);
+  const contact = await getPage('contact', locale);
   return {
-    props,
+    props: {
+      ...contact,
+      ...(await serverSideTranslations(locale as string, [
+        'common',
+        'contact',
+      ])),
+    },
   };
 };
