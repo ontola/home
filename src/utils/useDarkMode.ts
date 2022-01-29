@@ -12,11 +12,14 @@ export enum DarkModeOption {
 }
 
 function checkPrefersDark() {
+  console.log('window!', typeof window);
   if (typeof window !== 'undefined') {
-    return (
+    const hasDark =
       window?.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    );
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+    console.log('hasdark!', hasDark);
+
+    return hasDark;
   }
   return false;
 }
