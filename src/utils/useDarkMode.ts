@@ -12,12 +12,10 @@ export enum DarkModeOption {
 }
 
 function checkPrefersDark() {
-  console.log('window!', typeof window);
   if (typeof window !== 'undefined') {
     const hasDark =
       window?.matchMedia &&
       window.matchMedia('(prefers-color-scheme: dark)').matches;
-    console.log('hasdark!', hasDark);
 
     return hasDark;
   }
@@ -33,11 +31,7 @@ export const useDarkMode = (): [
   Dispatch<boolean | undefined>,
   DarkModeOption
 ] => {
-  let def = false;
-  if (checkPrefersDark()) {
-    def = true;
-  }
-  const [dark, setDark] = useState(def);
+  const [dark, setDark] = useState(checkPrefersDark());
   const [darkLocal, setDarkLocal] = useLocalStorage<DarkModeOption>(
     'darkMode',
     DarkModeOption.auto

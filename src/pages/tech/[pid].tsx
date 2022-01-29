@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { MDXRemote } from 'next-mdx-remote';
 
 import { styled } from '../../../stitches.config';
@@ -30,7 +31,6 @@ export default function TechPosts({ mdxSource, data, cases, slug }: MDXItem) {
         <MDXRemote components={buildComponents()} {...mdxSource} />
         {cases && (
           <>
-            <h2>Voorbeelden:</h2>
             {cases.map((c: MDXItem) => (
               <CasePreview key={c.slug} {...c} />
             ))}
@@ -43,18 +43,21 @@ export default function TechPosts({ mdxSource, data, cases, slug }: MDXItem) {
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const pid = params && params.pid;
-  const props = await getPostBySlug(pid as string, locale, 'tech');
-  if (props.data.cases) {
+  const tech = await getPostBySlug(pid as string, locale, 'tech');
+  if (tech.data.cases) {
     const cases: MDXItem[] = [];
     await Promise.all(
-      props.data.cases.map(async (id: string) =>
+      tech.data.cases.map(async (id: string) =>
         cases.push(await getPostBySlug(id, locale, 'cases'))
       )
     );
-    props.cases = cases;
+    tech.cases = cases;
   }
   return {
-    props,
+    props: {
+      ...tech,
+      ...(await serverSideTranslations(locale as string, ['common', 'home'])),
+    },
   };
 };
 

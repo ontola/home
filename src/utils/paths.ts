@@ -9,22 +9,22 @@ export const paths = {
 export const menuPaths = [
   {
     href: paths.services,
-    title: 'Diensten',
+    key: 'services',
   },
   {
+    key: 'cases',
     href: paths.cases,
-    title: 'Cases',
   },
   {
     href: paths.blog,
-    title: 'Blog',
+    key: 'blog',
   },
   {
     href: paths.about,
-    title: 'Over ons',
+    key: 'about',
   },
   {
     href: paths.contact,
-    title: 'Contact',
+    key: 'contact',
   },
 ];

@@ -1,5 +1,6 @@
 import { styled } from '@stitches/react';
 import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { MDXRemote } from 'next-mdx-remote';
 import Image from 'next/image';
 
@@ -49,8 +50,11 @@ const TeamPhoto = styled('img', {
 });
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const props = await getPage('about', locale);
+  const aboutProps = await getPage('about', locale);
   return {
-    props,
+    props: {
+      ...aboutProps,
+      ...(await serverSideTranslations(locale as string, ['common', 'home'])),
+    },
   };
 };

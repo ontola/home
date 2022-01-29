@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 
 import { styled, theme } from '../../stitches.config';
@@ -101,6 +102,8 @@ export const Columns = styled('div', {
 });
 
 export function Footer(props: FooterProps) {
+  const { t } = useTranslation('common');
+
   return (
     <FooterStyled>
       <FooterContainer>
@@ -112,20 +115,20 @@ export function Footer(props: FooterProps) {
               </a>
             </Link>
             {menuPaths.map((p) => (
-              <Link key={p.title} href={p.href}>
-                {p.title}
+              <Link key={p.key} href={p.href}>
+                {t(p.key)}
               </Link>
             ))}
           </FooterColumn>
           <FooterColumn>
             <h3>Contact</h3>
-            <a href="https://calendly.com/ontola/30min">Plan een afspraak</a>
-            <a href="tel:+31636020942">06 36020942</a>
+            <a href="https://calendly.com/ontola/30min">{t('plan')}</a>
+            <a href="tel:+31636020942">{t('call')}</a>
             <a href="mailto:info@ontola.io">info@ontola.io</a>
           </FooterColumn>
           <FooterColumn>
-            <h3>Over</h3>
-            <a href="https://argu.co">Onderdeel van Argu B.V.</a>
+            <h3>{t('about')}</h3>
+            <a href="https://argu.co">{t('partOf')}</a>
             <a href="https://goo.gl/maps/rN2ZM1xpz7SFpH7J8">
               <p>Maliebaan 100</p>
               <p>3581 CZ, Utrecht</p>
@@ -142,7 +145,9 @@ export function Footer(props: FooterProps) {
             </a>
           </Link>
           <LocaleSwitcher />
-          <FooterButton onClick={props.toggleDarkMode}>dark mode</FooterButton>
+          <FooterButton onClick={props.toggleDarkMode}>
+            {t('darkMode')}
+          </FooterButton>
         </FooterLeft>
         <FooterRight>
           <a href="https://github.com/ontola/">

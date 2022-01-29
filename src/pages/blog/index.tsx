@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 
 import { styled, theme } from '../../../stitches.config';
@@ -17,10 +18,10 @@ const BlogPostPreviewStyling = styled('a', {
   maxWidth: '30rem',
   display: 'block',
   textDecoration: 'none',
-  padding: '2rem',
+  padding: '1rem',
   borderRadius: theme.sizes.radius,
   transition: '.2s box-shadow, .2s background',
-  marginLeft: '-2rem',
+  marginLeft: '-1rem',
   '&:hover': {
     background: '$bg0',
     boxShadow: '$button',
@@ -77,6 +78,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       posts,
+      ...(await serverSideTranslations(locale as string, ['common', 'home'])),
     },
   };
 };

@@ -1,4 +1,6 @@
 import { GetStaticProps } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { CasePreview } from '../../components/CasePreview';
 import { CasesWrapper } from '../../components/CasesWrapper';
@@ -13,13 +15,14 @@ interface CaseProps {
 }
 
 const CasesIndex = ({ posts }: CaseProps) => {
+  const { t } = useTranslation('cases');
+
   return (
-    <Main meta={<Meta title="Ontola Cases" description="Look at our cases" />}>
+    <Main
+      meta={<Meta title={t('headTitle')} description={t('headDescription')} />}
+    >
       <Header title="Cases">
-        <p>
-          Lees meer over de uiteenlopende opdrachten waar wij aan hebben
-          gewerkt. Je zal je verbazen van wat er allemaal mogelijk is!
-        </p>
+        <p>{t('heroDescription')}</p>
       </Header>
       <Container big>
         <CasesWrapper>
@@ -39,6 +42,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       posts,
+      ...(await serverSideTranslations(locale as string, ['common', 'cases'])),
     },
   };
 };
