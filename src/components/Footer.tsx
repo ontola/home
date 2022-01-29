@@ -106,7 +106,11 @@ export function Footer(props: FooterProps) {
       <FooterContainer>
         <Columns>
           <FooterColumn>
-            <h3>Ontola</h3>
+            <Link href="/" passHref>
+              <a>
+                <h3>Ontola</h3>
+              </a>
+            </Link>
             {menuPaths.map((p) => (
               <Link key={p.title} href={p.href}>
                 {p.title}
@@ -132,7 +136,11 @@ export function Footer(props: FooterProps) {
       <FooterDivider />
       <FooterContainer>
         <FooterLeft>
-          <LogoWhite src="/images/logo_white.svg" alt="Ontola logo" />
+          <Link href="/" passHref>
+            <a>
+              <LogoWhite src="/images/logo_white.svg" alt="Ontola logo" />
+            </a>
+          </Link>
           <LocaleSwitcher />
           <FooterButton onClick={props.toggleDarkMode}>dark mode</FooterButton>
         </FooterLeft>

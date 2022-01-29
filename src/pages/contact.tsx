@@ -20,11 +20,16 @@ const Form = styled('form', {
   },
 
   'input, textarea': {
+    background: theme.colors.bg0,
     marginBottom: '1rem',
     borderRadius: '20px',
     padding: '1rem',
-    border: 'none',
+    border: `1px solid ${theme.colors.bg2}`,
     fontSize: '1rem',
+    color: theme.colors.text,
+    '&:focus': {
+      outline: `1px solid ${theme.colors.text}`,
+    },
   },
 });
 

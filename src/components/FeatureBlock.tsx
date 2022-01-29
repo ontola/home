@@ -24,7 +24,7 @@ const TextContent = styled('div', {
 const ImageWrapper = styled('div', {
   gridArea: 'image',
   maxWidth: '100%',
-  width: '40rem',
+  width: '45rem',
   // height: '30rem',
   position: 'relative',
   top: '2rem',

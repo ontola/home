@@ -2,9 +2,9 @@ import { styled, theme } from '../../stitches.config';
 
 export const buttonStyle = {
   borderRadius: theme.sizes.radius,
-  fontSize: '.8rem',
+  fontSize: '1rem',
   padding: '.5rem 1rem',
-  color: 'white',
+  color: 'white !important',
   background: theme.colors.gradient,
   // background: '$navBg',
   // border: 'solid 1px $headerText',

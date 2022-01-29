@@ -18,6 +18,8 @@ export const { keyframes, styled, getCssText, theme, css, globalCss } =
         bg1: '#f4f4f4',
         bg2: '#d7d7d7',
         nav: 'rgba(255,255,255,0.7)',
+        navContrast: 'rgba(0,0,0,0.05)',
+        navContrast2: 'rgba(0,0,0,0.1)',
         primary: '#134C69',
         footerBg: '#134C69',
         c2a: 'rgba(152,99,219,1)',
@@ -72,7 +74,10 @@ export const darkTheme = createTheme({
     bg1: '#222222',
     bg2: '#333333',
     nav: 'rgba(0,0,0,0.7)',
+    navContrast: 'rgba(255,255,255,0.2)',
+    navContrast2: 'rgba(255,255,255,0.4)',
     footerBg: 'black',
+    primary: '#5cc8ff',
   },
 });
 

@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 
+import { styled } from '../../../stitches.config';
 import { CasePreview } from '../../components/CasePreview';
 import { Container } from '../../components/Container';
 import { Header } from '../../components/Header';
@@ -9,10 +10,20 @@ import { Main } from '../../templates/Main';
 import { buildComponents } from '../../utils/buildComponents';
 import { MDXItem, getAllPaths, getPostBySlug } from '../../utils/getPosts';
 
-export default function TechPosts({ mdxSource, data, cases }: MDXItem) {
+const TechImg = styled('img', {
+  width: '15rem',
+  alignSelf: 'center',
+  justifySelf: 'center',
+  margin: 'auto',
+});
+
+export default function TechPosts({ mdxSource, data, cases, slug }: MDXItem) {
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
-      <Header title={data.title} image={data.image}>
+      <Header
+        title={data.title}
+        customImage={<TechImg src={`/images/tech/${slug}.svg`} />}
+      >
         <p>{data.description}</p>
       </Header>
       <Container>

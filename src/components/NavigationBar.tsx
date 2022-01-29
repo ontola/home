@@ -28,12 +28,17 @@ interface NavLinkProps {
 
 const NavLinkStyled = styled('a', {
   color: '$headerText',
-  marginRight: '1rem',
+  // marginRight: '1rem',
   display: 'block',
   textDecoration: 'none',
   fontSize: '.9rem',
+  borderRadius: '.5rem',
+  padding: '.5rem',
   '&:hover': {
-    textDecoration: 'underline',
+    background: theme.colors.navContrast,
+  },
+  '&:active': {
+    background: theme.colors.navContrast2,
   },
 });
 
