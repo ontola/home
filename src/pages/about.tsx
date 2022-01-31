@@ -3,12 +3,23 @@ import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { MDXRemote } from 'next-mdx-remote';
 
+import { theme } from '../../stitches.config';
 import { Container } from '../components/Container';
 import { Header } from '../components/Header';
+import { TeamMember } from '../components/TeamMember';
+import { team } from '../data/team';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 import { buildComponents } from '../utils/buildComponents';
 import { MDXItem, getPage } from '../utils/getPosts';
+
+const Members = styled('div', {
+  display: 'grid',
+  gridTemplateColumns: `repeat(auto-fit, minmax(${theme.sizes.gridItemSmall}, 1fr))`,
+  gridGap: '3rem',
+  paddingTop: '3rem',
+  marginBottom: '7rem',
+});
 
 export default function About({ mdxSource, data }: MDXItem) {
   return (
@@ -23,6 +34,12 @@ export default function About({ mdxSource, data }: MDXItem) {
       </Header>
       <Container>
         <MDXRemote components={buildComponents()} {...mdxSource} />
+        <h2>Ons Team</h2>
+        <Members>
+          {Object.keys(team).map((member) => (
+            <TeamMember key={member} member={member} />
+          ))}
+        </Members>
       </Container>
     </Main>
   );
