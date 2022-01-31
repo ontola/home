@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 
 import { styled, theme } from '../../stitches.config';
-import { menuPaths } from '../utils/paths';
+import { menuPaths, paths } from '../utils/paths';
 import LocaleSwitcher from './LocaleSwitcher';
 
 const FooterStyled = styled('div', {
@@ -121,13 +121,21 @@ export function Footer(props: FooterProps) {
             ))}
           </FooterColumn>
           <FooterColumn>
-            <h3>Contact</h3>
+            <Link href={paths.contact} passHref>
+              <a>
+                <h3>{t('contact')}</h3>
+              </a>
+            </Link>
             <a href="https://calendly.com/ontola/30min">{t('plan')}</a>
             <a href="tel:+31636020942">{t('call')}</a>
             <a href="mailto:info@ontola.io">info@ontola.io</a>
           </FooterColumn>
           <FooterColumn>
-            <h3>{t('about')}</h3>
+            <Link href={paths.about} passHref>
+              <a>
+                <h3>{t('about')}</h3>
+              </a>
+            </Link>
             <a href="https://argu.co">{t('partOf')}</a>
             <a href="https://goo.gl/maps/rN2ZM1xpz7SFpH7J8">
               <p>Maliebaan 100</p>

@@ -24,7 +24,7 @@ const Form = styled('form', {
   'input, textarea': {
     background: theme.colors.bg0,
     marginBottom: '1rem',
-    borderRadius: '20px',
+    borderRadius: theme.sizes.radius,
     padding: '1rem',
     border: `1px solid ${theme.colors.bg2}`,
     fontSize: '1rem',

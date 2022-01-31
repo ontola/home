@@ -4,6 +4,7 @@ import { MDXRemote } from 'next-mdx-remote';
 
 import { styled } from '../../../stitches.config';
 import { CasePreview } from '../../components/CasePreview';
+import { CasesWrapper } from '../../components/CasesWrapper';
 import { Container } from '../../components/Container';
 import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
@@ -29,14 +30,17 @@ export default function TechPosts({ mdxSource, data, cases, slug }: MDXItem) {
       </Header>
       <Container>
         <MDXRemote components={buildComponents()} {...mdxSource} />
-        {cases && (
-          <>
+      </Container>
+      {cases && cases.length > 0 && (
+        <Container big>
+          <h2>Cases</h2>
+          <CasesWrapper>
             {cases.map((c: MDXItem) => (
               <CasePreview key={c.slug} {...c} />
             ))}
-          </>
-        )}
-      </Container>
+          </CasesWrapper>
+        </Container>
+      )}
     </Main>
   );
 }

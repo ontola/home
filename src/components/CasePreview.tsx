@@ -46,11 +46,10 @@ export function CasePreview({ slug, data }: MDXItem): JSX.Element {
     <Link href={`/cases/${slug}`} passHref>
       <CaseWrapper
         style={{
-          backgroundImage: `url(/images/cases/preview_${slug}.png)`,
+          backgroundImage: `url(/images/cases/${slug}_preview.png)`,
         }}
       >
         <Title>{title}</Title>
-        <p>WOAT is deze hoppaaa</p>
       </CaseWrapper>
     </Link>
   );

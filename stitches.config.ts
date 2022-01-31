@@ -42,6 +42,7 @@ export const { keyframes, styled, getCssText, theme, css, globalCss } =
         containerBig: '50rem',
         // containerBig / 2 - 3rem
         gridItem: '22rem',
+        gridItemSmall: '10rem',
         radius: '.6rem',
       },
       shadows: {

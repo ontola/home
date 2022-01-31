@@ -87,6 +87,7 @@ const LinksList = styled('div', {
 });
 
 const MenuButtonStyles = {
+  alignSelf: 'center',
   '@media (min-width: 600px)': {
     display: 'none',
   },

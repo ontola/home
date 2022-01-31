@@ -4,6 +4,7 @@ export const paths = {
   cases: '/cases',
   services: '/services',
   about: '/about',
+  tech: '/tech',
 };
 
 export const menuPaths = [
@@ -14,6 +15,10 @@ export const menuPaths = [
   {
     key: 'cases',
     href: paths.cases,
+  },
+  {
+    href: paths.tech,
+    key: 'tech',
   },
   {
     href: paths.blog,
