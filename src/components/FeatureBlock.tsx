@@ -15,7 +15,7 @@ const TextContent = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
-  background: '$bg',
+  background: theme.colors.bg0,
   height: 'fit-content',
   borderRadius: '20px',
   zIndex: theme.zIndices.featureTextBlock,

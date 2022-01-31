@@ -1,5 +1,6 @@
 import { useForm, ValidationError } from '@formspree/react';
 import { GetStaticProps } from 'next';
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { styled, theme } from '../../stitches.config';
@@ -35,9 +36,11 @@ const Form = styled('form', {
 });
 
 function ContactForm() {
+  const { t } = useTranslation('contact');
+
   const [state, handleSubmit] = useForm('xvolzevw');
   if (state.succeeded) {
-    return <p>{"Thanks for contacting us! We'll be in touch soon."}</p>;
+    return <p>{t('thanks')}</p>;
   }
   return (
     <Form
@@ -45,7 +48,7 @@ function ContactForm() {
       method="POST"
       onSubmit={handleSubmit}
     >
-      <label htmlFor="email">Your email address</label>
+      <label htmlFor="email">{t('email')}</label>
       <input
         required={true}
         id="email"
@@ -54,13 +57,13 @@ function ContactForm() {
         placeholder="email@example.com"
       />
       <ValidationError prefix="Email" field="email" errors={state.errors} />
-      <label htmlFor="message">Message</label>
+      <label htmlFor="message">{t('messageTitle')}</label>
       <textarea
         rows={5}
         id="message"
         name="message"
         required={true}
-        placeholder="Tell us about your project or ask a question."
+        placeholder={t('messagePlaceholder')}
       ></textarea>
       <ValidationError prefix="Message" field="message" errors={state.errors} />
       <Button
@@ -69,7 +72,7 @@ function ContactForm() {
         value="Send"
         disabled={state.submitting}
       >
-        Send
+        {t('send')}
       </Button>
       <input type="hidden" name="_next" value="/wellbeintouch" />
       <input type="hidden" name="_subject" value="Ontola.io" />

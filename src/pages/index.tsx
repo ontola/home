@@ -40,7 +40,9 @@ const Home = ({ cases, blogs }: HomeProps) => {
           image={'photos/joep-arthur.jpg'}
         >
           <p>{t('servicesDescription')}</p>
-          <ButtonLink href={paths.services}>{t('servicesButton')}</ButtonLink>
+          <Link href={paths.services} passHref>
+            <ButtonLink href={paths.services}>{t('servicesButton')}</ButtonLink>
+          </Link>
         </FeatureBlock>
         <SectionHeading small={t('casesPre')} title={t('casesTitle')} />
         <CasesWrapper>

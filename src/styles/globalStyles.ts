@@ -1,3 +1,5 @@
+import { theme } from '../../stitches.config';
+
 export const globalStyles = {
   '*': {
     boxSizing: 'border-box',
@@ -8,7 +10,7 @@ export const globalStyles = {
     fontFamily: '$body',
     color: '$text',
     height: '100%',
-    background: '$bg',
+    background: theme.colors.bg0,
   },
   'h1, h2, h3, h4': {
     fontFamily: '$heading',

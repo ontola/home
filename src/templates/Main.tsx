@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { caseTheme, darkTheme, styled } from '../../stitches.config';
+import { caseTheme, darkTheme, styled, theme } from '../../stitches.config';
 import { Footer } from '../components/Footer';
 import { NavigationBar } from '../components/NavigationBar';
 import { useDarkMode } from '../utils/useDarkMode';
@@ -17,7 +17,7 @@ const Content = styled('div', {
 });
 
 const MainStyled = styled('div', {
-  background: '$bg',
+  background: theme.colors.bg0,
   display: 'flex',
   flexDirection: 'column',
   minHeight: '100vh',
