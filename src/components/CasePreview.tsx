@@ -50,7 +50,7 @@ export function CasePreview({ slug, data }: MDXItem): JSX.Element {
         }}
       >
         <Title>{title}</Title>
-        <p>WOAT</p>
+        <p>WOAT is deze hoppaaa</p>
       </CaseWrapper>
     </Link>
   );

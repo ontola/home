@@ -17,7 +17,7 @@ const CirclesWrapper = styled('div', {
   height: '30rem',
   position: 'absolute',
   top: 0,
-  overflow: 'visible',
+  overflow: 'hidden',
 });
 
 const ImageWrapper = styled('div', {
@@ -61,7 +61,7 @@ const HeaderWrapper = styled('div', {
   paddingTop: '10rem',
   paddingBottom: '5rem',
   marginBottom: '5rem',
-  overflow: 'hidden',
+  overflow: 'visible',
   position: 'relative',
   color: theme.colors.headerText,
   width: '100%',

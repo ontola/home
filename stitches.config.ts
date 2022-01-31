@@ -88,5 +88,7 @@ export const caseTheme = (color: string) =>
       headerBg: color,
       nav: 'transparent',
       circlesBg: 'white',
+      footerBg: 'black',
+      bg0: 'white',
     },
   });

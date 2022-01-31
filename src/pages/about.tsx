@@ -2,21 +2,15 @@ import { styled } from '@stitches/react';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { MDXRemote } from 'next-mdx-remote';
-import Image from 'next/image';
 
 import { Container } from '../components/Container';
-import { FeatureBlock } from '../components/FeatureBlock';
 import { Header } from '../components/Header';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
+import { buildComponents } from '../utils/buildComponents';
 import { MDXItem, getPage } from '../utils/getPosts';
 
 export default function About({ mdxSource, data }: MDXItem) {
-  const components = {
-    Image,
-    FeatureBlock,
-  };
-
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
       <Header
@@ -28,7 +22,7 @@ export default function About({ mdxSource, data }: MDXItem) {
         <p>{data.description}</p>
       </Header>
       <Container>
-        <MDXRemote components={components} {...mdxSource} />
+        <MDXRemote components={buildComponents()} {...mdxSource} />
       </Container>
     </Main>
   );
