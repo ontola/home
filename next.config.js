@@ -3,18 +3,16 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 // Should import, but bug in AWS deploy
-// const { i18n } = require('./next-i18next.config');
+const { i18n } = require('./next-i18next.config');
 
 module.exports = withBundleAnalyzer({
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'nl'],
-  },
+  i18n,
   reloadOnPrerender: true,
   poweredByHeader: false,
   trailingSlash: true,
   reactStrictMode: true,
   // Fixes a problem with building on AWS Amplify
   // https://answers.netlify.com/t/build-with-next-i18next-error-error-cannot-find-module-next-i18next-config-js/34132/4
+  // https://github.com/aws-amplify/amplify-console/issues/2427
   target: 'experimental-serverless-trace',
 });
