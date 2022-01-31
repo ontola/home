@@ -1,5 +1,5 @@
 import { styled } from '../../stitches.config';
-import { team, TeamMember } from '../data/team';
+import { team, TeamMemberType } from '../data/team';
 import { MetaData } from '../utils/getPosts';
 
 const Detail = styled('div', {
@@ -7,7 +7,7 @@ const Detail = styled('div', {
 });
 
 export function Details(data: MetaData) {
-  const member = team[data.author] as TeamMember;
+  const member = team[data.author] as TeamMemberType;
   return (
     <Detail>
       {new Date(data.date).toLocaleDateString()} -{' '}
