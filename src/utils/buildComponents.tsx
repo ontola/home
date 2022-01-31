@@ -3,6 +3,7 @@ import Image, { ImageProps } from 'next/image';
 import { styled } from '../../stitches.config';
 import { BigImage } from '../components/BigImage';
 import { FeatureBlock } from '../components/FeatureBlock';
+import { TechPill } from '../components/TechPill';
 
 const ImageWrapper = styled('div', {
   position: 'relative',
@@ -28,6 +29,7 @@ export function buildComponents() {
   return {
     img,
     FeatureBlock,
+    TechPill,
     BigImage,
   };
 }

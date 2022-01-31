@@ -26,6 +26,7 @@ const Small = styled('p', {
 const Heading = styled('h2', {
   fontSize: '2.8rem',
   margin: 0,
+  marginBottom: '2rem',
 });
 
 export function SectionHeading({

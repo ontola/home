@@ -5,6 +5,7 @@ import { styled, theme } from '../../stitches.config';
 interface ToolProps {
   // ID of the tech. Should map the route of the mdx file.
   technology: string;
+  big?: boolean;
 }
 
 function techToString(tech: string): string {
@@ -15,7 +16,9 @@ function techToString(tech: string): string {
 }
 
 const ToolStyled = styled('a', {
-  color: theme.colors.text,
+  span: {
+    color: 'black',
+  },
   fontSize: theme.fontSizes.small,
   border: '1px solid',
   borderColor: theme.colors.bg2,
@@ -28,11 +31,28 @@ const ToolStyled = styled('a', {
   flexDirection: 'column',
   // capitalize the first letter
   textTransform: 'capitalize',
+  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+
+  variants: {
+    big: {
+      true: {
+        padding: '1rem',
+
+        span: {
+          fontSize: '1rem',
+          paddingTop: '.5rem',
+          color: 'black',
+        },
+        img: {
+          flex: 1,
+        },
+      },
+    },
+  },
 
   '&:hover': {
-    color: theme.colors.text,
+    background: 'white',
     borderColor: theme.colors.text1,
-    background: theme.colors.bg0,
   },
   '&:active': {
     borderColor: theme.colors.text,
@@ -45,13 +65,13 @@ const ToolStyled = styled('a', {
 });
 
 /** Small preview of a technology. Shows icon and name. */
-export function TechPill({ technology }: ToolProps) {
+export function TechPill({ technology, big }: ToolProps) {
   const title = techToString(technology);
   return (
     <Link href={`/tech/${technology}`} passHref>
-      <ToolStyled>
+      <ToolStyled big={big}>
         <img src={`/images/tech/${technology}.svg`} alt={title} />
-        {title}
+        <span>{title}</span>
       </ToolStyled>
     </Link>
   );

@@ -10,6 +10,8 @@ interface HeaderProps {
   children?: React.ReactNode;
   /** React element that appears after the text. */
   customImage?: React.ReactNode;
+  /** URL of floating PNG  */
+  floatingImage?: string;
 }
 
 const CirclesWrapper = styled('div', {
@@ -95,6 +97,16 @@ const HeaderContainer = styled('div', {
   },
 });
 
+const FloatingImg = styled('img', {
+  maxWidth: '100%',
+  '@media (min-width: 800px)': {
+    height: '24rem',
+    marginBottom: '-21rem',
+    position: 'absolute',
+    right: 0,
+  },
+});
+
 const HeaderText = styled('div', {
   display: 'flex',
   flexDirection: 'column',
@@ -108,6 +120,7 @@ const HeaderHeading = styled('h1', {
 });
 
 export function Header({
+  floatingImage,
   customImage,
   children,
   title,
@@ -137,6 +150,7 @@ export function Header({
             />
           </ImageWrapper>
         )}
+        {floatingImage && <FloatingImg src={floatingImage} />}
         {customImage}
       </HeaderContainer>
     </HeaderWrapper>

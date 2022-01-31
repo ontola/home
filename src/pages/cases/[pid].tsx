@@ -17,18 +17,7 @@ export default function Case({ mdxSource, data, slug }: MDXItem) {
     >
       <Header
         title={data.title}
-        customImage={
-          <img
-            style={{
-              height: '24rem',
-              marginBottom: '-21rem',
-              position: 'absolute',
-              right: 0,
-            }}
-            src={`/images/cases/header_${slug}.png`}
-            alt="Cases"
-          />
-        }
+        floatingImage={`/images/cases/${slug}_header.png`}
       >
         <p>{data.description}</p>
       </Header>
