@@ -11,25 +11,25 @@ export const team: { [key: string]: TeamMemberType } = {
     github: 'https://github.com/joepio',
     title: 'CEO',
   },
-  polle: {
-    name: 'Polle Pas',
+  thom: {
+    name: 'Thom van Kalkeren',
     github: 'https://github.com/joepio',
-    title: 'Front-end developer',
-  },
-  arthur: {
-    name: 'Arthur Dingemans',
-    github: 'https://github.com/joepio',
-    title: 'Full-stack developer',
+    title: 'CTO',
   },
   michiel: {
     name: 'Michiel van den Ingh',
     github: 'https://github.com/joepio',
     title: 'COO',
   },
-  thom: {
-    name: 'Thom van Kalkeren',
+  arthur: {
+    name: 'Arthur Dingemans',
     github: 'https://github.com/joepio',
-    title: 'CTO',
+    title: 'Full-stack developer',
+  },
+  polle: {
+    name: 'Polle Pas',
+    github: 'https://github.com/joepio',
+    title: 'Front-end developer',
   },
   job: {
     name: 'Job Eijdems',
