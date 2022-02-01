@@ -1,0 +1,85 @@
+---
+title: "Atomic Data"
+description: "An ambitious, fully open source initiative to increase data ownership and make apps work better together."
+color: "#000"
+---
+
+## Decentralizing the Internet Again
+
+In 1989, Tim Berners-Lee published the first website.
+In doing so, he had a vision of a decentralized internet, a web, where people would host their own websites on their own servers.
+Now we're more than 30 years on, and the web is more centralized than ever.
+A handful of tech giants manage our data, determine what our digital interactions look like, and in what order we read our news.
+We need to be able to do that differently.
+
+Tech giants are keeping us on board by connecting our own data.
+For example, your Google Calendar works perfectly with your GMail, and you can quickly attach your Google Drive files.
+As a tech giant, you have the data to link all of this together, making users dependent on your services.
+Fortunately, there is another way to solve this: **standardize**.
+With good standards, we can move our data from App to App, so you don't get stuck in the ecosystems of the tech giants.
+In addition, by standardizing a lot more, you can do things you can't do now, like search through all your data, see who changed what and when, open the same data in different apps, and more...
+But how do we get there?
+What do standards need to meet before we can live in this tech utopia?
+
+## From Linked Data to Atomic Data
+
+Tim Berners-Lee gained an important insight 10 years after the first website: the same links we use for websites, we can also use in _data_.
+Thus _Linked Data_ was born.
+Linked Data makes it possible to use the entire web as a large, connected database.
+With that, you could create apps that are completely decentralized, that work much better together, where people themselves have full control over their data.
+
+At least, that's the theory.
+In practice, it is still very difficult to build apps with Linked Data.
+We can know, because as Ontola we went [all-in](/blog/full-stack-linked-data) on this technology a few years ago.
+We rewrote our e-democracy platform [Argu](https://argu.co) and used Linked Data for literally every button and menu.
+This was a big job, and we had to create numerous tools to achieve this goal.
+From this year-long development process, we learned how to make Linked Data even better - and most importantly, much _easier_.
+
+Our CEO Joep Meindertsma started working on a new form of Linked Data in 2020 in his spare time.
+The goal: to find an easier, more powerful abstraction that would allow developers to more quickly create apps that work well together.
+Grabbing the best stuff from Linked Data, but improving where possible.
+After a few months, there was a [comprehensive documentation](https://docs.atomicdata.dev/) of Atomic Data online, and not much later the first server, libraries and browser.
+As a result, Atomic Data quickly became a pretty mature system, with solid implementations and various tools.
+
+## Why Atomic Data
+
+- **Faster Standardization**. Tuning how to shape a particular model is too often a time-consuming task. As a result, there is _too little standardization_, and that limits how well applications can work together. Atomic Data is designed to share data models quickly and easily.
+- **Faster development**. Existing tools (such as Atomic-Server) allow you to get started quickly, and you don't have to reinvent the wheel. Storage, searching, versioning, rights management.... It's all already taken care of.
+- **Convertible to virtually anything**. You can export Atomic Data to virtually any format: JSON, XML, JSON-LD, RDF, Turtle, N-Triples...
+- **Easy to share**. All objects have links, and these links can be looked up - just like websites. The data itself describes where you can find more information. This makes Atomic Data very sharable.
+- **Verifiable and correctable**. Atomic Data introduces [Commits](https://docs.atomicdata.dev/commits/intro.html), which stores every change. This creates a history of each object, so you can always determine who did what and when.
+- **Authentication and authorization**. Control who has access to which piece of data.
+
+## The best of linked data, JSON and type safety
+
+- **The simplicity of JSON**. Developers know it, and it works everywhere.
+- **Type safety**. You can be sure your data has a certain type.
+- **Linked data**. Link your data together - even if it's on different machines.
+
+<img src="/images/cases/atomic_venn.svg" />
+
+## What we built
+
+- **Atomic-Server**](https://crates.io/crates/atomic-server): a super-fast database + server, written in Rust.
+- [**Atomic-Data-Browser**](https://github.com/joepio/atomic-data-browser): front-end application for management and display of Atomic Data.
+- [**Atomic-CLI**](https://crates.io/crates/atomic-cli): convenient command-line interface tool
+- [**Atomic-lib**](https://crates.io/crates/atomic_lib): library for Rust
+- [**@tomic/react**](https://www.npmjs.com/package/@tomic/react): library for React, with handy template
+- [**@tomic/lib**](https://www.npmjs.com/package/@tomic/lib): library for javascript / typescript
+- [**Documentation**](https://docs.atomicdata.dev/): over 80 pages of technical specifications and examples.
+
+## Atomic Server
+
+Atomic Data is a modular specification, which means you can grab bits from it that you find useful, but you don't have to use everything.
+If you want to get started quickly, we recommend using our Atomic-Server, which has all the specs implemented.
+
+Atomic-Server is a powerful, extremely fast database + server with an incredible amount of features.
+Completely free and open source.
+Written in the Rust programming language.
+The front-end is written in [Typescript](/en/tech/typescript) with [React](/en/tech/react).
+
+Atomic-Server is designed to be the personal server of the future: a lightweight application that you can easily run at home on a cheap computer, like a Raspberri Pi or an old smartphone.
+
+[Read how to install Atomic-Server here](https://github.com/joepio/atomic-data-rust/).
+
+<video controls src="https://user-images.githubusercontent.com/2183313/139728539-d69b899f-6f9b-44cb-a1b7-bbab68beac0c.mp4"/>
