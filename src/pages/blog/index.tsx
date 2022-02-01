@@ -20,12 +20,20 @@ const BlogPostPreviewStyling = styled('a', {
   textDecoration: 'none',
   padding: '1rem',
   borderRadius: theme.sizes.radius,
-  transition: '.2s box-shadow, .2s background',
+  transition: '.2s box-shadow, .2s background, .2s border',
   marginLeft: '-1rem',
   marginBottom: '2rem',
+  border: '1px solid $bg',
+  borderColor: theme.colors.bg0,
+
   '&:hover': {
     background: '$bg0',
-    boxShadow: '$button',
+    borderColor: theme.colors.bg2,
+  },
+
+  '&:active': {
+    transition: '0 all',
+    borderColor: theme.colors.text,
   },
   h3: {
     marginTop: 0,

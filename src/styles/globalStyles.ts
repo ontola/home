@@ -13,7 +13,8 @@ export const globalStyles = {
     background: theme.colors.bg0,
   },
   'h1, h2, h3, h4': {
-    fontFamily: '$heading',
+    '--fontfamily': theme.fonts.heading,
+    fontFamily: 'var(--fontfamily, sans-serif)',
     fontWeight: 'bold',
     color: '$text',
     margin: 0,
@@ -58,7 +59,7 @@ export const globalStyles = {
     fontWeight: 'bold',
   },
   'p code, pre code': {
-    fontFamily: '$code',
+    fontFamily: theme.fonts.code,
     color: '$text',
     background: '$bg1',
     border: 'solid 1px $bg2',
