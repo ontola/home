@@ -27,14 +27,14 @@ export default function About({ mdxSource, data }: MDXItem) {
       <Header
         title={data.title}
         customImage={
-          <TeamPhoto alt="Ontola teamfoto" src="/images/photos/team.png" />
+          <TeamPhoto alt="Ontola team" src="/images/photos/team.png" />
         }
       >
         <p>{data.description}</p>
       </Header>
       <Container>
         <MDXRemote components={buildComponents()} {...mdxSource} />
-        <h2>Ons Team</h2>
+        <h2>Team</h2>
         <Members>
           {Object.keys(team).map((member) => (
             <TeamMember key={member} member={member} />
