@@ -1,0 +1,76 @@
+---
+short: "Rest"
+title: "Developing Software with Rest"
+description: "What is Rest, and when should you use it?"
+cases: ["atomic-data",]
+---
+
+Rust is a modern programming language that is rapidly gaining popularity.
+It is _low-level_ language with _high-level_ features, which compiles directly to machine code (assembly).
+
+## Why use Rust
+
+- **Safe**. Rust introduces a unique solution to manage memory called _ownership_. This ensures that Rust applications are typically very secure.
+- **Fast**. Rust allows you to get the last bit of performance out of your machine. It is therefore no surprise that in most benchmarks Rust applications come out as the very fastest.
+- **Compact**. A Rust application can be compiled into small binaries (executables).
+- **Run anywhere**. You can compile Rust to practically any platform.
+- **No runtime required**. You can run a Rust application _without external runtime_, unlike languages like Python, Javascript and Java.
+- **Blessed programmers**. Rust has been [voted](https://insights.stackoverflow.com/survey/2021#technology-most-loved-dreaded-and-wanted) the most popular programming language every year since 2016, and we understand why.
+
+## Ownership and the Borrow Checker
+
+The most distinctive new invention of Rust, is the concept of _Ownership_ (ownership).
+It is a solution to a fundamental aspect of how computers work today: keeping track of what data can be released into your working memory.
+As an application runs, it typically loads more and more data into working memory.
+Every computation needs working memory.
+It is the responsibility of the software to free up this working memory again when it can.
+Traditionally, two solutions to this problem were:
+
+1. **Manual memory management**. The programmer must indicate in his code when a piece of memory can be freed. This is a cumbersome and above all error-prone process, which can cause nasty (unsafe) bugs. For example [Microsoft indicated that 70% of the security issues come from memory management](https://www.zdnet.com/article/microsoft-70-percent-of-all-security-bugs-are-memory-safety-issues/).
+1. **Garbage Collection**. The programming language's _runtime_ occasionally removes pieces of data from working memory that are no longer needed. This is nice and easy for the programmer, but it causes your code to become _trager_, because your application now has to spend time checking what can be discarded.
+
+Rust introduces a third solution to memory management: _Ownership_.
+In Rust, every variable (every piece of data in your working memory) is owned by a certain _scope_.
+When a variable leaves this scope, the piece of data can be pulled from working memory.
+An elegant solution, as this does not cost the application any extra time, allowing you to achieve the full 100% of the theoretically achievable speed.
+
+## WebAssembly and Rust
+
+WebAssembly is a standard to describe applications with.
+It is not so much a programming language, but a _compilation target_ (just like the Assembly mentioned earlier).
+So it is (almost) not written by humans, but programming languages can compile to it.
+With almost all compiled applications, they must compile to a specific _target_ (a specific architecture).
+For example, an application for Windows has a different binary than one for MacOS, or for Linux.
+This means that you as a developer have to take that into account, and thus offer (quite a lot of) different versions.
+That takes time, and makes the distribution of your application a lot more complicated.
+
+What makes WebAssembly interesting is that it runs practically everywhere.
+The same WebAssembly code runs on x86, Arm, 32bit, 64bit....
+It is designed to run in Browsers, as an alternative to Javascript.
+This allows some tasks to run a lot faster.
+It also allows you to reuse code from a programming language that compiles to WebAssembly, without having to rewrite it in Javascript.
+
+But WebAssembly is not _only_ interesting for browsers.
+WebAssembly _runtimes_ are environments that can run WebAssembly, as is in your browser.
+We can also use these runtimes in a server context.
+The features that make it suitable for browsers also enable a whole new kind of server architecture.
+It starts up fast, it's secure, it's lightweight.
+For example, the emerging FaaS (Functions as a Service) architecture works very well with WebAssembly.
+For example, Amazon with Lambda and Cloudflare with their Workers already offer ways to write server logic with WebAssembly.
+In addition, WebAssembly is also an interesting language for developing plug-in architecture.
+All in all, there are lots of applications for WebAssembly that will now grow in popularity in the coming years.
+
+One of the unique advantages to Rust, is how well it compiles to WebAssembly.
+The generated binaries are fast to execute, start up quickly and are also compact.
+The community that works on WebAssembly also largely works in Rust, and so you can see that there is a lot of good tooling for Rust + WebAssembly.
+
+## Combine with...
+
+Rust can work in almost any context, but it is especially useful in server-side or embedded applications.
+If you want to create a web application, and the server writes in Rust, you'll still need front-end technology
+A few suitable options (that we also work with a lot) are:
+
+<TechWrapperSmall>
+  <TechPill technology="react" />
+  <TechPill technology="nextjs" />
+</TechWrapperSmall>

@@ -1,0 +1,59 @@
+---
+title: "Argu"
+description: "An online democracy platform, to help organizations reach their constituencies."
+color: "#2D7080"
+---
+
+## Our democracy and the Internet
+
+Two of our favorite inventions.
+Too bad they don't work so well together yet.
+There are two problems we need to solve:
+
+### 1. The internet can play a better role in our democracy
+
+There are millions of us living in a country, but all the big decisions are made by small groups in old wooden rooms.
+Countless valuable insights and ideas are skipped because of this.
+With the Internet, people could share their ideas, think along and give their opinions from all sorts of places.
+
+### 2. Social media are not designed for solving problems
+
+Social media are mostly designed for people to look at ads, not to solve problems together, or to get a nuanced view of something.
+Online discussions are often cluttered, terse, and thus not very useful.
+Understandably, then, many organizations are afraid to use the Internet.
+
+## Our solution
+
+So we set to work to build an online democracy platform.
+Designed to make it as easy as possible for citizens to participate, and for civil servants to ask questions in the best possible way.
+We launched Argu in 2015, and have now completed over 150 participation projects.
+We have built in numerous [functionalities](https://argu.co/info/functionaliteiten), such as digital voting, responding, dynamic forms, questionnaires, map views, notifications, rights management, groups, custom domain names, export capabilities, custom theming, and much more.
+
+<BigImage image="cases/argu_body.png" />
+
+## Technology
+
+Argu is by far our biggest project, and a major source of our revenue.
+It is a SAAS solution that we have been developing and keeping live for several clients for years.
+Developing Argu has taught us to create web applications that are maintainable, flexible and scalable.
+
+Argu's stack consists of several services, two of which are particularly relevant:
+
+### Back-end: Apex
+
+The foundation of our back-end of Argu is built based on [Ruby on Rails](/en/tech/ruby-on-rails).
+Given that we had the desire to make the data available as [Linked Data](/enl/blog/what-is-linked-data), we wrote an Open Source library for this: [Linked_Rails](https://github.com/ontola/linked_rails).
+This gives Apex a number of unique qualities:
+
+- **Everything is linked data**. Even the buttons, forms, and actions are described as data. This gives us great flexibility, so we can use the same source code for very different use cases.
+- **The API is the same as the website**. If you can view a page, you can retrieve the data from that page using the same URL. Actually incredibly logical (see our [article on API design](/blog/api-design)), but oddly enough quite rare.
+
+### Front-end: Libro
+
+Libro is a web application written in [React](/en/tech/react) + [Typescript](/en/tech/typescript).
+Libro stands for _linked data browser_.
+This is what makes Libro unique: at its core it is not a regular app, but a _data browser_.
+Under the hood, libro works with the [Link libraries](https://github.com/rescribet/link-redux), developed by our CTO Thom van Kalkeren.
+Libro communicates exclusively with Apex by exchanging linked data (RDF).
+We are one of the first SAAS companies to put linked data so far into its stack.
+That has given us [some unique challenges](/blog/full-stack-linked-data/), such as a performance bottleneck for which we developed a [new RDF serialization format](https://github.com/ontola/hextuples).
