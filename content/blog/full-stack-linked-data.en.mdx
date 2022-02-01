@@ -16,7 +16,7 @@ In 2016, we started [Argu.co](https://argu.co): an e-democracy platform.
 We wanted more people to become politically engaged, and make sure that their opinions and ideas were heard by decision makers.
 We needed a web app where people would discuss issues, vote, share ideas and make decisions together.
 We started with Ruby on Rails, and built a traditional server-side monolithic HTML serving app.
-This proved to be a quick and effective way to start, but as time passed, we noticed more and more limitations of this approach.
+This proved to be a quick and effective way to start, but as time passed, we noticed more and more **limitations of this server-side approach**:
 
 - The HTML pages relied on the internal ORM, so we didn't need an API for internal use. Having **no API** limits what customers can do with their data, and it also means that it's gonna be hard (or impossible) to build a native mobile App.
 - Having **interactivity** (menu's that pop up, rich text editors, notifications, live editing, etc.) was difficult to achieve with server-side rendering. We liked react, but using that in a server-rendered Rails app was complex and error-prone.

@@ -41,7 +41,7 @@ export const GradientLine = styled('div', {
 
 export function BlogPostPreview({ data, slug }: MDXItem) {
   return (
-    <Link href={`/blog/${slug}`} passHref>
+    <Link href={`/blog/${slug}`} locale="en" passHref>
       <BlogPostPreviewStyling>
         <h3>{data?.title}</h3>
         {data.description && <p>{data.description}</p>}

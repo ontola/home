@@ -4,6 +4,8 @@ import { styled } from '../../stitches.config';
 import { BigImage } from '../components/BigImage';
 import { FeatureBlock } from '../components/FeatureBlock';
 import { TechPill } from '../components/TechPill';
+import { TechWrapperSmall } from '../pages/services';
+import { TechWrapper } from '../pages/tech';
 
 const ImageWrapper = styled('div', {
   position: 'relative',
@@ -30,6 +32,8 @@ export function buildComponents() {
     img,
     FeatureBlock,
     TechPill,
+    TechWrapper,
+    TechWrapperSmall,
     BigImage,
   };
 }
