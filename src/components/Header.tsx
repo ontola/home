@@ -35,7 +35,7 @@ const ImageWrapper = styled('div', {
   position: 'relative',
   maxWidth: '90vw',
   marginTop: '1rem',
-  marginBottom: '6rem',
+  // marginBottom: '6rem',
   '@media (min-width: 600px)': {
     width: '22rem',
     height: '14rem',
@@ -62,7 +62,7 @@ const HeaderWrapper = styled('div', {
   flexDirection: 'column',
   paddingTop: '10rem',
   paddingBottom: '5rem',
-  marginBottom: '5rem',
+  marginBottom: '2rem',
   overflow: 'visible',
   position: 'relative',
   color: theme.colors.headerText,
@@ -115,7 +115,7 @@ const HeaderText = styled('div', {
 
 const HeaderHeading = styled('h1', {
   fontSize: '2.5rem',
-  maxWidth: '20rem',
+  // maxWidth: '20rem',
   color: theme.colors.headerText,
 });
 
