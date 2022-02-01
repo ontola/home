@@ -3,7 +3,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 
 import { styled, theme } from '../../../stitches.config';
-import { Container } from '../../components/Container';
 import { Details } from '../../components/Details';
 import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
@@ -16,7 +15,8 @@ interface BlogProps {
 
 const BlogPostPreviewStyling = styled('a', {
   maxWidth: '30rem',
-  display: 'block',
+  display: 'flex',
+  flexDirection: 'column',
   textDecoration: 'none',
   padding: '1rem',
   borderRadius: theme.sizes.radius,
@@ -40,6 +40,14 @@ const BlogPostPreviewStyling = styled('a', {
   },
 });
 
+export const Bottom = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  justifySelf: 'flex-end',
+  flex: 1,
+  justifyContent: 'flex-end',
+});
+
 export const GradientLine = styled('div', {
   display: 'block',
   background: '$gradient',
@@ -53,12 +61,23 @@ export function BlogPostPreview({ data, slug }: MDXItem) {
       <BlogPostPreviewStyling>
         <h3>{data?.title}</h3>
         {data.description && <p>{data.description}</p>}
-        <GradientLine />
-        <Details {...data} />
+        <Bottom>
+          <GradientLine />
+          <Details {...data} />
+        </Bottom>
       </BlogPostPreviewStyling>
     </Link>
   );
 }
+
+const BlogsWrapper = styled('div', {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(17rem, 1fr))',
+  maxWidth: theme.sizes.containerBig,
+  margin: 'auto',
+  padding: '1rem',
+  gap: '2rem',
+});
 
 const BlogsIndex = ({ posts }: BlogProps) => {
   return (
@@ -71,11 +90,11 @@ const BlogsIndex = ({ posts }: BlogProps) => {
       }
     >
       <Header title="Linked Data Blog" />
-      <Container style={{ marginBottom: '3rem' }}>
+      <BlogsWrapper>
         {posts.map((post, i) => (
           <BlogPostPreview key={i} {...post} />
         ))}
-      </Container>
+      </BlogsWrapper>
     </Main>
   );
 };

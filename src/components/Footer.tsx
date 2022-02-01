@@ -91,6 +91,10 @@ export const FooterButton = styled('button', {
   display: 'inline-block',
   lineHeight: '1.2rem',
   marginLeft: '1rem',
+  '&:hover': {
+    cursor: 'pointer',
+    textDecoration: 'underline',
+  },
 });
 
 export const Columns = styled('div', {
