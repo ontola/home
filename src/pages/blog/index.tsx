@@ -74,12 +74,12 @@ const BlogsIndex = ({ posts }: BlogProps) => {
 
 export default BlogsIndex;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const posts = await getAllPostsLocale('en');
   return {
     props: {
       posts,
-      ...(await serverSideTranslations('en' as string, ['common', 'home'])),
+      ...(await serverSideTranslations(locale as string, ['common', 'home'])),
     },
   };
 };
