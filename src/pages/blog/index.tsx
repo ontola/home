@@ -22,6 +22,7 @@ const BlogPostPreviewStyling = styled('a', {
   borderRadius: theme.sizes.radius,
   transition: '.2s box-shadow, .2s background',
   marginLeft: '-1rem',
+  marginBottom: '2rem',
   '&:hover': {
     background: '$bg0',
     boxShadow: '$button',
@@ -57,7 +58,7 @@ const BlogsIndex = ({ posts }: BlogProps) => {
       meta={
         <Meta
           title="Ontola Linked Data Blog"
-          description="Wij schrijven software die ontworpen is om te veranderen. Zo blijven de kosten voor onderhoud en doorontwikkeling zo laag mogelijk."
+          description="Blog posts on building software with RDF and linked data."
         />
       }
     >
@@ -73,12 +74,12 @@ const BlogsIndex = ({ posts }: BlogProps) => {
 
 export default BlogsIndex;
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const posts = await getAllPostsLocale(locale);
+export const getStaticProps: GetStaticProps = async () => {
+  const posts = await getAllPostsLocale('en');
   return {
     props: {
       posts,
-      ...(await serverSideTranslations(locale as string, ['common', 'home'])),
+      ...(await serverSideTranslations('en' as string, ['common', 'home'])),
     },
   };
 };
