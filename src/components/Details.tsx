@@ -11,7 +11,7 @@ export function Details(data: MetaData) {
   return (
     <Detail>
       {new Date(data.date).toLocaleDateString()} -{' '}
-      <a href={member.github}>{member.name}</a>
+      {member?.github ? <a href={member.github}>{member.name}</a> : member.name}
     </Detail>
   );
 }
