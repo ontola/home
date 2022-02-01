@@ -10,6 +10,7 @@ class MyDocument extends Document {
         <Head>
           <style
             id="stitches"
+            // used for SSR styling
             dangerouslySetInnerHTML={{ __html: getCssText() }}
           />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
