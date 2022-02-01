@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 import { caseTheme, darkTheme, styled, theme } from '../../stitches.config';
 import { Footer } from '../components/Footer';
@@ -36,6 +36,10 @@ const Main = ({ caseColor, meta, children }: IMainProps) => {
   if (darkMode) {
     classes = classes.concat(` ${darkTheme}`);
   }
+
+  useEffect(() => {
+    document.body.className = classes;
+  }, [classes]);
 
   return (
     <MainStyled className={classes}>

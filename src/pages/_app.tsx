@@ -1,8 +1,8 @@
-import { globalCss } from '@stitches/react';
 import { appWithTranslation } from 'next-i18next';
 import { AppProps } from 'next/app';
 import { reset } from 'stitches-reset';
 
+import { globalCss } from '../../stitches.config';
 import { globalStyles } from '../styles/globalStyles';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
