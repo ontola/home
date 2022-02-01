@@ -34,7 +34,7 @@ const NavLinkStyled = styled('a', {
   textDecoration: 'none',
   fontSize: '.9rem',
   borderRadius: '.5rem',
-  padding: '.5rem',
+  padding: '.2rem .6rem',
   '&:hover': {
     background: theme.colors.navContrast,
   },

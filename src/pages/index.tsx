@@ -67,7 +67,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       cases: await getAllPostsLocale(locale, 'cases'),
-      blogs: await getAllPostsLocale(locale, 'blog'),
+      // We only use EN blogs for now
+      blogs: await getAllPostsLocale('en', 'blog'),
       ...(await serverSideTranslations(locale as string, ['common', 'home'])),
     },
   };
