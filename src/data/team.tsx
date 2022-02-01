@@ -1,7 +1,7 @@
 export interface TeamMemberType {
   name: string;
   /** Github URL */
-  github: string;
+  github?: string;
   title: string;
   /** If the team member is no longer with the team */
   ex?: boolean;
@@ -15,27 +15,29 @@ export const team: { [key: string]: TeamMemberType } = {
   },
   thom: {
     name: 'Thom van Kalkeren',
-    github: 'https://github.com/joepio',
+    github: 'https://github.com/rescribet',
     title: 'CTO',
   },
   michiel: {
     name: 'Michiel van den Ingh',
-    github: 'https://github.com/joepio',
     title: 'COO',
   },
   arthur: {
     name: 'Arthur Dingemans',
-    github: 'https://github.com/joepio',
+    github: 'https://github.com/awdingemans',
     title: 'Full-stack developer',
   },
   polle: {
     name: 'Polle Pas',
-    github: 'https://github.com/joepio',
+    github: 'https://github.com/polleps',
     title: 'Front-end developer',
+  },
+  marcel: {
+    name: 'Marcel Jongsma',
+    title: 'Account manager',
   },
   job: {
     name: 'Job Eijdems',
-    github: 'https://github.com/joepio',
     title: 'Front-end developer',
   },
   jurrian: {
