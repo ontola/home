@@ -3,6 +3,8 @@ export interface TeamMemberType {
   /** Github URL */
   github: string;
   title: string;
+  /** If the team member is no longer with the team */
+  ex?: boolean;
 }
 
 export const team: { [key: string]: TeamMemberType } = {
@@ -35,5 +37,11 @@ export const team: { [key: string]: TeamMemberType } = {
     name: 'Job Eijdems',
     github: 'https://github.com/joepio',
     title: 'Front-end developer',
+  },
+  jurrian: {
+    name: 'Jurrian Tromp',
+    github: 'https://github.com/jurrian',
+    title: 'Open data developer',
+    ex: true,
   },
 };

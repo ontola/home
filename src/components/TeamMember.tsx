@@ -28,6 +28,11 @@ const ProfileWrapper = styled('div', {
 
 export function TeamMember(props: TeamMemberProps) {
   const member = team[props.member] as TeamMemberType;
+
+  if (member.ex) {
+    return null;
+  }
+
   return (
     <ProfileWrapper>
       <ProfileImg>
