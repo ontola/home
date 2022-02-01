@@ -13,7 +13,7 @@ import { MDXItem, getPage } from '../utils/getPosts';
 // Change this when you add a new service
 const servicesCount = [1, 2, 3];
 
-const ToolsWrapper = styled('div', {
+export const TechWrapperSmall = styled('div', {
   display: 'flex',
   flexDirection: 'row',
 });
@@ -34,11 +34,11 @@ export default function Services({ data }: MDXItem) {
             {data[`${i}_technologies`] && (
               <>
                 <p>{data[`${i}_description`]}</p>
-                <ToolsWrapper>
+                <TechWrapperSmall>
                   {data[`${i}_technologies`].map((t: string) => (
                     <TechPill key={t} technology={t} />
                   ))}
-                </ToolsWrapper>
+                </TechWrapperSmall>
               </>
             )}
           </FeatureBlock>

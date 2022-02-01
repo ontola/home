@@ -64,7 +64,7 @@ const LinksList = styled('div', {
       },
     },
   },
-  '@media (max-width: 600px)': {
+  '@media (max-width: 700px)': {
     backgroundColor: theme.colors.bg0,
     position: 'fixed',
     top: '3rem',
@@ -80,7 +80,7 @@ const LinksList = styled('div', {
       fontSize: '1.2rem',
     },
   },
-  '@media (min-width: 600px)': {
+  '@media (min-width: 700px)': {
     display: 'flex',
     alignItems: 'center',
   },
@@ -88,7 +88,7 @@ const LinksList = styled('div', {
 
 const MenuButtonStyles = {
   alignSelf: 'center',
-  '@media (min-width: 600px)': {
+  '@media (min-width: 700px)': {
     display: 'none',
   },
 };

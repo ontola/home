@@ -14,7 +14,7 @@ interface CaseProps {
   posts: MDXItem[];
 }
 
-const TechWrapper = styled('div', {
+export const TechWrapper = styled('div', {
   display: 'grid',
   gridTemplateColumns: `repeat(auto-fit, minmax(${theme.sizes.gridItemSmall}, 1fr))`,
   gridAutoRows: theme.sizes.gridItemSmall,

@@ -27,7 +27,7 @@ export default function BlogPost({ mdxSource, data }: MDXItem) {
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const pid = params && params.pid;
-  const blog = await getPostBySlug(pid as string, locale, 'blog');
+  const blog = await getPostBySlug(pid as string, 'en', 'blog');
   return {
     props: {
       ...blog,
