@@ -82,6 +82,7 @@ const HeaderContainer = styled('div', {
   position: 'relative',
   margin: '0 auto',
   paddingLeft: '1rem',
+  paddingRight: '1rem',
   display: 'flex',
   alignItems: 'flex-start',
   flexDirection: 'column',
@@ -92,9 +93,10 @@ const HeaderContainer = styled('div', {
 });
 
 const FloatingImg = styled('img', {
-  marginBottom: '-25%',
-  maxWidth: '50%',
   margin: 'auto',
+  marginBottom: '-25%',
+  maxWidth: '100%',
+  maxHeight: '19rem',
   '@media (min-width: 800px)': {
     height: '24rem',
     marginBottom: '-21rem',
@@ -106,9 +108,7 @@ const FloatingImg = styled('img', {
 const HeaderText = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  // flexBasis: '33rem',
-  // minWidth: '20rem',
-  // flexBasis: '25rem',
+  maxWidth: '33rem',
 });
 
 const HeaderHeading = styled('h1', {

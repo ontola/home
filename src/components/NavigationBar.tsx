@@ -28,7 +28,7 @@ interface NavLinkProps {
 }
 
 const NavLinkStyled = styled('a', {
-  color: '$headerText',
+  color: theme.colors.headerText,
   // marginRight: '1rem',
   display: 'block',
   textDecoration: 'none',
@@ -51,10 +51,11 @@ export const NavLink = ({ children, href }: NavLinkProps) => (
 );
 
 const LinksList = styled('div', {
-  display: 'none',
+  // display: 'none',
   variants: {
     show: {
       true: {
+        top: '0%',
         display: 'flex',
         color: 'red',
         'body &': {
@@ -65,16 +66,25 @@ const LinksList = styled('div', {
     },
   },
   '@media (max-width: 700px)': {
-    backgroundColor: theme.colors.bg0,
+    backgroundColor: theme.colors.headerBg,
     position: 'fixed',
-    top: '3rem',
+    top: '110%',
     bottom: 0,
     left: 0,
     right: 0,
     maxWidth: '100vw',
+    height: '100%',
     zIndex: theme.zIndices.menu,
     flexDirection: 'column',
     padding: '1rem',
+    transition: '.2s inset',
+    variants: {
+      show: {
+        true: {
+          top: '0%',
+        },
+      },
+    },
     [`& ${NavLinkStyled}`]: {
       padding: '.3rem',
       fontSize: '1.2rem',
@@ -92,6 +102,32 @@ const MenuButtonStyles = {
     display: 'none',
   },
 };
+
+const LogoBottom = styled('div', {
+  flex: '1 1 0%',
+  display: 'flex',
+  padding: '.5rem',
+  alignItems: 'flex-end',
+  '@media (min-width: 701px)': {
+    display: 'none',
+  },
+});
+
+const CloseMenuButtonStyles = styled('div', {
+  marginTop: '-.5rem',
+  alignSelf: 'flex-end',
+  justifySelf: 'flex-end',
+  marginLeft: 'auto',
+  background: theme.colors.bg1,
+  borderRadius: theme.sizes.radius,
+  padding: '.5rem',
+  border: 'none',
+  color: theme.colors.text,
+  outline: 'none',
+  '@media (min-width: 701px)': {
+    display: 'none',
+  },
+});
 
 const LogoStyled = styled('a', {
   height: '2rem',
@@ -134,11 +170,23 @@ export const NavigationBar = () => {
         </Button>
         {/* <MenuButton onClick={() => setShow(!show)}>Menu</MenuButton> */}
         <LinksList show={show}>
+          {show && (
+            <CloseMenuButtonStyles onClick={() => setShow(!show)}>
+              close
+            </CloseMenuButtonStyles>
+          )}
           {menuPaths.map((p) => (
             <NavLink key={p.key} href={p.href}>
               {t(p.key)}
             </NavLink>
           ))}
+          <LogoBottom>
+            <Link href="/" passHref>
+              <a>
+                <Logo />
+              </a>
+            </Link>
+          </LogoBottom>
         </LinksList>
       </NavContainer>
     </NavigationBarStyled>

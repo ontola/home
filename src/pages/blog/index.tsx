@@ -14,7 +14,7 @@ interface BlogProps {
 }
 
 const BlogPostPreviewStyling = styled('a', {
-  maxWidth: '30rem',
+  maxWidth: 'fit-content(200px)',
   display: 'flex',
   flexDirection: 'column',
   textDecoration: 'none',

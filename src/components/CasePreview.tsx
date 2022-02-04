@@ -6,9 +6,8 @@ import { MDXItem } from '../utils/getPosts';
 const CaseWrapper = styled('a', {
   backgroundPosition: 'center',
   backgroundSize: 'cover',
-  maxWidth: 'calc(100vw - 2rem)',
-  // maxWidth: '100%',
-  // height: theme.sizes.gridItem,
+  // maxWidth: 'calc(100vw - 2rem)',
+  maxWidth: '20rem',
   borderRadius: '2.5rem',
   alignItems: 'flex-start',
   display: 'flex',
