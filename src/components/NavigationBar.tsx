@@ -80,7 +80,7 @@ const LinksList = styled('div', {
       fontSize: '1.2rem',
     },
   },
-  '@media (min-width: 700px)': {
+  '@media (min-width: 701px)': {
     display: 'flex',
     alignItems: 'center',
   },
@@ -88,7 +88,7 @@ const LinksList = styled('div', {
 
 const MenuButtonStyles = {
   alignSelf: 'center',
-  '@media (min-width: 700px)': {
+  '@media (min-width: 701px)': {
     display: 'none',
   },
 };

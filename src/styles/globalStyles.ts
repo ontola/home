@@ -10,7 +10,8 @@ export const globalStyles = {
     fontFamily: '$body',
     color: '$text',
     height: '100%',
-    background: theme.colors.bg0,
+    // For elastic scrolling
+    background: theme.colors.footerBg,
   },
   'h1, h2, h3, h4': {
     '--fontfamily': theme.fonts.heading,

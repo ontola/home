@@ -23,33 +23,27 @@ const CirclesWrapper = styled('div', {
 });
 
 const ImageWrapper = styled('div', {
-  width: '20rem',
-  height: '12rem',
-  borderRadius: '10px',
-  background: '$bg2',
-  boxShadow: '0 20px 30px rgba(0, 0, 0, 0.2)',
-  overflow: 'hidden',
-  top: '0',
-  zIndex: 1,
-  transform: 'perspective(50em) rotateX(10deg) rotateY(15deg) rotateZ(-5deg)',
-  position: 'relative',
-  maxWidth: '90vw',
-  marginTop: '1rem',
+  display: 'flex',
+  flex: 1,
+  justifyContent: 'flex-end',
   // marginBottom: '6rem',
-  '@media (min-width: 600px)': {
-    width: '22rem',
-    height: '14rem',
-    marginLeft: '3rem',
+  marginRight: '1rem',
+
+  img: {
+    borderRadius: theme.sizes.radius,
   },
-  '@media (min-width: 900px)': {
-    height: '17rem',
-    width: '25rem',
-  },
-  '@media (min-width: 1200px)': {
-    left: '4rem',
-    transform:
-      'perspective(70rem) rotateX(10deg) rotateY(15deg) rotateZ(-5deg) scale(1.3)',
-  },
+  // '@media (min-width: 600px)': {
+  //   width: '22rem',
+  //   height: '14rem',
+  //   // marginLeft: '3rem',
+  // },
+  // '@media (min-width: 900px)': {
+  //   height: '17rem',
+  //   width: '24rem',
+  // },
+  // '@media (min-width: 1200px)': {
+  //   left: '4rem',
+  // },
 });
 
 const HeaderWrapper = styled('div', {
@@ -99,7 +93,8 @@ const HeaderContainer = styled('div', {
 
 const FloatingImg = styled('img', {
   marginBottom: '-25%',
-  maxWidth: '100%',
+  maxWidth: '50%',
+  margin: 'auto',
   '@media (min-width: 800px)': {
     height: '24rem',
     marginBottom: '-21rem',
@@ -111,8 +106,9 @@ const FloatingImg = styled('img', {
 const HeaderText = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  minWidth: '20rem',
-  flexBasis: '25rem',
+  // flexBasis: '33rem',
+  // minWidth: '20rem',
+  // flexBasis: '25rem',
 });
 
 const HeaderHeading = styled('h1', {

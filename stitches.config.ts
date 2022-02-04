@@ -17,11 +17,14 @@ export const { keyframes, styled, getCssText, theme, css, globalCss } =
         bg: '#F6F8FB',
         bg1: '#f4f4f4',
         bg2: '#d7d7d7',
+        // Should go from footer color to navbar color
+        bgBody:
+          'linear-gradient(0deg, rgba(19,76,105,1) 0%, rgba(19,76,105,1) 50%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%)',
         nav: 'rgba(255,255,255,0.7)',
         navContrast: 'rgba(0,0,0,0.05)',
         navContrast2: 'rgba(0,0,0,0.1)',
-        primary: '#134C69',
-        footerBg: '#134C69',
+        primary: 'rgb(19,76,105)',
+        footerBg: 'rgb(19,76,105)',
         c2a: 'rgba(152,99,219,1)',
         // SVGs unfortunately do not support linear-gradient values.
         circlesBg: 'url(#circles-gradient)',
@@ -39,9 +42,9 @@ export const { keyframes, styled, getCssText, theme, css, globalCss } =
       },
       sizes: {
         container: '40rem',
-        containerBig: '50rem',
+        containerBig: '60rem',
         // containerBig / 2 - 3rem
-        gridItem: '22rem',
+        gridItem: '15rem',
         gridItemSmall: '10rem',
         radius: '.6rem',
       },
@@ -70,6 +73,7 @@ export const darkTheme = createTheme({
     headerBg: 'black',
     text: 'white',
     text1: '#555555',
+    bgBody: 'black',
     bg0: 'black',
     bg: '#111111',
     bg1: '#222222',
@@ -87,9 +91,10 @@ export const caseTheme = (color: string) =>
     colors: {
       headerText: 'white',
       headerBg: color,
+      bgBody: color,
       nav: 'transparent',
       circlesBg: 'white',
-      footerBg: 'black',
+      footerBg: color,
       bg0: 'white',
     },
   });

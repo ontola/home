@@ -1,15 +1,14 @@
 import { styled } from '@stitches/react';
 import Link from 'next/link';
 
-import { theme } from '../../stitches.config';
 import { MDXItem } from '../utils/getPosts';
 
 const CaseWrapper = styled('a', {
   backgroundPosition: 'center',
   backgroundSize: 'cover',
-  width: theme.sizes.gridItem,
-  maxWidth: '100%',
-  height: theme.sizes.gridItem,
+  maxWidth: 'calc(100vw - 2rem)',
+  // maxWidth: '100%',
+  // height: theme.sizes.gridItem,
   borderRadius: '2.5rem',
   alignItems: 'flex-start',
   display: 'flex',
@@ -19,6 +18,7 @@ const CaseWrapper = styled('a', {
   padding: '1rem',
   justifyContent: 'flex-end',
   overflow: 'hidden',
+  aspectRatio: '1 / 1',
   '*': {
     color: 'white',
   },

@@ -70,7 +70,7 @@ export function BlogPostPreview({ data, slug }: MDXItem) {
   );
 }
 
-const BlogsWrapper = styled('div', {
+export const BlogsWrapper = styled('div', {
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fit, minmax(17rem, 1fr))',
   maxWidth: theme.sizes.containerBig,

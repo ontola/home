@@ -14,7 +14,7 @@ import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 import { MDXItem, getAllPostsLocale } from '../utils/getPosts';
 import { paths } from '../utils/paths';
-import { BlogPostPreview } from './blog';
+import { BlogPostPreview, BlogsWrapper } from './blog';
 
 interface HomeProps {
   cases: MDXItem[];
@@ -55,9 +55,11 @@ const Home = ({ cases, blogs }: HomeProps) => {
           small={t('blogsPre')}
           title={t('blogsTitle')}
         />
-        {blogs.slice(0, 3).map((blog) => (
-          <BlogPostPreview key={blog.slug} {...blog} />
-        ))}
+        <BlogsWrapper>
+          {blogs.slice(0, 3).map((blog) => (
+            <BlogPostPreview key={blog.slug} {...blog} />
+          ))}
+        </BlogsWrapper>
       </Container>
     </Main>
   );

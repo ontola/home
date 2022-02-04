@@ -51,11 +51,8 @@ const TeamPhoto = styled('img', {
   '@media (min-width: 600px)': {
     width: '1rem',
   },
-  '@media (min-width: 900px)': {
-    marginRight: '-5rem',
-  },
+  '@media (min-width: 900px)': {},
   '@media (min-width: 1200px)': {
-    marginRight: '-10rem',
     marginTop: '-5rem',
   },
 });
