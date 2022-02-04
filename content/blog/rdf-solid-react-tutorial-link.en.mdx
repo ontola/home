@@ -22,7 +22,7 @@ We need tooling to deal with some of the complexities that arise when working wi
 In this tutorial we're going to use `react` and the [`link-lib`](https://github.com/fletcher91/link-lib/) + [`link-redux`](https://github.com/fletcher91/link-redux) (in short: Link) libraries to create a simple front-end app to render data from a Solid Pod.
 You can see the [final result on CodeSandbox](https://codesandbox.io/s/github/ontola/link-solid-boilerplate/tree/master/?file=/src/app.tsx)
 
-# Understanding Link: Store, Views and Topologies
+## Understanding Link: Store, Views and Topologies
 
 The Link libraries have an interesting, but unconventional way of rendering data.
 The first concept to understand, is the LinkedRenderStore (the Store).
@@ -41,19 +41,19 @@ In this case, that type is an `ldp:Container`, and the topology is `fullPage`.
 If there is a `fullPage` View registered in the Store for `ldp:Container`, it will render that View.
 If there is not such a View, it might try a more generic view.
 
-# Setting up the basics
+## Setting up the basics
 
 First, we'll need to set up a react project.
 You can use our boilerplate, or you can set it up manually.
 
-## Easy mode: Using the link-solid-boilerplate
+### Easy mode: Using the link-solid-boilerplate
 
 You can get started right away using the [`link-solid-boilerplate` on CodeSandbox](https://codesandbox.io/s/github/ontola/link-solid-boilerplate/tree/master/?file=/src/app.tsx).
 Alternatively, you can use the [Template feature on Github to fork it](https://github.com/ontola/link-solid-boilerplate/generate), and follow the readme to get it running locally.
 Got it running?
 Skip the next section and go to [Loading Data](#loading-data).
 
-## Hard mode: Without using the boilerplate
+### Hard mode: Without using the boilerplate
 
 _(skip this if you're using the boilerplate)_
 
@@ -66,7 +66,7 @@ _(skip this if you're using the boilerplate)_
 1. Got stuck? Check the [boilerplate](https://github.com/ontola/link-solid-boilerplate) for inspiration and use the [link-redux wiki](https://github.com/fletcher91/link-redux/wiki).
 1. Continue with the rest of this tutorial.
 
-# Loading data
+## Loading data
 
 As a data source, we could use multiple back-ends. Here's a list of tested and open source options:
 
@@ -79,7 +79,7 @@ But for this tutorial, we'll stick with the Inrupt.net pod.
 We'll try to render `https://joep.inrupt.net/public/`, which is an `ldp:Container`.
 That Container, as its name suggests, contains a bunch of resources, similar to a folder.
 
-# Registering a View
+## Registering a View
 
 Create the following file `views/Container.tsx` with a functional React component.
 All we need is a single property
@@ -263,7 +263,7 @@ const getViews = (): RegistrableComponent<any>[] => [
 
 Now, open the app and enter your public Solid Pod URL (e.g. `https://joep.inrupt.net/public/`).
 
-# Got stuck?
+## Got stuck?
 
 - Check the [**result on codesandbox**](https://codesandbox.io/s/github/ontola/link-solid-boilerplate/tree/master/?file=/src/app.tsx)
 - If you need dev tools In your browser console, use the [link dev tools](https://github.com/ontola/link-devtools): `dev.help`.
