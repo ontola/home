@@ -38,7 +38,7 @@ export const globalStyles = {
   'p, ul, li, table, a, span': {
     lineHeight: '1.7em',
     fontSize: '$body',
-    color: '$text',
+    color: 'inherit',
   },
   li: {
     marginBottom: '0.1em',
