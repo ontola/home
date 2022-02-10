@@ -7,6 +7,7 @@ import { ParsedUrlQuery } from 'querystring';
 import matter from 'gray-matter';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
+import rehypeHighlight from 'rehype-highlight';
 
 const pageDirectory = path.join(process.cwd(), '/content');
 const getDirectory = (sub: string) =>
@@ -26,7 +27,14 @@ export async function getPostBySlug(
   const out: any = post;
   out.slug = realSlug;
   out.orig = '';
-  out.mdxSource = await serialize(out.content);
+  out.mdxSource = await serialize(out.content, {
+    mdxOptions: {
+      rehypePlugins: [
+        // @ts-ignore - rehype-highlight types don't match
+        rehypeHighlight,
+      ],
+    },
+  });
   return out;
 }
 

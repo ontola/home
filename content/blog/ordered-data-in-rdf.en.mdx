@@ -29,7 +29,7 @@ Maybe you've seen something like this in JSON-LD:
 
 Or something like this in a Turtle document:
 
-```turtle
+```
 someList :b ( "Arnold" "Bob" "Catherine")
 ```
 
@@ -46,7 +46,7 @@ However, since Lists are recursive and often contain other Lists, it actually ma
 Collections always end with an `rdf:nil` namednode, which means they have a _formally known ending_.
 If we'd express the same information in N-Triples, we'd get something like this:
 
-```ntriples
+```
 _:b0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "Arnold" .
 _:b0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b1 .
 _:b1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "Bob" .
@@ -81,7 +81,7 @@ RDF Containers use a numbered predicate (e.g. `rdf:_1`) to indicate that somethi
 
 This model is often easier to parse and serialize than an `rdf:List`.
 
-```ntriples
+```
 _:someSeq <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> "Arnold" .
 _:someSeq <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> "Bob" .
 _:someSeq <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> "Catherine" .

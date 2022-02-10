@@ -6,8 +6,8 @@ import { Container } from '../../components/Container';
 import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
-import { buildComponents } from '../../utils/buildComponents';
 import { MDXItem, getAllPaths, getPostBySlug } from '../../utils/getPosts';
+import { buildComponents } from '../../utils/mdx';
 
 export default function Case({ mdxSource, data, slug }: MDXItem) {
   return (

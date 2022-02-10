@@ -84,7 +84,7 @@ It's also quite feature-heavy since it supports [RDF rules](http://www.ninebynin
 
 Unless you need the reasoning/rules features of N3, use its more popular (and very similar) successor Turtle.
 
-```notation3
+```
 @prefix tim: <https://www.w3.org/People/Berners-Lee/>.
 @prefix schema: <http://schema.org/>.
 @prefix dbpedia: <http://dbpedia.org/resource/>.
@@ -105,7 +105,7 @@ Unfortunately, it's still quite costly to parse compared to [N-Triples](#N-Tripl
 
 Turtle is highly human-readable and is, therefore, a good candidate if you need to edit RDF by hand.
 
-```turtle
+```
 @prefix tim: <https://www.w3.org/People/Berners-Lee/>.
 @prefix schema: <http://schema.org/>.
 @prefix dbpedia: <http://dbpedia.org/resource/>.
@@ -122,7 +122,7 @@ This makes N-Triples trivial to parse / serialize.
 Therefore, many libraries for N-Triples are available and you can easily write one yourself.
 It also makes serialization and parsing highly performant.
 
-```n-triples
+```
 <https://www.w3.org/People/Berners-Lee/> <http://schema.org/birthDate> "1955-06-08"^^<http://www.w3.org/2001/XMLSchema#date>.
 <https://www.w3.org/People/Berners-Lee/> <http://schema.org/birthPlace> <http://dbpedia.org/resource/London>.
 ```
@@ -219,7 +219,7 @@ Because these properties also have [`shortnames`](https://atomicdata.dev/propert
 It is designed to achieve the best possible performance in a JS context (i.e. the browser).
 It uses plain JSON arrays, in which the position of the items denote `subject`, `predicate`, `object`, `datatype`, `lang` and `graph`.
 
-```ndjson
+```json
 ["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthDate", "1955-06-08", "http://www.w3.org/2001/XMLSchema#date", "", ""]
 ["https://www.w3.org/People/Berners-Lee/", "http://schema.org/birthPlace", "http://dbpedia.org/resource/London", "http://www.w3.org/1999/02/22-rdf-syntax-ns#namedNode", "", ""]
 ```

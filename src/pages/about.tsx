@@ -10,8 +10,8 @@ import { TeamMember } from '../components/TeamMember';
 import { team } from '../data/team';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
-import { buildComponents } from '../utils/buildComponents';
 import { MDXItem, getPage } from '../utils/getPosts';
+import { buildComponents } from '../utils/mdx';
 
 const Members = styled('div', {
   display: 'grid',
