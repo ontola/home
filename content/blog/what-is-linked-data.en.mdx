@@ -119,7 +119,7 @@ This is different from JSON or XML, for example, which are both a data models _a
 In other words: The subject, predicate, object model can be represented in several ways.
 For example, here's the same triples from the table and the graph above, serialized in the _Turtle_ format:
 
-``` turtle
+```
 <https://www.w3.org/People/Berners-Lee/> <http://schema.org/birthDate> "1955-06-08".
 <https://www.w3.org/People/Berners-Lee/> <http://schema.org/birthPlace> <http://dbpedia.org/resource/London>.
 ```
@@ -130,7 +130,7 @@ This example doesn't look as good as the graph above, right?
 Long URLs tend to take up a lot of space and make the data a bit tough to read.
 We can use _namespaces_ (denoted with  `@prefix`) to compress RDF data and make it more readable.
 
-``` turtle
+```
 @prefix tim: <https://www.w3.org/People/Berners-Lee/>.
 @prefix schema: <http://schema.org/>.
 @prefix dbpedia: <http://dbpedia.org/resource/>.
@@ -186,7 +186,7 @@ _Update: I've written an article about [when to choose which RDF serialization f
 ## Ontologies
 Let's tell a bit more about Tim. First of all, it might be useful to specify that Tim is a person:
 
-``` turtle
+```
 @prefix tim: <https://www.w3.org/People/Berners-Lee/>.
 @prefix schema: <http://schema.org/>.
 @prefix dbpedia: <http://dbpedia.org/resource/>.
