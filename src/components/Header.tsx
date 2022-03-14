@@ -98,6 +98,7 @@ const FloatingImg = styled('img', {
   maxWidth: '100%',
   maxHeight: '19rem',
   '@media (min-width: 800px)': {
+    maxHeight: '24rem',
     height: '24rem',
     marginBottom: '-21rem',
     position: 'absolute',
