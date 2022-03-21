@@ -1,4 +1,4 @@
-import { styled } from '../../stitches.config';
+import { styled, theme } from '../../stitches.config';
 
 interface BigImageProps {
   image: string;
@@ -6,13 +6,19 @@ interface BigImageProps {
 }
 
 const Wrap = styled('div', {
-  margin: '3rem 0',
   width: '98vw',
-  marginLeft: 'calc(-49vw + 19rem)',
+  margin: '0',
+  maxWidth: theme.sizes.container,
+  // width: '100%',
+  '@media (min-width: 1200px)': {
+    margin: '3rem 0',
+    // marginLeft: 'calc(-49vw + 19rem)',
+    marginLeft: '-50%',
+  },
 });
 
 const ImageWrapper = styled('img', {
-  maxWidth: '50rem',
+  maxWidth: '100%',
   display: 'block',
   margin: 'auto',
   '@media (min-width: 1200px)': {
