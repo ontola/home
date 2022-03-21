@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://ontola.io
+
+# Sitemaps
+Sitemap: https://ontola.io/sitemap.xml

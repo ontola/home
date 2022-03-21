@@ -24,6 +24,8 @@ NEXT_PUBLIC_MATOMO_URL=https://analytics.argu.co/
 NEXT_PUBLIC_MATOMO_SITE_ID=4
 # fixes build issue
 AMPLIFY_NEXTJS_EXPERIMENTAL_TRACE=true
+# helps with building sitemaps
+SITE_URL=https://ontola.io
 ```
 
 ## Adding content
