@@ -16,6 +16,16 @@ yarn dev
 We deploy to AWS Amplify, which is built automatically on pushing commits to github.
 Since we use I18n, we can't `export` the site.
 
+Environment variables:
+
+```ini
+# analytics / tracking
+NEXT_PUBLIC_MATOMO_URL=https://analytics.argu.co/
+NEXT_PUBLIC_MATOMO_SITE_ID=4
+# fixes build issue
+AMPLIFY_NEXTJS_EXPERIMENTAL_TRACE=true
+```
+
 ## Adding content
 
 - All written content resides in the `src/ontent` directory.
