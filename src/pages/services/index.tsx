@@ -1,14 +1,14 @@
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { styled } from '../../stitches.config';
-import { Container } from '../components/Container';
-import { FeatureBlock } from '../components/FeatureBlock';
-import { Header } from '../components/Header';
-import { TechPill } from '../components/TechPill';
-import { Meta } from '../layout/Meta';
-import { Main } from '../templates/Main';
-import { MDXItem, getPage } from '../utils/getPosts';
+import { styled } from '../../../stitches.config';
+import { Container } from '../../components/Container';
+import { FeatureBlock } from '../../components/FeatureBlock';
+import { Header } from '../../components/Header';
+import { TechPill } from '../../components/TechPill';
+import { Meta } from '../../layout/Meta';
+import { Main } from '../../templates/Main';
+import { MDXItem, getPage } from '../../utils/getPosts';
 
 // Change this when you add a new service
 const servicesCount = [1, 2, 3];
