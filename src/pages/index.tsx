@@ -41,7 +41,7 @@ const Home = ({ cases, blogs }: HomeProps) => {
         >
           <p>{t('servicesDescription')}</p>
           <Link href={paths.services} passHref>
-            <ButtonLink href={paths.services}>{t('servicesButton')}</ButtonLink>
+            <ButtonLink>{t('servicesButton')}</ButtonLink>
           </Link>
         </FeatureBlock>
       </Container>

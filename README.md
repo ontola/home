@@ -30,11 +30,12 @@ SITE_URL=https://ontola.io
 
 ## Adding content
 
-- All written content resides in the `src/ontent` directory.
+- **Written content** resides in the `src/content` directory.
 - **Blog post**: Create a `article-title.en.mdx` file in `blog`. Make sure to add a `title` and a `description`. Create a Dutch translation with the same name (`article-title.nl.mdx`), too.
 - **Tech item**: Similar to above, but also make sure to add a `techname.svg` image to `images/tech`.
+- **Service**: Similar to above, but also make sure to update the `services.{lang}.mdx` file accordingly. You may need to add a FeatureBlock there.
 - **Custom page**: Create a `.tsx` file in `src/pages` with the name of the path. Probably easiest to clone `about.tsx` and copy that logic.
-- **Translations**: We use `next-i18next` for translations. Add
+- **Translations**: We use `next-i18next` for translations. Most translations are in markdown (.mdx) documents, but some (such as menu item content) are stored in `public/locales` as `.json` files.
 
 ## Tech
 
