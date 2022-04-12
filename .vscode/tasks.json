@@ -8,13 +8,22 @@
       "type": "npm",
       "script": "build-types",
       "problemMatcher": ["$tsc"],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
+      "group": "build",
       "presentation": {
         "clear": true,
         "reveal": "never"
+      },
+      "detail": "tsc --noEmit --pretty"
+    },
+    {
+      "type": "yarn",
+      "script": "dev",
+      "problemMatcher": [],
+      "label": "start server (yarn dev)",
+      "detail": "yarn dev",
+      "group": {
+        "kind": "build",
+        "isDefault": true
       }
     }
   ]
