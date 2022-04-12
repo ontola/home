@@ -34,7 +34,7 @@ const Home = ({ cases, blogs }: HomeProps) => {
           <ButtonLink>Contact</ButtonLink>
         </Link>
       </Header>
-      <Container big>
+      <Container>
         <FeatureBlock
           title={t('servicesTitle')}
           image={'photos/joep-arthur.jpg'}
@@ -44,6 +44,8 @@ const Home = ({ cases, blogs }: HomeProps) => {
             <ButtonLink href={paths.services}>{t('servicesButton')}</ButtonLink>
           </Link>
         </FeatureBlock>
+      </Container>
+      <Container big>
         <SectionHeading small={t('casesPre')} title={t('casesTitle')} />
         <CasesWrapper>
           {cases.map((caseData) => (
