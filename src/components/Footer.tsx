@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 
 import { styled, theme } from '../../stitches.config';
+import { calendly } from '../data/links';
 import { menuPaths, paths } from '../utils/paths';
 import LocaleSwitcher from './LocaleSwitcher';
 
@@ -130,7 +131,7 @@ export function Footer(props: FooterProps) {
                 <h3>{t('contact')}</h3>
               </a>
             </Link>
-            <a href="https://calendly.com/ontola/30min">{t('plan')}</a>
+            <a href={calendly}>{t('plan')}</a>
             <a href="tel:+31636020942">{t('call')}</a>
             <a href="mailto:info@ontola.io">info@ontola.io</a>
           </FooterColumn>

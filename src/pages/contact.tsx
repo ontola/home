@@ -4,9 +4,10 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { styled, theme } from '../../stitches.config';
-import { Button } from '../components/Button';
+import { Button, ButtonLink } from '../components/Button';
 import { Container } from '../components/Container';
 import { Header } from '../components/Header';
+import { calendly } from '../data/links';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 import { MDXItem, getPage } from '../utils/getPosts';
@@ -83,10 +84,13 @@ function ContactForm() {
 }
 
 export default function Contact({ data }: MDXItem) {
+  const { t } = useTranslation('contact');
+
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
       <Header title={data.title} image="photos/thom-joep-jur.jpg">
         <p>{data.description}</p>
+        <ButtonLink href={calendly}>{t('bookAppointment')}</ButtonLink>
       </Header>
       <Container>
         <ContactForm />
