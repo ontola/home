@@ -35,10 +35,12 @@ export const team: { [key: string]: TeamMemberType } = {
   marcel: {
     name: 'Marcel Jongsma',
     title: 'Account manager',
+    ex: true,
   },
   job: {
     name: 'Job Eijdems',
     title: 'Front-end developer',
+    ex: true,
   },
   jurrian: {
     name: 'Jurrian Tromp',
