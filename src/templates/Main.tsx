@@ -12,11 +12,11 @@ type IMainProps = {
   caseColor?: string;
 };
 
-const Content = styled('div', {
+const Content = styled('main', {
   flex: '1 0 auto',
 });
 
-const MainStyled = styled('div', {
+const AppWrapper = styled('div', {
   background: theme.colors.bg0,
   display: 'flex',
   flexDirection: 'column',
@@ -42,12 +42,12 @@ const Main = ({ caseColor, meta, children }: IMainProps) => {
   }, [classes]);
 
   return (
-    <MainStyled className={classes}>
+    <AppWrapper className={classes}>
       {meta}
       <NavigationBar />
       <Content>{children}</Content>
       <Footer toggleDarkMode={() => setDarkMode(!darkMode)} />
-    </MainStyled>
+    </AppWrapper>
   );
 };
 

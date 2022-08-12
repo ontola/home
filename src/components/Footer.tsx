@@ -6,7 +6,7 @@ import { calendly } from '../data/links';
 import { menuPaths, paths } from '../utils/paths';
 import LocaleSwitcher from './LocaleSwitcher';
 
-const FooterStyled = styled('div', {
+const FooterStyled = styled('footer', {
   background: '$footerBg',
   flexShrink: 0,
   paddingBottom: '3rem',

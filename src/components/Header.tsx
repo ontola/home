@@ -46,7 +46,7 @@ const ImageWrapper = styled('div', {
   // },
 });
 
-const HeaderWrapper = styled('div', {
+const HeaderWrapper = styled('header', {
   background: theme.colors.headerBg,
   margin: '0 auto',
   marginTop: '-3rem',

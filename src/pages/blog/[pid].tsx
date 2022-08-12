@@ -14,13 +14,15 @@ import { buildComponents } from '../../utils/mdx';
 export default function BlogPost({ mdxSource, data }: MDXItem) {
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
-      <Header title={data.title}>
-        <GradientLine />
-        <Details {...data} />
-      </Header>
-      <Container>
-        <MDXRemote components={buildComponents()} {...mdxSource} />
-      </Container>
+      <article>
+        <Header title={data.title}>
+          <GradientLine />
+          <Details {...data} />
+        </Header>
+        <Container>
+          <MDXRemote components={buildComponents()} {...mdxSource} />
+        </Container>
+      </article>
     </Main>
   );
 }
