@@ -17,22 +17,16 @@ jobs:
       SUB_DOMAIN: ${{secrets.PROD_SUB_DOMAIN}}
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-
-      - name: Install dependencies
-        run: yarn
-
-      # - name: Run tests
-      #   run: yarn test
 
       - name: Download `.serverless` state from S3
         run: aws s3 sync s3://ontola-home/home/env-name/.serverless .serverless --delete
 
       - name: Deploy to AWS
-        run: yarn run deploy
+        run: pnpm run deploy
 
       - name: Upload `.serverless` state to S3
         run: aws s3 sync .serverless s3://ontola-home/home/env-name/.serverless --delete

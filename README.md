@@ -6,9 +6,9 @@ Future home page for [Ontola](https://ontola.io/).
 
 ```sh
 # Install dependencies
-yarn
+pnpm
 # run dev server
-yarn dev
+pnpm dev
 ```
 
 ## Deployment
