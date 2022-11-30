@@ -9,9 +9,6 @@ interface ToolProps {
 }
 
 function techToString(tech: string): string {
-  if (tech === 'rails') {
-    return 'Ruby on Rails';
-  }
   return tech;
 }
 

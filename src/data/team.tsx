@@ -17,6 +17,7 @@ export const team: { [key: string]: TeamMemberType } = {
     name: 'Thom van Kalkeren',
     github: 'https://github.com/rescribet',
     title: 'CTO',
+    ex: true,
   },
   michiel: {
     name: 'Michiel van den Ingh',
@@ -26,6 +27,7 @@ export const team: { [key: string]: TeamMemberType } = {
     name: 'Arthur Dingemans',
     github: 'https://github.com/awdingemans',
     title: 'Full-stack developer',
+    ex: true,
   },
   polle: {
     name: 'Polle Pas',
