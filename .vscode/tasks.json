@@ -16,11 +16,11 @@
       "detail": "tsc --noEmit --pretty"
     },
     {
-      "type": "yarn",
+      "type": "pnpm",
       "script": "dev",
       "problemMatcher": [],
-      "label": "start server (yarn dev)",
-      "detail": "yarn dev",
+      "label": "start server (pnpm dev)",
+      "detail": "pnpm dev",
       "group": {
         "kind": "build",
         "isDefault": true
