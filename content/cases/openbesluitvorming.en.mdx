@@ -1,0 +1,47 @@
+---
+title: "Open Decision Making"
+description: "One of the largest open data projects in the Netherlands. Standardized meeting data and API from more than 270 municipalities and provinces."
+color: "#2F558E"
+---
+
+## Addition to online democracy
+
+In 2015, we started [Argu](/en/cases/argu) to give people more influence in our democracy.
+With this e-democracy platform, we had developed a new way to have a say, making it easier than ever before to participate in decisions made in your municipality from behind your computer.
+But we noticed a problem: the online participation in Argu ran _parralel_ to the formal decision-making within municipalities.
+As a result, there was not enough feedback to residents about what happened to their ideas.
+
+We therefore wanted to use data from formal decision-making within municipalities to improve participation in Argu.
+We envisioned how we could link council meeting agendas with questions to residents, and how we could share decisions and votes during meetings with residents to keep them optimally informed.
+
+## From Open Council Information to Open Decision Making
+
+We contacted the [Open State Foundation](https://openstate.eu/nl/) (OSF), an organization dedicated to open data in the Netherlands.
+Together we lobbied the Lower House to make their data open, and we were the first in the Netherlands to be allowed to work with their data.
+Not entirely coincidentally, OSF was then also working with the VNG to make the data of city councils open, in the Open Council Information project.
+After OSF made the first links to meeting systems, we were commissioned by the VNG to improve the search engine and scale up the project.
+In one year we went from 7 to almost 100 councils connected.
+This made Open Council Information one of the largest open data projects in the Netherlands.
+Next, OSF was also working with a number of provinces. This project was called Open States Information.
+Because we wanted to show both data sources in one interface, in 2019 we chose to keep the whole thing under the name OpenDecisions.
+In subsequent years, we made sure that new municipalities were added, and maintained the interfaces with the meeting systems.
+
+## From OpenDecision Making to PLOOI
+
+In 2022, the Open Government Act took effect, which requires municipalities to open up council information, among other things.
+The government organization KOOP was commissioned to create software for this, called PLOOI.
+It is planned that [PLOOI](https://www.koopoverheid.nl/voor-overheden/rijksoverheid/plooi-platform-open-overheidsinformatie) will soon replace Open Decision Making.
+
+## Technology
+
+OpenDecision Making consists of the following components:
+
+- Extract, Load & Transform (ETL) pipeline, written in Pyhton. This systeem fetches the data from various sources (Notubiz, Parleaus, iBabs and more) and converts it to a standaradised format.
+- Search back-end, based on Elasticsearch. This enables full-text search.
+- Front-end, gebaseerd op [React](/nl/tech/react). This is the responsive web interface that users see.
+
+Read more about the technology in [our blogpost](/blog/publishing-dutch-governmental-meetings-as-linked-data/).
+
+The code is [open source on Github](https://github.com/ontola/openbesluitvorming).
+
+<video controls src="https://user-images.githubusercontent.com/2183313/208661302-385fb00d-5be2-4c50-8159-591c7805e51c.mov"/>
