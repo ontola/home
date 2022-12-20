@@ -1,0 +1,47 @@
+---
+title: "Open Besluitvorming"
+description: "Een van de grootste open data projecten van Nederland. Gestandaardiseerde vergaderdata en API van meer dan 270 gemeenten en provincies."
+color: "#2F558E"
+---
+
+## Aanvulling op online democratie
+
+In 2015 begonnen wij [Argu](/nl/cases/argu) begonnen om mensen meer invloed te geven op onze democratie.
+Met dit e-democracy platform hadden we een nieuwe manier van inspraak ontwikkeld, waardoor het makkelijker was dan ooit tevoren om van achter je computer mee te denken over de besluiten die in jouw gemeente genomen worden.
+Maar we merkten dat er een probleem was: de online participatie in Argu liep _parralel_ aan de formele besluitvorming binnen gemeenten.
+Hierdoor werd er niet genoeg teruggekoppeld naar inwoners over wat er met hun ideeën gebeurde.
+
+Wij wilden daarom de data van de formele besluitvorming binnen gemeenten gebruiken om de participatie in Argu te verbeteren.
+We zagen voor ons hoe we de agenda's van raadsvergaderingen konden koppelen aan vragen aan inwoners, en hoe we de besluiten en stemmingen tijdens vergaderingen met inwoners konden delen om ze optimaal op de hoogte te houden.
+
+## Van Open Raadsinformatie naar Open Besluitvorming
+
+We namen contact op met de [Open State Foundation](https://openstate.eu/nl/) (OSF), een organisatie die zich inzet voor open data in Nederland.
+Samen lobbyden we bij de Tweede Kamer om hun data open te maken, en als eersten van Nederland mochten we aan de slag met hun gegevens.
+OSF was niet geheel toevallig toen ook bezig met de VNG om de data van gemeenteraden open te maken, in het project Open Raadsinformatie.
+Nadat OSF de eerste koppelingen met vergadersystemen hadden gemaakt, kregen wij van de VNG de opdracht om de zoekmachine te verbeteren en het project op te schalen.
+In een jaar gingen we van 7 naar bijna 100 gemeenten die waren aangesloten.
+Hiermee werd Open Raadsinformatie een van de grootste open data projecten van Nederland.
+Vervolgens was OSF ook bezig met een aantal provincies. Dit project heette Open Stateninformatie.
+Omdat we beide databronnen in een interface wilden tonen, kozen we er in 2019 voor om het geheel onder de naam OpenBesluitvorming te houden.
+In de jaren daarna zorgden we er voor dat er nieuwe gemeenten werden toegevoegd, en onderhielden we de koppelvlakken met de vergadersystemen.
+
+## Van OpenBesluitvorming naar PLOOI
+
+In 2022 trad de Wet Open Overheid in werking, wat gemeenten verplicht om onder andere Raadsinformatie open te stellen.
+De overheidsorganisatie KOOP kreeg de opdracht om hiervoor software te maken, genaamd PLOOI.
+Het is de bedoeling dat [PLOOI](https://www.koopoverheid.nl/voor-overheden/rijksoverheid/plooi-platform-open-overheidsinformatie) binnenkort OpenBesluitvorming gaat vervangen.
+
+## Techniek
+
+OpenBesluitvorming bestaat uit de volgende componenten:
+
+- Extract, Load & Transform (ETL) pipeline, geschreven in Python. Dit systeem haalt de data van de verschillende bronnen (Notubiz, Parleaus, iBabs en meer) op en zet deze om naar een gestandaardiseerd formaat.
+- Zoek back-end, gebaseerd op Elasticsearch. Dit maakt het mogelijk om snel te zoeken in de data.
+- Front-end, gebaseerd op [React](/nl/tech/react). Dit is de interface die gebruikers zien. Open-Source op github.
+
+Lees meer over de technologie in ons [blog](/nl/blog/publishing-dutch-governmental-meetings-as-linked-data/).
+
+De code staat [open source op Github](https://github.com/ontola/openbesluitvorming).
+
+<video controls src="https://user-images.githubusercontent.com/2183313/208661302-385fb00d-5be2-4c50-8159-591c7805e51c.mov"/>

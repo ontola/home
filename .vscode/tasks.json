@@ -16,7 +16,7 @@
       "detail": "tsc --noEmit --pretty"
     },
     {
-      "type": "pnpm",
+      "type": "npm",
       "script": "dev",
       "problemMatcher": [],
       "label": "start server (pnpm dev)",
