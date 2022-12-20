@@ -5,12 +5,12 @@ frontend:
       commands:
         - nvm install 16
         - nvm use 16
-        - yarn install
+        - npx pnpm install
     build:
       commands:
         - nvm install 16
         - nvm use 16
-        - yarn run build
+        - npx pnpm build
   artifacts:
     baseDirectory: .next
     files:
