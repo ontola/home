@@ -15,6 +15,7 @@ pnpm dev
 
 We deploy to AWS Amplify, which is built automatically on pushing commits to github.
 Since we use I18n, we can't `export` the site.
+Let's hope that changes one day!
 
 Environment variables:
 
