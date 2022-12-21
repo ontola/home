@@ -23,7 +23,6 @@ specifiers:
   eslint-plugin-react-hooks: ^4.2.0
   eslint-plugin-unused-imports: ^1.1.5
   gray-matter: ^4.0.3
-  husky: ^7.0.4
   lint-staged: ^11.2.6
   next: ^12.0.9
   next-i18next: ^10.2.0
@@ -74,7 +73,6 @@ devDependencies:
   eslint-plugin-react: 7.31.11_eslint@7.32.0
   eslint-plugin-react-hooks: 4.6.0_eslint@7.32.0
   eslint-plugin-unused-imports: 1.1.5_2o2mfvfmkh2covki2xlznlxf2u
-  husky: 7.0.4
   lint-staged: 11.2.6
   next-sitemap: 2.5.28_next@12.3.4
   npm-run-all: 4.1.5
@@ -2283,12 +2281,6 @@ packages:
   /human-signals/2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
-    dev: true
-
-  /husky/7.0.4:
-    resolution: {integrity: sha512-vbaCKN2QLtP/vD4yvs6iz6hBEo6wkSzs8HpRah1Z6aGmF2KW5PdYuAd7uX5a+OyBZHBhd+TFLqgjUgytQr4RvQ==}
-    engines: {node: '>=12'}
-    hasBin: true
     dev: true
 
   /i18next-fs-backend/1.2.0:

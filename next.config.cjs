@@ -3,7 +3,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 // Should import, but bug in AWS deploy
-const { i18n } = require('./next-i18next.config');
+const { i18n } = require('./next-i18next.config.cjs');
 
 module.exports = withBundleAnalyzer({
   i18n,
