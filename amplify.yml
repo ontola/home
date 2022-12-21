@@ -3,13 +3,9 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm install 16
-        - nvm use 16
         - npx pnpm install
     build:
       commands:
-        - nvm install 16
-        - nvm use 16
         - npx pnpm build
   artifacts:
     baseDirectory: .next
