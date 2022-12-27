@@ -1,3 +1,5 @@
+import React, { ReactElement } from 'react';
+
 import Image from 'next/image';
 
 import { styled, theme } from '../../stitches.config';
@@ -124,7 +126,7 @@ export function Header({
   children,
   title,
   image,
-}: HeaderProps): JSX.Element {
+}: HeaderProps): ReactElement {
   return (
     <HeaderWrapper>
       <CirclesWrapper>

@@ -13,31 +13,6 @@ const pageDirectory = path.join(process.cwd(), '/content');
 const getDirectory = (sub: string) =>
   path.join(process.cwd(), `/content/${sub}`);
 
-/** Reads the filesystem, finds the folder for the type, returns MDX serialized resource */
-export async function getPostBySlug(
-  slug: string,
-  locale = 'en',
-  /** e.g. `blog` */
-  type: string
-): Promise<MDXItem> {
-  const realSlug = slug.replace(/\.mdx$/, '');
-  const fullPath = path.join(getDirectory(type), `${realSlug}.${locale}.mdx`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const post = matter(fileContents);
-  const out: any = post;
-  out.slug = realSlug;
-  out.orig = '';
-  out.mdxSource = await serialize(out.content, {
-    mdxOptions: {
-      rehypePlugins: [
-        // @ts-ignore - rehype-highlight types don't match
-        rehypeHighlight,
-      ],
-    },
-  });
-  return out;
-}
-
 /** Markdown metadata fields */
 export interface MetaData {
   /** Author string e.g. `joep` */
@@ -58,6 +33,31 @@ export interface MDXItem extends matter.GrayMatterFile<string> {
   slug: string;
   /** information from the .mdx header  */
   data: MetaData;
+}
+/** Reads the filesystem, finds the folder for the type, returns MDX serialized resource */
+export async function getPostBySlug(
+  slug: string,
+  /* eslint-disable default-param-last */
+  locale = 'en',
+  /** e.g. `blog` */
+  type: string
+): Promise<MDXItem> {
+  const realSlug = slug.replace(/\.mdx$/, '');
+  const fullPath = path.join(getDirectory(type), `${realSlug}.${locale}.mdx`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const post = matter(fileContents);
+  const out: any = post;
+  out.slug = realSlug;
+  out.orig = '';
+  out.mdxSource = await serialize(out.content, {
+    mdxOptions: {
+      rehypePlugins: [
+        // @ts-ignore - rehype-highlight types don't match
+        rehypeHighlight,
+      ],
+    },
+  });
+  return out;
 }
 
 /** Generates a list of all posts. Does not construct markdown content */

@@ -1,4 +1,24 @@
+import React from 'react';
+
 import { keyframes, styled } from '../../stitches.config';
+
+const scaleUp = keyframes({
+  '0%': { transform: 'translate(0, 1rem)' },
+  '50%': { transform: 'translate(.2rem, .5rem)' },
+  '100%': { transform: 'translate(0, 1rem)' },
+});
+
+const CircleStyled = styled('div', {
+  position: 'absolute',
+  left: '1rem',
+  height: '40rem',
+  animation: `${scaleUp} 10000ms`,
+  animationIterationCount: 'infinite',
+  svg: {
+    height: '100%',
+    width: '100%',
+  },
+});
 
 const CirclesWrapper = styled('div', {
   display: 'flex',
@@ -69,24 +89,6 @@ const Circle = ({ style }: CircleStyleProps) => (
     </svg>
   </CircleStyled>
 );
-
-const scaleUp = keyframes({
-  '0%': { transform: 'translate(0, 1rem)' },
-  '50%': { transform: 'translate(.2rem, .5rem)' },
-  '100%': { transform: 'translate(0, 1rem)' },
-});
-
-const CircleStyled = styled('div', {
-  position: 'absolute',
-  left: '1rem',
-  height: '40rem',
-  animation: `${scaleUp} 10000ms`,
-  animationIterationCount: 'infinite',
-  svg: {
-    height: '100%',
-    width: '100%',
-  },
-});
 
 export const Circles = () => (
   <CirclesWrapper>

@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import Link from 'next/link';
 
 import { styled, theme } from '../../stitches.config';
@@ -33,7 +35,7 @@ export function SectionHeading({
   small,
   title,
   href,
-}: SectionHeadingProps): JSX.Element {
+}: SectionHeadingProps): ReactElement {
   return (
     <Wrapper>
       {small && <Small>{small}</Small>}

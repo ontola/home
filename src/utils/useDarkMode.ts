@@ -2,6 +2,7 @@ import { Dispatch, useEffect, useState } from 'react';
 
 import { useLocalStorage } from './useLocalStorage';
 
+// eslint-disable-next-line no-shadow
 export enum DarkModeOption {
   /** Always use dark mode */
   always = 'always',

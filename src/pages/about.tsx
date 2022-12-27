@@ -21,6 +21,18 @@ const Members = styled('div', {
   marginBottom: '7rem',
 });
 
+const TeamPhoto = styled('img', {
+  width: '100%',
+  flex: 1,
+  '@media (min-width: 600px)': {
+    width: '1rem',
+  },
+  '@media (min-width: 900px)': {},
+  '@media (min-width: 1200px)': {
+    marginTop: '-5rem',
+  },
+});
+
 export default function About({ mdxSource, data }: MDXItem) {
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
@@ -44,18 +56,6 @@ export default function About({ mdxSource, data }: MDXItem) {
     </Main>
   );
 }
-
-const TeamPhoto = styled('img', {
-  width: '100%',
-  flex: 1,
-  '@media (min-width: 600px)': {
-    width: '1rem',
-  },
-  '@media (min-width: 900px)': {},
-  '@media (min-width: 1200px)': {
-    marginTop: '-5rem',
-  },
-});
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const aboutProps = await getPage('about', locale);

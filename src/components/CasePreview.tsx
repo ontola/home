@@ -1,3 +1,5 @@
+import React, { ReactElement } from 'react';
+
 import { styled } from '@stitches/react';
 import Link from 'next/link';
 
@@ -38,7 +40,7 @@ const Title = styled('h2', {
   textShadow: '0 0 0.3rem rgb(0 0 0 / 50%)',
 });
 
-export function CasePreview({ slug, data }: MDXItem): JSX.Element {
+export function CasePreview({ slug, data }: MDXItem): ReactElement {
   const { title } = data;
 
   return (
