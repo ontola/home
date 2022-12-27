@@ -64,7 +64,7 @@ function ContactForm() {
         id="message"
         name="message"
         required={true}
-        placeholder={t('messagePlaceholder')}
+        placeholder={t('messagePlaceholder') || ''}
       ></textarea>
       <ValidationError prefix="Message" field="message" errors={state.errors} />
       <Button
