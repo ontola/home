@@ -4,6 +4,7 @@ frontend:
     preBuild:
       commands:
         - npx pnpm install
+        - node --version
     build:
       commands:
         - npx pnpm build

@@ -6,7 +6,7 @@ Future home page for [Ontola](https://ontola.io/).
 
 ```sh
 # Install dependencies
-pnpm
+pnpm i
 # run dev server
 pnpm dev
 ```
@@ -14,6 +14,7 @@ pnpm dev
 ## Deployment
 
 We deploy to AWS Amplify, which is built automatically on pushing commits to github.
+See `amplify.yml` file for configuration.
 Since we use I18n, we can't `export` the site.
 Let's hope that changes one day!
 
