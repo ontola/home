@@ -3,8 +3,8 @@ frontend:
   phases:
     preBuild:
       commands:
+        # https://github.com/aws-amplify/amplify-cli/issues/6382#issuecomment-1145087901
         - npx pnpm install
-        - node --version
     build:
       commands:
         - npx pnpm build
