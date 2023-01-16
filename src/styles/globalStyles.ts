@@ -76,6 +76,9 @@ export const globalStyles = {
   button: {
     fontSize: '$body',
   },
+  img: {
+    maxWidth: '100%',
+  },
   table: {
     background: '$bg1',
     borderCollapse: 'collapse',
