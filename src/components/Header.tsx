@@ -22,6 +22,7 @@ const CirclesWrapper = styled('div', {
   position: 'absolute',
   top: 0,
   overflow: 'hidden',
+  pointerEvents: 'none',
 });
 
 const ImageWrapper = styled('div', {
