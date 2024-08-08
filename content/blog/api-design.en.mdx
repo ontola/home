@@ -17,7 +17,7 @@ Every thing in your API, every individual resource, should have its own URL. The
 
 Firstly, URLs make your responses _far easier to navigate_. Imagine a JSON object representing a social media post that references some author with an identity of `18EA91FB19`. From this information, you wouldn't know where to find that author. You need to read the API docs, discover the endpoint for authors and compose your request. If the ID was a URL, you would instantly know where to send that request to. This is not just great for humans, but also for machines, since they can't read your API docs - but they can navigate URLs.
 
-Secondly, URLs are always unique. URLs are not just unique identifiers in a single system, but also unique across different systems. The domain name takes care of that. This means that you can use your data across multiple systems without worrying about name collisions in identifiers. This is one of the properties [that makes linked data awesome](https://ontola.io/what-is-linked-data).
+Secondly, URLs are always unique. URLs are not just unique identifiers in a single system, but also unique across different systems. The domain name takes care of that. This means that you can use your data across multiple systems without worrying about name collisions in identifiers. This is one of the properties [that makes linked data awesome](https://ontola.io/blog/what-is-linked-data).
 
 Make sure that your URLs are stable. [Cool URIs don’t change](https://www.w3.org/Provider/Style/URI). If they really have to change, make sure the old URLs redirect to the new ones. Nobody likes broken links.
 
@@ -80,7 +80,7 @@ Pretty much all types of error messages can be categorized in the existing [HTTP
 ## Add context to your JSON
 Assuming you use JSON as a serialization format, you can use [@context](https://json-ld.org/spec/FCGS/json-ld/20180607/#the-context). The @context object is a nifty little idea to make your API more self-descriptive. It describes what the various keys in your JSON actually represent. It provides links to where the definition can be found.
 
-Make sure all your IDs are actually links, and your context is included. Now all your JSON has become JSON-LD, which is [linked data](https://ontola.io/what-is-linked-data). That means that your JSON data is now convertible to other RDF formats (Turtle, N3, N-triples, etc.), which means it becomes far more reusable.
+Make sure all your IDs are actually links, and your context is included. Now all your JSON has become JSON-LD, which is [linked data](https://ontola.io/blog/what-is-linked-data). That means that your JSON data is now convertible to other RDF formats (Turtle, N3, N-triples, etc.), which means it becomes far more reusable.
 
 Keep in mind that the links that you use should preferably resolve to some document that explains what your concept represents. A good starting point to find relevant concepts is [schema.org](https://schema.org).
 
