@@ -19,10 +19,10 @@ export function SectionHeading({
     <div className={styles.wrapper}>
       {small && <p className={styles.small}>{small}</p>}
       {href ? (
-        <Link href={href} passHref>
-          <a>
-            <h2 className={styles.heading}>{title}</h2>
-          </a>
+        <Link href={href}>
+
+          <h2 className={styles.heading}>{title}</h2>
+
         </Link>
       ) : (
         <h2 className={styles.heading}>{title}</h2>

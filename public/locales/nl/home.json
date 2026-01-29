@@ -1,13 +1,14 @@
 {
   "headTitle": "Ontola Software Development",
   "headDescription": "Ontola Software Development",
-  "heroTitle": "Software Development",
-  "heroDescription": "Wij schrijven software die ontworpen is om te veranderen. Zo blijven de kosten voor onderhoud en doorontwikkeling zo laag mogelijk.",
-  "servicesTitle": "Full-service",
+  "heroTitle": "Open technologie voor een weerbarstig internet",
+  "aboutUs": "Over ons",
+  "heroDescription": "Wij maken software die mensen en organisaties in staat stelt om controle te houden over hun eigen data. We werken aan standaarden en APIs voor een internet dat niet kapot te krijgen is.",
+  "servicesTitle": "Full-service software development",
   "servicesDescription": "Als jouw full-service digitale partner begeleiden we het softwareontwikkelingsproces van design tot hosting.",
   "servicesButton": "Bekijk diensten",
   "casesPre": "Ons werk",
-  "casesTitle": "Cases",
+  "casesTitle": "Projecten",
   "blogsPre": "We delen graag onze kennis",
   "blogsTitle": "Blogs"
 }

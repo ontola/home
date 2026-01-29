@@ -25,8 +25,8 @@ export default function LocaleSwitcher() {
           }
           return (
             <span key={localeName}>
-              <Link href={asPath} passHref locale={localeName}>
-                <a>{renderLocaleHuman(localeName)}</a>
+              <Link href={asPath} locale={localeName}>
+                {renderLocaleHuman(localeName)}
               </Link>
             </span>
           );

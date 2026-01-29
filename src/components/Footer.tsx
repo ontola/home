@@ -18,52 +18,48 @@ export function Footer(props: FooterProps) {
       <div className={styles.container}>
         <div className={styles.columns}>
           <div className={styles.column}>
-            <Link href="/" passHref>
-              <a>
-                <h3>Ontola</h3>
-              </a>
+            <Link href="/">
+
+              <h3>Ontola</h3>
+
             </Link>
             {menuPaths.map((p) => (
-              <Link key={p.key} href={p.href}>
-                <a style={{ display: 'block' }}>{t(p.key)}</a>
+              <Link key={p.key} href={p.href} style={{ display: 'block' }}>
+                {t(p.key)}
               </Link>
             ))}
           </div>
           <div className={styles.column}>
-            <Link href={paths.contact} passHref>
-              <a>
-                <h3>{t('contact')}</h3>
-              </a>
+            <Link href={paths.about}>
+              <h3>{t('about')}</h3>
             </Link>
-            <a href={calendly}>{t('plan')}</a>
-            <a href="tel:+31636020942">{t('call')}</a>
-            <a href="mailto:info@ontola.io">info@ontola.io</a>
-          </div>
-          <div className={styles.column}>
-            <Link href={paths.about} passHref>
-              <a>
-                <h3>{t('about')}</h3>
+            <div className={styles.infoBlock}>
+              <a href="https://openkvk.nl/company/hoofdvestiging-argu-bv-65684168-34385940">{t('partOf')}</a>
+              <a href="https://goo.gl/maps/rN2ZM1xpz7SFpH7J8">
+                Gerrit van der Veenstraat 131
+                <br />
+                3762 XK, Soest
               </a>
-            </Link>
-            <a href="https://argu.co">{t('partOf')}</a>
-            <a href="https://goo.gl/maps/rN2ZM1xpz7SFpH7J8">
-              <p>Maliebaan 100</p>
-              <p>3581 CZ, Utrecht</p>
-            </a>
+            </div>
+            <div className={styles.infoBlock}>
+              <a href={calendly}>{t('plan')}</a>
+              <a href="tel:+31636020942">{t('call')}</a>
+              <a href="mailto:info@ontola.io">info@ontola.io</a>
+            </div>
           </div>
         </div>
       </div>
       <div className={styles.divider} />
       <div className={styles.container}>
         <div className={styles.left}>
-          <Link href="/" passHref>
-            <a>
-              <img
-                className={styles.logoWhite}
-                src="/images/logo_white.svg"
-                alt="Ontola logo"
-              />
-            </a>
+          <Link href="/">
+
+            <img
+              className={styles.logoWhite}
+              src="/images/logo_white.svg"
+              alt="Ontola logo"
+            />
+
           </Link>
           <LocaleSwitcher />
           <button className={styles.button} onClick={props.toggleDarkMode}>

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { GetStaticProps } from 'next';
-import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -44,9 +43,9 @@ export default function Services({ data }: MDXItem) {
             <FeatureBlock key={i} title={service.title} image={service.image}>
               <p>{service.description}</p>
               {service.id && (
-                <Link href={`services/${service.id}`} passHref>
-                  <ButtonLink>{t('readMore')}</ButtonLink>
-                </Link>
+                <ButtonLink href={`services/${service.id}`}>
+                  {t('readMore')}
+                </ButtonLink>
               )}
             </FeatureBlock>
           );

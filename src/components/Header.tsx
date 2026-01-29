@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import Image from 'next/image';
+import Image from "next/image";
 
 import { Circles } from './Circles';
 import styles from './Header.module.css';
@@ -38,8 +38,7 @@ export function Header({
             <Image
               width={400}
               height={300}
-              objectFit="cover"
-              objectPosition="center"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
               src={`/images/${image}`}
               alt=""
             />
