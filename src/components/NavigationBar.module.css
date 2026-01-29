@@ -1,0 +1,123 @@
+.nav {
+  background: var(--colors-nav);
+  z-index: var(--zIndices-navigationBar);
+}
+
+.container {
+  padding: 0 1rem;
+  margin: 0 auto;
+  max-width: var(--sizes-containerBig);
+  display: flex;
+  height: 3rem;
+  align-items: center;
+}
+
+.link {
+  color: var(--colors-headerText);
+  display: block;
+  text-decoration: none;
+  font-size: .9rem;
+  border-radius: .5rem;
+  padding: .2rem .6rem;
+}
+
+.link:hover {
+  background: var(--colors-navContrast);
+}
+
+.link:active {
+  background: var(--colors-navContrast2);
+}
+
+.linksList {
+  /* Default logic handled via media query usually, but Stitches had dynamic variants */
+}
+
+@media (max-width: 700px) {
+  .linksList {
+    background-color: var(--colors-headerBg);
+    position: fixed;
+    top: 110%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 100vw;
+    height: 100%;
+    z-index: var(--zIndices-menu);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    transition: .2s inset;
+  }
+
+  .linksList.show {
+    top: 0%;
+  }
+
+  .linksList .link {
+    padding: .3rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 701px) {
+  .linksList {
+    display: flex;
+    align-items: center;
+    top: 0% !important; /* Override potential inline styles or defaults */
+  }
+}
+
+.menuButton {
+  align-self: center;
+}
+
+@media (min-width: 701px) {
+  .menuButton {
+    display: none;
+  }
+}
+
+.logoBottom {
+  flex: 1 1 0%;
+  display: flex;
+  padding: .5rem;
+  align-items: flex-end;
+}
+
+@media (min-width: 701px) {
+  .logoBottom {
+    display: none;
+  }
+}
+
+.closeButton {
+  margin-top: -.5rem;
+  align-self: flex-end;
+  justify-self: flex-end;
+  margin-left: auto;
+  background: var(--colors-bg1);
+  border-radius: var(--sizes-radius);
+  padding: .5rem;
+  border: none;
+  color: var(--colors-text);
+  outline: none;
+}
+
+@media (min-width: 701px) {
+  .closeButton {
+    display: none;
+  }
+}
+
+.logo {
+  height: 2rem;
+  align-items: center;
+  display: flex;
+  flex: 1;
+}
+
+.logo svg {
+  width: auto;
+  height: 2rem;
+}

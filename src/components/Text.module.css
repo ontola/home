@@ -1,0 +1,26 @@
+.text {
+  font-family: var(--fonts-heading);
+  color: var(--colors-text);
+  line-height: 1.5em;
+}
+
+.body {
+  font-size: var(--fontSizes-body);
+}
+
+.h1 {
+  font-size: var(--fontSizes-h1);
+  line-height: 1.1em;
+}
+
+.h2 {
+  font-size: var(--fontSizes-h2);
+}
+
+.h3 {
+  font-size: var(--fontSizes-h3);
+}
+
+.link {
+  color: var(--colors-primary);
+}

@@ -1,0 +1,100 @@
+.footer {
+  background: var(--colors-footerBg);
+  flex-shrink: 0;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+  margin-top: 10rem;
+}
+
+.footer * {
+  color: white;
+}
+
+.footer a {
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.logoWhite {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+}
+
+.container {
+  max-width: var(--sizes-containerBig);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+
+.socialIcon {
+  align-self: end;
+  width: 1.5rem;
+  margin-right: .5rem;
+}
+
+.socialIcon svg {
+  fill: var(--colors-bg0);
+}
+
+.left {
+  flex: 1;
+  align-items: center;
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.right {
+  flex: 1;
+  justify-content: flex-end;
+  display: flex;
+}
+
+.divider {
+  height: 2px;
+  width: 100%;
+  max-width: var(--sizes-containerBig);
+  background: white;
+  margin: auto;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.column {
+  display: flex;
+  margin-right: 3rem;
+  flex-direction: column;
+}
+
+.column p {
+  margin-bottom: 0rem;
+}
+
+.button {
+  background: transparent;
+  color: white;
+  outline: none;
+  border: none;
+  display: inline-block;
+  line-height: 1.2rem;
+  margin-left: 1rem;
+}
+
+.button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.columns {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

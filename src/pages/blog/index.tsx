@@ -1,8 +1,10 @@
-import { GetStaticProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Link from 'next/link';
+import React from 'react';
 
-import { styled, theme } from '../../../stitches.config';
+import { GetStaticProps } from 'next';
+import Link from 'next/link';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+import styles from './index.module.css';
 import { Details } from '../../components/Details';
 import { Header } from '../../components/Header';
 import { Meta } from '../../layout/Meta';
@@ -13,71 +15,26 @@ interface BlogProps {
   posts: MDXItem[];
 }
 
-const BlogPostPreviewStyling = styled('a', {
-  maxWidth: 'fit-content(200px)',
-  display: 'flex',
-  flexDirection: 'column',
-  textDecoration: 'none',
-  padding: '1rem',
-  borderRadius: theme.sizes.radius,
-  transition: '.2s box-shadow, .2s background, .2s border',
-  marginLeft: '-1rem',
-  marginBottom: '2rem',
-  border: '1px solid $bg',
-  borderColor: theme.colors.bg0,
-
-  '&:hover': {
-    background: '$bg0',
-    borderColor: theme.colors.bg2,
-  },
-
-  '&:active': {
-    transition: '0 all',
-    borderColor: theme.colors.text,
-  },
-  h3: {
-    marginTop: 0,
-  },
-});
-
-export const Bottom = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  justifySelf: 'flex-end',
-  flex: 1,
-  justifyContent: 'flex-end',
-});
-
-export const GradientLine = styled('div', {
-  display: 'block',
-  background: '$gradient',
-  height: '2px',
-  width: '100%',
-});
-
 export function BlogPostPreview({ data, slug }: MDXItem) {
   return (
     <Link href={`/blog/${slug}`} locale="en" passHref>
-      <BlogPostPreviewStyling>
+      <a className={styles.postPreview}>
         <h3>{data?.title}</h3>
         {data.description && <p>{data.description}</p>}
-        <Bottom>
-          <GradientLine />
+        <div className={styles.bottom}>
+          <div className={styles.gradientLine} />
           <Details {...data} />
-        </Bottom>
-      </BlogPostPreviewStyling>
+        </div>
+      </a>
     </Link>
   );
 }
 
-export const BlogsWrapper = styled('div', {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(17rem, 1fr))',
-  maxWidth: theme.sizes.containerBig,
-  margin: 'auto',
-  padding: '1rem',
-  gap: '2rem',
-});
+export const BlogsWrapper = ({ children }: { children: React.ReactNode }) => (
+  <div className={styles.blogsWrapper}>{children}</div>
+);
+
+export const GradientLine = () => <div className={styles.gradientLine} />;
 
 const BlogsIndex = ({ posts }: BlogProps) => {
   return (
@@ -90,11 +47,11 @@ const BlogsIndex = ({ posts }: BlogProps) => {
       }
     >
       <Header title="Linked Data Blog" />
-      <BlogsWrapper>
+      <div className={styles.blogsWrapper}>
         {posts.map((post, i) => (
           <BlogPostPreview key={i} {...post} />
         ))}
-      </BlogsWrapper>
+      </div>
     </Main>
   );
 };

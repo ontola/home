@@ -1,8 +1,9 @@
 import { GetStaticProps } from 'next';
+import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Link from 'next/link';
 
+import { BlogPostPreview, BlogsWrapper } from './blog';
 import { ButtonLink } from '../components/Button';
 import { CasePreview } from '../components/CasePreview';
 import { CasesWrapper } from '../components/CasesWrapper';
@@ -14,7 +15,6 @@ import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 import { MDXItem, getAllPostsLocale } from '../utils/getPosts';
 import { paths } from '../utils/paths';
-import { BlogPostPreview, BlogsWrapper } from './blog';
 
 interface HomeProps {
   cases: MDXItem[];

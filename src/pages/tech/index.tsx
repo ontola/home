@@ -1,8 +1,10 @@
+import React from 'react';
+
 import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { styled, theme } from '../../../stitches.config';
+import styles from './index.module.css';
 import { Container } from '../../components/Container';
 import { Header } from '../../components/Header';
 import { TechPill } from '../../components/TechPill';
@@ -14,14 +16,9 @@ interface CaseProps {
   posts: MDXItem[];
 }
 
-export const TechWrapper = styled('div', {
-  display: 'grid',
-  gridTemplateColumns: `repeat(auto-fit, minmax(${theme.sizes.gridItemSmall}, 1fr))`,
-  gridAutoRows: theme.sizes.gridItemSmall,
-  gridGap: '1rem',
-  paddingTop: '3rem',
-  marginBottom: '7rem',
-});
+export const TechWrapper = ({ children }: { children: React.ReactNode }) => (
+  <div className={styles.techWrapper}>{children}</div>
+);
 
 const CasesIndex = ({ posts }: CaseProps) => {
   const { t } = useTranslation('tech');

@@ -1,0 +1,48 @@
+.tool {
+  font-size: var(--fontSizes-small);
+  border: 1px solid;
+  border-color: var(--colors-bg2);
+  border-radius: var(--sizes-radius);
+  padding: .5rem .8rem;
+  margin-right: .5rem;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  text-transform: capitalize;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.tool span {
+  color: black;
+}
+
+.tool:hover {
+  background: white;
+  border-color: var(--colors-text1);
+}
+
+.tool:active {
+  border-color: var(--colors-text);
+}
+
+.tool img {
+  justify-self: center;
+  height: 1.5rem;
+  display: block;
+}
+
+.big {
+  padding: 1rem;
+}
+
+.big span {
+  font-size: 1rem;
+  padding-top: .5rem;
+  color: black;
+}
+
+.big img {
+  flex: 1;
+}

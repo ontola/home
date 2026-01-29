@@ -1,0 +1,18 @@
+.profileImg {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.profileWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.profileWrapper strong {
+  padding-top: 0.5rem;
+}

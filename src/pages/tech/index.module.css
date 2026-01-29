@@ -1,0 +1,8 @@
+.techWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--sizes-gridItemSmall), 1fr));
+  grid-auto-rows: var(--sizes-gridItemSmall);
+  grid-gap: 1rem;
+  padding-top: 3rem;
+  margin-bottom: 7rem;
+}

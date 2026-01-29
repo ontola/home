@@ -1,12 +1,7 @@
-import { styled } from '@stitches/react';
+import React from 'react';
 
-import { theme } from '../../stitches.config';
+import styles from './CasesWrapper.module.css';
 
-export const CasesWrapper = styled('div', {
-  display: 'grid',
-  gridTemplateColumns: `repeat(auto-fit, minmax(${theme.sizes.gridItem}, 1fr))`,
-  // gridAutoRows: theme.sizes.gridItem,
-  gridGap: '3rem',
-  paddingTop: '3rem',
-  marginBottom: '7rem',
-});
+export const CasesWrapper = ({ children }: { children: React.ReactNode }) => {
+  return <div className={styles.wrapper}>{children}</div>;
+};

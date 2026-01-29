@@ -1,9 +1,11 @@
+import React from 'react';
+
 import { GetStaticProps } from 'next';
+import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Link from 'next/link';
 
-import { styled } from '../../../stitches.config';
+import styles from './index.module.css';
 import { ButtonLink } from '../../components/Button';
 import { Container } from '../../components/Container';
 import { FeatureBlock } from '../../components/FeatureBlock';
@@ -15,10 +17,11 @@ import { MDXItem, getPage } from '../../utils/getPosts';
 // Change this when you add a new service
 const servicesCount = [1, 2, 3];
 
-export const TechWrapperSmall = styled('div', {
-  display: 'flex',
-  flexDirection: 'row',
-});
+export const TechWrapperSmall = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => <div className={styles.techWrapperSmall}>{children}</div>;
 
 export default function Services({ data }: MDXItem) {
   const { t } = useTranslation('services');

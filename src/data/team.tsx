@@ -9,7 +9,7 @@ export interface TeamMemberType {
 
 export const team: { [key: string]: TeamMemberType } = {
   joep: {
-    name: 'Joep Meindertma',
+    name: 'Joep Meindertsma',
     github: 'https://github.com/joepio',
     title: 'CEO',
   },

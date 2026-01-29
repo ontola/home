@@ -1,0 +1,68 @@
+:root {
+  /* Fonts */
+  --fonts-heading: "inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --fonts-body: "inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --fonts-code: monospace;
+
+  /* Colors (Light Theme Default) */
+  --colors-headerText: black;
+  --colors-headerBg: white;
+  --colors-text: black;
+  --colors-text1: #999999;
+  --colors-bg0: white;
+  --colors-bg: #F6F8FB;
+  --colors-bg1: #f4f4f4;
+  --colors-bg2: #d7d7d7;
+  --colors-bgBody: linear-gradient(0deg, rgba(19,76,105,1) 0%, rgba(19,76,105,1) 50%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%);
+  --colors-nav: rgba(255,255,255,0.7);
+  --colors-navContrast: rgba(0,0,0,0.05);
+  --colors-navContrast2: rgba(0,0,0,0.1);
+  --colors-primary: rgb(19,76,105);
+  --colors-footerBg: rgb(19,76,105);
+  --colors-c2a: rgba(152,99,219,1);
+  --colors-circlesBg: url(#circles-gradient);
+  --colors-gradient: linear-gradient(90deg, rgba(80,165,202,1) 0%, rgba(152,99,219,1) 100%);
+  --colors-gradientDark: linear-gradient(90deg, rgba(70,155,192,1) 0%, rgba(142,89,209,1) 100%);
+
+  /* Font Sizes */
+  --fontSizes-small: .8rem;
+  --fontSizes-body: 1rem;
+  --fontSizes-h3: 1.2rem;
+  --fontSizes-h2: 1.7rem;
+  --fontSizes-h1: 3rem;
+
+  /* Sizes */
+  --sizes-container: 40rem;
+  --sizes-containerBig: 60rem;
+  --sizes-gridItem: 15rem;
+  --sizes-gridItemSmall: 10rem;
+  --sizes-radius: .6rem;
+
+  /* Shadows */
+  --shadows-button: 0px 3px 15px rgba(0,0,0,0.2);
+  --shadows-buttonInset: inset 0px 3px 15px rgba(0,0,0,0.2);
+
+  /* Z-Indices */
+  --zIndices-contentFloating: 1;
+  --zIndices-featureTextBlock: 2;
+  --zIndices-navigationBar: 10;
+  --zIndices-menu: 100;
+}
+
+/* Dark Theme */
+[data-theme='dark'] {
+  --colors-headerText: white;
+  --colors-headerBg: black;
+  --colors-text: white;
+  --colors-text1: #555555;
+  --colors-bgBody: black;
+  --colors-bg0: black;
+  --colors-bg: #111111;
+  --colors-bg1: #222222;
+  --colors-bg2: #333333;
+  --colors-nav: rgba(0,0,0,0.7);
+  --colors-navContrast: rgba(255,255,255,0.2);
+  --colors-navContrast2: rgba(255,255,255,0.4);
+  --colors-footerBg: black;
+  --colors-primary: #5cc8ff;
+}

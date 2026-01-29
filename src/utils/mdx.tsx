@@ -1,20 +1,16 @@
 import Image, { ImageProps } from 'next/image';
 
-import { styled } from '../../stitches.config';
+import styles from './mdx.module.css';
 import { BigImage } from '../components/BigImage';
 import { FeatureBlock } from '../components/FeatureBlock';
 import { TechPill } from '../components/TechPill';
 import { TechWrapperSmall } from '../pages/services';
 import { TechWrapper } from '../pages/tech';
 
-const ImageWrapper = styled('div', {
-  position: 'relative',
-});
-
 /** Helper function to construct the custom components for rendering MDX files */
 export function buildComponents() {
   const img = (props: ImageProps) => (
-    <ImageWrapper>
+    <div className={styles.imageWrapper}>
       <Image
         {...props}
         objectFit="contain"
@@ -25,7 +21,7 @@ export function buildComponents() {
         loading="lazy"
         alt={props.alt}
       />
-    </ImageWrapper>
+    </div>
   );
 
   return {

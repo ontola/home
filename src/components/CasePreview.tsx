@@ -1,57 +1,23 @@
 import React, { ReactElement } from 'react';
 
-import { styled } from '@stitches/react';
 import Link from 'next/link';
 
+import styles from './CasePreview.module.css';
 import { MDXItem } from '../utils/getPosts';
-
-const CaseWrapper = styled('a', {
-  backgroundPosition: 'center',
-  backgroundSize: 'cover',
-  // maxWidth: 'calc(100vw - 2rem)',
-  maxWidth: '20rem',
-  borderRadius: '2.5rem',
-  alignItems: 'flex-start',
-  display: 'flex',
-  flexDirection: 'column',
-  textDecoration: 'none',
-  transition: '.2s box-shadow, .2s transform',
-  padding: '1rem',
-  justifyContent: 'flex-end',
-  overflow: 'hidden',
-  aspectRatio: '1 / 1',
-  '*': {
-    color: 'white',
-  },
-  p: {
-    marginBottom: '0',
-  },
-  '&:hover': {
-    boxShadow: '$button',
-    transform: 'scale(1.03)',
-  },
-});
-
-const Title = styled('h2', {
-  justifySelf: 'flex-end',
-  color: '#fff',
-  fontSize: '1.8rem',
-  fontWeight: 'bold',
-  textShadow: '0 0 0.3rem rgb(0 0 0 / 50%)',
-});
 
 export function CasePreview({ slug, data }: MDXItem): ReactElement {
   const { title } = data;
 
   return (
     <Link href={`/cases/${slug}`} passHref>
-      <CaseWrapper
+      <a
+        className={styles.caseWrapper}
         style={{
           backgroundImage: `url(/images/cases/${slug}_preview.png)`,
         }}
       >
-        <Title>{title}</Title>
-      </CaseWrapper>
+        <h2 className={styles.title}>{title}</h2>
+      </a>
     </Link>
   );
 }

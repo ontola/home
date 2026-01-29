@@ -1,0 +1,24 @@
+.members {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--sizes-gridItemSmall), 1fr));
+  grid-gap: 3rem;
+  padding-top: 3rem;
+  margin-bottom: 7rem;
+}
+
+.teamPhoto {
+  width: 100%;
+  flex: 1;
+}
+
+@media (min-width: 600px) {
+  .teamPhoto {
+    width: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .teamPhoto {
+    margin-top: -5rem;
+  }
+}
