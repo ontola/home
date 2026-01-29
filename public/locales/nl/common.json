@@ -1,6 +1,6 @@
 {
   "services": "Diensten",
-  "cases": "Cases",
+  "cases": "Projecten",
   "blog": "Blog",
   "about": "Over ons",
   "tech": "Technologieën",
@@ -8,5 +8,5 @@
   "plan": "Plan een afspraak",
   "call": "06 36020942",
   "darkMode": "donkere weergave",
-  "partOf": "Onderdeel van Argu B.V."
+  "partOf": "Argu B.V., kvk 65684168"
 }

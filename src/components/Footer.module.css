@@ -95,6 +95,20 @@
   display: flex;
   flex: 1;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
+}
+
+.infoBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.subHeader {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
 }

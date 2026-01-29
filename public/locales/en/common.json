@@ -1,6 +1,6 @@
 {
   "services": "Services",
-  "cases": "Cases",
+  "cases": "Projects",
   "blog": "Blog",
   "about": "About us",
   "contact": "Contact",
@@ -8,5 +8,5 @@
   "plan": "Plan a meeting",
   "call": "+31636020942",
   "darkMode": "dark mode",
-  "partOf": "Subsidiary of Argu B.V."
+  "partOf": "Argu B.V., kvk 65684168"
 }

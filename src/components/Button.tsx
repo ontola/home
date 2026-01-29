@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { PropsWithChildren } from 'react';
 
 import clsx from 'clsx';
@@ -17,8 +18,14 @@ export const Button = ({
 
 export const ButtonLink = ({
   className,
+  href,
   ...props
-}: PropsWithChildren<ButtonLinkProps>) => {
+}: PropsWithChildren<ButtonLinkProps> & { href?: string }) => {
+  if (href) {
+    return (
+      <Link href={href} className={clsx(styles.button, className)} {...props} />
+    );
+  }
   return <a className={clsx(styles.button, className)} {...props} />;
 };
 

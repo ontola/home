@@ -17,11 +17,11 @@ function techToString(tech: string): string {
 export function TechPill({ technology, big }: ToolProps) {
   const title = techToString(technology);
   return (
-    <Link href={`/tech/${technology}`} passHref>
-      <a className={clsx(styles.tool, big && styles.big)}>
-        <img src={`/images/tech/${technology}.svg`} alt={title} />
-        <span>{title}</span>
-      </a>
+    <Link href={`/tech/${technology}`} className={clsx(styles.tool, big && styles.big)}>
+
+      <img src={`/images/tech/${technology}.svg`} alt={title} />
+      <span>{title}</span>
+
     </Link>
   );
 }

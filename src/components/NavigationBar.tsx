@@ -16,8 +16,8 @@ interface NavLinkProps {
 
 /** Individual navbar item */
 export const NavLink = ({ children, href }: NavLinkProps) => (
-  <Link href={href} passHref>
-    <a className={styles.link}>{children}</a>
+  <Link href={href} className={styles.link}>
+    {children}
   </Link>
 );
 
@@ -42,10 +42,10 @@ export const NavigationBar = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.container}>
-        <Link href="/" passHref>
-          <a className={styles.logo}>
-            <Logo />
-          </a>
+        <Link href="/" className={styles.logo}>
+
+          <Logo />
+
         </Link>
         <Button className={styles.menuButton} onClick={() => setShow(!show)}>
           Menu
@@ -65,10 +65,10 @@ export const NavigationBar = () => {
             </NavLink>
           ))}
           <div className={styles.logoBottom}>
-            <Link href="/" passHref>
-              <a>
-                <Logo />
-              </a>
+            <Link href="/">
+
+              <Logo />
+
             </Link>
           </div>
         </div>

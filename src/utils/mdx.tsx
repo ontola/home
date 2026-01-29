@@ -1,4 +1,4 @@
-import Image, { ImageProps } from 'next/image';
+import Image, { ImageProps } from "next/legacy/image";
 
 import styles from './mdx.module.css';
 import { BigImage } from '../components/BigImage';

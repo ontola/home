@@ -17,15 +17,15 @@ interface BlogProps {
 
 export function BlogPostPreview({ data, slug }: MDXItem) {
   return (
-    <Link href={`/blog/${slug}`} locale="en" passHref>
-      <a className={styles.postPreview}>
-        <h3>{data?.title}</h3>
-        {data.description && <p>{data.description}</p>}
-        <div className={styles.bottom}>
-          <div className={styles.gradientLine} />
-          <Details {...data} />
-        </div>
-      </a>
+    <Link href={`/blog/${slug}`} locale="en" className={styles.postPreview}>
+
+      <h3>{data?.title}</h3>
+      {data.description && <p>{data.description}</p>}
+      <div className={styles.bottom}>
+        <div className={styles.gradientLine} />
+        <Details data={data} withoutLinks />
+      </div>
+
     </Link>
   );
 }

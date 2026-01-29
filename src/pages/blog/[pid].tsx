@@ -17,7 +17,7 @@ export default function BlogPost({ mdxSource, data }: MDXItem) {
       <article>
         <Header title={data.title}>
           <GradientLine />
-          <Details {...data} />
+          <Details data={data} />
         </Header>
         <Container>
           <MDXRemote components={buildComponents()} {...mdxSource} />

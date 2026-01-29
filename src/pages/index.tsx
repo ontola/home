@@ -1,5 +1,4 @@
 import { GetStaticProps } from 'next';
-import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -30,9 +29,7 @@ const Home = ({ cases, blogs }: HomeProps) => {
     >
       <Header title={t('heroTitle')}>
         <p>{t('heroDescription')}</p>
-        <Link href={paths.contact} passHref>
-          <ButtonLink>Contact</ButtonLink>
-        </Link>
+        <ButtonLink href={paths.about}>{t('aboutUs')}</ButtonLink>
       </Header>
       <Container>
         <FeatureBlock
@@ -40,9 +37,7 @@ const Home = ({ cases, blogs }: HomeProps) => {
           image={'photos/joep-arthur.jpg'}
         >
           <p>{t('servicesDescription')}</p>
-          <Link href={paths.services} passHref>
-            <ButtonLink>{t('servicesButton')}</ButtonLink>
-          </Link>
+          <ButtonLink href={paths.services}>{t('servicesButton')}</ButtonLink>
         </FeatureBlock>
       </Container>
       <Container big>
