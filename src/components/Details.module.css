@@ -1,0 +1,7 @@
+.detail {
+  color: var(--colors-text1);
+}
+
+.detail a {
+  text-decoration: none;
+}

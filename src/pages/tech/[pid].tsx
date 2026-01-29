@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { styled } from '../../../stitches.config';
+import styles from './[pid].module.css';
 import { CasePreview } from '../../components/CasePreview';
 import { CasesWrapper } from '../../components/CasesWrapper';
 import { Container } from '../../components/Container';
@@ -12,19 +12,18 @@ import { Main } from '../../templates/Main';
 import { MDXItem, getAllPaths, getPostBySlug } from '../../utils/getPosts';
 import { buildComponents } from '../../utils/mdx';
 
-const TechImg = styled('img', {
-  width: '15rem',
-  alignSelf: 'center',
-  justifySelf: 'center',
-  margin: 'auto',
-});
-
 export default function TechPosts({ mdxSource, data, cases, slug }: MDXItem) {
   return (
     <Main meta={<Meta title={data.title} description={data.description} />}>
       <Header
         title={data.title}
-        customImage={<TechImg src={`/images/tech/${slug}.svg`} />}
+        customImage={
+          <img
+            className={styles.techImg}
+            src={`/images/tech/${slug}.svg`}
+            alt=""
+          />
+        }
       >
         <p>{data.description}</p>
       </Header>

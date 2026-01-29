@@ -80,8 +80,9 @@ export async function getAllPostsLocale(
         // const truncated = post.content.slice(0, 300);
         // post.mdxSource = await serialize(truncated);
 
-        post.slug = name.slice(0, -7);
-        files.push(post);
+        // eslint-disable-next-line
+        const { content, orig, ...rest } = post as any;
+        files.push({ ...rest, slug: name.slice(0, -7) } as MDXItem);
       }
     })
   );

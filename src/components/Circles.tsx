@@ -1,46 +1,13 @@
 import React from 'react';
 
-import { keyframes, styled } from '../../stitches.config';
-
-const scaleUp = keyframes({
-  '0%': { transform: 'translate(0, 1rem)' },
-  '50%': { transform: 'translate(.2rem, .5rem)' },
-  '100%': { transform: 'translate(0, 1rem)' },
-});
-
-const CircleStyled = styled('div', {
-  position: 'absolute',
-  left: '1rem',
-  height: '40rem',
-  animation: `${scaleUp} 10000ms`,
-  animationIterationCount: 'infinite',
-  svg: {
-    height: '100%',
-    width: '100%',
-  },
-});
-
-const CirclesWrapper = styled('div', {
-  display: 'flex',
-  maxWidth: '20rem',
-  height: '20rem',
-  position: 'absolute',
-  top: '-10rem',
-  right: '40%',
-  // safari fix - scaling up is blurry with animated svgs
-  transform: 'scale(.5)',
-
-  '@media (min-width: 600px)': {
-    transform: 'scale(1)',
-  },
-});
+import styles from './Circles.module.css';
 
 interface CircleStyleProps {
   style?: React.CSSProperties;
 }
 
 const Circle = ({ style }: CircleStyleProps) => (
-  <CircleStyled style={style}>
+  <div className={styles.circle} style={style}>
     <svg
       width="564"
       height="564"
@@ -87,11 +54,11 @@ const Circle = ({ style }: CircleStyleProps) => (
         </linearGradient>
       </defs>
     </svg>
-  </CircleStyled>
+  </div>
 );
 
 export const Circles = () => (
-  <CirclesWrapper>
+  <div className={styles.wrapper}>
     <Circle style={{ left: '10rem', width: '28rem', animationDelay: '0' }} />
     <Circle style={{ left: '0', width: '8rem', animationDelay: '-2000ms' }} />
     <Circle
@@ -110,5 +77,5 @@ export const Circles = () => (
         animationDelay: '-7000ms',
       }}
     />
-  </CirclesWrapper>
+  </div>
 );

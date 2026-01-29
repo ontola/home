@@ -1,29 +1,27 @@
-import { styled, theme } from '../../stitches.config';
+import React, { PropsWithChildren } from 'react';
 
-export const buttonStyle = {
-  borderRadius: theme.sizes.radius,
-  fontSize: '1rem',
-  padding: '.5rem 1rem',
-  color: 'white !important',
-  background: theme.colors.gradient,
-  // background: '$navBg',
-  // border: 'solid 1px $headerText',
-  transition: 'all .2s',
-  boxSizing: 'border-box',
-  textDecoration: 'none',
-  alignSelf: 'flex-start',
-  '&:hover': {
-    boxShadow: '$button',
-    cursor: 'pointer',
-    background: theme.colors.gradientDark,
-    // border: 'solid 1px transparent',
-  },
-  '&:active': {
-    boxShadow: '$buttonInset',
-  },
-  border: 'none',
+import clsx from 'clsx';
+
+import styles from './Button.module.css';
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface ButtonLinkProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {}
+
+export const Button = ({
+  className,
+  ...props
+}: PropsWithChildren<ButtonProps>) => {
+  return <button className={clsx(styles.button, className)} {...props} />;
 };
 
-/** Button with header-dependent styling */
-export const Button = styled('button', buttonStyle);
-export const ButtonLink = styled('a', buttonStyle);
+export const ButtonLink = ({
+  className,
+  ...props
+}: PropsWithChildren<ButtonLinkProps>) => {
+  return <a className={clsx(styles.button, className)} {...props} />;
+};
+
+// Export style object for potential legacy usage (if any), but it's now decoupled
+// Warning: This is NOT the stitches style object anymore.
+// Analyzing usage, it seems only used in Button.tsx in the previous code.

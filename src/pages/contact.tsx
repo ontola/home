@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { styled, theme } from '../../stitches.config';
+import styles from './contact.module.css';
 import { Button, ButtonLink } from '../components/Button';
 import { Container } from '../components/Container';
 import { Header } from '../components/Header';
@@ -11,30 +11,6 @@ import { calendly } from '../data/links';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 import { MDXItem, getPage } from '../utils/getPosts';
-
-const Form = styled('form', {
-  display: 'flex',
-  flexDirection: 'column',
-  marginBottom: '5rem',
-
-  label: {
-    color: theme.colors.text,
-    marginBottom: '1rem',
-  },
-
-  'input, textarea': {
-    background: theme.colors.bg0,
-    marginBottom: '1rem',
-    borderRadius: theme.sizes.radius,
-    padding: '1rem',
-    border: `1px solid ${theme.colors.bg2}`,
-    fontSize: '1rem',
-    color: theme.colors.text,
-    '&:focus': {
-      outline: `1px solid ${theme.colors.text}`,
-    },
-  },
-});
 
 function ContactForm() {
   const { t } = useTranslation('contact');
@@ -44,7 +20,8 @@ function ContactForm() {
     return <p>{t('thanks')}</p>;
   }
   return (
-    <Form
+    <form
+      className={styles.form}
       action="https://formspree.io/f/xvolzevw"
       method="POST"
       onSubmit={handleSubmit}
@@ -79,7 +56,7 @@ function ContactForm() {
       <input type="hidden" name="_subject" value="Ontola.io" />
       <input type="hidden" name="_format" value="plain" />
       <input type="text" name="_gotcha" style={{ display: 'none' }} />
-    </Form>
+    </form>
   );
 }
 

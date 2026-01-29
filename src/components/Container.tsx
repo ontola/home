@@ -1,14 +1,22 @@
-import { styled } from '../../stitches.config';
+import React, { PropsWithChildren } from 'react';
 
-export const Container = styled('div', {
-  maxWidth: '$container',
-  margin: '0 auto',
-  padding: '1rem',
-  variants: {
-    big: {
-      true: {
-        maxWidth: '$containerBig',
-      },
-    },
-  },
-});
+import clsx from 'clsx';
+
+import styles from './Container.module.css';
+
+interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  big?: boolean;
+}
+
+export const Container = ({
+  big,
+  className,
+  ...props
+}: PropsWithChildren<ContainerProps>) => {
+  return (
+    <div
+      className={clsx(styles.container, big && styles.big, className)}
+      {...props}
+    />
+  );
+};

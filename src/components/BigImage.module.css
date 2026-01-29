@@ -1,0 +1,24 @@
+.wrap {
+  width: 98vw;
+  margin: 0;
+  max-width: var(--sizes-container);
+}
+
+@media (min-width: 1200px) {
+  .wrap {
+    margin: 3rem 0;
+    margin-left: -50%;
+  }
+}
+
+.image {
+  max-width: 100%;
+  display: block;
+  margin: auto;
+}
+
+@media (min-width: 1200px) {
+  .image {
+    max-width: 1200px;
+  }
+}

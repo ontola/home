@@ -1,33 +1,36 @@
-import { styled } from '../../stitches.config';
+import React, { PropsWithChildren } from 'react';
 
-export const Text = styled('p', {
-  fontFamily: '$heading',
-  color: '$text',
-  lineHeight: '1.5em',
+import clsx from 'clsx';
 
-  variants: {
-    as: {
-      body: {
-        fontSize: '$body',
-      },
-      h1: {
-        fontSize: '$h1',
-        lineHeight: '1.1em',
-      },
-      h2: {
-        fontSize: '$h2',
-      },
-      h3: {
-        fontSize: '$h3',
-      },
-    },
-  },
+import styles from './Text.module.css';
 
-  defaultVariants: {
-    as: 'body',
-  },
-});
+interface TextProps extends React.HTMLAttributes<HTMLElement> {
+  as?: any;
+}
 
-export const StyledLink = styled(Text, {
-  color: '$primary',
-});
+export const Text = ({
+  as: Component = 'p',
+  className,
+  ...props
+}: PropsWithChildren<TextProps>) => {
+  let variantClass = styles.body;
+  if (typeof Component === 'string') {
+    if (Component === 'h1') variantClass = styles.h1;
+    if (Component === 'h2') variantClass = styles.h2;
+    if (Component === 'h3') variantClass = styles.h3;
+  }
+
+  return (
+    <Component
+      className={clsx(styles.text, variantClass, className)}
+      {...props}
+    />
+  );
+};
+
+export const StyledLink = ({
+  className,
+  ...props
+}: PropsWithChildren<TextProps>) => {
+  return <Text as="a" className={clsx(styles.link, className)} {...props} />;
+};

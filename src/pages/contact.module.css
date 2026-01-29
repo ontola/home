@@ -1,0 +1,26 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5rem;
+}
+
+.form label {
+  color: var(--colors-text);
+  margin-bottom: 1rem;
+}
+
+.form input,
+.form textarea {
+  background: var(--colors-bg0);
+  margin-bottom: 1rem;
+  border-radius: var(--sizes-radius);
+  padding: 1rem;
+  border: 1px solid var(--colors-bg2);
+  font-size: 1rem;
+  color: var(--colors-text);
+}
+
+.form input:focus,
+.form textarea:focus {
+  outline: 1px solid var(--colors-text);
+}

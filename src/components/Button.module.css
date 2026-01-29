@@ -1,0 +1,22 @@
+.button {
+  border-radius: var(--sizes-radius);
+  font-size: 1rem;
+  padding: .5rem 1rem;
+  color: white !important;
+  background: var(--colors-gradient);
+  transition: all .2s;
+  box-sizing: border-box;
+  text-decoration: none;
+  align-self: flex-start;
+  border: none;
+}
+
+.button:hover {
+  box-shadow: var(--shadows-button);
+  cursor: pointer;
+  background: var(--colors-gradientDark);
+}
+
+.button:active {
+  box-shadow: var(--shadows-buttonInset);
+}

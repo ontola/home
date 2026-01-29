@@ -1,0 +1,36 @@
+.caseWrapper {
+  background-position: center;
+  background-size: cover;
+  max-width: 20rem;
+  border-radius: 2.5rem;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: .2s box-shadow, .2s transform;
+  padding: 1rem;
+  justify-content: flex-end;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+}
+
+.caseWrapper * {
+  color: white;
+}
+
+.caseWrapper p {
+  margin-bottom: 0;
+}
+
+.caseWrapper:hover {
+  box-shadow: var(--shadows-button);
+  transform: scale(1.03);
+}
+
+.title {
+  justify-self: flex-end;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-shadow: 0 0 0.3rem rgb(0 0 0 / 50%);
+}

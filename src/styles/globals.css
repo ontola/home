@@ -1,0 +1,113 @@
+@import './theme.css';
+
+/* Reset & Global Styles */
+* {
+  box-sizing: border-box;
+  font-family: var(--fonts-body);
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonts-body);
+  color: var(--colors-text);
+  height: 100%;
+  /* For elastic scrolling */
+  background: var(--colors-footerBg);
+}
+
+h1, h2, h3, h4 {
+  --fontfamily: var(--fonts-heading);
+  font-family: var(--fontfamily, sans-serif);
+  font-weight: bold;
+  color: var(--colors-text);
+  margin: 0;
+  margin-top: 1.5em;
+  line-height: 1.1em;
+  margin-bottom: .5rem;
+}
+
+h1 {
+  font-size: var(--fontSizes-h1);
+}
+
+h2 {
+  font-size: var(--fontSizes-h2);
+}
+
+h3 {
+  font-size: var(--fontSizes-h3);
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+p, ul, li, table, a, span {
+  line-height: 1.7em;
+  font-size: var(--fontSizes-body);
+  color: inherit;
+}
+
+li {
+  margin-bottom: 0.1em;
+  margin-left: 1rem;
+}
+
+ul, ol {
+  margin-bottom: 1rem;
+}
+
+ul li {
+  list-style: disc;
+}
+
+ol li {
+  list-style: number;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: bold;
+}
+
+p code, pre code {
+  font-family: var(--fonts-code);
+  color: var(--colors-text);
+  background: var(--colors-bg1);
+  border: solid 1px var(--colors-bg2);
+  padding: .2rem;
+  font-size: 1rem;
+  overflow: auto;
+  margin-bottom: 1em;
+  line-height: 1.5rem;
+}
+
+pre code {
+  display: block;
+}
+
+button {
+  font-size: var(--fontSizes-body);
+}
+
+img {
+  max-width: 100%;
+}
+
+table {
+  background: var(--colors-bg1);
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: .4em;
+  border: solid 1px var(--colors-bg2);
+}
+
+video {
+  max-width: 100%;
+}

@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import Link from 'next/link';
 
-import { styled, theme } from '../../stitches.config';
+import styles from './SectionHeading.module.css';
 
 interface SectionHeadingProps {
   small: string;
@@ -10,44 +10,23 @@ interface SectionHeadingProps {
   href?: string;
 }
 
-const Wrapper = styled('div', {
-  marginTop: '3rem',
-  a: {
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-  },
-});
-
-const Small = styled('p', {
-  margin: 0,
-  color: theme.colors.primary,
-});
-
-const Heading = styled('h2', {
-  fontSize: '2.8rem',
-  margin: 0,
-  marginBottom: '2rem',
-});
-
 export function SectionHeading({
   small,
   title,
   href,
 }: SectionHeadingProps): ReactElement {
   return (
-    <Wrapper>
-      {small && <Small>{small}</Small>}
+    <div className={styles.wrapper}>
+      {small && <p className={styles.small}>{small}</p>}
       {href ? (
         <Link href={href} passHref>
           <a>
-            <Heading>{title}</Heading>
+            <h2 className={styles.heading}>{title}</h2>
           </a>
         </Link>
       ) : (
-        <Heading>{title}</Heading>
+        <h2 className={styles.heading}>{title}</h2>
       )}
-    </Wrapper>
+    </div>
   );
 }

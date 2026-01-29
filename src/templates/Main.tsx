@@ -1,6 +1,6 @@
-import { ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 
-import { caseTheme, darkTheme, styled, theme } from '../../stitches.config';
+import styles from './Main.module.css';
 import { Footer } from '../components/Footer';
 import { NavigationBar } from '../components/NavigationBar';
 import { useDarkMode } from '../utils/useDarkMode';
@@ -12,42 +12,45 @@ type IMainProps = {
   caseColor?: string;
 };
 
-const Content = styled('main', {
-  flex: '1 0 auto',
-});
-
-const AppWrapper = styled('div', {
-  background: theme.colors.bg0,
-  display: 'flex',
-  flexDirection: 'column',
-  minHeight: '100vh',
-  /** Next two lines are needed to show the cirlces, which have a negative z-index */
-  position: 'relative',
-  zIndex: 0,
-});
-
 const Main = ({ caseColor, meta, children }: IMainProps) => {
   const [darkMode, setDarkMode] = useDarkMode();
 
-  let classes = '';
-  if (caseColor && !darkMode) {
-    classes = classes.concat(caseTheme(caseColor));
-  }
-  if (darkMode) {
-    classes = classes.concat(` ${darkTheme}`);
-  }
-
   useEffect(() => {
-    document.body.className = classes;
-  }, [classes]);
+    if (darkMode) {
+      document.body.setAttribute('data-theme', 'dark');
+    } else {
+      document.body.removeAttribute('data-theme');
+    }
+  }, [darkMode]);
+
+  const caseStyle =
+    caseColor && !darkMode
+      ? ({
+          '--colors-headerText': 'white',
+          '--colors-headerBg': caseColor,
+          '--colors-bgBody': caseColor,
+          '--colors-nav': 'transparent',
+          '--colors-circlesBg': 'white',
+          '--colors-footerBg': caseColor,
+          '--colors-bg0': 'white',
+        } as React.CSSProperties)
+      : {};
+
+  // Note: We apply styles to appWrapper because local styles don't easily propagate to body
+  // unless we set them on body.
+  // The original 'caseTheme' generated a class applied to main Wrapper.
+  // The original 'globalStyles' used these vars for body background.
+  // Since body background is set via var(--colors-footerBg), setting it here on Wrapper
+  // won't affect body immediately unless we use a portal or JS.
+  // But given AppWrapper is min-h-screen, it covers the viewport usually.
 
   return (
-    <AppWrapper className={classes}>
+    <div className={styles.appWrapper} style={caseStyle}>
       {meta}
       <NavigationBar />
-      <Content>{children}</Content>
+      <main className={styles.content}>{children}</main>
       <Footer toggleDarkMode={() => setDarkMode(!darkMode)} />
-    </AppWrapper>
+    </div>
   );
 };
 
