@@ -1,4 +1,28 @@
-import React from 'react';
+import Link from 'next/link';
+
+// Helper to parse basic markdown links [text](url)
+const renderDescription = (text: string) => {
+  if (!text) return null;
+  // Split by finding markdown links
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+
+  return (
+    <p>
+      {parts.map((part, index) => {
+        const match = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+        if (match) {
+          return (
+            <Link key={index} href={match[2] as string}>
+              {match[1]}
+            </Link>
+          );
+        }
+        return part;
+      })}
+    </p>
+  );
+};
+
 
 import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
@@ -14,7 +38,8 @@ import { Main } from '../../templates/Main';
 import { MDXItem, getPage } from '../../utils/getPosts';
 
 // Change this when you add a new service
-const servicesCount = [1, 2, 3];
+// Change this when you add a new service
+const servicesCount = [0, 1, 2, 3, 4];
 
 export const TechWrapperSmall = ({
   children,
@@ -37,19 +62,32 @@ export default function Services({ data }: MDXItem) {
             title: data[`${i}_title`],
             image: data[`${i}_image`],
             description: data[`${i}_description`],
-            technologies: data[`${i}_technologies`],
+            link: data[`${i}_link`], // Support custom link
           };
+
+          // Determine the href: custom link takes precedence, then internal service page if ID exists
+          const href = service.link || (service.id ? `services/${service.id}` : null);
+
+          if (!service.title) return null;
+
           return (
             <FeatureBlock key={i} title={service.title} image={service.image}>
-              <p>{service.description}</p>
-              {service.id && (
-                <ButtonLink href={`services/${service.id}`}>
-                  {t('readMore')}
+              {renderDescription(service.description)}
+              {href && (
+                <ButtonLink href={href}>
+                  {service.link ? t('readMoreTech', 'View Technology') : t('readMore')}
                 </ButtonLink>
               )}
             </FeatureBlock>
           );
         })}
+      </Container>
+      <Container>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <ButtonLink href="/contact" variant="primary">
+            {t('common:contact')}
+          </ButtonLink>
+        </div>
       </Container>
     </Main>
   );

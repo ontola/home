@@ -62,10 +62,30 @@
     margin-left: -15rem;
     margin-right: -15rem;
   }
+
+  .noImage {
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .noImage .textContent {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 800px;
+  }
 }
 
 .header {
   font-size: 2rem;
   margin-top: 0;
   position: relative;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--radius);
 }

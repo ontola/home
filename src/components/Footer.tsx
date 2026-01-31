@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next';
 import styles from './Footer.module.css';
 import LocaleSwitcher from './LocaleSwitcher';
 import { calendly } from '../data/links';
+import { footerProjects, footerTech } from '../data/footerLinks';
 import { menuPaths, paths } from '../utils/paths';
 
 interface FooterProps {
@@ -17,18 +18,42 @@ export function Footer(props: FooterProps) {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.columns}>
+          {/* Column 1: Ontola */}
           <div className={styles.column}>
             <Link href="/">
-
               <h3>Ontola</h3>
-
             </Link>
-            {menuPaths.map((p) => (
-              <Link key={p.key} href={p.href} style={{ display: 'block' }}>
-                {t(p.key)}
+            <Link href="/services" style={{ display: 'block' }}>{t('services')}</Link>
+            <Link href="/blog" style={{ display: 'block' }}>{t('blog')}</Link>
+          </div>
+
+
+
+          {/* Column 3: Projects */}
+          <div className={styles.column}>
+            <Link href="/cases">
+              <h3>{t('cases')}</h3>
+            </Link>
+            {footerProjects.map((p) => (
+              <Link key={p.href} href={p.href} style={{ display: 'block' }}>
+                {p.label}
               </Link>
             ))}
           </div>
+
+          {/* Column 4: Technologies */}
+          <div className={styles.column}>
+            <Link href="/tech">
+              <h3>{t('tech')}</h3>
+            </Link>
+            {footerTech.map((t) => (
+              <Link key={t.href} href={t.href} style={{ display: 'block' }}>
+                {t.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Column 5: About us */}
           <div className={styles.column}>
             <Link href={paths.about}>
               <h3>{t('about')}</h3>
@@ -42,6 +67,9 @@ export function Footer(props: FooterProps) {
               </a>
             </div>
             <div className={styles.infoBlock}>
+              <Link href={paths.contact} style={{ display: 'block' }}>
+                {t('contact')}
+              </Link>
               <a href={calendly}>{t('plan')}</a>
               <a href="tel:+31636020942">{t('call')}</a>
               <a href="mailto:info@ontola.io">info@ontola.io</a>

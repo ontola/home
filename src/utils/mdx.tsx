@@ -1,4 +1,4 @@
-import Image, { ImageProps } from "next/legacy/image";
+import Image, { ImageProps } from 'next/image';
 
 import styles from './mdx.module.css';
 import { BigImage } from '../components/BigImage';
@@ -14,13 +14,16 @@ export function buildComponents() {
     <div className={styles.imageWrapper}>
       <Image
         {...props}
-        objectFit="contain"
         // This is not a great solution, but I see not other option.
-        height={'100'}
-        width={'200'}
-        layout="responsive"
-        loading="lazy"
-        alt={props.alt}
+        height={100}
+        width={200}
+        alt={props.alt || ''}
+        style={{
+          objectFit: 'contain',
+          width: '100%',
+          height: 'auto',
+          maxWidth: '100%'
+        }}
       />
     </div>
   );

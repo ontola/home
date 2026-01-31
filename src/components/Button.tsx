@@ -5,28 +5,34 @@ import clsx from 'clsx';
 
 import styles from './Button.module.css';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary';
+}
 interface ButtonLinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {}
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  variant?: 'primary' | 'secondary';
+}
 
 export const Button = ({
   className,
+  variant = 'primary',
   ...props
 }: PropsWithChildren<ButtonProps>) => {
-  return <button className={clsx(styles.button, className)} {...props} />;
+  return <button className={clsx(styles.button, styles[variant], className)} {...props} />;
 };
 
 export const ButtonLink = ({
   className,
   href,
+  variant = 'primary',
   ...props
 }: PropsWithChildren<ButtonLinkProps> & { href?: string }) => {
   if (href) {
     return (
-      <Link href={href} className={clsx(styles.button, className)} {...props} />
+      <Link href={href} className={clsx(styles.button, styles[variant], className)} {...props} />
     );
   }
-  return <a className={clsx(styles.button, className)} {...props} />;
+  return <a className={clsx(styles.button, styles[variant], className)} {...props} />;
 };
 
 // Export style object for potential legacy usage (if any), but it's now decoupled

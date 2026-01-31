@@ -1,4 +1,5 @@
-import Image from "next/legacy/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
 import styles from './TeamMember.module.css';
 import { team, TeamMemberType } from '../data/team';
@@ -20,9 +21,11 @@ export function TeamMember(props: TeamMemberProps) {
         <Image
           src={`/images/team/${props.member}.jpg`}
           alt={member.name}
-          objectFit="cover"
-          height={200}
           width={200}
+          height={200}
+          style={{
+            objectFit: "cover"
+          }}
         />
       </div>
       <strong>{member.name}</strong>
