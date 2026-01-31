@@ -1,0 +1,39 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    margin-left: -5rem;
+    margin-right: -5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid {
+    margin-left: -10rem;
+    margin-right: -10rem;
+    gap: 2rem;
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  aspect-ratio: 9/20; /* Mobile aspect ratio usually, adjusting based on screenshots */
+  border-radius: var(--sizes-radius);
+  overflow: hidden;
+  box-shadow: var(--shadows-button);
+  transition: transform 0.2s ease;
+}
+
+.imageWrapper:hover {
+  transform: scale(1.02);
+  z-index: 10;
+}
+
+.image {
+  object-fit: cover;
+}

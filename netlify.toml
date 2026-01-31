@@ -2,3 +2,6 @@
   command = "npm run build"
   functions = "out_functions"
   publish   = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
