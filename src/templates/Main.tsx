@@ -31,7 +31,6 @@ const Main = ({ caseColor, meta, children }: IMainProps) => {
           '--colors-bgBody': caseColor,
           '--colors-nav': 'transparent',
           '--colors-circlesBg': 'white',
-          '--colors-footerBg': caseColor,
           '--colors-bg0': 'white',
         } as React.CSSProperties)
       : {};
