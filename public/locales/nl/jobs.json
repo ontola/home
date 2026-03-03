@@ -1,0 +1,58 @@
+{
+  "title": "Vacatures",
+  "description": "Kom werken bij ontola",
+  "lookingFor": {
+    "title": "Wat zoeken we",
+    "items": [
+      "Full-stack developer",
+      "Rust + typescript",
+      "Detacheerbaar",
+      "Project management skills",
+      "Durft AI in te zetten",
+      "Niet bang voor nieuwe technologie",
+      "Bouwt graag projecten, in zijn geheel",
+      "Goede smaak in UI / UX, affiniteit met software en gebruiksgemak",
+      "Mening over elegante en onderhoudbare architectuur",
+      "Ondernemend / intrapreneur",
+      "Houdt van innovatie",
+      "Affiniteit met publieke sector / democratie / open data is een pre",
+      "Affiniteit met radio, IOT, development boards"
+    ]
+  },
+  "whatWeDo": {
+    "title": "Wat doet Ontola?",
+    "intro": "We bouwen technologie voor een weerbarstig, open internet. We willen mensen controle teruggeven over hun eigen data en besteden onze tijd het liefst aan open source software waar iedereen wat aan heeft.",
+    "items": [
+      {
+        "name": "AtomicServer",
+        "link": "https://atomicdata.dev",
+        "desc": "Een graph database en app server (Rust + Typescript / React) die laat zien hoe we het web weer decentraal kunnen maken. Vrij van data-silo's, gebouwd op Linked Data principes."
+      },
+      {
+        "name": "PrepNet",
+        "link": "https://prepnet.nl",
+        "desc": "Een decentraal netwerk om digitale communicatie in de lucht te houden tijdens noodsituaties (internet-uitval / rampen). Ontzettend uitdagend qua netwerk-architectuur (Rust + Typescript / React) met een grote maatschappelijke impact."
+      },
+      {
+        "name": "ELFA",
+        "link": "https://elfaconsortium.eu",
+        "desc": "Onze Local First Apps. We bouwen aan platformen waarbij data in eerste instantie bij de gebruiker staat, waardoor we ongekende privacy, offline-first capabilities en bliksemsnelle UX kunnen bieden (Rust + Typescript / React)."
+      }
+    ]
+  },
+  "whatWeOffer": {
+    "title": "Wat bieden we",
+    "items": [
+      "Technisch, klein, gedreven en innovatief team met losse en warme sfeer",
+      "We houden van open source",
+      "Willen technologie voor het goede bouwen",
+      "Maatschappelijk betrokken",
+      "Gezellige kantoorplek in Soest, je mag ook thuis werken",
+      "Materiaal / laptop (we werken bijna allemaal met Macbooks)",
+      "Reiskostenvergoeding",
+      "Lunch, koffie, borrels",
+      "Marktconform salaris afhankelijk van profiel (3500-6000/mnd)"
+    ]
+  },
+  "apply": "Solliciteer nu"
+}

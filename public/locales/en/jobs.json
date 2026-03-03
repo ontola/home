@@ -1,0 +1,41 @@
+{
+  "title": "Jobs",
+  "description": "Come work at ontola",
+  "whatWeDo": {
+    "title": "What Ontola does",
+    "intro": "We build technology for a resilient, open internet. We want to give people back control over their own data and prefer to spend our time on open source software that benefits everyone.",
+    "items": [
+      {
+        "name": "AtomicServer",
+        "link": "https://atomicdata.dev",
+        "desc": "A graph database and app server (Rust + Typescript / React) demonstrating how we can make the web decentralized again. Free from data silos, built on Linked Data principles."
+      },
+      {
+        "name": "PrepNet",
+        "link": "https://prepnet.nl",
+        "desc": "A decentralized network to maintain digital communication during emergencies (internet outages / disasters). Extremely challenging network architecture (Rust + Typescript / React) with huge social impact."
+      },
+      {
+        "name": "ELFA",
+        "link": "https://elfaconsortium.eu",
+        "desc": "Our Local First Apps. We build platforms where data is primarily stored with the user, allowing us to offer unprecedented privacy, offline-first capabilities and lightning-fast UX (Rust + Typescript / React)."
+      }
+    ]
+  },
+  "whatWeOffer": {
+    "title": "What we offer",
+    "items": [
+      "Technical, small, driven and innovative team with a relaxed and warm atmosphere",
+      "Love for open source",
+      "Want to build technology for good",
+      "Socially involved",
+      "Cozy office space in Soest, can also work from home",
+      "Equipment / laptop (almost everyone works with macbooks)",
+      "Travel allowance",
+      "Lunch, coffee, drinks",
+      "Market rate salary depending on profile (€3500-€6000/month)"
+    ]
+  },
+  "openRoles": "Open roles",
+  "apply": "Apply now"
+}

@@ -5,6 +5,7 @@ export const paths = {
   services: '/services',
   about: '/about',
   tech: '/tech',
+  jobs: '/jobs',
 };
 
 export const menuPaths = [
@@ -27,6 +28,10 @@ export const menuPaths = [
   {
     href: paths.about,
     key: 'about',
+  },
+  {
+    href: paths.jobs,
+    key: 'jobs',
   },
   {
     href: paths.contact,
