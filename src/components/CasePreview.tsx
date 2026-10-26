@@ -7,7 +7,9 @@ import { MDXItem } from '../utils/getPosts';
 
 export function CasePreview({ slug, data }: MDXItem): ReactElement {
   const { title } = data;
-  const image = data.previewImage ? `/images/${data.previewImage}` : `/images/cases/${slug}_preview.png`;
+  const image = data.previewImage
+    ? `/images/${data.previewImage}`
+    : `/images/cases/${slug}_preview.png`;
 
   return (
     <Link
@@ -15,10 +17,9 @@ export function CasePreview({ slug, data }: MDXItem): ReactElement {
       className={styles.caseWrapper}
       style={{
         backgroundImage: `url(${image})`,
-      }}>
-
+      }}
+    >
       <h2 className={styles.title}>{title}</h2>
-
     </Link>
   );
 }

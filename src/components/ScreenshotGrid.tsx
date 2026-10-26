@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Image from 'next/image';
+
 import styles from './ScreenshotGrid.module.css';
 
 export interface ScreenshotGridProps {

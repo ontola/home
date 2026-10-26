@@ -1,7 +1,7 @@
 import { useForm, ValidationError } from '@formspree/react';
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 
 import styles from './contact.module.css';
 import { Button, ButtonLink } from '../components/Button';

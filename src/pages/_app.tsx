@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { init } from '@socialgouv/matomo-next';
 import { AppProps } from 'next/app';
 import Script from 'next/script';
-import { appWithTranslation } from 'next-i18next';
+import { appWithTranslation } from 'next-i18next/pages';
 import '../styles/globals.css';
 
 const MATOMO_URL = process.env.NEXT_PUBLIC_MATOMO_URL as string;

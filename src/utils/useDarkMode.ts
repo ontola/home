@@ -2,7 +2,6 @@ import { Dispatch, useEffect, useState } from 'react';
 
 import { useLocalStorage } from './useLocalStorage';
 
-// eslint-disable-next-line no-shadow
 export enum DarkModeOption {
   /** Always use dark mode */
   always = 'always',
@@ -30,46 +29,40 @@ function checkPrefersDark() {
 export const useDarkMode = (): [
   boolean,
   Dispatch<boolean | undefined>,
-  DarkModeOption
+  DarkModeOption,
 ] => {
-  const [dark, setDark] = useState(checkPrefersDark());
+  const [prefersDark, setPrefersDark] = useState(checkPrefersDark());
   const [darkLocal, setDarkLocal] = useLocalStorage<DarkModeOption>(
     'darkMode',
     DarkModeOption.auto
   );
 
+  // Follow the OS colour scheme while it changes. Only applies in auto mode.
+  useEffect(() => {
+    const query = window?.matchMedia?.('(prefers-color-scheme: dark)');
+    if (!query) return undefined;
+    const onChange = (e: MediaQueryListEvent) => setPrefersDark(e.matches);
+    query.addEventListener('change', onChange);
+    return () => query.removeEventListener('change', onChange);
+  }, []);
+
   /** True, false or auto (if undefined) */
   function setDarkBoth(a?: boolean) {
     if (a === undefined) {
-      setDark(checkPrefersDark());
       setDarkLocal(DarkModeOption.auto);
     } else if (a === true) {
-      setDark(a);
       setDarkLocal(DarkModeOption.always);
     } else if (a === false) {
-      setDark(a);
       setDarkLocal(DarkModeOption.never);
     }
   }
 
-  if (typeof window !== 'undefined') {
-    // Is called when user changes color scheme
-    window
-      ?.matchMedia('(prefers-color-scheme: dark)')
-      ?.addEventListener('change', (e) => {
-        setDarkBoth(!!e.matches);
-      });
+  let dark = prefersDark;
+  if (darkLocal === DarkModeOption.always) {
+    dark = true;
+  } else if (darkLocal === DarkModeOption.never) {
+    dark = false;
   }
-
-  useEffect(() => {
-    if (darkLocal === DarkModeOption.auto) {
-      setDark(checkPrefersDark());
-    } else if (darkLocal === DarkModeOption.always) {
-      setDark(true);
-    } else if (darkLocal === DarkModeOption.never) {
-      setDark(false);
-    }
-  }, [darkLocal]);
 
   return [dark, setDarkBoth, darkLocal];
 };

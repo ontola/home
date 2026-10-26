@@ -37,7 +37,7 @@ export interface MDXItem extends matter.GrayMatterFile<string> {
 /** Reads the filesystem, finds the folder for the type, returns MDX serialized resource */
 export async function getPostBySlug(
   slug: string,
-  /* eslint-disable default-param-last */
+
   locale = 'en',
   /** e.g. `blog` */
   type: string
@@ -50,11 +50,10 @@ export async function getPostBySlug(
   out.slug = realSlug;
   out.orig = '';
   out.mdxSource = await serialize(out.content, {
+    // Content is our own, and components receive JSX props like `images={[...]}`
+    blockJS: false,
     mdxOptions: {
-      rehypePlugins: [
-        // @ts-ignore - rehype-highlight types don't match
-        rehypeHighlight,
-      ],
+      rehypePlugins: [rehypeHighlight],
     },
   });
   return out;
@@ -101,7 +100,7 @@ export async function getPage(slug: string, locale = 'en') {
   // The `orig` byte array causes JSON serialization errors
   out.orig = '';
   out.slug = slug;
-  out.mdxSource = await serialize(post.content);
+  out.mdxSource = await serialize(post.content, { blockJS: false });
   return out;
 }
 

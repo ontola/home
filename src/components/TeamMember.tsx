@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Image from 'next/image';
 
 import styles from './TeamMember.module.css';
@@ -24,7 +23,7 @@ export function TeamMember(props: TeamMemberProps) {
           width={200}
           height={200}
           style={{
-            objectFit: "cover"
+            objectFit: 'cover',
           }}
         />
       </div>

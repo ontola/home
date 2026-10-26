@@ -2,8 +2,8 @@ import Image, { ImageProps } from 'next/image';
 
 import styles from './mdx.module.css';
 import { BigImage } from '../components/BigImage';
-import ScreenshotGrid from '../components/ScreenshotGrid';
 import { FeatureBlock } from '../components/FeatureBlock';
+import ScreenshotGrid from '../components/ScreenshotGrid';
 import { TechPill } from '../components/TechPill';
 import { TechWrapperSmall } from '../pages/services';
 import { TechWrapper } from '../pages/tech';
@@ -22,7 +22,7 @@ export function buildComponents() {
           objectFit: 'contain',
           width: '100%',
           height: 'auto',
-          maxWidth: '100%'
+          maxWidth: '100%',
         }}
       />
     </div>
