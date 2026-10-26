@@ -17,7 +17,11 @@ export default function Case({ mdxSource, data, slug }: MDXItem) {
     >
       <Header
         title={data.title}
-        floatingImage={`/images/cases/${slug}_header.png`}
+        floatingImage={
+          data.headerImage
+            ? `/images/${data.headerImage}`
+            : `/images/cases/${slug}_header.png`
+        }
       >
         <p>{data.description}</p>
       </Header>

@@ -1,0 +1,41 @@
+---
+title: "SpaceMan"
+description: "Snel schijfruimte vrijmaken. Zie waar je ruimte blijft, ruim veilig op en bescherm wat niet weg mag."
+color: "#2B2F6B"
+order: 2
+previewImage: "cases/spaceman_preview.jpg"
+---
+
+## Waar is mijn schijfruimte gebleven?
+
+SpaceMan laat zien waar je ruimte blijft, stelt voor wat veilig weg kan en laat je dingen markeren als "niet aankomen".
+
+<BigImage image="cases/spaceman_treemap.png" alt="SpaceMan op macOS, met een treemap van een map" />
+
+## Functies
+
+- **Verkennen**: klik door mappen, de grootste eerst, als lijst of als treemap. Resultaten verschijnen terwijl de scan nog loopt.
+- **Opruimen**: voorstellen voor caches, build-output (`node_modules`, Rust `target`, Xcode DerivedData en meer), logbestanden, de prullenbak, oude downloads en hele grote bestanden. Niets staat vooraf aangevinkt.
+- **Niet aankomen**: bescherm elk bestand of elke map. Beschermde items worden nooit voorgesteld en kunnen niet verwijderd worden.
+- **Ongedaan maken**: verwijderde items gaan naar de prullenbak.
+
+## Snel, en onthouden
+
+De scanner doorloopt de schijf parallel en meet de echte grootte op schijf.
+Een warme scan van 237.000 bestanden duurt ongeveer 0,2 seconden, zo'n vijf keer sneller dan `du`.
+Resultaten worden bewaard, dus bij het opstarten zie je direct de laatste scan, die daarna op de achtergrond ververst.
+
+## Technologie
+
+SpaceMan is een Flutter-app bovenop een kern in Rust.
+macOS komt eerst; Windows, Linux, iOS en Android delen dezelfde code.
+De app is volop in ontwikkeling, met nog niet ondertekende builds voor macOS, Windows en Android.
+
+- [Download SpaceMan](https://github.com/ontola/spaceman/releases/latest)
+- [Broncode op GitHub](https://github.com/ontola/spaceman)
+
+## Gemaakt met
+
+<TechWrapperSmall>
+  <TechPill technology={'rust'} />
+</TechWrapperSmall>

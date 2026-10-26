@@ -20,6 +20,8 @@ export interface MetaData {
   title: string;
   /** When it was published */
   date: string;
+  /** Position in listings, lowest first. Used for cases. */
+  order?: number;
   [key: string]: any;
 }
 
@@ -86,7 +88,12 @@ export async function getAllPostsLocale(
     })
   );
   files.sort((a, b) => {
-    return a.data.date > b.data.date ? -1 : 1;
+    // Items with an explicit `order` (e.g. cases) come first, lowest first
+    if (a.data.order !== undefined || b.data.order !== undefined) {
+      return (a.data.order ?? Infinity) - (b.data.order ?? Infinity);
+    }
+    // Otherwise newest first; undated items last
+    return (b.data.date ?? '').localeCompare(a.data.date ?? '');
   });
   return files;
 }
