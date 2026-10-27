@@ -10,4 +10,13 @@ module.exports = withBundleAnalyzer({
   poweredByHeader: false,
   trailingSlash: true,
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/cases/atomic-data/',
+        destination: '/cases/atomic-place/',
+        permanent: true,
+      },
+    ];
+  },
 });

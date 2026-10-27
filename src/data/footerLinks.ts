@@ -1,7 +1,7 @@
 export const footerProjects = [
   { href: '/cases/gamenight', label: 'GameNight' },
   { href: '/cases/spaceman', label: 'SpaceMan' },
-  { href: '/cases/atomic-data', label: 'Atomic Data' },
+  { href: '/cases/atomic-place', label: 'Atomic Place' },
   { href: '/cases/openbesluitvorming', label: 'OpenBesluitvorming' },
   { href: '/cases/searchlauncher', label: 'SearchLauncher' },
   { href: '/cases/argu', label: 'Argu' },
@@ -9,6 +9,7 @@ export const footerProjects = [
 ];
 
 export const footerTech = [
+  { href: '/tech/flutter', label: 'Flutter' },
   { href: '/tech/kotlin', label: 'Kotlin' },
   { href: '/tech/kubernetes', label: 'Kubernetes' },
   { href: '/tech/nextjs', label: 'Next.js' },
