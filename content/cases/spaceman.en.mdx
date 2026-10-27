@@ -1,6 +1,6 @@
 ---
 title: "SpaceMan"
-description: "Free up disk space, fast. See where your space goes, clean up safely, and protect what should never be touched."
+description: "Free up disk space, fast, on your computer and your phone. See where your space goes, clean up safely, and protect what should never be touched."
 color: "#2B2F6B"
 order: 2
 previewImage: "cases/spaceman_preview.jpg"
@@ -10,14 +10,19 @@ previewImage: "cases/spaceman_preview.jpg"
 
 SpaceMan shows where your space goes, suggests what can safely be removed and lets you mark things as "do not touch".
 
-<BigImage image="cases/spaceman_treemap.png" alt="SpaceMan on macOS, showing a treemap of a folder" />
+<BigImage image="cases/spaceman_devices.png" alt="SpaceMan on a laptop, showing a treemap of a folder, and in its phone layout, showing the same folder as a list" />
+
+## On your computer and your phone
+
+SpaceMan runs on macOS, Windows and Android, from one codebase.
+On a phone you get the same app in a layout made for one hand: a list instead of a sidebar, and Explore, Clean up and Do not touch as tabs at the bottom.
 
 ## Features
 
 - **Explore**: drill down through folders, largest first, as a list or as a treemap. Results appear while the scan is still running.
 - **Clean up**: suggestions for caches, build output (`node_modules`, Rust `target`, Xcode DerivedData and more), logs, the Trash, old downloads and very large files. Nothing is ticked for you.
 - **Do not touch**: protect any file or folder. Protected items are never suggested and cannot be removed.
-- **Undo**: removed items go to the Trash.
+- **Undo**: on the desktop, removed items go to the Trash.
 
 ## Fast, and cached
 
@@ -28,10 +33,11 @@ Results are cached, so the last scan shows instantly on startup and refreshes in
 ## Technology
 
 SpaceMan is a Flutter app on top of a Rust core.
-macOS comes first; Windows, Linux, iOS and Android share the same code.
+macOS came first; Windows, Linux, iOS and Android share the same code.
 It is in active development, with unsigned builds for macOS, Windows and Android.
 
 - [Download SpaceMan](https://github.com/ontola/spaceman/releases/latest)
+- [Download for Android (APK)](https://github.com/ontola/spaceman/releases/latest/download/SpaceMan-Android.apk)
 - [Source code on GitHub](https://github.com/ontola/spaceman)
 
 ## Created with
