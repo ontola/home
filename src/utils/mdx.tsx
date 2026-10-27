@@ -2,6 +2,7 @@ import Image, { ImageProps } from 'next/image';
 
 import styles from './mdx.module.css';
 import { BigImage } from '../components/BigImage';
+import { BigVideo } from '../components/BigVideo';
 import { FeatureBlock } from '../components/FeatureBlock';
 import ScreenshotGrid from '../components/ScreenshotGrid';
 import { TechPill } from '../components/TechPill';
@@ -35,6 +36,7 @@ export function buildComponents() {
     TechWrapper,
     TechWrapperSmall,
     BigImage,
+    BigVideo,
     ScreenshotGrid,
   };
 }
