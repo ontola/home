@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 
 import { Container } from '../../components/Container';
 import { Header } from '../../components/Header';
@@ -40,9 +40,7 @@ export default function VacaturesIndex({ vacancies }: VacanciesProps) {
         <ul>
           {vacancies.map((vacancy) => (
             <li key={vacancy.slug}>
-              <Link href={`/jobs/${vacancy.slug}`}>
-                {vacancy.data.title}
-              </Link>
+              <Link href={`/jobs/${vacancy.slug}`}>{vacancy.data.title}</Link>
             </li>
           ))}
         </ul>

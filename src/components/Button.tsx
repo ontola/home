@@ -1,15 +1,14 @@
-import Link from 'next/link';
 import React, { PropsWithChildren } from 'react';
 
 import clsx from 'clsx';
+import Link from 'next/link';
 
 import styles from './Button.module.css';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
 }
-interface ButtonLinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+interface ButtonLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: 'primary' | 'secondary';
 }
 
@@ -18,7 +17,12 @@ export const Button = ({
   variant = 'primary',
   ...props
 }: PropsWithChildren<ButtonProps>) => {
-  return <button className={clsx(styles.button, styles[variant], className)} {...props} />;
+  return (
+    <button
+      className={clsx(styles.button, styles[variant], className)}
+      {...props}
+    />
+  );
 };
 
 export const ButtonLink = ({
@@ -29,10 +33,16 @@ export const ButtonLink = ({
 }: PropsWithChildren<ButtonLinkProps> & { href?: string }) => {
   if (href) {
     return (
-      <Link href={href} className={clsx(styles.button, styles[variant], className)} {...props} />
+      <Link
+        href={href}
+        className={clsx(styles.button, styles[variant], className)}
+        {...props}
+      />
     );
   }
-  return <a className={clsx(styles.button, styles[variant], className)} {...props} />;
+  return (
+    <a className={clsx(styles.button, styles[variant], className)} {...props} />
+  );
 };
 
 // Export style object for potential legacy usage (if any), but it's now decoupled

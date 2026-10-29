@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next/pages';
 
 import { Button } from './Button';
 import { Logo } from './Logo';
@@ -43,9 +43,7 @@ export const NavigationBar = () => {
     <nav className={styles.nav}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-
           <Logo />
-
         </Link>
         <Button className={styles.menuButton} onClick={() => setShow(!show)}>
           Menu
@@ -66,9 +64,7 @@ export const NavigationBar = () => {
           ))}
           <div className={styles.logoBottom}>
             <Link href="/">
-
               <Logo />
-
             </Link>
           </div>
         </div>

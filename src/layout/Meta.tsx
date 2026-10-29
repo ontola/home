@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { NextSeo } from 'next-seo';
+import { generateNextSeo } from 'next-seo/pages';
 
 import { AppConfig } from '../utils/AppConfig';
 
@@ -46,19 +46,19 @@ const Meta = (props: IMetaProps) => {
           href={`${router.basePath}/favicon.ico`}
           key="favicon"
         />
-      </Head>
-      <NextSeo
-        title={props.title}
-        description={props.description}
-        canonical={props.canonical}
-        openGraph={{
+        {generateNextSeo({
           title: props.title,
           description: props.description,
-          url: props.canonical,
-          locale: AppConfig.locale,
-          site_name: AppConfig.site_name,
-        }}
-      />
+          canonical: props.canonical,
+          openGraph: {
+            title: props.title,
+            description: props.description,
+            url: props.canonical,
+            locale: AppConfig.locale,
+            siteName: AppConfig.site_name,
+          },
+        })}
+      </Head>
     </>
   );
 };

@@ -20,6 +20,8 @@ export interface MetaData {
   title: string;
   /** When it was published */
   date: string;
+  /** Position in listings, lowest first. Used for cases. */
+  order?: number;
   [key: string]: any;
 }
 
@@ -37,7 +39,7 @@ export interface MDXItem extends matter.GrayMatterFile<string> {
 /** Reads the filesystem, finds the folder for the type, returns MDX serialized resource */
 export async function getPostBySlug(
   slug: string,
-  /* eslint-disable default-param-last */
+
   locale = 'en',
   /** e.g. `blog` */
   type: string
@@ -50,11 +52,10 @@ export async function getPostBySlug(
   out.slug = realSlug;
   out.orig = '';
   out.mdxSource = await serialize(out.content, {
+    // Content is our own, and components receive JSX props like `images={[...]}`
+    blockJS: false,
     mdxOptions: {
-      rehypePlugins: [
-        // @ts-ignore - rehype-highlight types don't match
-        rehypeHighlight,
-      ],
+      rehypePlugins: [rehypeHighlight],
     },
   });
   return out;
@@ -87,7 +88,12 @@ export async function getAllPostsLocale(
     })
   );
   files.sort((a, b) => {
-    return a.data.date > b.data.date ? -1 : 1;
+    // Items with an explicit `order` (e.g. cases) come first, lowest first
+    if (a.data.order !== undefined || b.data.order !== undefined) {
+      return (a.data.order ?? Infinity) - (b.data.order ?? Infinity);
+    }
+    // Otherwise newest first; undated items last
+    return (b.data.date ?? '').localeCompare(a.data.date ?? '');
   });
   return files;
 }
@@ -101,7 +107,7 @@ export async function getPage(slug: string, locale = 'en') {
   // The `orig` byte array causes JSON serialization errors
   out.orig = '';
   out.slug = slug;
-  out.mdxSource = await serialize(post.content);
+  out.mdxSource = await serialize(post.content, { blockJS: false });
   return out;
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+
+import { useTranslation } from 'next-i18next/pages';
 
 export const VacancyInfo = () => {
   const { t } = useTranslation('jobs');

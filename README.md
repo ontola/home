@@ -1,6 +1,6 @@
 # Ontola Home Page
 
-Future home page for [Ontola](https://ontola.io/).
+Home page for [Ontola](https://ontola.io/).
 
 ## Running locally
 
@@ -34,6 +34,7 @@ SITE_URL=https://ontola.io
 
 - **Written content** resides in the `content` directory.
 - **Blog post**: Create a `article-title.en.mdx` file in `content/blog`. Make sure to add a `title` and a `description`. Create a Dutch translation with the same name (`article-title.nl.mdx`), too.
+- **Case (project)**: Create `content/cases/{slug}.en.mdx` and `{slug}.nl.mdx` with `title`, `description`, `color` and `order` (position in listings, lowest first). Add `public/images/cases/{slug}_preview.png` and `{slug}_header.png`, or point `previewImage` and `headerImage` at other files in `public/images`.
 - **Tech item**: Similar to above, but also make sure to add a `techname.svg` image to `public/images/tech`.
 - **Service**: Similar to above, but also make sure to update the `content/services/{servicename}.{lang}.mdx` file accordingly. You may need to add a FeatureBlock there.
 - **Custom page**: Create a `.tsx` file in `src/pages` with the name of the path. Probably easiest to clone `about.tsx` and copy that logic.

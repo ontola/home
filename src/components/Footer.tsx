@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next/pages';
 
 import styles from './Footer.module.css';
 import LocaleSwitcher from './LocaleSwitcher';
-import { calendly } from '../data/links';
 import { footerProjects, footerTech } from '../data/footerLinks';
-import { menuPaths, paths } from '../utils/paths';
+import { calendly } from '../data/links';
+import { paths } from '../utils/paths';
 
 interface FooterProps {
   toggleDarkMode: () => void;
@@ -23,11 +23,13 @@ export function Footer(props: FooterProps) {
             <Link href="/">
               <h3>Ontola</h3>
             </Link>
-            <Link href="/services" style={{ display: 'block' }}>{t('services')}</Link>
-            <Link href="/blog" style={{ display: 'block' }}>{t('blog')}</Link>
+            <Link href="/services" style={{ display: 'block' }}>
+              {t('services')}
+            </Link>
+            <Link href="/blog" style={{ display: 'block' }}>
+              {t('blog')}
+            </Link>
           </div>
-
-
 
           {/* Column 3: Projects */}
           <div className={styles.column}>
@@ -59,7 +61,9 @@ export function Footer(props: FooterProps) {
               <h3>{t('about')}</h3>
             </Link>
             <div className={styles.infoBlock}>
-              <a href="https://openkvk.nl/company/hoofdvestiging-argu-bv-65684168-34385940">{t('partOf')}</a>
+              <a href="https://openkvk.nl/company/hoofdvestiging-argu-bv-65684168-34385940">
+                {t('partOf')}
+              </a>
               <a href="https://goo.gl/maps/rN2ZM1xpz7SFpH7J8">
                 Gerrit van der Veenstraat 131
                 <br />
@@ -81,13 +85,11 @@ export function Footer(props: FooterProps) {
       <div className={styles.container}>
         <div className={styles.left}>
           <Link href="/">
-
             <img
               className={styles.logoWhite}
               src="/images/logo_white.svg"
               alt="Ontola logo"
             />
-
           </Link>
           <LocaleSwitcher />
           <button className={styles.button} onClick={props.toggleDarkMode}>

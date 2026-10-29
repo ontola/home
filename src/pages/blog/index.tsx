@@ -2,7 +2,7 @@ import React from 'react';
 
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 
 import styles from './index.module.css';
 import { Details } from '../../components/Details';
@@ -18,14 +18,12 @@ interface BlogProps {
 export function BlogPostPreview({ data, slug }: MDXItem) {
   return (
     <Link href={`/blog/${slug}`} locale="en" className={styles.postPreview}>
-
       <h3>{data?.title}</h3>
       {data.description && <p>{data.description}</p>}
       <div className={styles.bottom}>
         <div className={styles.gradientLine} />
         <Details data={data} withoutLinks />
       </div>
-
     </Link>
   );
 }

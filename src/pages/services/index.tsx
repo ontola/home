@@ -1,4 +1,16 @@
+import { GetStaticProps } from 'next';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
+
+import styles from './index.module.css';
+import { ButtonLink } from '../../components/Button';
+import { Container } from '../../components/Container';
+import { FeatureBlock } from '../../components/FeatureBlock';
+import { Header } from '../../components/Header';
+import { Meta } from '../../layout/Meta';
+import { Main } from '../../templates/Main';
+import { MDXItem, getPage } from '../../utils/getPosts';
 
 // Helper to parse basic markdown links [text](url)
 const renderDescription = (text: string) => {
@@ -22,20 +34,6 @@ const renderDescription = (text: string) => {
     </p>
   );
 };
-
-
-import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-
-import styles from './index.module.css';
-import { ButtonLink } from '../../components/Button';
-import { Container } from '../../components/Container';
-import { FeatureBlock } from '../../components/FeatureBlock';
-import { Header } from '../../components/Header';
-import { Meta } from '../../layout/Meta';
-import { Main } from '../../templates/Main';
-import { MDXItem, getPage } from '../../utils/getPosts';
 
 // Change this when you add a new service
 // Change this when you add a new service
@@ -66,7 +64,8 @@ export default function Services({ data }: MDXItem) {
           };
 
           // Determine the href: custom link takes precedence, then internal service page if ID exists
-          const href = service.link || (service.id ? `services/${service.id}` : null);
+          const href =
+            service.link || (service.id ? `services/${service.id}` : null);
 
           if (!service.title) return null;
 
@@ -75,7 +74,9 @@ export default function Services({ data }: MDXItem) {
               {renderDescription(service.description)}
               {href && (
                 <ButtonLink href={href}>
-                  {service.link ? t('readMoreTech', 'View Technology') : t('readMore')}
+                  {service.link
+                    ? t('readMoreTech', 'View Technology')
+                    : t('readMore')}
                 </ButtonLink>
               )}
             </FeatureBlock>

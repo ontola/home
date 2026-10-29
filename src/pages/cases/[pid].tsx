@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { MDXRemote } from 'next-mdx-remote';
 
 import { Container } from '../../components/Container';
@@ -17,7 +17,11 @@ export default function Case({ mdxSource, data, slug }: MDXItem) {
     >
       <Header
         title={data.title}
-        floatingImage={`/images/cases/${slug}_header.png`}
+        floatingImage={
+          data.headerImage
+            ? `/images/${data.headerImage}`
+            : `/images/cases/${slug}_header.png`
+        }
       >
         <p>{data.description}</p>
       </Header>

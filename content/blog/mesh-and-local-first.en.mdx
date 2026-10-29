@@ -63,6 +63,6 @@ In order to build this, we need some specific technology:
 
 - **High-bandwidth, long range radio.** Some existing mesh networks use LoRa, but the speed is too low to make a large-scale mesh possible. Luckily for us, a new standard is now emerging that give us exactly this: **Wi-Fi Halow**. It can have kilometers of range, support 3000 simultaneous connections, and handle speeds of up to 50Mb/s.
 - **A routing & encryption protocol**. We need software to send messages over a network that is constantly changing, moving and deeply unreliable. We think Reticulum is the most suitable for very large mesh networks. We're working on [porting Reticulum-rs](https://github.com/ontola/reticulum-rs) (the rust implementation) from Tokio to [Embassy](https://embassy.dev), so it can run on low-power devices like the Lilygo T-Halow module.
-- **Offline-first software**. That's where [Atomic Data](https://ontola.io/nl/cases/atomic-data/) spec and [Atomic Server](https://github.com/ontola/atomic-server/) implementation come in. We're in the process of making the Atomic ecosystem ready for a mesh network.
+- **Offline-first software**. That's where [Atomic Data](https://ontola.io/nl/cases/atomic-place/) spec and [Atomic Server](https://github.com/ontola/atomic-server/) implementation come in. We're in the process of making the Atomic ecosystem ready for a mesh network.
 
 Want to help out or chat about this? [Send us a message](joep@ontola.io)!

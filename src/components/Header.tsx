@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import Image from "next/image";
+import Image from 'next/image';
 
 import { Circles } from './Circles';
 import styles from './Header.module.css';

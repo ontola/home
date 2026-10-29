@@ -1,0 +1,54 @@
+---
+title: "SpaceMan"
+description: "Free up disk space, fast, on your computer and your phone. See where your space goes, clean up safely, and protect what should never be touched."
+color: "#2B2F6B"
+order: 2
+previewImage: "cases/spaceman_preview.jpg"
+---
+
+## Where did my disk space go?
+
+SpaceMan shows where your space goes, suggests what can safely be removed and lets you mark things as "do not touch".
+
+<BigImage image="cases/spaceman_devices.webp" alt="SpaceMan on a laptop, showing a treemap of a folder, and in its phone layout, showing the same folder as a list" />
+
+## On your computer and your phone
+
+SpaceMan runs on macOS, Windows and Android, from one codebase.
+On a phone you get the same app in a layout made for one hand: a list instead of a sidebar, and Explore, Clean up and Do not touch as tabs at the bottom.
+
+## Features
+
+- **Explore**: drill down through folders, largest first, as a list or as a treemap. Results appear while the scan is still running.
+- **Clean up**: suggestions for caches, build output (`node_modules`, Rust `target`, Xcode DerivedData and more), logs, the Trash, old downloads and very large files. Nothing is ticked for you.
+- **Do not touch**: protect any file or folder. Protected items are never suggested and cannot be removed.
+- **Undo**: on the desktop, removed items go to the Trash.
+
+## Fast, and cached
+
+The scanner walks the disk in parallel and measures the real size on disk.
+A warm scan of a tree with 237,000 files takes about 0.2 seconds, roughly five times faster than `du`.
+Results are cached, so the last scan shows instantly on startup and refreshes in the background.
+
+## Technology
+
+SpaceMan is a Flutter app on top of a Rust core.
+macOS came first; Windows, Linux, iOS and Android share the same code.
+It is in active development.
+
+- [Source code on GitHub](https://github.com/ontola/spaceman)
+
+## Download
+
+- [Download for macOS](https://github.com/ontola/spaceman/releases/latest/download/SpaceMan-macOS.zip): unzip, move SpaceMan to Applications, and the first time right-click it and choose *Open*.
+- [Download for Windows](https://github.com/ontola/spaceman/releases/latest/download/SpaceMan-Windows.zip): unzip and run `SpaceMan.exe`. If SmartScreen warns, choose *More info*, then *Run anyway*.
+- [Download for Android](https://github.com/ontola/spaceman/releases/latest/download/SpaceMan-Android.apk): open the APK on your phone and allow installing from this source.
+
+The builds are not signed yet. All versions are on the [releases page](https://github.com/ontola/spaceman/releases).
+
+## Created with
+
+<TechWrapperSmall>
+  <TechPill technology={'flutter'} />
+  <TechPill technology={'rust'} />
+</TechWrapperSmall>

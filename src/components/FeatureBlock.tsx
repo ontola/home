@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import styles from './FeatureBlock.module.css';
 
 interface FeatureBlockProps {
@@ -17,11 +15,7 @@ export function FeatureBlock({ title, children, image }: FeatureBlockProps) {
       </div>
       {image && (
         <div className={styles.imageWrapper}>
-          <img
-            src={`/images/${image}`}
-            alt={title}
-            className={styles.image}
-          />
+          <img src={`/images/${image}`} alt={title} className={styles.image} />
         </div>
       )}
     </div>
