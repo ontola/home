@@ -17,6 +17,11 @@ module.exports = withBundleAnalyzer({
         destination: '/cases/atomic-place/',
         permanent: true,
       },
+      {
+        source: '/cases/gamenight/',
+        destination: '/cases/gamepad-party/',
+        permanent: true,
+      },
     ];
   },
 });
