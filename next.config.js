@@ -19,7 +19,7 @@ module.exports = withBundleAnalyzer({
       },
       {
         source: '/cases/gamenight/',
-        destination: '/cases/gamepad-party/',
+        destination: '/cases/splitscreen-club/',
         permanent: true,
       },
     ];
