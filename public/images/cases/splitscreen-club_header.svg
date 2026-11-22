@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Splitscreen Club">
+  <title>Splitscreen Club</title>
+
+  <defs>
+    <!-- Two controllers tilted toward each other: the product is the party,
+         not the game, so the icon is two players rather than one device.
+         They overlap only at a corner — enough to read as "together", little
+         enough that both are still recognisably controllers at 32px. -->
+    <g id="pad">
+      <!-- Body and grips as overlapping primitives rather than one clever
+           path: the silhouette survives scaling down, and it stays editable. -->
+      <rect x="10" y="0" width="160" height="74" rx="26"/>
+      <circle cx="38" cy="62" r="36"/>
+      <circle cx="142" cy="62" r="36"/>
+    </g>
+
+    <!-- Knocked out in the background colour so the details read as holes,
+         not as a third colour competing for attention when small. -->
+    <g id="face">
+      <rect x="30" y="28" width="40" height="12" rx="6"/>
+      <rect x="44" y="14" width="12" height="40" rx="6"/>
+      <circle cx="126" cy="24" r="10.5"/>
+      <circle cx="150" cy="48" r="10.5"/>
+    </g>
+
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b1b2b"/>
+      <stop offset="1" stop-color="#0b0b12"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="114" fill="url(#bg)"/>
+
+  <!-- Amber leads, violet answers, on a diagonal. Asymmetry is what makes it
+       read as two people rather than as a matched pair in a box. -->
+  <g transform="translate(184 190) rotate(-14) scale(1.32) translate(-90 -46)">
+    <use href="#pad" fill="#ffb454"/>
+    <use href="#face" fill="#0b0b12" opacity=".85"/>
+  </g>
+
+  <g transform="translate(330 322) rotate(13) scale(1.32) translate(-90 -46)">
+    <!-- A dark shape a touch larger than the pad, so the front controller
+         keeps its edge where it crosses the one behind. Cheaper and crisper
+         than a stroke, which would thicken unevenly under rotation. -->
+    <g transform="translate(90 46) scale(1.11) translate(-90 -46)">
+      <use href="#pad" fill="#0b0b12"/>
+    </g>
+    <use href="#pad" fill="#7c5cff"/>
+    <use href="#face" fill="#0b0b12" opacity=".85"/>
+  </g>
+</svg>

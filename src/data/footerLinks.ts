@@ -1,5 +1,5 @@
 export const footerProjects = [
-  { href: '/cases/gamenight', label: 'GameNight' },
+  { href: '/cases/splitscreen-club', label: 'Splitscreen Club' },
   { href: '/cases/spaceman', label: 'SpaceMan' },
   { href: '/cases/atomic-place', label: 'atomic.place' },
   { href: '/cases/openbesluitvorming', label: 'OpenBesluitvorming' },
